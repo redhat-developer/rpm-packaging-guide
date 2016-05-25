@@ -1,5 +1,4 @@
-# rpm-guide
-RPM Packaging Guide
+# RPM Packaging Guide
 
 This is an RPM Packaging Guide. The original goal here is to provide materials
 for my [Red Hat Summit](https://www.redhat.com/en/summit) lab session entitled
@@ -25,22 +24,26 @@ Example:
 
 To make licensing easier, license headers in the source files will be
 a single line reference to Unique License Identifiers as defined by
-the Linux Foundation's SPDX project [1].  For example, in a source file the
-full "GPL v2.0 or later" header text will be replaced by a single line:
+the [Linux Foundation's SPDX project](http://spdx.org/).
+
+For example, in a source file the full "GPL v2.0 or later" header text will be
+replaced by a single line:
 
     SPDX-License-Identifier:    GPL-2.0+
+
+Or alternatively, in a source file the full "CC-BY-SA-4.0" header text will be
+replaced by a single line:
+
+    SPDX-License-Identifier:    CC-BY-SA-4.0
 
 the license terms of all files in the source tree should be defined
 by such License Identifiers; in no case a file can contain more than
 one such License Identifier list.
 
-If a "SPDX-License-Identifier:" line references more than one Unique
+If a `SPDX-License-Identifier:` line references more than one Unique
 License Identifier, then this means that the respective file can be
 used under the terms of either of these licenses, i. e. with
 
     SPDX-License-Identifier:    GPL-2.0+    LGPL-2.1+
 
-I use the SPDX Unique License Identifiers here; these are available at [2].
-
-[1] http://spdx.org/
-[2] http://spdx.org/licenses/
+All SPDX Unique License Identifiers available [here](http://spdx.org/licenses/).
