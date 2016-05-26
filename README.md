@@ -1,4 +1,6 @@
 # RPM Packaging Guide
+[![Documentation
+Status](https://readthedocs.org/projects/rpm-guide/badge/?version=latest)](http://rpm-guide.readthedocs.io/en/latest/?badge=latest)
 
 This is an RPM Packaging Guide. The original goal here is to provide materials
 for my [Red Hat Summit](https://www.redhat.com/en/summit) lab session entitled
