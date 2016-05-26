@@ -8,7 +8,8 @@ but as time goes on I hope to expand upon that.
 
 The document itself is written in
 [sphinx-doc](http://www.sphinx-doc.org/en/stable/)
-[reStructuredText](http://www.sphinx-doc.org/en/stable/rest.html).
+[reStructuredText](http://www.sphinx-doc.org/en/stable/rest.html) and uses the
+[sphinx_rtd_theme](https://github.com/snide/sphinx_rtd_theme).
 
 You can find the document source in `source` in this git repository. In order
 to render it, make sure you have
@@ -18,6 +19,12 @@ make](http://www.gnu.org/software/make/).
 Example:
 
     make html
+
+## Rendered Docs
+
+To find a Rendered Version of the latest Docs, you can find them on ReadTheDocs:
+
+http://rpm-guide.readthedocs.io/en/latest/
 
 
 ## Licensing
