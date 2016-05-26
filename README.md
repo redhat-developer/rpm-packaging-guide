@@ -1,4 +1,4 @@
-# * CAUTION: THIS IS A WORK IN PROGRESS - THERE BE DRAGONS*
+# * CAUTION: THIS IS A WORK IN PROGRESS *
 
 # RPM Packaging Guide
 [![Documentation
