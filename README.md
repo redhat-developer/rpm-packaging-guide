@@ -1,3 +1,5 @@
+# * CAUTION: THIS IS A WORK IN PROGRESS - THERE BE DRAGONS*
+
 # RPM Packaging Guide
 [![Documentation
 Status](https://readthedocs.org/projects/rpm-guide/badge/?version=latest)](http://rpm-guide.readthedocs.io/en/latest/?badge=latest)
