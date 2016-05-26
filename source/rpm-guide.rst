@@ -30,6 +30,24 @@ prerequisite installation items, guidelines, or macros. (More on macros later)
     GNU/Linux distribution is, you might be best served by exploring some
     articles on the topics of `Linux`_ and `Package Managers`_.
 
+Prerequisites
+=============
+
+In order to perform the following the following examples you will need a few
+packages installed on your system:
+
+* For Fedora:
+
+::
+
+    # dnf install gcc rpmbuild rpm-devel make python bash
+
+* For RHEL/CentOS (this guide assumes version 7.x of either):
+
+::
+
+    # yum install gcc rpmbuild rpm-devel make python bash
+
 General Topics and Background
 =============================
 
@@ -41,9 +59,6 @@ lead up to being able to successfully build RPMs:
 * Building from source into an output artifact (what type of artifact will
   depend on the scenario and we will define what this means more specifically
   with examples).
-* Defining what we contextually mean as a "buildroot" and how that can mean
-  different things to different people based on scenario. (This will directly
-  relate to RPM building specific topics later)
 * Placing those output artifacts somewhere on the system that is useful within
   the `Filesystem Hierarchy Standard`_.
 
@@ -247,6 +262,47 @@ From here we can actually execute the resulting output binary.
 
 That's it! You've built natively compiled software from source code!
 
+Let's take this one step further and add a `GNU make`_ Makefile which will help
+automate the building of our code. This is an extremely common practice by real
+large scale software and is a good thing to become familiar with as a RPM
+Packager. Let's create a file named ``Makefile`` in the same directory as our
+example `C`_ source code file named ``hello.c``.
+
+``Makefile``
+
+.. code-block:: make
+
+    hello:
+            gcc -o hello hello.c
+
+    clean:
+            rm hello
+
+
+Now to build our software we can simply run the command ``make``, below you
+will see the command run more than once just for the sake of seeing what is
+expected behavior.
+
+::
+
+    $ make
+    make: 'hello' is up to date.
+
+    $ make clean
+    rm hello
+
+    $ make
+    gcc -o hello hello.c
+
+    $ make
+    make: 'hello' is up to date.
+
+    +$ ./hello
+    Hello World
+
+Congratulations! You have now both compiled software manually and used a build
+tool!
+
 Interpreted Code
 ~~~~~~~~~~~~~~~~
 
@@ -318,11 +374,15 @@ we have to do is make the file executable and then run it.
     Hello World
 
 
-Buildroots
-----------
 
 Placing Things on the Filesystem
 ---------------------------------
+
+One of the many really nice things about `Linux`_ systems is the `Filesystem
+Hierarchy Standard`_ (FHS) which defines areas of the filesystem in which things
+should be placed. As a RPM Packager this is extremely useful because we will
+always know where to place things that come from our source code.
+
 
 RPM Packages
 ============
@@ -335,6 +395,19 @@ What is a SPEC File?
 
 Basic SPEC File layout
 ----------------------
+
+Buildroots
+----------
+
+The term "buildroot" is unfortunately ambiguous and you will often get various
+different definitions. However in the world of RPM Packages this is literally
+a `chroot`_ environment such that you are creating a filesystem hierarchy in
+a new "fake" root directory much in the way these contents can be laid down upon
+an actual system's filesystem and not violate it's integrity. Imagine this much
+in the same way that you would imagine creating the contents for a `tarball`_
+such that it would be expanded at the root (/) directory of an existing system
+as this is effectively what RPM will do at a certain point during an
+installation transaction.
 
 RPM Macros and their use in SPEC files
 --------------------------------------
@@ -375,8 +448,11 @@ and RPM Building.
 .. _Red Hat: https://www.redhat.com/en
 .. _bash: https://www.gnu.org/software/bash/
 .. _Linux: https://en.wikipedia.org/wiki/Linux
+.. _GNU make: http://www.gnu.org/software/make/
+.. _chroot: https://en.wikipedia.org/wiki/Chroot
 .. _CPython: https://en.wikipedia.org/wiki/CPython
 .. _shebang: https://en.wikipedia.org/wiki/Shebang_%28Unix%29
+.. _tarball: https://en.wikipedia.org/wiki/Tar_%28computing%29
 .. _C: https://en.wikipedia.org/wiki/C_%28programming_language%29
 .. _architecture: https://en.wikipedia.org/wiki/Microarchitecture
 .. _Package Managers: https://en.wikipedia.org/wiki/Package_manager
