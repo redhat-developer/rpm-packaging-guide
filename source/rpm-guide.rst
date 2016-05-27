@@ -391,7 +391,121 @@ we have to do is make the file executable and then run it.
 Patching Software
 -----------------
 
-In software and computing a **patch** is the term given to a
+In software and computing a **patch** is the term given to source code that is
+meant to fix other code, this is similar to the way that someone will use
+a piece of cloth to patch another piece of cloth that is part of a shirt or
+a blanket. Patches in software are formatted as what is called a``diff`` since
+it represents what is *different* between to pieces of source code. A *diff* is
+created using the ``diff`` command line utility that is provided by `diffutils`_
+and then it is applied to the original source code using the tool `patch`_.
+
+.. note::
+    Software developer will often use "Version Control Systems" such as `git`_
+    to manage their code base. Tools like these provide their own methods of
+    creating diffs or patching software but those are outside the scope of this
+    document.
+
+Let's walk through an example where we create a patch from the original source
+code using ``diff`` and then apply it using the `patch`_ utility. We will
+revisit patching software in a later section when it comes to actually building
+RPMs and hopefully this exercise will prove it's usefulness at that time. First
+step in patching software is to preserve the original source code, a common
+practice for this is tocopy it and append ``.orig`` to the filename. Let's do
+that now.
+
+::
+
+    $ cp hello.c hello.c.orig
+
+Next, we want to make an edit to ``hello.c`` using our favorite text editor.
+Update your ``hello.c`` to match the output below.
+
+
+.. code-block:: c
+
+    #include <stdio.h>
+
+    int main(void) {
+        printf("Hello World from my very first patch!\n");
+        return 0;
+    }
+
+
+Now that we have our original source code preserved and the updated source code
+written, we can generate a patch using the ``diff`` utility.
+
+.. note::
+    Here we are using a handful of common arguments for the ``diff`` utility and
+    their documentation is out of the scope of this document. Please reference
+    the manual page on your local machine with: ``man diff`` for more
+    information.
+
+::
+
+    $ diff -Naur hello.c.orig hello.c
+    --- hello.c.orig        2016-05-26 17:21:30.478523360 -0500
+    +++ hello.c     2016-05-27 14:53:20.668588245 -0500
+    @@ -1,6 +1,6 @@
+     #include<stdio.h>
+
+     int main(void){
+    -    printf("Hello World\n");
+    +    printf("Hello World from my very first patch!\n");
+         return 1;
+     }
+
+This is the output, you can see lines that start with a ``-`` are being removed
+from the original source code and replaced by the line that starts wtih ``+``.
+Let's now save that output to a file this time by redirecting the output to
+a file so that we can use it later with the `patch`_ utility. It is not
+a requirement but it's good practice to use a meaningful filename when creating
+patches.
+
+::
+
+    $ diff -Naur hello.c.orig hello.c > hello-output-first-patch.patch
+
+Now we want to restor the ``hello.c`` file to it's original source code such
+that we can patch it with our new patch file.
+
+::
+
+    $ cp hello.c.orig hello.c
+
+Next up, let's go ahead and patch the source code by redirecting the patch file
+to the ``patch`` command.
+
+::
+
+    $ patch < hello-output-first-patch.patch
+    patching file hello.c
+
+    $ cat hello.c
+    #include<stdio.h>
+
+    int main(void){
+        printf("Hello World from my very first patch!\n");
+        return 1;
+    }
+
+From the output of the ``cat`` command we can see that the patch has been
+successfully applied, let's build and run it now.
+
+::
+
+    $ make clean
+    rm hello
+
+    $ make
+    gcc -o hello hello.c
+
+    $ ./hello
+    Hello World from my very first patch!
+
+
+Congratulations, you have successfully created a patch, patched software, built
+the patched software and run it!
+
 
 Installing Arbitrary Artifacts
 ------------------------------
@@ -603,6 +717,7 @@ and RPM Building.
 .. _RPM: http://rpm.org/
 .. _GCC: https://gcc.gnu.org/
 .. _sudo: http://www.sudo.ws/
+.. _git: https://git-scm.com/
 .. _Fedora: https://getfedora.org/
 .. _CentOS: https://www.centos.org/
 .. _Python: https://www.python.org/
@@ -622,6 +737,7 @@ and RPM Building.
 .. _architecture: https://en.wikipedia.org/wiki/Microarchitecture
 .. _Package Managers: https://en.wikipedia.org/wiki/Package_manager
 .. _coreutils: http://www.gnu.org/software/coreutils/coreutils.html
+.. _diffutils: http://www.gnu.org/software/diffutils/diffutils.html
 .. _Interpreter: https://en.wikipedia.org/wiki/Interpreter_%28computing%29
 .. _programming language:
     https://en.wikipedia.org/wiki/Programming_language
