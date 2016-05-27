@@ -41,6 +41,8 @@ software development or packaging so some topics will likely seem oddly
 introductory for such a guide, but don't worry that's by design and you can skip
 past those if you like.
 
+.. _pre-req:
+
 Prerequisites
 =============
 
@@ -123,7 +125,7 @@ do not worry.
 This version of the example is written in the `bash`_ shell built in scripting
 language.
 
-``hello.bash``
+``bello``
 
 .. code-block:: sh
 
@@ -135,7 +137,7 @@ language.
 This version of the example is written in a programming language named
 `Python`_.
 
-``hello.py``
+``pello.py``
 
 .. code-block:: python
 
@@ -146,7 +148,7 @@ This version of the example is written in a programming language named
 
 This version of the example is written in a programming language named `C`_.
 
-``hello.c``
+``cello.c``
 
 .. code-block:: c
 
@@ -257,7 +259,7 @@ Referencing the example previously used that is written in `C`_ (listed again
 below for the sake of those who may have skipped the previous section), we will
 build this source code into something the computer can execute.
 
-``hello.c``
+``cello.c``
 
 .. code-block:: c
 
@@ -276,14 +278,14 @@ Compiler Collection (`GCC`_).
 
 ::
 
-    gcc -o hello hello.c
+    gcc -o cello cello.c
 
 
 From here we can actually execute the resulting output binary.
 
 ::
 
-    $ ./hello
+    $ ./cello
     Hello World
 
 That's it! You've built natively compiled software from source code!
@@ -292,17 +294,17 @@ Let's take this one step further and add a `GNU make`_ Makefile which will help
 automate the building of our code. This is an extremely common practice by real
 large scale software and is a good thing to become familiar with as a RPM
 Packager. Let's create a file named ``Makefile`` in the same directory as our
-example `C`_ source code file named ``hello.c``.
+example `C`_ source code file named ``cello.c``.
 
 ``Makefile``
 
 .. code-block:: make
 
-    hello:
-            gcc -o hello hello.c
+    cello:
+            gcc -o cello cello.c
 
     clean:
-            rm hello
+            rm cello
 
 
 Now to build our software we can simply run the command ``make``, below you
@@ -312,18 +314,18 @@ expected behavior.
 ::
 
     $ make
-    make: 'hello' is up to date.
+    make: 'cello' is up to date.
 
     $ make clean
-    rm hello
+    rm cello
 
     $ make
-    gcc -o hello hello.c
+    gcc -o cello cello.c
 
     $ make
-    make: 'hello' is up to date.
+    make: 'cello' is up to date.
 
-    +$ ./hello
+    +$ ./cello
     Hello World
 
 Congratulations! You have now both compiled software manually and used a build
@@ -354,7 +356,7 @@ executes *byte compiled* code. This will "compile" or "translate" the source
 code into an intermediate format that is optimised and will be much faster for
 the language virtual machine to execute.
 
-``hello.py``
+``pello.py``
 
 .. code-block:: python
 
@@ -369,8 +371,8 @@ community. Below is an example using `Python`_.
 
 ::
 
-    $ python -m compileall hello.py
-    $ python hello.pyc
+    $ python -m compileall pello.py
+    $ python pello.pyc
     Hello World
 
 Raw Interpreted
@@ -379,7 +381,7 @@ Raw Interpreted
 This version of the example is written in the `bash`_ shell built in scripting
 language.
 
-``hello.bash``
+``bello``
 
 .. code-block:: sh
 
@@ -395,8 +397,8 @@ we have to do is make the file executable and then run it.
 
 ::
 
-    $ chmod +x hello.bash
-    $ ./hello.bash
+    $ chmod +x bello
+    $ ./bello
     Hello World
 
 Patching Software
@@ -426,10 +428,10 @@ that now.
 
 ::
 
-    $ cp hello.c hello.c.orig
+    $ cp cello.c cello.c.orig
 
-Next, we want to make an edit to ``hello.c`` using our favorite text editor.
-Update your ``hello.c`` to match the output below.
+Next, we want to make an edit to ``cello.c`` using our favorite text editor.
+Update your ``cello.c`` to match the output below.
 
 
 .. code-block:: c
@@ -453,9 +455,9 @@ written, we can generate a patch using the ``diff`` utility.
 
 ::
 
-    $ diff -Naur hello.c.orig hello.c
-    --- hello.c.orig        2016-05-26 17:21:30.478523360 -0500
-    +++ hello.c     2016-05-27 14:53:20.668588245 -0500
+    $ diff -Naur cello.c.orig cello.c
+    --- cello.c.orig        2016-05-26 17:21:30.478523360 -0500
+    +++ cello.c     2016-05-27 14:53:20.668588245 -0500
     @@ -1,6 +1,6 @@
      #include<stdio.h>
 
@@ -474,24 +476,24 @@ patches.
 
 ::
 
-    $ diff -Naur hello.c.orig hello.c > hello-output-first-patch.patch
+    $ diff -Naur cello.c.orig cello.c > cello-output-first-patch.patch
 
-Now we want to restor the ``hello.c`` file to it's original source code such
+Now we want to restor the ``cello.c`` file to it's original source code such
 that we can patch it with our new patch file.
 
 ::
 
-    $ cp hello.c.orig hello.c
+    $ cp cello.c.orig cello.c
 
 Next up, let's go ahead and patch the source code by redirecting the patch file
 to the ``patch`` command.
 
 ::
 
-    $ patch < hello-output-first-patch.patch
-    patching file hello.c
+    $ patch < cello-output-first-patch.patch
+    patching file cello.c
 
-    $ cat hello.c
+    $ cat cello.c
     #include<stdio.h>
 
     int main(void){
@@ -505,12 +507,12 @@ successfully applied, let's build and run it now.
 ::
 
     $ make clean
-    rm hello
+    rm cello
 
     $ make
-    gcc -o hello hello.c
+    gcc -o cello cello.c
 
-    $ ./hello
+    $ ./cello
     Hello World from my very first patch!
 
 
@@ -555,24 +557,24 @@ would be seen as unnecessary overhead, it is a very common practice to use the
 artifact in a correct location on the filesystem based on where it should exist
 in the FHS along with appropriate permissions on the target file or directory.
 
-The example below is going to use the ``hello.bash`` file that we had previously
+The example below is going to use the ``bello`` file that we had previously
 created as the artibrary artifact subject to our installation method. Note that
 you will either need `sudo`_ permissions or run this command as root excluding
 the ``sudo`` portion of the command.
 
 ::
 
-    $ install -m 0755 hello.bash /usr/bin/hello.bash
+    $ install -m 0755 bello /usr/bin/bello
 
 
-As this point, we can execute ``hello.bash`` from our shell no matter what our
+As this point, we can execute ``bello`` from our shell no matter what our
 current working directory is because it has been installed into our `$PATH`_.
 
 ::
 
     $ cd ~/
 
-    $ hello.bash
+    $ bello
     Hello World
 
 make install
@@ -589,14 +591,14 @@ appropriate edits needed so that it ends up looking exactly as the following.
 
 .. code-block:: make
 
-    hello:
-            gcc -o hello hello.c
+    cello:
+            gcc -o cello cello.c
 
     clean:
-            rm hello
+            rm cello
 
     install:
-            install -m 0755 hello /usr/bin/hello
+            install -m 0755 cello /usr/bin/cello
 
 Now we are able to use the make file to both build and install the software from
 source. Note that for the installation portion, like before when we ran the raw
@@ -610,18 +612,18 @@ user and ommit the ``sudo`` portion of the command.
     exercise for background knowledge and we will expand upon this as it relates
     to RPM Packaging later.
 
-The following will build and install the simple ``hello.c`` program that we had
+The following will build and install the simple ``cello.c`` program that we had
 written previously.
 
 ::
 
     $ make
-    gcc -o hello hello.c
+    gcc -o cello cello.c
 
     $ sudo make install
-    install -m 0755 hello /usr/bin/hello
+    install -m 0755 cello /usr/bin/cello
 
-Just as in the previous example, we can now execute ``hello`` from our shell no
+Just as in the previous example, we can now execute ``cello`` from our shell no
 matter what our current working directory is because it has been installed into
 our `$PATH`_.
 
@@ -629,7 +631,7 @@ our `$PATH`_.
 
     $ cd ~/
 
-    $ hello
+    $ cello
     Hello World
 
 Congratulations, you have now installed a build artifact into it's proper
@@ -660,10 +662,232 @@ SPEC file (which describes how to build a binary RPM) and the actually source
 code that the resulting binary RPM will be built out of (including any patches
 that may be needed).
 
-Prepping our workspace
-----------------------
+RPM Packaging Workspace
+-----------------------
 
-.. FIXME
+In the :ref:`Prerequisite <pre-req>` section we installed a package named
+``rpmdevtools`` which provides a number of handy utilities for RPM Packagers.
+
+Feel free to explore the output of the following command and check out the
+various utilities manual pages or help dialogs.
+
+::
+
+    $ rpm -ql rpmdevtools | grep bin
+
+For the sake of setting up our RPM Packaging workspace let's use the
+``rpmdev-setuptree`` utility to create our directory layout. We will then define
+what each directory in the directory structure is meant for.
+
+::
+
+    $ rpmdev-setuptree
+
+    $ tree ~/rpmbuild/
+    /home/maxamillion/rpmbuild/
+    |-- BUILD
+    |-- RPMS
+    |-- SOURCES
+    |-- SPECS
+    `-- SRPMS
+
+    5 directories, 0 files
+
+==================  ============================================================
+Directory           Purpose
+==================  ============================================================
+BUILD               Various ``%buildroot`` directories will be created here when
+                    packages are built. This is useful for inspecting a
+                    postmortem of a build that goes bad if the logs output don't
+                    provide enough information.
+RPMS                Binary RPMs will land here in subdirectories of
+                    Architecture. For example: ``noarch`` and ``x86_64``
+SOURCES             Compressed source archives and any patches should go here,
+                    this is where the ``rpmbuild`` command will look for them.
+SPECS               SPEC files live here.
+SRPMS               When the correct arguments are passed to ``rpmbuild`` to
+                    build a Source RPM instead of a Binary RPM, the Source RPMs
+                    (SRPMS) will land in this directory.
+==================  ============================================================
+
+Prepping our examples
+---------------------
+
+Now that we have our RPM Packaging Workspace setup, we should create simulated
+upstream compressed archives of the example programs we have made. We will once
+again list them here just in case a previous section was skipped.
+
+Each implementation of the ``Hello World`` example script will be created into a
+`gzip`_ compressed tarball which will be used to similate what an upstream
+project might release as it's source code to then be consumed and packaged for
+distribution.
+
+.. note::
+    What we are about to do here in this section is not normally something a RPM
+    Packager has to do, this is normally what happens from an upstream software
+    project, product, or developer who actually releases the software as source
+    code. This is simply to setup the RPM Build example space and give some
+    insight into where everything actually comes from.
+
+bello
+^^^^^
+
+For the `bash`_ example implementation we will have a fake project called
+*bello* and since the project named *bello* produces one thing and that's
+a shell script named ``bello`` then it will only contain that in it's resulting
+``tar.gz``. Let's pretend that this is version ``0.1`` of that software and
+we'll mark the ``tar.gz`` file as such.
+
+Here is the listing of the file as mentioned before.
+
+``bello``
+
+.. code-block:: sh
+
+    #!/bin/bash
+
+    printf "Hello World\n"
+
+Let's make a project ``tar.gz`` out of our source code.
+
+::
+
+    $ mkdir /tmp/bello
+
+    $ mv ~/bello /tmp/bello/
+
+    $ cd /tmp/
+
+    $ tar -cvzf bello-0.1.tar.gz bello
+    bello/
+    bello/bello
+
+    $ mv /tmp/bello-0.1.tar.gz ~/rpmbuild/SOURCES/
+
+
+pello
+^^^^^
+
+For the `Python`_ example implementation we will have a fake project called
+*pello* and since the project named *pello* produces one thing and that's
+a small program named ``pello.py`` then it will only contain that in it's
+resulting ``tar.gz``. Let's pretend that this is version ``0.1.1`` of this
+software and we'll mark the ``tar.gz`` file as such.
+
+Here is the listing of the file as mentioned before.
+
+``pello.py``
+
+.. code-block:: python
+
+    #!/usr/bin/env python
+
+    print("Hello World")
+
+
+Let's make a project ``tar.gz`` out of our source code.
+
+::
+
+    $ mkdir /tmp/pello
+
+    $ mv ~/pello.py /tmp/pello/
+
+    $ cd /tmp/
+
+    $ tar -cvzf pello-0.1.1.tar.gz pello
+    pello/
+    pello/pello.py
+
+    $ mv /tmp/pello-0.1.1.tar.gz ~/rpmbuild/SOURCES/
+
+
+cello
+^^^^^
+
+For the `C`_ example implementation we will have a fake project called *cello*
+and since the project named *cello* produces two things, the source code to our
+program named ``cello.c`` and a ``Makefile`` we will need to make sure and
+include both of these in our ``tar.gz``. Let's pretend that this is version
+``1..0`` of the software and we'll mark the ``tar.gz`` file as such.
+
+Here is the listing of the files involved as mentioned before.
+
+You will notice the ``patch`` file is listed here, but it will not go in our
+project tarball because it is something that we as the RPM Packager will apply
+and not something that comes from the upstream source code. RPM Packages are
+built in such a way that the original upstream source code in preserved in it's
+prestine form just as released by it's creator. All patches required to the
+software happen at RPM Build time, not before. We will place that in the
+``~/rpmbuild/SOURCES/`` directory along side the "upstream" source code that we
+are simulating here. (More on this later).
+
+``cello.c``
+
+.. code-block:: c
+
+    #include <stdio.h>
+
+    int main(void) {
+        printf("Hello World\n");
+        return 0;
+    }
+
+
+``cello-output-first-patch.patch``
+
+.. code-block:: diff
+
+    --- cello.c.orig        2016-05-26 17:21:30.478523360 -0500
+    +++ cello.c     2016-05-27 14:53:20.668588245 -0500
+    @@ -1,6 +1,6 @@
+     #include<stdio.h>
+
+     int main(void){
+    -    printf("Hello World\n");
+    +    printf("Hello World from my very first patch!\n");
+         return 1;
+     }
+
+``Makefile``
+
+.. code-block:: make
+
+    cello:
+            gcc -o cello cello.c
+
+    clean:
+            rm cello
+
+    install:
+            install -m 0755 cello /usr/bin/cello
+
+Let's make a project ``tar.gz`` out of our source code.
+
+::
+
+    $ mkdir /tmp/cello
+
+    $ mv ~/cello.c /tmp/cello/
+
+    $ mv ~/Makefile /tmp/cello/
+
+    $ cd /tmp/
+
+    $ tar -cvzf cello-1.0.tar.gz cello
+    cello/
+    cello/Makefile
+    cello/cello.c
+
+    $ mv /tmp/cello-1.0.tar.gz ~/rpmbuild/SOURCES/
+
+    $ mv ~/cello-output-first-patch.patch ~/rpmbuild/SOURCES/
+
+
+Great, now we have all of our upstream source code prep'd and ready to be turned
+into RPMs! Let's move on to learning with a RPM SPEC file is and how it relates
+to building RPMs.
+
 
 What is a SPEC File?
 --------------------
@@ -698,7 +922,7 @@ SPEC Directive      Definition
 ``URL``             The full URL for more information about the program (most
                     often this is the upstream project website for the software
                     being packaged).
-``Source0``        Path or URL to the compressed archive of the upstream source
+``Source0``         Path or URL to the compressed archive of the upstream source
                     code (unpatched, patches are handled elsewhere). This is
                     ideally a listing of the upstream URL resting place and not
                     just a local copy of the source. If needed, more SourceX
@@ -850,6 +1074,7 @@ introductory material included in this guide.
 .. _CentOS: https://www.centos.org/
 .. _Python: https://www.python.org/
 .. _Red Hat: https://www.redhat.com/en
+.. _gzip: https://www.gnu.org/software/gzip/
 .. _bash: https://www.gnu.org/software/bash/
 .. _cpio: https://en.wikipedia.org/wiki/Cpio
 .. _Linux: https://en.wikipedia.org/wiki/Linux
