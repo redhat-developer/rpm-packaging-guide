@@ -30,6 +30,17 @@ prerequisite installation items, guidelines, or macros. (More on macros later)
     GNU/Linux distribution is, you might be best served by exploring some
     articles on the topics of `Linux`_ and `Package Managers`_.
 
+This guide is meant to be used however the reader feels they would best like to
+use it. The sections are arranged such that the reader may start from the
+beginning and go all the way through and the flow of topics should make sense
+with each topic building upon the previous ones. However, if you as the reader
+feel you are comfortable with a topic or would just like to use the guide as
+reference material please feel free to skip sections or jump around as you
+please. The goal here is to be useful to someone with little to no background in
+software development or packaging so some topics will likely seem oddly
+introductory for such a guide, but don't worry that's by design and you can skip
+past those if you like.
+
 Prerequisites
 =============
 
@@ -506,6 +517,8 @@ successfully applied, let's build and run it now.
 Congratulations, you have successfully created a patch, patched software, built
 the patched software and run it!
 
+Next up, installing things!
+
 
 Installing Arbitrary Artifacts
 ------------------------------
@@ -641,16 +654,110 @@ package manager ``rpm`` uses this metadata to determine things like
 dependencies.
 
 Conventionally speaking there are two different types of RPM, there is the
-Source RPM (SRPM) and the binary RPM. Both of these share an over all
-convention, file format, and tooling but they represent very different things.
-The payload of a SRPM is a SPEC file (which describes how to build a binary RPM)
-and the actually source code that the resulting binary RPM will be built out of
-(including any patches that may be needed).
+Source RPM (SRPM) and the binary RPM. Both of these share afile format and
+tooling, but they represent very different things. The payload of a SRPM is a
+SPEC file (which describes how to build a binary RPM) and the actually source
+code that the resulting binary RPM will be built out of (including any patches
+that may be needed).
+
+Prepping our workspace
+----------------------
+
+.. FIXME
 
 What is a SPEC File?
 --------------------
 
-.. FIXME
+A SPEC file can be though of the as the **recipe** for that the ``rpmbuild``
+utility uses to actually build an RPM. It tells the build system what to do by
+defining instructions in a series of sections. The sections are defined between
+the *Preamble* and the *Body*. Within the *Preamble* we will define a series of
+metadata items that will be used through out the *Body* and the *Body* is where
+the bulk of the work is accomplished.
+
+Preamble Items
+^^^^^^^^^^^^^^
+
+In the table below you will find the items that are used in RPM Spec files in
+the Preamble section.
+
+==================  ============================================================
+SPEC Directive      Definition
+==================  ============================================================
+``Name``            The (base) name of the package, which should match the SPEC
+                    file name
+``Version``         The upstream version number of the software.
+``Release``         The initial value should normally be 1%{?dist}, this value
+                    should be incremented each new release of the package and
+                    reset to 1 when a new ``Version`` of the software is built.
+``Summary``         A brief, one-line summary of the package.
+``License``         The license of the software being packaged. For packages
+                    that are destined for community distributions such as
+                    `Fedora`_ this must be an Open Source License obiding by the
+                    specific distribution's Licensing Guidelines.
+``URL``             The full URL for more information about the program (most
+                    often this is the upstream project website for the software
+                    being packaged).
+``Source0``        Path or URL to the compressed archive of the upstream source
+                    code (unpatched, patches are handled elsewhere). This is
+                    ideally a listing of the upstream URL resting place and not
+                    just a local copy of the source. If needed, more SourceX
+                    directives can be added, incrementing the number each time
+                    such as: Source1, Source2, Source3, and so on.
+``Patch0``          The name of the first patch to apply to the source code if
+                    necessary. If needed, more PatchX directives can be added,
+                    incrementing the number each time such as: Patch1, Patch2,
+                    Patch3, and so on.
+``BuildArch``       If the package is not architecture dependent, i.e. written
+                    entirely in an interpreted programming language, this should
+                    be ``BuildArch: noarch`` otherwise it will automatically
+                    inherit the Architecture of the machine it's being built on.
+``BuildRequires``   A comma-separated list of packages required for building
+                    (compiling) the program. There can be multiple entries of
+                    ``BuildRequires`` each on it's own line in the SPEC file.
+``Requires``        A comma-separate list of packages that are required by the
+                    software to run once installed.
+``ExcludeArch``     In the event a piece of software can not operate on a
+                    specific processor architectue, you can exclude it here.
+==================  ============================================================
+
+
+Body Items
+^^^^^^^^^^
+
+In the table below you will find the items that are used in RPM Spec files in
+the body.
+
+==================  ============================================================
+SPEC Directive      Definition
+==================  ============================================================
+``%description``    A full description of the software packaged in the RPM, this
+                    can consume multiple lines and be broken into paragraphs.
+``%prep``           Command or series of commands to prepare the software
+                    to be built. Example is to uncompress the archive in
+                    ``Source0``. This can contain shell script.
+``%build``          Command or series of commands used to actually perform the
+                    build procedure (compile) of the software.
+``%install``        Command or series of commands used to actually install the
+                    various artifacts into a resulting location in the FHS.
+                    Something to note is that this is done withing the relative
+                    context of the ``%buildroot`` (more on that later).
+``%check``          Command or series of commands to "test" the software. This
+                    is normally things such as unit tests.
+``%files``          The list of files that will be installed in their final
+                    resting place in the context of the target system.
+``%changelog``      A record of changes that have happened to the package
+                    between different ``Version`` or ``Release`` builds.
+==================  ============================================================
+
+Advanced items
+^^^^^^^^^^^^^^
+
+There are a series of advanced items that are known as *scriptlets* and
+*triggers* which take effect at different points through out the installation
+process on the target machine (not the build process). These are out of the
+scope of this document, but there is plenty of information on them in the
+:ref:`Appendix <appendix>`.
 
 Working with SPEC files
 -----------------------
@@ -701,16 +808,37 @@ Prestine Build Environments with Mock
 
 .. FIXME
 
+Advanced SPEC File Topics
+-------------------------
+
+.. FIXME
+
+Scriptlets
+^^^^^^^^^^
+
+.. FIXME
+
+Triggers
+^^^^^^^^
+
+.. FIXME
+
+
 References
 ----------
 
 Below are references to various topics of interest around RPMs, RPM Packaging,
-and RPM Building.
+and RPM Building. Some of these will be advanced and extend far beyond the
+introductory material included in this guide.
 
 * `RPM Official Documentation`_
 * `Gurulabs CREATING RPMS (Student Version)`_
+* `Fedora How To Create An RPM Package Guide`_
 * `Fedora Packaging Guidelines`_
 * `OpenSUSE Packaging Guidelines`_
+* IBM RPM Packaging Guide: `Part 1`_, `Part 2`_, `Part 3`_
+* `Maximum RPM` (Some material is dated, but this is still a great resource for
+  advanced topics.)
 
 
 .. Citations / Links - etc.
@@ -727,10 +855,14 @@ and RPM Building.
 .. _Linux: https://en.wikipedia.org/wiki/Linux
 .. _GNU make: http://www.gnu.org/software/make/
 .. _chroot: https://en.wikipedia.org/wiki/Chroot
+.. _Maximum RPM: http://rpm.org/max-rpm-snapshot/
 .. _CPython: https://en.wikipedia.org/wiki/CPython
 .. _patch: http://savannah.gnu.org/projects/patch/
 .. _RPM Official Documentation: http://rpm.org/wiki/Docs
 .. _$PATH: https://en.wikipedia.org/wiki/PATH_%28variable%29
+.. _Part 1: http://www.ibm.com/developerworks/library/l-rpm1/
+.. _Part 2: http://www.ibm.com/developerworks/library/l-rpm2/
+.. _Part 3: http://www.ibm.com/developerworks/library/l-rpm3/
 .. _shebang: https://en.wikipedia.org/wiki/Shebang_%28Unix%29
 .. _tarball: https://en.wikipedia.org/wiki/Tar_%28computing%29
 .. _C: https://en.wikipedia.org/wiki/C_%28programming_language%29
@@ -745,6 +877,8 @@ and RPM Building.
     https://en.opensuse.org/openSUSE:Packaging_guidelines
 .. _Red Hat Enterprise Linux:
     https://www.redhat.com/en/technologies/linux-platforms
+.. _Fedora How To Create An RPM Package Guide:
+    https://fedoraproject.org/wiki/How_to_create_an_RPM_package
 .. _Filesystem Hierarchy Standard:
     https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
 .. _RPM based:
