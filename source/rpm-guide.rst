@@ -36,17 +36,31 @@ Prerequisites
 In order to perform the following the following examples you will need a few
 packages installed on your system:
 
+.. note::
+    The inclusion of some of the packages below are not actually necessary
+    because they are a part of the default installation of Fedora, RHEL, and
+    CentOS but are listed explicitly for perspective of exactly the tools used
+    within this document.
+
 * For Fedora:
 
 ::
 
-    $ dnf install gcc rpmbuild rpm-devel make python bash
+    $ dnf install gcc rpmbuild rpm-devel make python bash coreutils diffutils
+    patch
 
 * For RHEL/CentOS (this guide assumes version 7.x of either):
 
 ::
 
-    $ yum install gcc rpmbuild rpm-devel make python bash
+    $ yum install gcc rpmbuild rpm-devel make python bash coreutils diffutils
+    patch
+
+
+Beyond these preliminary packages you will also need a text editor of your
+choosing. We will not be discussing or recommending text editors in this
+document and we trust that everyone has at least one they are comfortable with
+at their disposal.
 
 General Topics and Background
 =============================
@@ -377,16 +391,122 @@ we have to do is make the file executable and then run it.
 Patching Software
 -----------------
 
-.. FIXME
+In software and computing a **patch** is the term given to a
 
-
-Placing Things on the Filesystem
----------------------------------
+Installing Arbitrary Artifacts
+------------------------------
 
 One of the many really nice things about `Linux`_ systems is the `Filesystem
 Hierarchy Standard`_ (FHS) which defines areas of the filesystem in which things
 should be placed. As a RPM Packager this is extremely useful because we will
 always know where to place things that come from our source code.
+
+This section references the concept of an **Arbitrary Artifact** which in this
+context is anything you can imagine that is a file that you want to install
+somewhere on the system within the FHS. It could be a simple script,
+a pre-existing binary, the binary output of source code that you have created as
+a side effect of a build process, or anything else you can think up. We discuss
+it in such a vague vocabulary in order to demonstrate that the system nor RPM
+care what the *Artifact* in question is. To both RPM and the system, it is just
+a file that needs to exist in a pre-determined place. The permissions and the
+type of file it is makes it special to the system but that is for us as a RPM
+Packager to decide.
+
+For example, once we have built our software we can then place it on the system
+somewhere that will end up in the system `$PATH`_ so that they can be found and
+executed easily by users, developers, and sysadmins alike. We will explore two
+ways to accomplish this as they each are quite popular approaches used by RPM
+Packagers.
+
+install command
+^^^^^^^^^^^^^^^
+
+When placing arbitrary artifacts onto the system without build automation
+tooling such as `GNU make`_ or because it is a simple script and such tooling
+would be seen as unnecessary overhead, it is a very common practice to use the
+``install`` command (provided to the system by `coreutils`_) to place the
+artifact in a correct location on the filesystem based on where it should exist
+in the FHS along with appropriate permissions on the target file or directory.
+
+The example below is going to use the ``hello.bash`` file that we had previously
+created as the artibrary artifact subject to our installation method. Note that
+you will either need `sudo`_ permissions or run this command as root excluding
+the ``sudo`` portion of the command.
+
+::
+
+    $ install -m 0755 hello.bash /usr/bin/hello.bash
+
+
+As this point, we can execute ``hello.bash`` from our shell no matter what our
+current working directory is because it has been installed into our `$PATH`_.
+
+::
+
+    $ cd ~/
+
+    $ hello.bash
+    Hello World
+
+make install
+^^^^^^^^^^^^
+
+A very popular mechanism by which you will install software from source after
+it's built is by using a command called ``make install`` and in order to do that
+we need to enhance the ``Makefile`` we created previously just a little bit.
+
+Open the ``Makefile`` file up in your favorite text editor and make the
+appropriate edits needed so that it ends up looking exactly as the following.
+
+``Makefile``
+
+.. code-block:: make
+
+    hello:
+            gcc -o hello hello.c
+
+    clean:
+            rm hello
+
+    install:
+            install -m 0755 hello /usr/bin/hello
+
+Now we are able to use the make file to both build and install the software from
+source. Note that for the installation portion, like before when we ran the raw
+``install`` command, you will need either `sudo`_ permissions or be the ``root``
+user and ommit the ``sudo`` portion of the command.
+
+.. note::
+    The creation of ``Makefile`` is normally done by the developer who writes
+    the original source code of the software in question and as a RPM Packager
+    this is not generally something you will need to do. This is purely an
+    exercise for background knowledge and we will expand upon this as it relates
+    to RPM Packaging later.
+
+The following will build and install the simple ``hello.c`` program that we had
+written previously.
+
+::
+
+    $ make
+    gcc -o hello hello.c
+
+    $ sudo make install
+    install -m 0755 hello /usr/bin/hello
+
+Just as in the previous example, we can now execute ``hello`` from our shell no
+matter what our current working directory is because it has been installed into
+our `$PATH`_.
+
+::
+
+    $ cd ~/
+
+    $ hello
+    Hello World
+
+Congratulations, you have now installed a build artifact into it's proper
+location on the system!
 
 
 RPM Packages
@@ -482,6 +602,7 @@ and RPM Building.
 .. Citations / Links - etc.
 .. _RPM: http://rpm.org/
 .. _GCC: https://gcc.gnu.org/
+.. _sudo: http://www.sudo.ws/
 .. _Fedora: https://getfedora.org/
 .. _CentOS: https://www.centos.org/
 .. _Python: https://www.python.org/
@@ -492,12 +613,15 @@ and RPM Building.
 .. _GNU make: http://www.gnu.org/software/make/
 .. _chroot: https://en.wikipedia.org/wiki/Chroot
 .. _CPython: https://en.wikipedia.org/wiki/CPython
+.. _patch: http://savannah.gnu.org/projects/patch/
 .. _RPM Official Documentation: http://rpm.org/wiki/Docs
+.. _$PATH: https://en.wikipedia.org/wiki/PATH_%28variable%29
 .. _shebang: https://en.wikipedia.org/wiki/Shebang_%28Unix%29
 .. _tarball: https://en.wikipedia.org/wiki/Tar_%28computing%29
 .. _C: https://en.wikipedia.org/wiki/C_%28programming_language%29
 .. _architecture: https://en.wikipedia.org/wiki/Microarchitecture
 .. _Package Managers: https://en.wikipedia.org/wiki/Package_manager
+.. _coreutils: http://www.gnu.org/software/coreutils/coreutils.html
 .. _Interpreter: https://en.wikipedia.org/wiki/Interpreter_%28computing%29
 .. _programming language:
     https://en.wikipedia.org/wiki/Programming_language
