@@ -59,6 +59,7 @@ lead up to being able to successfully build RPMs:
 * Building from source into an output artifact (what type of artifact will
   depend on the scenario and we will define what this means more specifically
   with examples).
+* Patching Software
 * Placing those output artifacts somewhere on the system that is useful within
   the `Filesystem Hierarchy Standard`_.
 
@@ -373,6 +374,10 @@ we have to do is make the file executable and then run it.
     $ ./hello.bash
     Hello World
 
+Patching Software
+-----------------
+
+.. FIXME
 
 
 Placing Things on the Filesystem
@@ -388,19 +393,37 @@ RPM Packages
 ============
 
 In this section we are going to hopefully cover everything you ever wanted to
-know about RPM Packages and Packaging, and if not then hopefully the contents of
-the Appendix
+know about the RPM Packaging format, and if not then hopefully the contents of
+the :ref:`Appendix <appendix>` will satisfy the craving for knowledge that has
+been left out of this section.
 
 What is a RPM?
 --------------
 
+To kick things off, let's first define what an RPM actually is. An RPM package
+is simply file containing a `cpio`_ archive and metadata about itself. The
+`cpio`_ archive is the payload and the RPM Header contains the metadata. The
+package manager ``rpm`` uses this metadata to determine things like
+dependencies.
+
+Conventionally speaking there are two different types of RPM, there is the
+Source RPM (SRPM) and the binary RPM. Both of these share an over all
+convention, file format, and tooling but they represent very different things.
+The payload of a SRPM is a SPEC file (which describes how to build a binary RPM)
+and the actually source code that the resulting binary RPM will be built out of
+(including any patches that may be needed).
+
 What is a SPEC File?
 --------------------
 
-Basic SPEC File layout
-----------------------
+.. FIXME
 
-Buildroots
+Working with SPEC files
+-----------------------
+
+.. FIXME
+
+BuildRoots
 ----------
 
 The term "buildroot" is unfortunately ambiguous and you will often get various
@@ -416,11 +439,20 @@ installation transaction.
 RPM Macros and their use in SPEC files
 --------------------------------------
 
+.. FIXME
+
 Prepping Our Build Environment
 ==============================
 
+.. FIXME
+
 Building RPMS
 =============
+
+.. FIXME
+
+
+.. _appendix:
 
 Appendix
 ========
@@ -433,17 +465,21 @@ package RPMs in the first place which is what the main goal of this document is.
 Prestine Build Environments with Mock
 -------------------------------------
 
+.. FIXME
+
 References
-==========
+----------
 
 Below are references to various topics of interest around RPMs, RPM Packaging,
 and RPM Building.
 
-* `RPM`_.org
+* `RPM Official Documentation`_
 * `Gurulabs CREATING RPMS (Student Version)`_
 * `Fedora Packaging Guidelines`_
 * `OpenSUSE Packaging Guidelines`_
 
+
+.. Citations / Links - etc.
 .. _RPM: http://rpm.org/
 .. _GCC: https://gcc.gnu.org/
 .. _Fedora: https://getfedora.org/
@@ -451,10 +487,12 @@ and RPM Building.
 .. _Python: https://www.python.org/
 .. _Red Hat: https://www.redhat.com/en
 .. _bash: https://www.gnu.org/software/bash/
+.. _cpio: https://en.wikipedia.org/wiki/Cpio
 .. _Linux: https://en.wikipedia.org/wiki/Linux
 .. _GNU make: http://www.gnu.org/software/make/
 .. _chroot: https://en.wikipedia.org/wiki/Chroot
 .. _CPython: https://en.wikipedia.org/wiki/CPython
+.. _RPM Official Documentation: http://rpm.org/wiki/Docs
 .. _shebang: https://en.wikipedia.org/wiki/Shebang_%28Unix%29
 .. _tarball: https://en.wikipedia.org/wiki/Tar_%28computing%29
 .. _C: https://en.wikipedia.org/wiki/C_%28programming_language%29
