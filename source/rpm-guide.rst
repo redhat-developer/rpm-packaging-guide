@@ -40,13 +40,13 @@ packages installed on your system:
 
 ::
 
-    # dnf install gcc rpmbuild rpm-devel make python bash
+    $ dnf install gcc rpmbuild rpm-devel make python bash
 
 * For RHEL/CentOS (this guide assumes version 7.x of either):
 
 ::
 
-    # yum install gcc rpmbuild rpm-devel make python bash
+    $ yum install gcc rpmbuild rpm-devel make python bash
 
 General Topics and Background
 =============================
@@ -153,7 +153,7 @@ two common methods:
 #. Interpreted (Byte Compiled and Raw Interpreted)
 
 Natively Compiled Code
-~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^
 
 Software written in programming languages that compile to machines code or
 directly to a binary executable (i.e. - something that the computer natively
@@ -166,7 +166,7 @@ AMD or Intel processor. The method by which this happens will be covered in the
 next section.
 
 Interpreted Code
-~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^
 
 There are certain programming languages that do not compile down to a
 representation of program that the computer natively understands. These programs
@@ -225,7 +225,7 @@ software.
 
 
 Natively Compiled Code
-~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^
 
 Referencing the example previously used that is written in `C`_ (listed again
 below for the sake of those who may have skipped the previous section), we will
@@ -243,7 +243,7 @@ build this source code into something the computer can execute.
     }
 
 Build Process
-.............
+"""""""""""""
 
 In the below example we are going to invoke the `C`_ compiler from the GNU
 Compiler Collection (`GCC`_).
@@ -304,7 +304,7 @@ Congratulations! You have now both compiled software manually and used a build
 tool!
 
 Interpreted Code
-~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^
 
 For software written in interpreted programming languages, we know that we don't
 need to compile it, but if it's a byte compiled language such as `Python`_ there
@@ -320,7 +320,7 @@ this source code into something the `Python`_ Language Interpreter (known as
     not tehcnically part of the programming language source code.
 
 Byte Compiled Code
-..................
+""""""""""""""""""
 
 As mentioned previously, this version of the example is written in a programming
 language named `Python`_ and it's default language virtual machine is one that
@@ -348,7 +348,7 @@ community. Below is an example using `Python`_.
     Hello World
 
 Raw Interpreted
-...............
+"""""""""""""""
 
 This version of the example is written in the `bash`_ shell built in scripting
 language.
@@ -386,6 +386,10 @@ always know where to place things that come from our source code.
 
 RPM Packages
 ============
+
+In this section we are going to hopefully cover everything you ever wanted to
+know about RPM Packages and Packaging, and if not then hopefully the contents of
+the Appendix
 
 What is a RPM?
 --------------
