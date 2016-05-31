@@ -369,11 +369,26 @@ heavily based on the programming language, it's language virtual machine, and
 the tools or processes that are common within that programming language's
 community. Below is an example using `Python`_.
 
+.. note::
+    The practice of byte compiling `Python`_ is common but the exact procedure
+    shown here is not. This is meant to be a simple example. For more
+    information, please reference the `Software Packaging and Distribution`_
+    documentation.
+
 ::
 
     $ python -m compileall pello.py
     $ python pello.pyc
     Hello World
+
+    $ file foo.pyc
+    foo.pyc: python 2.7 byte-compiled
+
+You can see here that after we byte-compiled the source ``.py`` file we now have
+a ``.pyc`` file which is of ``python 2.7 byte-compiled`` filetype. This file can
+be run with the python language virtual machine and is more efficient than
+passing in just the raw source file, which is a desired attribute of resulting
+software we as a RPM Packager will distribute out to systems.
 
 Raw Interpreted
 """""""""""""""
@@ -1098,6 +1113,8 @@ introductory material included in this guide.
 .. _Interpreter: https://en.wikipedia.org/wiki/Interpreter_%28computing%29
 .. _programming language:
     https://en.wikipedia.org/wiki/Programming_language
+.. _Software Packaging and Distribution:
+    https://docs.python.org/2/library/distribution.html
 .. _OpenSUSE Packaging Guidelines:
     https://en.opensuse.org/openSUSE:Packaging_guidelines
 .. _Red Hat Enterprise Linux:
