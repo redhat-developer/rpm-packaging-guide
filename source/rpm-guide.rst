@@ -1222,8 +1222,35 @@ grouped together in our SPEC file: ``License``, ``URL``, ``Source0``.
 The ``License`` field is the `Software License`_ associated with the source code
 from the upstream release. The exact format for how to label the License in your
 SPEC file will vary depending on which specific RPM based `Linux`_ distribution
-guidelines you are following, we will use the `Fedora Packaging Licensing
-Guidelines`_ for this document.
+guidelines you are following, we will use the notation standards in the `Fedora
+License Guidelines`_ for this document and as such this field will contain the
+text ``GPLv3+``
+
+The ``URL`` field is the upstream software's website, not the source code
+download link but the actual project, product, or company website where someone
+would find more information about this particular piece of software. Since we're
+just using an example, we will call this ``https://www.example.com/bello``.
+
+The ``Source0`` field is where the upstream software's source code should be
+able to be downloaded from. This URL should link directly to the specific
+version of the source code release that this RPM Package is packaging. Once
+again, since this is an example we will use an example value:
+``https://www.example.com/bello/releases/bello-0.1.tar.gz``
+
+After your edits, the top portion of your spec file should look like the
+following:
+
+.. code-block:: spec
+
+    Name:           bello
+    Version:        0.1
+    Release:        1%{?dist}
+    Summary:        Hello World example implemented in bash script
+
+    License:        GPLv3+
+    URL:            https://example.com/bello
+    Source0:        https://www.example.com/bello/releases/bello-0.1.tar.gz
+
 
 
 cello
@@ -1340,6 +1367,7 @@ introductory material included in this guide.
 .. _diffutils: http://www.gnu.org/software/diffutils/diffutils.html
 .. _Software License: https://en.wikipedia.org/wiki/Software_license
 .. _Interpreter: https://en.wikipedia.org/wiki/Interpreter_%28computing%29
+.. _Fedora License Guidelines: https://fedoraproject.org/wiki/Licensing:Main
 .. _programming language:
     https://en.wikipedia.org/wiki/Programming_language
 .. _Software Packaging and Distribution:
@@ -1352,8 +1380,6 @@ introductory material included in this guide.
     https://fedoraproject.org/wiki/How_to_create_an_RPM_package
 .. _Filesystem Hierarchy Standard:
     https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
-.. _Fedora Packaging Licencing Guidelines:
-    https://fedoraproject.org/wiki/Packaging:LicensingGuidelines
 .. _RPM based:
     https://en.wikipedia.org/wiki/List_of_Linux_distributions#RPM-based
 .. _Gurulabs CREATING RPMS (Student Version):
