@@ -41,6 +41,25 @@ software development or packaging so some topics will likely seem oddly
 introductory for such a guide, but don't worry that's by design and you can skip
 past those if you like.
 
+Document Conventions
+====================
+
+Code and command line out put will be placed into a block similar to the
+following:
+
+::
+
+    This is a block! We can do all sorts of cool code and command line stuff
+    here!
+
+    Look, more lines!
+
+Topics of interest or vocabulary terms will either be referred to as URLs to
+their respective documentation, website, or similar.
+
+Command line utilities, commands, or things otherwise found in code that are
+used through out paragraphs will be written in a ``monospace`` font.
+
 .. _pre-req:
 
 Prerequisites
@@ -59,14 +78,14 @@ packages installed on your system:
 
 ::
 
-    $ dnf install gcc rpmbuild rpm-devel make python bash coreutils diffutils
+    $ dnf install gcc rpmbuild rpm-devel rpmlint make python bash coreutils diffutils
     patch
 
 * For RHEL/CentOS (this guide assumes version 7.x of either):
 
 ::
 
-    $ yum install gcc rpmbuild rpm-devel make python bash coreutils diffutils
+    $ yum install gcc rpmbuild rpm-devel rpmlint make python bash coreutils diffutils
     patch
 
 
@@ -732,17 +751,46 @@ Now that we have our RPM Packaging Workspace setup, we should create simulated
 upstream compressed archives of the example programs we have made. We will once
 again list them here just in case a previous section was skipped.
 
-Each implementation of the ``Hello World`` example script will be created into a
-`gzip`_ compressed tarball which will be used to similate what an upstream
-project might release as it's source code to then be consumed and packaged for
-distribution.
-
 .. note::
     What we are about to do here in this section is not normally something a RPM
     Packager has to do, this is normally what happens from an upstream software
     project, product, or developer who actually releases the software as source
     code. This is simply to setup the RPM Build example space and give some
     insight into where everything actually comes from.
+
+We will also assume `GPLv3`_ as the `Software License`_ for all of these
+simulated upstream software releases. As such, we will need a ``LICENSE`` file
+included with each source code release. We include this in our simulated
+upstream software release because encounters with a `Software License`_ when
+packaging RPMs is a very common occurance for a RPM Packager and we should know
+how to properly handle them.
+
+Let us go ahead and make a ``LICENSE`` file that can be included in the source
+code "release" for each example.
+
+::
+
+    $ cat > /tmp/LICENSE <<EOF
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    EOF
+
+Each implementation of the ``Hello World`` example script will be created into a
+`gzip`_ compressed tarball which will be used to similate what an upstream
+project might release as it's source code to then be consumed and packaged for
+distribution.
+
+Below is an example procedure for each example implementation.
 
 bello
 ^^^^^
@@ -771,10 +819,13 @@ Let's make a project ``tar.gz`` out of our source code.
 
     $ mv ~/bello /tmp/bello/
 
+    $ cp /tmp/LICENSE /tmp/bello/
+
     $ cd /tmp/
 
     $ tar -cvzf bello-0.1.tar.gz bello
     bello/
+    bello/LICENSE
     bello/bello
 
     $ mv /tmp/bello-0.1.tar.gz ~/rpmbuild/SOURCES/
@@ -808,10 +859,13 @@ Let's make a project ``tar.gz`` out of our source code.
 
     $ mv ~/pello.py /tmp/pello/
 
+    $ cp /tmp/LICENSE /tmp/pello/
+
     $ cd /tmp/
 
     $ tar -cvzf pello-0.1.1.tar.gz pello
     pello/
+    pello/LICENSE
     pello/pello.py
 
     $ mv /tmp/pello-0.1.1.tar.gz ~/rpmbuild/SOURCES/
@@ -887,10 +941,13 @@ Let's make a project ``tar.gz`` out of our source code.
 
     $ mv ~/Makefile /tmp/cello/
 
+    $ cp /tmp/LICENSE /tmp/cello/
+
     $ cd /tmp/
 
     $ tar -cvzf cello-1.0.tar.gz cello
     cello/
+    cello/LICENSE
     cello/Makefile
     cello/cello.c
 
@@ -903,6 +960,8 @@ Great, now we have all of our upstream source code prep'd and ready to be turned
 into RPMs! Let's move on to learning with a RPM SPEC file is and how it relates
 to building RPMs.
 
+
+.. _what-is-spec-file:
 
 What is a SPEC File?
 --------------------
@@ -960,6 +1019,24 @@ SPEC Directive      Definition
                     specific processor architectue, you can exclude it here.
 ==================  ============================================================
 
+There are three "special" directives listed above which are ``Name``,
+``Version``, and ``Release`` which are used to create the RPM package's
+filename. You will often see these referred to by other RPM Package Maintainers
+and Systems Administrators as **N-V-R** or just simply **NVR** as RPM package
+filenames are of ``NAME-VERSION-RELEASE`` format.
+
+For example, if we were to query about a specific package:
+
+::
+
+    $ rpm -q python
+    python-2.7.5-34.el7.x86_64
+
+Here ``python`` is our Package Name, ``2.7.5`` is our Version, and ``34.el7`` is
+our Release. The final marker is ``x86_64`` and is our architecture, which is
+not something we control as a RPM Packager but is a side effect of the
+``rpmbuild`` build environment, something we will cover in more detail later.
+
 
 Body Items
 ^^^^^^^^^^
@@ -992,16 +1069,11 @@ SPEC Directive      Definition
 Advanced items
 ^^^^^^^^^^^^^^
 
-There are a series of advanced items that are known as *scriptlets* and
-*triggers* which take effect at different points through out the installation
-process on the target machine (not the build process). These are out of the
-scope of this document, but there is plenty of information on them in the
-:ref:`Appendix <appendix>`.
-
-Working with SPEC files
------------------------
-
-.. FIXME
+There are a series of advanced items including what are known as *scriptlets*
+and *triggers* which take effect at different points through out the
+installation process on the target machine (not the build process). These are
+out of the scope of this document, but there is plenty of information on them in
+the :ref:`Appendix <appendix>`.
 
 BuildRoots
 ----------
@@ -1014,7 +1086,155 @@ an actual system's filesystem and not violate it's integrity. Imagine this much
 in the same way that you would imagine creating the contents for a `tarball`_
 such that it would be expanded at the root (/) directory of an existing system
 as this is effectively what RPM will do at a certain point during an
-installation transaction.
+installation transaction. Ultimately the payload of the resulting Binary RPM is
+extracted from this environment and put into the `cpio`_ archive.
+
+Working with SPEC files
+-----------------------
+
+As a RPM Packager, you will likely spend a large majority of your time when
+packaging software in the SPEC file since this is the receipe we use to tell
+``rpmbuild`` how to actually perform a build. In this section we will discuss
+how to create and modify a spec file.
+
+When it comes time to package new software, you will want to create a new SPEC
+file and we *could* write one from scratch from memory but that sounds boring
+and tedious so let's not do that. The good news is that we're in luck and
+there's an utility called ``rpmdev-newspec`` which will create one for us and we
+will just fill in the various directives or add new fields as needed. This
+provides us with a nice baseline template.
+
+Let's go ahead and create a SPEC file for each of our three implementations of
+our example and then we will look at the SPEC files and the
+
+.. note::
+    Some programmer focused text editors will pre-populate a new file with the
+    extension ``.spec`` with a SPEC template of their own but ``rpmdev-newspec``
+    is an editor-agnostic method which is why it is chosen here.
+
+::
+
+    $ cd ~/rpmbuild/SPECS
+
+    $ rpmdev-newspec bello
+    bello.spec created; type minimal, rpm version >= 4.11.
+
+    $ rpmdev-newspec cello
+    cello.spec created; type minimal, rpm version >= 4.11.
+
+    $ rpmdev-newspec pello
+    pello.spec created; type minimal, rpm version >= 4.11.
+
+You will now find three SPEC files in your ``~/rpmbuild/SPECS/`` directory all
+matching the names you passed to ``rpmdev-newspec`` but with the ``.spec`` file
+extension. Take a moment to look at the files using your favorite text editor,
+the directives should look familiar from the
+:ref:`What is a SPEC File? <what-is-spec-file>` section. We will discuss the
+exact information we will input into these fields in the following sections that
+will focus specifically on each example.
+
+bello
+^^^^^
+
+Our first SPEC file will be for our example written in `bash`_ shell script that
+we created a simulated upstream release of and placed it's source code into
+``~/rpmbuild/SOURCES/`` earlier. Let's go ahead and open the file
+``~/rpmbuild/SOURCES/bello.spec`` and start filling in some fields.
+
+The following is the output template we were given from ``rpmdev-newspec``.
+
+.. code-block:: spec
+
+    Name:           bello
+    Version:
+    Release:        1%{?dist}
+    Summary:
+
+    License:
+    URL:
+    Source0:
+
+    BuildRequires:
+    Requires:
+
+    %description
+
+
+    %prep
+    %setup -q
+
+
+    %build
+    %configure
+    make %{?_smp_mflags}
+
+
+    %install
+    rm -rf $RPM_BUILD_ROOT
+    %make_install
+
+
+    %files
+    %doc
+
+
+
+    %changelog
+    * Tue May 31 2016 Adam Miller <maxamillion@fedoraproject.org>
+    -
+
+Let us begin with the first set of directives that ``rpmdev-newspec`` has
+grouped together at the top of the file: ``Name``, ``Version``, ``Release``,
+``Summary``. The ``Name`` is already specified because we provided that
+information to the command line for ``rpmdev-newspec``.
+
+Let's set the ``Version`` to match what the "upstream" release version of the
+*bello* source code is, which if we remember we set to be ``0.1`` when we
+simulated our upstream source code release earlier.
+
+The ``Release`` is already set to ``1%{?dist}`` for us, the numerical value
+which is initially ``1`` should be incremented every time the package is updated
+for any reason, such as including a new patch to fix an issue, but doesn't have
+a new upstream release ``Version``. When a new upstream release happens (for
+example, bello version ``0.2`` were released) then the ``Release`` number should
+be reset to ``1``. Now on to ``%{?dist}``, this is our first encounter with what
+is known as an rpm **macro** which we will discuss further in a later section
+but for now just know that it will be replaced by other text as a result of
+``rpmbuild`` determining the correct value that should be in it's place and
+replacing that text.
+
+The ``Summary`` should be a short, one-line explanation of what this software
+is.
+
+After your edits, the first section of the SPEC file should resemble the
+following:
+
+.. code-block:: spec
+
+    Name:           bello
+    Version:        0.1
+    Release:        1%{?dist}
+    Summary:        Hello World example implemented in bash script
+
+Now, let's move on to the second set of directives that ``rpmdev-newspec`` has
+grouped together in our SPEC file: ``License``, ``URL``, ``Source0``.
+
+The ``License`` field is the `Software License`_ associated with the source code
+from the upstream release. The exact format for how to label the License in your
+SPEC file will vary depending on which specific RPM based `Linux`_ distribution
+guidelines you are following, we will use the `Fedora Packaging Licensing
+Guidelines`_ for this document.
+
+
+cello
+^^^^^
+
+.. FIXME
+
+pello
+^^^^^
+
+.. FIXME
 
 RPM Macros and their use in SPEC files
 --------------------------------------
@@ -1029,7 +1249,10 @@ Prepping Our Build Environment
 Building RPMS
 =============
 
+.. FIXME: rpmlint
+
 .. FIXME
+
 
 
 .. _appendix:
@@ -1051,6 +1274,10 @@ Advanced SPEC File Topics
 -------------------------
 
 .. FIXME
+
+.. FIXME: Epoch
+
+.. FIXME: Scriptlets and Triggers
 
 Scriptlets
 ^^^^^^^^^^
@@ -1105,11 +1332,13 @@ introductory material included in this guide.
 .. _Part 3: http://www.ibm.com/developerworks/library/l-rpm3/
 .. _shebang: https://en.wikipedia.org/wiki/Shebang_%28Unix%29
 .. _tarball: https://en.wikipedia.org/wiki/Tar_%28computing%29
+.. _GPLv3: https://www.gnu.org/licenses/quick-guide-gplv3.html
 .. _C: https://en.wikipedia.org/wiki/C_%28programming_language%29
 .. _architecture: https://en.wikipedia.org/wiki/Microarchitecture
 .. _Package Managers: https://en.wikipedia.org/wiki/Package_manager
 .. _coreutils: http://www.gnu.org/software/coreutils/coreutils.html
 .. _diffutils: http://www.gnu.org/software/diffutils/diffutils.html
+.. _Software License: https://en.wikipedia.org/wiki/Software_license
 .. _Interpreter: https://en.wikipedia.org/wiki/Interpreter_%28computing%29
 .. _programming language:
     https://en.wikipedia.org/wiki/Programming_language
@@ -1123,6 +1352,8 @@ introductory material included in this guide.
     https://fedoraproject.org/wiki/How_to_create_an_RPM_package
 .. _Filesystem Hierarchy Standard:
     https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
+.. _Fedora Packaging Licencing Guidelines:
+    https://fedoraproject.org/wiki/Packaging:LicensingGuidelines
 .. _RPM based:
     https://en.wikipedia.org/wiki/List_of_Linux_distributions#RPM-based
 .. _Gurulabs CREATING RPMS (Student Version):
