@@ -1252,6 +1252,34 @@ following:
     Source0:        https://www.example.com/bello/releases/bello-0.1.tar.gz
 
 
+Next up we have ``BuildRequires`` and ``Requires``, each of which define
+something that is required by the package. However, ``BuildRequires`` is to tell
+``rpmbuild`` what is needed by your package at **build** time and ``Requires``
+is what is needed by your package at **run** time. In this example there is no
+**build** because the `bash`_ script is a raw interpreted programming language
+so we will only be installing files into locations on the system, but it does
+require the `bash`_ shell environment in order to execute so we will need to
+define ``bash`` as a requirement using the ``Requires`` directive.
+
+Since we don't have a build step, we can simply omit the ``BuildRequires``
+directive. There is no need to define is as "undefined" or otherwise, omitting
+it's inclusion will suffice.
+
+After your edits, the top portion of your spec file should look like the
+following:
+
+.. code-block:: spec
+
+    Name:           bello
+    Version:        0.1
+    Release:        1%{?dist}
+    Summary:        Hello World example implemented in bash script
+
+    License:        GPLv3+
+    URL:            https://example.com/bello
+    Source0:        https://www.example.com/bello/releases/bello-0.1.tar.gz
+
+    Requires:       bash
 
 cello
 ^^^^^
