@@ -18,7 +18,7 @@ are:
 
 * `Fedora`_
 * `CentOS`_
-* `Red Hat Enterprise Linux`_
+* `Red Hat Enterprise Linux`_ (often referred to as `RHEL`_ for short)
 
 While these distros are the target environment, it should be noted that lessions
 learned here should be applicable across all distributions that are `RPM based`_
@@ -54,8 +54,25 @@ following:
 
     Look, more lines!
 
+
+::
+
+    $ echo "Here's some command line output!"
+    Here's some command line output!
+
+.. code-block:: python
+
+    #!/usr/bin/env python
+
+    def code_example:
+        print("And here's some code with syntax highlighting and everything!")
+
+    code_example()
+
 Topics of interest or vocabulary terms will either be referred to as URLs to
-their respective documentation, website, or similar.
+their respective documentation/website, as a **bold** item, or in *italics*. The
+first encounter of the term should be a reference to its respective
+documentation.
 
 Command line utilities, commands, or things otherwise found in code that are
 used through out paragraphs will be written in a ``monospace`` font.
@@ -74,14 +91,14 @@ packages installed on your system:
     CentOS but are listed explicitly for perspective of exactly the tools used
     within this document.
 
-* For Fedora:
+* For `Fedora`_:
 
 ::
 
     $ dnf install gcc rpmbuild rpm-devel rpmlint make python bash coreutils diffutils
     patch
 
-* For RHEL/CentOS (this guide assumes version 7.x of either):
+* For `RHEL`_ or `CentOS`_ (this guide assumes version 7.x of either):
 
 ::
 
@@ -441,7 +458,7 @@ Patching Software
 In software and computing a **patch** is the term given to source code that is
 meant to fix other code, this is similar to the way that someone will use
 a piece of cloth to patch another piece of cloth that is part of a shirt or
-a blanket. Patches in software are formatted as what is called a``diff`` since
+a blanket. Patches in software are formatted as what is called a *diff* since
 it represents what is *different* between to pieces of source code. A *diff* is
 created using the ``diff`` command line utility that is provided by `diffutils`_
 and then it is applied to the original source code using the tool `patch`_.
@@ -1089,6 +1106,27 @@ as this is effectively what RPM will do at a certain point during an
 installation transaction. Ultimately the payload of the resulting Binary RPM is
 extracted from this environment and put into the `cpio`_ archive.
 
+.. _rpm-macros:
+
+RPM Macros
+----------
+
+A `rpm macro`_ is a straight text substition that can be conditionally assigned
+based on the optional evaluation of a statement when certain built-in
+functionality is used. What this means is that we can have RPM perform text
+substitutions for us so that we don't have to.
+
+An example of how this can be extremely useful for a RPM Packager is if we
+wanted to reference the `Version` of the software we are packaging multiple
+times through out our SPEC file but only want to define it one time. We would
+then use the ``%{version}`` macro and it would be substituted in place by
+whatever the actual version number is that was entered in the `Version` field of
+the SPEC.
+
+For more information, please reference the :ref:`More on Macros <more-macros>`
+section of the :ref:`Appendix <appendix>`.
+
+
 Working with SPEC files
 -----------------------
 
@@ -1183,6 +1221,20 @@ The following is the output template we were given from ``rpmdev-newspec``.
     * Tue May 31 2016 Adam Miller <maxamillion@fedoraproject.org>
     -
 
+.. note::
+    The ``rpmdev-newspec`` utility does not use `Linux`_ Distribution specific
+    guidelines or conventions, however this document is targeted towards using
+    conventions and guidelines for `Fedora`_, `CentOS`_, and `RHEL`_ so you will
+    notice:
+
+    We remove the use of ``rm $RPM_BUILD_ROOT`` as it is no longer necessary to
+    perform that task when building on `RHEL`_ or `CentOS` 7.0 or newer or on
+    `Fedora`_ version 18 or newer.
+
+    We also will favor the use of ``%{buildroot}`` notation over
+    ``$RPM_BUILD_ROOT`` when referencing RPM's Buildroot for consistency with
+    all other defined or provided macros through out the SPEC
+
 Let us begin with the first set of directives that ``rpmdev-newspec`` has
 grouped together at the top of the file: ``Name``, ``Version``, ``Release``,
 ``Summary``. The ``Name`` is already specified because we provided that
@@ -1197,11 +1249,8 @@ which is initially ``1`` should be incremented every time the package is updated
 for any reason, such as including a new patch to fix an issue, but doesn't have
 a new upstream release ``Version``. When a new upstream release happens (for
 example, bello version ``0.2`` were released) then the ``Release`` number should
-be reset to ``1``. Now on to ``%{?dist}``, this is our first encounter with what
-is known as an rpm **macro** which we will discuss further in a later section
-but for now just know that it will be replaced by other text as a result of
-``rpmbuild`` determining the correct value that should be in it's place and
-replacing that text.
+be reset to ``1``. The *disttag* of ``%{?dist}`` should look familiar from the
+previous section's coverage of :ref:`RPM Macros <rpm-macros>`.
 
 The ``Summary`` should be a short, one-line explanation of what this software
 is.
@@ -1229,13 +1278,13 @@ text ``GPLv3+``
 The ``URL`` field is the upstream software's website, not the source code
 download link but the actual project, product, or company website where someone
 would find more information about this particular piece of software. Since we're
-just using an example, we will call this ``https://www.example.com/bello``.
+just using an example, we will call this ``https://example.com/bello``.
 
 The ``Source0`` field is where the upstream software's source code should be
 able to be downloaded from. This URL should link directly to the specific
 version of the source code release that this RPM Package is packaging. Once
 again, since this is an example we will use an example value:
-``https://www.example.com/bello/releases/bello-0.1.tar.gz``
+``https://example.com/bello/releases/bello-0.1.tar.gz``
 
 After your edits, the top portion of your spec file should look like the
 following:
@@ -1248,8 +1297,8 @@ following:
     Summary:        Hello World example implemented in bash script
 
     License:        GPLv3+
-    URL:            https://example.com/bello
-    Source0:        https://www.example.com/bello/releases/bello-0.1.tar.gz
+    URL:            https://example.com/%{name}
+    Source0:        https://example.com/%{name}/release/%{name}-%{version}.tar.gz
 
 
 Next up we have ``BuildRequires`` and ``Requires``, each of which define
@@ -1276,10 +1325,47 @@ following:
     Summary:        Hello World example implemented in bash script
 
     License:        GPLv3+
-    URL:            https://example.com/bello
-    Source0:        https://www.example.com/bello/releases/bello-0.1.tar.gz
+    URL:            https://example.com/%{name}
+    Source0:        https://example.com/%{name}/release/%{name}-%{version}.tar.gz
 
     Requires:       bash
+
+The following directives can be thought of as "section headings" because they
+are directives that can define multi-line, multi-instruction, or scripted tasks
+to occur. We will walk through them one by one just as we did with the previous
+items.
+
+The ``%description`` should be a longer, more full lenght description fo the
+software being packaged than what is found in the ``Summary`` directive. For the
+sake of our example, this isn't really going to contain much content but this
+section can be a full paragraph or more than one paragraph if you like.
+
+The ``%prep`` section is where we *prepare* our build environment or workspace
+for building. Most often what happens here is the expansion of compressed
+archives of the source code, application of patches, and potentially parsing of
+information provided in the source code that is necessary in a later portion of
+the SPEC. In this section we will simply use the provided macro ``%setup -q``.
+
+The ``%build`` section is where we tell the system how to actually build the
+software we are packaging. However, since this software doesn't need to be built
+we can simply leave this section blank (removing what was provided by the
+template).
+
+The ``%install`` section is where we instruct ``rpmbuild`` how to install our
+previously built software (in the event of a build process) into the
+``BUILDROOT`` which is effectively a `chroot`_ base directory with nothing in it
+and we will have to construct any paths we will need in order to install our
+software here in their specific locations. However, our RPM Macros help us
+accomplish this task without having to hardcode paths. Since the only thing we
+need to do in order to install ``bello`` into this environment is create the
+destination directory for the executable `bash`_ script file and then install
+the file into that directory, we can do so by using the same ``install``
+command.
+
+The ``%install`` section should look like the following after your edits:
+
+.. code-block:: spec
+
 
 cello
 ^^^^^
@@ -1288,11 +1374,6 @@ cello
 
 pello
 ^^^^^
-
-.. FIXME
-
-RPM Macros and their use in SPEC files
---------------------------------------
 
 .. FIXME
 
@@ -1322,6 +1403,32 @@ package RPMs in the first place which is what the main goal of this document is.
 
 Prestine Build Environments with Mock
 -------------------------------------
+
+.. FIXME
+
+.. _more-macros:
+
+More on Macros
+--------------
+
+There are many built-in RPM Macros and we will cover a few in the following
+section, however an exhaustive list can be found rpm.org's `rpm macro`_ official
+documentation.
+
+There are also macros that are provided by your `Linux`_ Distribution, we will
+cover some of those provided by `Fedora`_, `CentOS`_ and `RHEL`_ in this section
+as well as provide information on how to inspect your system to learn about
+others that we don't cover or for discovering them on a RPM-based `Linux`_
+Distribution other than the ones covered.
+
+Built In Macros
+^^^^^^^^^^^^^^^
+
+.. FIXME
+
+
+RPM Distribution Macros
+^^^^^^^^^^^^^^^^^^^^^^^
 
 .. FIXME
 
@@ -1380,6 +1487,7 @@ introductory material included in this guide.
 .. _Maximum RPM: http://rpm.org/max-rpm-snapshot/
 .. _CPython: https://en.wikipedia.org/wiki/CPython
 .. _patch: http://savannah.gnu.org/projects/patch/
+.. _rpm macro: http://rpm.org/wiki/PackagerDocs/Macros
 .. _RPM Official Documentation: http://rpm.org/wiki/Docs
 .. _$PATH: https://en.wikipedia.org/wiki/PATH_%28variable%29
 .. _Part 1: http://www.ibm.com/developerworks/library/l-rpm1/
@@ -1388,6 +1496,7 @@ introductory material included in this guide.
 .. _shebang: https://en.wikipedia.org/wiki/Shebang_%28Unix%29
 .. _tarball: https://en.wikipedia.org/wiki/Tar_%28computing%29
 .. _GPLv3: https://www.gnu.org/licenses/quick-guide-gplv3.html
+.. _RHEL: https://www.redhat.com/en/technologies/linux-platforms
 .. _C: https://en.wikipedia.org/wiki/C_%28programming_language%29
 .. _architecture: https://en.wikipedia.org/wiki/Microarchitecture
 .. _Package Managers: https://en.wikipedia.org/wiki/Package_manager
