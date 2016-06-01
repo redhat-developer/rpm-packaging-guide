@@ -832,18 +832,18 @@ Let's make a project ``tar.gz`` out of our source code.
 
 ::
 
-    $ mkdir /tmp/bello
+    $ mkdir /tmp/bello-0.1
 
-    $ mv ~/bello /tmp/bello/
+    $ mv ~/bello /tmp/bello-0.1/
 
-    $ cp /tmp/LICENSE /tmp/bello/
+    $ cp /tmp/LICENSE /tmp/bello-0.1/
 
     $ cd /tmp/
 
-    $ tar -cvzf bello-0.1.tar.gz bello
-    bello/
-    bello/LICENSE
-    bello/bello
+    $ tar -cvzf bello-0.1.tar.gz bello-0.1
+    bello-0.1/
+    bello-0.1/LICENSE
+    bello-0.1/bello
 
     $ mv /tmp/bello-0.1.tar.gz ~/rpmbuild/SOURCES/
 
@@ -872,18 +872,18 @@ Let's make a project ``tar.gz`` out of our source code.
 
 ::
 
-    $ mkdir /tmp/pello
+    $ mkdir /tmp/pello-0.1.1
 
-    $ mv ~/pello.py /tmp/pello/
+    $ mv ~/pello.py /tmp/pello-0.1.1/
 
-    $ cp /tmp/LICENSE /tmp/pello/
+    $ cp /tmp/LICENSE /tmp/pello-0.1.1/
 
     $ cd /tmp/
 
-    $ tar -cvzf pello-0.1.1.tar.gz pello
-    pello/
-    pello/LICENSE
-    pello/pello.py
+    $ tar -cvzf pello-0.1.1.tar.gz pello-0.1.1
+    pello-0.1.1/
+    pello-0.1.1/LICENSE
+    pello-0.1.1/pello.py
 
     $ mv /tmp/pello-0.1.1.tar.gz ~/rpmbuild/SOURCES/
 
@@ -895,7 +895,7 @@ For the `C`_ example implementation we will have a fake project called *cello*
 and since the project named *cello* produces two things, the source code to our
 program named ``cello.c`` and a ``Makefile`` we will need to make sure and
 include both of these in our ``tar.gz``. Let's pretend that this is version
-``1..0`` of the software and we'll mark the ``tar.gz`` file as such.
+``1.0`` of the software and we'll mark the ``tar.gz`` file as such.
 
 Here is the listing of the files involved as mentioned before.
 
@@ -952,21 +952,21 @@ Let's make a project ``tar.gz`` out of our source code.
 
 ::
 
-    $ mkdir /tmp/cello
+    $ mkdir /tmp/cello-1.0
 
-    $ mv ~/cello.c /tmp/cello/
+    $ mv ~/cello.c /tmp/cello-1.0/
 
-    $ mv ~/Makefile /tmp/cello/
+    $ mv ~/Makefile /tmp/cello-1.0/
 
-    $ cp /tmp/LICENSE /tmp/cello/
+    $ cp /tmp/LICENSE /tmp/cello-1.0/
 
     $ cd /tmp/
 
-    $ tar -cvzf cello-1.0.tar.gz cello
-    cello/
-    cello/LICENSE
-    cello/Makefile
-    cello/cello.c
+    $ tar -cvzf cello-1.0.tar.gz cello-1.0
+    cello-1.0/
+    cello-1.0/LICENSE
+    cello-1.0/Makefile
+    cello-1.0/cello.c
 
     $ mv /tmp/cello-1.0.tar.gz ~/rpmbuild/SOURCES/
 
@@ -1123,6 +1123,20 @@ then use the ``%{version}`` macro and it would be substituted in place by
 whatever the actual version number is that was entered in the `Version` field of
 the SPEC.
 
+.. note::
+    I handy utility of the ``rpm`` command for packager is the ``--eval`` flag
+    which allows you to ask rpm to evaluate a macro so if you see one in a SPEC
+    file that you're not familiar with you can quickly find out what it
+    evaluates to.
+
+    ::
+
+        $ rpm --eval %{_bindir}
+        /usr/bin
+
+        $ rpm --eval %{_libexecdir}
+        /usr/libexec
+
 For more information, please reference the :ref:`More on Macros <more-macros>`
 section of the :ref:`Appendix <appendix>`.
 
@@ -1170,6 +1184,42 @@ the directives should look familiar from the
 :ref:`What is a SPEC File? <what-is-spec-file>` section. We will discuss the
 exact information we will input into these fields in the following sections that
 will focus specifically on each example.
+
+.. note::
+    The ``rpmdev-newspec`` utility does not use `Linux`_ Distribution specific
+    guidelines or conventions, however this document is targeted towards using
+    conventions and guidelines for `Fedora`_, `CentOS`_, and `RHEL`_ so you will
+    notice:
+
+    We remove the use of ``rm $RPM_BUILD_ROOT`` as it is no longer necessary to
+    perform that task when building on `RHEL`_ or `CentOS` 7.0 or newer or on
+    `Fedora`_ version 18 or newer.
+
+    We also will favor the use of ``%{buildroot}`` notation over
+    ``$RPM_BUILD_ROOT`` when referencing RPM's Buildroot for consistency with
+    all other defined or provided macros through out the SPEC
+
+There are three examples below, each one is meant to be self-sufficient in
+instruction such that you can jump to a specific one if it matches your needs
+for packaging. However, feel free to read them straight through for a full
+exploration of packaging different kinds of software.
+
+===============     ============================================================
+Software Name       Explanation of example
+===============     ============================================================
+bello               Software written in a raw interpreted programming language
+                    does doesn't require a build but only needs files installed.
+                    If a pre-compiled binary needs to be packaged, this method
+                    could also be used since the binary would also just be
+                    a file.
+pello               Software written in a byte-compiled interpreted programming
+                    language used to demonstrate the installation of a byte
+                    compile process and the installation of the resulting
+                    pre-optimized files.
+cello               Software written in a natively compiled programming language
+                    to demonstrate an common build and installation process
+                    using tooling for compiling native code.
+===============     ============================================================
 
 bello
 ^^^^^
@@ -1220,20 +1270,6 @@ The following is the output template we were given from ``rpmdev-newspec``.
     %changelog
     * Tue May 31 2016 Adam Miller <maxamillion@fedoraproject.org>
     -
-
-.. note::
-    The ``rpmdev-newspec`` utility does not use `Linux`_ Distribution specific
-    guidelines or conventions, however this document is targeted towards using
-    conventions and guidelines for `Fedora`_, `CentOS`_, and `RHEL`_ so you will
-    notice:
-
-    We remove the use of ``rm $RPM_BUILD_ROOT`` as it is no longer necessary to
-    perform that task when building on `RHEL`_ or `CentOS` 7.0 or newer or on
-    `Fedora`_ version 18 or newer.
-
-    We also will favor the use of ``%{buildroot}`` notation over
-    ``$RPM_BUILD_ROOT`` when referencing RPM's Buildroot for consistency with
-    all other defined or provided macros through out the SPEC
 
 Let us begin with the first set of directives that ``rpmdev-newspec`` has
 grouped together at the top of the file: ``Name``, ``Version``, ``Release``,
@@ -1314,6 +1350,11 @@ Since we don't have a build step, we can simply omit the ``BuildRequires``
 directive. There is no need to define is as "undefined" or otherwise, omitting
 it's inclusion will suffice.
 
+Something we need to add here since this is software written in an  interpreted
+programming language with no natively compiled extensions is a ``BuildArch``
+entry that is set to ``noarch`` in order to tell RPM that this package does not
+need to be bound to the processor architecture that it is built using.
+
 After your edits, the top portion of your spec file should look like the
 following:
 
@@ -1329,6 +1370,8 @@ following:
     Source0:        https://example.com/%{name}/release/%{name}-%{version}.tar.gz
 
     Requires:       bash
+
+    BuildArch:      noarch
 
 The following directives can be thought of as "section headings" because they
 are directives that can define multi-line, multi-instruction, or scripted tasks
@@ -1354,25 +1397,117 @@ template).
 The ``%install`` section is where we instruct ``rpmbuild`` how to install our
 previously built software (in the event of a build process) into the
 ``BUILDROOT`` which is effectively a `chroot`_ base directory with nothing in it
-and we will have to construct any paths we will need in order to install our
-software here in their specific locations. However, our RPM Macros help us
-accomplish this task without having to hardcode paths. Since the only thing we
-need to do in order to install ``bello`` into this environment is create the
-destination directory for the executable `bash`_ script file and then install
-the file into that directory, we can do so by using the same ``install``
-command.
+and we will have to construct any paths or directory hierarchies that we will
+need in order to install our software here in their specific locations. However,
+our RPM Macros help us accomplish this task without having to hardcode paths.
+Since the only thing we need to do in order to install ``bello`` into this
+environment is create the destination directory for the executable `bash`_
+script file and then install the file into that directory, we can do so by using
+the same ``install`` command.
 
 The ``%install`` section should look like the following after your edits:
 
 .. code-block:: spec
 
+    %install
 
-cello
+    mkdir -p %{buildroot}/%{_bindir}
+
+    install -m 0755 bello %{buildroot}/%{_bindir}/bello
+
+The ``%files`` section is where we provide the list of files that this RPM
+provides and where it's intended for them to live on the system that the RPM is
+installed upon. Note here that this isn't relative to the ``%{buildroot}`` but
+the full path for the files as they are expected to exist on the end system
+after installation. Therefore, the listing for the ``bello`` file we are
+installing will be ``%{_bindir}/bello``.
+
+Also within this section, you will sometimes need a built-in macro to provide
+context on a file. This can be useful for Systems Administrators and end users
+who might want to query the system with ``rpm`` about the resulting package.
+The built-in macro we will use here is ``%license`` which will tell ``rpmbuild``
+that this is a software license file in the package file manifest metadata.
+
+The ``%files`` section should look like the following after your edits:
+
+.. code-block:: spec
+
+    %files
+    %license LICENSE
+    %{_bindir}/bello
+
+The last section, ``%changelog`` is a list of date-stamped entries that
+correlate to a specific Version-Release of the package. This is not meant to be
+a log of what changed in the software from release to release, but specifically
+to packaging changes. For example, if software in a package needed patching or
+there was a change needed in the build procedure listed in the ``%build``
+section that information would go here. Each change entry can contain multiple
+items and each item should start on a new line and begin with a ``-`` character.
+Below is our example entry:
+
+.. code-block:: spec
+
+    %changelog
+    * Tue May 31 2016 Adam Miller <maxamillion@fedoraproject.org> - 0.1-1
+    - First bello package
+    - Example second item in the changelog for version-release 0.1-1
+
+Note the format above, the date-stamp will begin with a ``*`` character,
+followed by the calendar day of the week, the month, the day of the month, the
+year, then the contact information for the RPM Packager. From there we have
+a ``-`` character before the Version-Release, which is an often used convention
+but not a requirement. Then finally the Version-Release.
+
+That's it! We've written an entire SPEC file for **bello**! In the next section
+we will cover how to build the RPM!
+
+The full SPEC file should now look like the following:
+
+.. code-block:: spec
+
+    Name:           bello
+    Version:        0.1
+    Release:        1%{?dist}
+    Summary:        Hello World example implemented in bash script
+
+    License:        GPLv3+
+    URL:            https://www.example.com/bello
+    Source0:        https://www.example.com/bello/releases/bello-0.1.tar.gz
+
+    Requires:       bash
+
+    BuildArch:      noarch
+
+    %description
+    The long-tail description for our Hello World Example implemented in
+    bash script
+
+    %prep
+    %setup -q
+
+    %build
+
+    %install
+
+    mkdir -p %{buildroot}/%{_bindir}
+
+    install -m 0755 bello %{buildroot}/%{_bindir}/bello
+
+    %files
+    %license LICENSE
+    %{_bindir}/bello
+
+    %changelog
+    * Tue May 31 2016 Adam Miller <maxamillion@fedoraproject.org> - 0.1-1
+    - First bello package
+    - Example second item in the changelog for version-release 0.1-1
+
+pello
 ^^^^^
 
 .. FIXME
 
-pello
+cello
 ^^^^^
 
 .. FIXME
@@ -1431,6 +1566,8 @@ RPM Distribution Macros
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 .. FIXME
+
+.. FIXME: %files section: %license, %dir, %config(noreplace)
 
 Advanced SPEC File Topics
 -------------------------
