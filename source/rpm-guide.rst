@@ -795,6 +795,10 @@ upstream software release because encounters with a `Software License`_ when
 packaging RPMs is a very common occurance for a RPM Packager and we should know
 how to properly handle them.
 
+.. note::
+    The method used below to create th ``LICENSE`` file is known as a `here
+    document`_.
+
 Let us go ahead and make a ``LICENSE`` file that can be included in the source
 code "release" for each example.
 
@@ -1350,7 +1354,13 @@ The ``Source0`` field is where the upstream software's source code should be
 able to be downloaded from. This URL should link directly to the specific
 version of the source code release that this RPM Package is packaging. Once
 again, since this is an example we will use an example value:
-``https://example.com/bello/releases/bello-0.1.tar.gz``
+``https://example.com/bello/releases/bello-0.1.tar.gz`` and while we might want
+to, we should note that this example URL hase hard coded values in it that are
+possible to change in the future and are potentially even likely to change such
+as the release version ``0.1``. We can simplify this by only needing to update
+one field in the SPEC file and allowing it to be reused. we will use the value
+``https://example.com/%{name}/releases/%{name}-%{version}.tar.gz`` instead of
+the hard coded examples string previously listed.
 
 After your edits, the top portion of your spec file should look like the
 following:
@@ -1408,10 +1418,10 @@ are directives that can define multi-line, multi-instruction, or scripted tasks
 to occur. We will walk through them one by one just as we did with the previous
 items.
 
-The ``%description`` should be a longer, more full lenght description fo the
+The ``%description`` should be a longer, more full length description of the
 software being packaged than what is found in the ``Summary`` directive. For the
 sake of our example, this isn't really going to contain much content but this
-section can be a full paragraph or more than one paragraph if you like.
+section can be a full paragraph or more than one paragraph if desired.
 
 The ``%prep`` section is where we *prepare* our build environment or workspace
 for building. Most often what happens here is the expansion of compressed
@@ -1433,7 +1443,9 @@ our RPM Macros help us accomplish this task without having to hardcode paths.
 Since the only thing we need to do in order to install ``bello`` into this
 environment is create the destination directory for the executable `bash`_
 script file and then install the file into that directory, we can do so by using
-the same ``install`` command.
+the same ``install`` command but we will make a slight modification since we are
+inside the SPEC file and we will use the macro variable of ``%{name}`` in it's
+place for consistency.
 
 The ``%install`` section should look like the following after your edits:
 
@@ -1443,14 +1455,15 @@ The ``%install`` section should look like the following after your edits:
 
     mkdir -p %{buildroot}/%{_bindir}
 
-    install -m 0755 bello %{buildroot}/%{_bindir}/bello
+    install -m 0755 %{name} %{buildroot}/%{_bindir}/%{name}
 
 The ``%files`` section is where we provide the list of files that this RPM
 provides and where it's intended for them to live on the system that the RPM is
 installed upon. Note here that this isn't relative to the ``%{buildroot}`` but
 the full path for the files as they are expected to exist on the end system
 after installation. Therefore, the listing for the ``bello`` file we are
-installing will be ``%{_bindir}/bello``.
+installing will be ``%{_bindir}/%{name}`` (this would be ``%{_bindir}/bello`` if
+we weren't using the rpm macro variable instead of the hard coded name).
 
 Also within this section, you will sometimes need a built-in macro to provide
 context on a file. This can be useful for Systems Administrators and end users
@@ -1464,7 +1477,7 @@ The ``%files`` section should look like the following after your edits:
 
     %files
     %license LICENSE
-    %{_bindir}/bello
+    %{_bindir}/%{name}
 
 The last section, ``%changelog`` is a list of date-stamped entries that
 correlate to a specific Version-Release of the package. This is not meant to be
@@ -1501,8 +1514,8 @@ The full SPEC file should now look like the following:
     Summary:        Hello World example implemented in bash script
 
     License:        GPLv3+
-    URL:            https://www.example.com/bello
-    Source0:        https://www.example.com/bello/releases/bello-0.1.tar.gz
+    URL:            https://www.example.com/%{name}
+    Source0:        https://www.example.com/%{name}/releases/%{name}-%{version}.tar.gz
 
     Requires:       bash
 
@@ -1521,11 +1534,11 @@ The full SPEC file should now look like the following:
 
     mkdir -p %{buildroot}/%{_bindir}
 
-    install -m 0755 bello %{buildroot}/%{_bindir}/bello
+    install -m 0755 %{name} %{buildroot}/%{_bindir}/%{name}
 
     %files
     %license LICENSE
-    %{_bindir}/bello
+    %{_bindir}/%{name}
 
     %changelog
     * Tue May 31 2016 Adam Miller <maxamillion@fedoraproject.org> - 0.1-1
@@ -1678,18 +1691,16 @@ following:
 Next up we have ``BuildRequires`` and ``Requires``, each of which define
 something that is required by the package. However, ``BuildRequires`` is to tell
 ``rpmbuild`` what is needed by your package at **build** time and ``Requires``
-is what is needed by your package at **run** time. In this example we will need
-the ``python`` package in order to perform the byte-compile build process.
-However, we will also need the ``python`` package in order to execute to
-byte-compiled code at runtime and therefore need to define ``python`` as a
-requirement using the ``Requires`` directive. We will also need the ``bash``
-package in order to execute the small entry-point script we will use here.
+is what is needed by your package at **run** time.
 
-Since we don't have a build step, we can simply omit the ``BuildRequires``
-directive. There is no need to define is as "undefined" or otherwise, omitting
-it's inclusion will suffice.
+In this example we will need the ``python`` package in order to perform the
+byte-compile build process. We will also need the ``python`` package in order to
+execute the byte-compiled code at runtime and therefore need to define
+``python`` as a requirement using the ``Requires`` directive. We will also need
+the ``bash`` package in order to execute the small entry-point script we will
+use here.
 
-Something we need to add here since this is software written in an  interpreted
+Something we need to add here since this is software written in an interpreted
 programming language with no natively compiled extensions is a ``BuildArch``
 entry that is set to ``noarch`` in order to tell RPM that this package does not
 need to be bound to the processor architecture that it is built using.
@@ -1699,10 +1710,10 @@ following:
 
 .. code-block:: spec
 
-    Name:           bello
+    Name:           pello
     Version:        0.1
     Release:        1%{?dist}
-    Summary:        Hello World example implemented in bash script
+    Summary:        Hello World example implemented in Python
 
     License:        GPLv3+
     URL:            https://example.com/%{name}
@@ -1719,10 +1730,10 @@ are directives that can define multi-line, multi-instruction, or scripted tasks
 to occur. We will walk through them one by one just as we did with the previous
 items.
 
-The ``%description`` should be a longer, more full lenght description fo the
+The ``%description`` should be a longer, more full length description of the
 software being packaged than what is found in the ``Summary`` directive. For the
 sake of our example, this isn't really going to contain much content but this
-section can be a full paragraph or more than one paragraph if you like.
+section can be a full paragraph or more than one paragraph if desired.
 
 The ``%prep`` section is where we *prepare* our build environment or workspace
 for building. Most often what happens here is the expansion of compressed
@@ -1731,22 +1742,45 @@ information provided in the source code that is necessary in a later portion of
 the SPEC. In this section we will simply use the provided macro ``%setup -q``.
 
 The ``%build`` section is where we tell the system how to actually build the
-software we are packaging. However, since this software doesn't need to be built
-we can simply leave this section blank (removing what was provided by the
-template).
+software we are packaging. Here we will perform a byte-compilation of our
+software. For those who read the previous sections, this section of the example
+should look familiar. The ``%build`` section of our SPEC file should look as
+follows.
+
+.. code-block:: spec
+
+    %build
+
+    python -m compileall pello.py
 
 The ``%install`` section is where we instruct ``rpmbuild`` how to install our
-previously built software (in the event of a build process) into the
-``BUILDROOT`` which is effectively a `chroot`_ base directory with nothing in it
-and we will have to construct any paths or directory hierarchies that we will
-need in order to install our software here in their specific locations. However,
-our RPM Macros help us accomplish this task without having to hardcode paths.
-Since the only thing we need to do in order to install ``pello`` into this
-environment is create the destination directory for the executable `bash`_
-script file and then install the file into that directory, we can do so by using
-the same ``install`` command.
+previously built software into the ``BUILDROOT`` which is effectively a
+`chroot`_ base directory with nothing in it and we will have to construct any
+paths or directory hierarchies that we will need in order to install our
+software here in their specific locations. However, our RPM Macros help us
+accomplish this task without having to hardcode paths.
 
-FIXME
+We had previously discussed that since we will lose the context of a file with
+the `shebang`_ line in it when we byte compile that we will need to create
+a simple wrapper script in order to accomplish that task. There are many options
+on how to accomplish this including, but not limited to, making a separate
+script and using that as a separate ``SourceX`` directive and the option we're
+going to show in this example which is to create the file in-line in the SPEC
+file. The reason for showing the example option that we are is simply to
+demonstrate that the SPEC file itself is scriptable. What we're going to do is
+create a small "wrapper script" which will execute the `Python`_ byte-compiled
+code by using a `here document`_. We will also need to actually install the
+byte-compiled file into a library directory on the system such that it can be
+accessed.
+
+.. note::
+    You will notice below that we are hard coding the library path. There are
+    various methods to avoid needing to do this, many of which are addressed in
+    the :ref:`Appendix <appendix>` and are specific to the programming language
+    in which the software that is being packaged was written in. In this example
+    we hard code the path for simplicity as to not cover too many topics
+    simultaneously.
+
 
 The ``%install`` section should look like the following after your edits:
 
@@ -1755,15 +1789,25 @@ The ``%install`` section should look like the following after your edits:
     %install
 
     mkdir -p %{buildroot}/%{_bindir}
+    mkdir -p %{buildroot}/usr/lib/%{name}
 
-    install -m 0755 bello %{buildroot}/%{_bindir}/bello
+    cat > %{buildroot}/%{_bindir}/%{name} <<-EOF
+    #!/bin/bash
+    /usr/bin/python /usr/lib/%{name}/%{name}.pyc
+    EOF
+
+    chmod 0755 %{buildroot}/%{_bindir}/%{name}
+
+    install -m 0644 %{name}.py* %{buildroot}/usr/lib/%{name}/
 
 The ``%files`` section is where we provide the list of files that this RPM
 provides and where it's intended for them to live on the system that the RPM is
 installed upon. Note here that this isn't relative to the ``%{buildroot}`` but
 the full path for the files as they are expected to exist on the end system
-after installation. Therefore, the listing for the ``bello`` file we are
-installing will be ``%{_bindir}/bello``.
+after installation. Therefore, the listing for the ``pello`` file we are
+installing will be ``%{_bindir}/pello``. We will also need to provide a ``%dir``
+listing to define that this package "owns" the library directory we created as
+well as all the files we placed in it.
 
 Also within this section, you will sometimes need a built-in macro to provide
 context on a file. This can be useful for Systems Administrators and end users
@@ -1777,7 +1821,10 @@ The ``%files`` section should look like the following after your edits:
 
     %files
     %license LICENSE
-    %{_bindir}/bello
+    %dir /usr/lib/%{name}/
+    %{_bindir}/%{name}
+    /usr/lib/%{name}/%{name}.py*
+
 
 The last section, ``%changelog`` is a list of date-stamped entries that
 correlate to a specific Version-Release of the package. This is not meant to be
@@ -1808,42 +1855,57 @@ The full SPEC file should now look like the following:
 
 .. code-block:: spec
 
-    Name:           bello
-    Version:        0.1
+    Name:           pello
+    Version:        0.1.1
     Release:        1%{?dist}
     Summary:        Hello World example implemented in bash script
 
     License:        GPLv3+
-    URL:            https://www.example.com/bello
-    Source0:        https://www.example.com/bello/releases/bello-0.1.tar.gz
+    URL:            https://www.example.com/%{name}
+    Source0:        https://www.example.com/%{name}/releases/%{name}-%{version}.tar.gz
 
+    BuildRequires:  python
+    Requires:       python
     Requires:       bash
 
     BuildArch:      noarch
 
     %description
     The long-tail description for our Hello World Example implemented in
-    bash script
+    Python
 
     %prep
     %setup -q
 
     %build
 
+    python -m compileall %{name}.py
+
     %install
 
     mkdir -p %{buildroot}/%{_bindir}
+    mkdir -p %{buildroot}/usr/lib/%{name}
 
-    install -m 0755 bello %{buildroot}/%{_bindir}/bello
+    cat > %{buildroot}/%{_bindir}/%{name} <<-EOF
+    #!/bin/bash
+    /usr/bin/python /usr/lib/%{name}/%{name}.pyc
+    EOF
+
+    chmod 0755 %{buildroot}/%{_bindir}/%{name}
+
+    install -m 0644 %{name}.py* %{buildroot}/usr/lib/%{name}/
 
     %files
     %license LICENSE
-    %{_bindir}/bello
+    %dir /usr/lib/%{name}/
+    %{_bindir}/%{name}
+    /usr/lib/%{name}/%{name}.py*
+
 
     %changelog
-    * Tue May 31 2016 Adam Miller <maxamillion@fedoraproject.org> - 0.1-1
-    - First bello package
-    - Example second item in the changelog for version-release 0.1-1
+    * Tue May 31 2016 Adam Miller <maxamillion@fedoraproject.org> - 0.1.1-1
+      - First pello package
+
 
 cello
 ^^^^^
@@ -1979,6 +2041,7 @@ introductory material included in this guide.
 .. _diffutils: http://www.gnu.org/software/diffutils/diffutils.html
 .. _Software License: https://en.wikipedia.org/wiki/Software_license
 .. _Interpreter: https://en.wikipedia.org/wiki/Interpreter_%28computing%29
+.. _here document: https://en.wikipedia.org/wiki/Here_document
 .. _Fedora License Guidelines: https://fedoraproject.org/wiki/Licensing:Main
 .. _programming language:
     https://en.wikipedia.org/wiki/Programming_language
