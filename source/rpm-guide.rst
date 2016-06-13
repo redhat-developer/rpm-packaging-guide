@@ -643,6 +643,10 @@ we need to enhance the ``Makefile`` we created previously just a little bit.
 Open the ``Makefile`` file up in your favorite text editor and make the
 appropriate edits needed so that it ends up looking exactly as the following.
 
+.. note::
+    The use of `$(DESTDIR)`_ is a `GNU make`_ built-in and is commonly used to
+    install into alternative destination directories.
+
 ``Makefile``
 
 .. code-block:: make
@@ -654,7 +658,8 @@ appropriate edits needed so that it ends up looking exactly as the following.
             rm cello
 
     install:
-            install -m 0755 cello /usr/bin/cello
+            mkdir -p $(DESTDIR)/usr/bin
+            install -m 0755 cello $(DESTDIR)/usr/bin/cello
 
 Now we are able to use the make file to both build and install the software from
 source. Note that for the installation portion, like before when we ran the raw
@@ -2354,6 +2359,7 @@ introductory material included in this guide.
 .. _configure script: https://en.wikipedia.org/wiki/Configure_script
 .. _Interpreter: https://en.wikipedia.org/wiki/Interpreter_%28computing%29
 .. _Fedora License Guidelines: https://fedoraproject.org/wiki/Licensing:Main
+.. _$(DESTDIR): https://www.gnu.org/software/make/manual/html_node/DESTDIR.html
 .. _programming language:
     https://en.wikipedia.org/wiki/Programming_language
 .. _Software Packaging and Distribution:
