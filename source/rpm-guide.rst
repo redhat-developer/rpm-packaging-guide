@@ -977,9 +977,9 @@ Let's make a project ``tar.gz`` out of our source code.
 
     $ tar -cvzf cello-1.0.tar.gz cello-1.0
     cello-1.0/
-    cello-1.0/LICENSE
     cello-1.0/Makefile
     cello-1.0/cello.c
+    cello-1.0/LICENSE
 
     $ mv /tmp/cello-1.0.tar.gz ~/rpmbuild/SOURCES/
 
