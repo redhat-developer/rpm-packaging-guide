@@ -1,0 +1,11 @@
+--- cello.c.orig	2016-06-13 16:39:56.482961014 -0500
++++ cello.c	2016-06-13 16:39:13.141290265 -0500
+@@ -1,6 +1,6 @@
+ #include<stdio.h>
+ 
+ int main(void){
+-    printf("Hello World!\n");
++    printf("Hello World from my very first patch!\n");
+     return 1;
+ }
+\ No newline at end of file
