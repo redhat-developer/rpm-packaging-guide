@@ -1,3 +1,4 @@
+.. SPDX-License-Identifier:    CC-BY-SA-4.0
 
 .. _appendix:
 
@@ -31,7 +32,7 @@ in the documentation." (From the upstream documentation)
     for RPM Packagers, systems administrators, and developers.
 
 One of the most common use cases RPM Packagers have for `Mock`_ is to create
-what is known as a "prestine build environment". By using mock as a "prestine
+what is known as a "pristine build environment". By using mock as a "pristine
 build environment", nothing about the current state of your system has an
 effect on the RPM Package itself. Mock uses different configurations to specify
 what the build "target" is, these are found on your system in the ``/etc/mock/``
@@ -202,8 +203,8 @@ with otherwise un-needed or un-necessary packages.
 
 As you can see, mock is a fairly verbose tool. You will also notice a lot of
 `yum`_ or `dnf`_ output (depending on RHEL7, CentOS7, or Fedora mock target)
-that is not found in this output which was ommitted for brevity and is often
-ommitted after you have done an ``--init`` on a mock target, such as ``mock -r
+that is not found in this output which was omitted for brevity and is often
+omitted after you have done an ``--init`` on a mock target, such as ``mock -r
 epel-7-x86_64 --init`` which will pre-download all the required packages, cache
 them, and pre-stage the build chroot.
 
@@ -228,7 +229,7 @@ Defining Your Own
 ^^^^^^^^^^^^^^^^^
 
 You can define your own Macros, below is an excerpt from the `Official RPM
-Documentation`_ and I recommend anyone interested in an exhaustive explaination
+Documentation`_ and I recommend anyone interested in an exhaustive explanation
 of the many possibilities of defining their own macros to visit that resource.
 It's really quite good and there's little reason to duplicate the bulk of that
 content here.
@@ -306,7 +307,7 @@ RPM Macro sets for subject matter specific RPM Packaging.
 
 One example of these kinds of RPMs would be for `Python`_ version 2.x and if we
 have the ``python2-rpm-macros`` package installed (available in EPEL for RHEL
-7 and CentOS 7), we have a number of python2 spefic macros available to us.
+7 and CentOS 7), we have a number of python2 specific macros available to us.
 
 ::
 
@@ -402,7 +403,7 @@ but can be a few different programming languages such that RPM for the target
 machine's distribution is configured to allow them. An exhaustive list of these
 available languages can be found in the `RPM Official Documentation`.
 
-Scriplet directives are as follows:
+Scriptlet directives are as follows:
 
 =================== ============================================================
 Directive           Definition

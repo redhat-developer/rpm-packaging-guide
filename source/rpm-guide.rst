@@ -1,6 +1,5 @@
 .. SPDX-License-Identifier:    CC-BY-SA-4.0
 
-
 .. _rpm-guide:
 
 ===================
@@ -20,7 +19,7 @@ are:
 * `CentOS`_
 * `Red Hat Enterprise Linux`_ (often referred to as `RHEL`_ for short)
 
-While these distros are the target environment, it should be noted that lessions
+While these distros are the target environment, it should be noted that lessons
 learned here should be applicable across all distributions that are `RPM based`_
 but the examples will need to be adapted for distribution specific items such as
 prerequisite installation items, guidelines, or macros. (More on macros later)
@@ -133,7 +132,7 @@ SPEC Directive      Definition
 ``Summary``         A brief, one-line summary of the package.
 ``License``         The license of the software being packaged. For packages
                     that are destined for community distributions such as
-                    `Fedora`_ this must be an Open Source License obiding by the
+                    `Fedora`_ this must be an Open Source License abiding by the
                     specific distribution's Licensing Guidelines.
 ``URL``             The full URL for more information about the program (most
                     often this is the upstream project website for the software
@@ -158,7 +157,7 @@ SPEC Directive      Definition
 ``Requires``        A comma-separate list of packages that are required by the
                     software to run once installed.
 ``ExcludeArch``     In the event a piece of software can not operate on a
-                    specific processor architectue, you can exclude it here.
+                    specific processor architecture, you can exclude it here.
 ==================  ============================================================
 
 There are three "special" directives listed above which are ``Name``,
@@ -237,7 +236,7 @@ extracted from this environment and put into the `cpio`_ archive.
 RPM Macros
 ----------
 
-A `rpm macro`_ is a straight text substition that can be conditionally assigned
+A `rpm macro`_ is a straight text substitution that can be conditionally assigned
 based on the optional evaluation of a statement when certain built-in
 functionality is used. What this means is that we can have RPM perform text
 substitutions for us so that we don't have to.
@@ -288,7 +287,7 @@ Working with SPEC files
 -----------------------
 
 As a RPM Packager, you will likely spend a large majority of your time when
-packaging software in the SPEC file since this is the receipe we use to tell
+packaging software in the SPEC file since this is the recipe we use to tell
 ``rpmbuild`` how to actually perform a build. In this section we will discuss
 how to create and modify a spec file.
 
@@ -468,7 +467,7 @@ able to be downloaded from. This URL should link directly to the specific
 version of the source code release that this RPM Package is packaging. Once
 again, since this is an example we will use an example value:
 ``https://example.com/bello/releases/bello-0.1.tar.gz`` and while we might want
-to, we should note that this example URL hase hard coded values in it that are
+to, we should note that this example URL has hard coded values in it that are
 possible to change in the future and are potentially even likely to change such
 as the release version ``0.1``. We can simplify this by only needing to update
 one field in the SPEC file and allowing it to be reused. we will use the value
@@ -791,7 +790,7 @@ version of the source code release that this RPM Package is packaging. Once
 again, since this is an example we will use an example value:
 ``https://example.com/pello/releases/pello-0.1.1.tar.gz``
 
-We should note that this example URL hase hard coded values in it that are
+We should note that this example URL has hard coded values in it that are
 possible to change in the future and are potentially even likely to change such
 as the release version ``0.1.1``. We can simplify this by only needing to update
 one field in the SPEC file and allowing it to be reused. we will use the value
@@ -1141,7 +1140,7 @@ version of the source code release that this RPM Package is packaging. Once
 again, since this is an example we will use an example value:
 ``https://example.com/cello/releases/cello-1.0.tar.gz``
 
-We should note that this example URL hase hard coded values in it that are
+We should note that this example URL has hard coded values in it that are
 possible to change in the future and are potentially even likely to change such
 as the release version ``1.0``. We can simplify this by only needing to update
 one field in the SPEC file and allowing it to be reused. we will use the value
@@ -1335,7 +1334,7 @@ Building RPMS
 =============
 
 When building RPMs there are is one main command, which is ``rpmbuild`` and we
-will use that through out the guide. It has been elluded to in various sections
+will use that through out the guide. It has been eluded to in various sections
 in the guide but now we're actually going to dig in and get our hands dirty.
 
 We will cover a couple different combinations of arguments we can pass to
@@ -1345,8 +1344,8 @@ Binary RPMs.
 
 One of the things you may notice about ``rpmbuild`` is that it expects the
 directory structure created in a certain way and for various items suck as
-source code to exist within the context of that directory stucture. Luckily,
-this is the same directory structue that was setup by the ``rpmdev-setuptree``
+source code to exist within the context of that directory structure. Luckily,
+this is the same directory structure that was setup by the ``rpmdev-setuptree``
 utility that we used previously to setup our RPM workspace and we have been
 placing files in the correct place through out the duration of the guide.
 

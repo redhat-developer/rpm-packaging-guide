@@ -1,3 +1,5 @@
+.. SPDX-License-Identifier:    CC-BY-SA-4.0
+
 .. Citations / Links - etc.
 .. _RPM: http://rpm.org/
 .. _GCC: https://gcc.gnu.org/

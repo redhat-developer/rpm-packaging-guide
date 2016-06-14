@@ -1,3 +1,5 @@
+.. SPDX-License-Identifier:    CC-BY-SA-4.0
+
 .. _general-background:
 
 General Topics and Background
@@ -46,7 +48,7 @@ do not worry.
 
 .. note::
     In the first two examples below, the ``#!`` line is known as a `shebang`_
-    and is not tehcnically part of the programming language source code.
+    and is not technically part of the programming language source code.
 
 This version of the example is written in the `bash`_ shell built in scripting
 language.
@@ -126,7 +128,7 @@ There are certain programming languages that do not compile down to a
 representation of program that the computer natively understands. These programs
 are **Interpreted** and require a Language `Interpreter`_ or Language Virtual
 Machine(VM). The name *interpreter* comes from it's similarities with how human
-language interpreters convert between two representations of human speach
+language interpreters convert between two representations of human speech
 to allow two people to talk, a programming language interpreter converts from
 a format that the computer doesn't "speak" to one that it does.
 
@@ -139,7 +141,7 @@ will be explained later, but the short version is this is how we tell the RPM
 Packaging system to actually perform the *build*). Where as Byte Compiled
 programming languages will perform a build task that will "compile" or
 "translate" the code from the programming language source that is human readable
-to an intermediate representation of the program that is more effecient for the
+to an intermediate representation of the program that is more efficient for the
 programming language interpreter to execute.
 
 Software written entirely in programming languages such as `bash`_ shell script
@@ -162,9 +164,9 @@ it's source code.
 
 
 Source code must go through a **build** process and that process will vary based
-on specific programming language but most often this is refered to as
+on specific programming language but most often this is referred to as
 **compiling** or **translating** the software. For software written in
-interpreted programming languages this step may not be necesary but sometimes it
+interpreted programming languages this step may not be necessary but sometimes it
 is desirable to perform what is known as **byte compiling** as it's build
 process. We will cover each scenario below. The resulting built software can
 then be **run** or "**executed**" which tells the computer to perform the task
@@ -271,7 +273,7 @@ this source code into something the `Python`_ Language Interpreter (known as
 
 .. note::
     In the two examples below, the ``#!`` line is known as a `shebang`_ and is
-    not tehcnically part of the programming language source code.
+    not technically part of the programming language source code.
 
     The `shebang`_ allows us to use a text file as an executable and the system
     program loader will parse the line at the top of the file containing
@@ -284,7 +286,7 @@ Byte Compiled Code
 As mentioned previously, this version of the example is written in a programming
 language named `Python`_ and it's default language virtual machine is one that
 executes *byte compiled* code. This will "compile" or "translate" the source
-code into an intermediate format that is optimised and will be much faster for
+code into an intermediate format that is optimized and will be much faster for
 the language virtual machine to execute.
 
 ``pello.py``
@@ -337,7 +339,7 @@ language.
 
 
 UNIX-style shells have scripting languages, much like `bash` does, but
-programms written in these languages do not have any kind of byte compile
+programs written in these languages do not have any kind of byte compile
 procedure and are interpreted directly as they are written so the only procedure
 we have to do is make the file executable and then run it.
 
@@ -369,7 +371,7 @@ code using ``diff`` and then apply it using the `patch`_ utility. We will
 revisit patching software in a later section when it comes to actually building
 RPMs and hopefully this exercise will prove it's usefulness at that time. First
 step in patching software is to preserve the original source code because we
-want to keep the original source code in prestine condition as we will "patch
+want to keep the original source code in pristine condition as we will "patch
 it" instead of simply modifying it. A common practice for this is to copy it and
 append ``.orig`` to the filename. Let's do that now.
 
@@ -416,7 +418,7 @@ written, we can generate a patch using the ``diff`` utility.
     \ No newline at end of file
 
 This is the output, you can see lines that start with a ``-`` are being removed
-from the original source code and replaced by the line that starts wtih ``+``.
+from the original source code and replaced by the line that starts with ``+``.
 Let's now save that output to a file this time by redirecting the output to
 a file so that we can use it later with the `patch`_ utility. It is not
 a requirement but it's good practice to use a meaningful filename when creating
@@ -427,9 +429,9 @@ patches.
     $ diff -Naur cello.c.orig cello.c > cello-output-first-patch.patch
 
 Now we want to restore the ``cello.c`` file to it's original source code such
-that it is restored to it's prestine state and we we can patch it with our new
-patch file. The reason this partular process is important is because this is how
-it is done when building RPMs, the original source code is left in prestine
+that it is restored to it's pristine state and we we can patch it with our new
+patch file. The reason this particular process is important is because this is how
+it is done when building RPMs, the original source code is left in pristine
 condition and we patch it during the process that prepares to source code to be
 built.
 
@@ -510,7 +512,7 @@ artifact in a correct location on the filesystem based on where it should exist
 in the FHS along with appropriate permissions on the target file or directory.
 
 The example below is going to use the ``bello`` file that we had previously
-created as the artibrary artifact subject to our installation method. Note that
+created as the arbitrary artifact subject to our installation method. Note that
 you will either need `sudo`_ permissions or run this command as root excluding
 the ``sudo`` portion of the command.
 
@@ -568,7 +570,7 @@ appropriate edits needed so that it ends up looking exactly as the following.
 Now we are able to use the make file to both build and install the software from
 source. Note that for the installation portion, like before when we ran the raw
 ``install`` command, you will need either `sudo`_ permissions or be the ``root``
-user and ommit the ``sudo`` portion of the command.
+user and omit the ``sudo`` portion of the command.
 
 The following will build and install the simple ``cello.c`` program that we had
 written previously.
@@ -620,11 +622,11 @@ We will also assume `GPLv3`_ as the `Software License`_ for all of these
 simulated upstream software releases. As such, we will need a ``LICENSE`` file
 included with each source code release. We include this in our simulated
 upstream software release because encounters with a `Software License`_ when
-packaging RPMs is a very common occurance for a RPM Packager and we should know
+packaging RPMs is a very common occurrence for a RPM Packager and we should know
 how to properly handle them.
 
 .. note::
-    The method used below to create th ``LICENSE`` file is known as a `here
+    The method used below to create the ``LICENSE`` file is known as a `here
     document`_.
 
 Let us go ahead and make a ``LICENSE`` file that can be included in the source
@@ -648,7 +650,7 @@ code "release" for each example.
     EOF
 
 Each implementation of the ``Hello World`` example script will be created into a
-`gzip`_ compressed tarball which will be used to similate what an upstream
+`gzip`_ compressed tarball which will be used to simulate what an upstream
 project might release as it's source code to then be consumed and packaged for
 distribution.
 
@@ -748,7 +750,7 @@ You will notice the ``patch`` file is listed here, but it will not go in our
 project tarball because it is something that we as the RPM Packager will apply
 and not something that comes from the upstream source code. RPM Packages are
 built in such a way that the original upstream source code in preserved in it's
-prestine form just as released by it's creator. All patches required to the
+pristine form just as released by it's creator. All patches required to the
 software happen at RPM Build time, not before. We will place that in the
 ``~/rpmbuild/SOURCES/`` directory along side the "upstream" source code that we
 are simulating here. (More on this later).
