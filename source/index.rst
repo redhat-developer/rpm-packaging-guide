@@ -21,6 +21,17 @@ considered out of scope of getting you on the path to packaging software will be
 held in the :ref:`Appendix <appendix>`. However, I hope all sections of this
 guide do prove useful in some capacity.
 
+This guide is meant to be used however the reader feels they would best like to
+use it. The sections are arranged such that the reader may start from the
+beginning and go all the way through and the flow of topics should make sense
+with each topic building upon the previous ones. However, if you as the reader
+feel you are comfortable with a topic or would just like to use the guide as
+reference material please feel free to skip sections or jump around as you
+please. The goal here is to be useful to someone with little to no background in
+software development or packaging so some topics will likely seem oddly
+introductory for such a guide, but don't worry that's by design and you can skip
+past those if you like.
+
 Document Conventions
 --------------------
 
@@ -109,4 +120,4 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
-.. _Source Code: https://en.wikipedia.org/wiki/Source_code
+.. include:: citations.rst

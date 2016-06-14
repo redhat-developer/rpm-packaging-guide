@@ -30,19 +30,6 @@ prerequisite installation items, guidelines, or macros. (More on macros later)
     GNU/Linux distribution is, you might be best served by exploring some
     articles on the topics of `Linux`_ and `Package Managers`_.
 
-This guide is meant to be used however the reader feels they would best like to
-use it. The sections are arranged such that the reader may start from the
-beginning and go all the way through and the flow of topics should make sense
-with each topic building upon the previous ones. However, if you as the reader
-feel you are comfortable with a topic or would just like to use the guide as
-reference material please feel free to skip sections or jump around as you
-please. The goal here is to be useful to someone with little to no background in
-software development or packaging so some topics will likely seem oddly
-introductory for such a guide, but don't worry that's by design and you can skip
-past those if you like.
-
-
-
 RPM Packages
 ============
 
@@ -55,13 +42,14 @@ What is a RPM?
 --------------
 
 To kick things off, let's first define what an RPM actually is. An RPM package
-is simply file containing a `cpio`_ archive and metadata about itself. The
-`cpio`_ archive is the payload and the RPM Header contains the metadata. The
-package manager ``rpm`` uses this metadata to determine things like
-dependencies.
+is simply a file that contains some software as well as information the system
+needs to know about that files. More specifically, it is a file containing a
+`cpio`_ archive and metadata about itself. The `cpio`_ archive is the payload
+and the RPM Header contains the metadata. The package manager ``rpm`` uses this
+metadata to determine things like dependencies, where to install files, etc.
 
 Conventionally speaking there are two different types of RPM, there is the
-Source RPM (SRPM) and the binary RPM. Both of these share afile format and
+Source RPM (SRPM) and the binary RPM. Both of these share a file format and
 tooling, but they represent very different things. The payload of a SRPM is a
 SPEC file (which describes how to build a binary RPM) and the actually source
 code that the resulting binary RPM will be built out of (including any patches
@@ -120,7 +108,7 @@ SRPMS               When the correct arguments are passed to ``rpmbuild`` to
 What is a SPEC File?
 --------------------
 
-A SPEC file can be though of the as the **recipe** for that the ``rpmbuild``
+A SPEC file can be thought of the as the **recipe** for that the ``rpmbuild``
 utility uses to actually build an RPM. It tells the build system what to do by
 defining instructions in a series of sections. The sections are defined between
 the *Preamble* and the *Body*. Within the *Preamble* we will define a series of
@@ -1354,62 +1342,4 @@ Checking RPMs For Sanity
 
 FIXME: rpmlint
 
-.. Citations / Links - etc.
-.. _RPM: http://rpm.org/
-.. _GCC: https://gcc.gnu.org/
-.. _sudo: http://www.sudo.ws/
-.. _git: https://git-scm.com/
-.. _Fedora: https://getfedora.org/
-.. _CentOS: https://www.centos.org/
-.. _Python: https://www.python.org/
-.. _Red Hat: https://www.redhat.com/en
-.. _gzip: https://www.gnu.org/software/gzip/
-.. _bash: https://www.gnu.org/software/bash/
-.. _cpio: https://en.wikipedia.org/wiki/Cpio
-.. _Linux: https://en.wikipedia.org/wiki/Linux
-.. _GNU make: http://www.gnu.org/software/make/
-.. _chroot: https://en.wikipedia.org/wiki/Chroot
-.. _Maximum RPM: http://rpm.org/max-rpm-snapshot/
-.. _CPython: https://en.wikipedia.org/wiki/CPython
-.. _patch: http://savannah.gnu.org/projects/patch/
-.. _rpm macro: http://rpm.org/wiki/PackagerDocs/Macros
-.. _RPM Official Documentation: http://rpm.org/wiki/Docs
-.. _$PATH: https://en.wikipedia.org/wiki/PATH_%28variable%29
-.. _Part 1: http://www.ibm.com/developerworks/library/l-rpm1/
-.. _Part 2: http://www.ibm.com/developerworks/library/l-rpm2/
-.. _Part 3: http://www.ibm.com/developerworks/library/l-rpm3/
-.. _shebang: https://en.wikipedia.org/wiki/Shebang_%28Unix%29
-.. _here document: https://en.wikipedia.org/wiki/Here_document
-.. _tarball: https://en.wikipedia.org/wiki/Tar_%28computing%29
-.. _GPLv3: https://www.gnu.org/licenses/quick-guide-gplv3.html
-.. _RHEL: https://www.redhat.com/en/technologies/linux-platforms
-.. _C: https://en.wikipedia.org/wiki/C_%28programming_language%29
-.. _architecture: https://en.wikipedia.org/wiki/Microarchitecture
-.. _Package Managers: https://en.wikipedia.org/wiki/Package_manager
-.. _coreutils: http://www.gnu.org/software/coreutils/coreutils.html
-.. _diffutils: http://www.gnu.org/software/diffutils/diffutils.html
-.. _Software License: https://en.wikipedia.org/wiki/Software_license
-.. _configure script: https://en.wikipedia.org/wiki/Configure_script
-.. _Interpreter: https://en.wikipedia.org/wiki/Interpreter_%28computing%29
-.. _Fedora License Guidelines: https://fedoraproject.org/wiki/Licensing:Main
-.. _$(DESTDIR): https://www.gnu.org/software/make/manual/html_node/DESTDIR.html
-.. _programming language:
-    https://en.wikipedia.org/wiki/Programming_language
-.. _Software Packaging and Distribution:
-    https://docs.python.org/2/library/distribution.html
-.. _OpenSUSE Packaging Guidelines:
-    https://en.opensuse.org/openSUSE:Packaging_guidelines
-.. _Red Hat Enterprise Linux:
-    https://www.redhat.com/en/technologies/linux-platforms
-.. _Fedora How To Create An RPM Package Guide:
-    https://fedoraproject.org/wiki/How_to_create_an_RPM_package
-.. _Filesystem Hierarchy Standard:
-    https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
-.. _RPM based:
-    https://en.wikipedia.org/wiki/List_of_Linux_distributions#RPM-based
-.. _Gurulabs CREATING RPMS (Student Version):
-    https://www.gurulabs.com/media/files/courseware-samples/GURULABS-RPM-GUIDE-v1.0.PDF
-.. _Fedora Packaging Guidelines:
-    https://fedoraproject.org/wiki/Packaging:Guidelines?rd=Packaging/Guidelines
-.. _download the example source code:
-    https://github.com/maxamillion/rpm-guide/tree/master/example-code
+.. include:: citations.rst

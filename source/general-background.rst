@@ -7,7 +7,7 @@ In this section will we walk through various topics about building software that
 are helpful background or otherwise general topics that are important for a good
 RPM Packager to be familiar with.
 
-* What is Source Code?
+* What is `Source Code`_?
 * How Programs Are Made
 * Building from source into an output artifact (what type of artifact will
   depend on the scenario and we will define what this means more specifically
@@ -821,38 +821,4 @@ Let's make a project ``tar.gz`` out of our source code.
 Great, now we have all of our upstream source code prep'd and ready to be turned
 into RPMs!
 
-.. Citations / Links - etc.
-.. _RPM: http://rpm.org/
-.. _GCC: https://gcc.gnu.org/
-.. _sudo: http://www.sudo.ws/
-.. _git: https://git-scm.com/
-.. _Python: https://www.python.org/
-.. _Red Hat: https://www.redhat.com/en
-.. _gzip: https://www.gnu.org/software/gzip/
-.. _bash: https://www.gnu.org/software/bash/
-.. _Linux: https://en.wikipedia.org/wiki/Linux
-.. _GNU make: http://www.gnu.org/software/make/
-.. _chroot: https://en.wikipedia.org/wiki/Chroot
-.. _CPython: https://en.wikipedia.org/wiki/CPython
-.. _patch: http://savannah.gnu.org/projects/patch/
-.. _$PATH: https://en.wikipedia.org/wiki/PATH_%28variable%29
-.. _shebang: https://en.wikipedia.org/wiki/Shebang_%28Unix%29
-.. _here document: https://en.wikipedia.org/wiki/Here_document
-.. _tarball: https://en.wikipedia.org/wiki/Tar_%28computing%29
-.. _GPLv3: https://www.gnu.org/licenses/quick-guide-gplv3.html
-.. _C: https://en.wikipedia.org/wiki/C_%28programming_language%29
-.. _architecture: https://en.wikipedia.org/wiki/Microarchitecture
-.. _Package Managers: https://en.wikipedia.org/wiki/Package_manager
-.. _coreutils: http://www.gnu.org/software/coreutils/coreutils.html
-.. _diffutils: http://www.gnu.org/software/diffutils/diffutils.html
-.. _Software License: https://en.wikipedia.org/wiki/Software_license
-.. _Interpreter: https://en.wikipedia.org/wiki/Interpreter_%28computing%29
-.. _$(DESTDIR): https://www.gnu.org/software/make/manual/html_node/DESTDIR.html
-.. _programming language:
-    https://en.wikipedia.org/wiki/Programming_language
-.. _Software Packaging and Distribution:
-    https://docs.python.org/2/library/distribution.html
-.. _Filesystem Hierarchy Standard:
-    https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
-.. _download the example source code:
-    https://github.com/maxamillion/rpm-guide/tree/master/example-code
+.. include:: citations.rst
