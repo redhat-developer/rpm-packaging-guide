@@ -1323,19 +1323,608 @@ The full SPEC file should now look like the following:
 
 
     %changelog
-    * Tue May 31 2016 Adam Miller <maxamillion@gmail.com> - 1.0-1
+    * Tue May 31 2016 Adam Miller <maxamillion@fedoraproject.org> - 1.0-1
     - First cello package
-
-Prepping Our Build Environment
-==============================
-
-FIXME
 
 Building RPMS
 =============
 
+When building RPMs there are is one main command, which is ``rpmbuild`` and we
+will use that through out the guide. It has been elluded to in various sections
+in the guide but now we're actually going to dig in and get our hands dirty.
 
-FIXME
+We will cover a couple different combinations of arguments we can pass to
+``rpmbuild`` based on scenario and desired outcome but we will focus primarily
+on the two main targets of building an RPM and that is creating Source and
+Binary RPMs.
+
+One of the things you may notice about ``rpmbuild`` is that it expects the
+directory structure created in a certain way and for various items suck as
+source code to exist within the context of that directory stucture. Luckily,
+this is the same directory structue that was setup by the ``rpmdev-setuptree``
+utility that we used previously to setup our RPM workspace and we have been
+placing files in the correct place through out the duration of the guide.
+
+Source RPMs
+-----------
+
+Before we actually build a Source RPM, let's quickly address why we would want
+to do this. First, we might want to preserve the exact source of a
+Name-Version-Release of RPM that we deployed to our environment that included
+the exact SPEC file, the source code, and all relevant patches. This can be
+useful when looking back in history and/or debugging if something has gone
+wrong. Another reason is if we want to build a Binary RPM on a different
+hardware platform or `architecture`_.
+
+In order to create a Source RPM we need to pass the "build source" or ``-bs``
+argument to ``rpmbuild`` and we will provide a SPEC file as the argument. We
+will do so for each of our examples we've created above.
+
+::
+
+    $ rpmbuild -bs bello.spec
+    Wrote: /home/admiller/rpmbuild/SRPMS/bello-0.1-1.el7.src.rpm
+
+    $ rpmbuild -bs pello.spec
+    Wrote: /home/admiller/rpmbuild/SRPMS/pello-0.1.1-1.el7.src.rpm
+
+    $ rpmbuild -bs cello.spec
+    Wrote: /home/admiller/rpmbuild/SRPMS/cello-1.0-1.el7.src.rpm
+
+That's it! That's all there is to building a Source RPM or SRPM. Do note the
+directory that it was placed in though, this is also a part of the directory
+hierarchy that we covered previously.
+
+Now it's time to move on to Binary RPMs!
+
+Binary RPMS
+-----------
+
+When building Binary RPMs there are a few methods by which we could do this, we
+could "rebuild" a SRPM by passing the ``--rebuild`` option to ``rpmbuild``. We
+could tell ``rpmbuild`` to "build binary" or ``-bb`` and pass a SPEC file as the
+argument similar to how we did for the Source RPMs.
+
+
+Rebuild
+^^^^^^^
+
+Let's first rebuild each of our examples. Below you will see the example output
+generated from rebuilding each example SRPM. You will notice the output will
+vary differently based on the specific example you view and that the amount of
+detail provided is quite verbose. This maybe seem daunting at first but as you
+become a seasoned RPM Packager you will learn to appreciate and even welcome
+this level of detail as it can prove to be very valuable when diagnosing issues.
+
+One important distinction to make about when ``rpmbuild`` is invoked with the
+``--rebuild`` argument is that it actually installs the contents of the SRPM
+into your ``~/rpmbuild`` directory which will install the SPEC file and source
+code, then the build is performed and the SPEC file and Source code are removed.
+This might seem odd at first, but know that this is expected behavior and you
+can perform a ``--recompile`` which will not do the "clean up" operation at the
+end. We selected to use ``--rebuild`` in this guide to demonstrate how this
+happens and how you can "recover" from it to get the SPEC files and SOURCES
+back which is covered in the following section.
+
+
+The commands required for each are as follows, with detailed output provided for
+each below:
+
+::
+
+    $ rpmbuild --rebuild ~/rpmbuild/SRPMS/bello-0.1-1.el7.src.rpm
+
+    $ rpmbuild --rebuild ~/rpmbuild/SRPMS/pello-0.1.1-1.el7.src.rpm
+
+    $ rpmbuild --rebuild ~/rpmbuild/SRPMS/cello-1.0-1.el7.src.rpm
+
+Now you've built RPMs!
+
+You will now find the resulting Binary RPMs in ``~/rpmbuild/RPMS/`` depending on
+your `architecture`_ and/or if the package was ``noarch``.
+
+At the end of each of these commands you will find that there are no longer SPEC
+files or contents in SOURCES for the specific SRPMs that you rebuilt because of
+how ``--rebuild`` cleans up after itself. We can resolve this by executing the
+following `rpm`_ commands which will perform an install of the SRPMs. You will
+want to do this after running a ``--rebuild`` if you want to continue to
+interact with the SPEC and SOURCES which we will want to do for the duration of
+this guide.
+
+::
+
+    $ rpm -Uvh ~/rpmbuild/SRPMS/bello-0.1-1.el7.src.rpm
+    Updating / installing...
+       1:bello-0.1-1.el7                  ################################# [100%]
+
+    $ rpm -Uvh ~/rpmbuild/SRPMS/pello-0.1.1-1.el7.src.rpm
+    Updating / installing...
+       1:pello-0.1.1-1.el7                ################################# [100%]
+
+    $ rpm -Uvh ~/rpmbuild/SRPMS/cello-1.0-1.el7.src.rpm
+    Updating / installing...
+       1:cello-1.0-1.el7                  ################################# [100%]
+
+bello
+"""""
+
+::
+
+    $ rpmbuild --rebuild ~/rpmbuild/SRPMS/bello-0.1-1.el7.src.rpm
+    Installing /home/admiller/rpmbuild/SRPMS/bello-0.1-1.el7.src.rpm
+    Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.GHTHCO
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd /home/admiller/rpmbuild/BUILD
+    + rm -rf bello-0.1
+    + /usr/bin/gzip -dc /home/admiller/rpmbuild/SOURCES/bello-0.1.tar.gz
+    + /usr/bin/tar -xf -
+    + STATUS=0
+    + '[' 0 -ne 0 ']'
+    + cd bello-0.1
+    + /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
+    + exit 0
+    Executing(%build): /bin/sh -e /var/tmp/rpm-tmp.xmnIiZ
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd bello-0.1
+    + exit 0
+    Executing(%install): /bin/sh -e /var/tmp/rpm-tmp.WXBLZ9
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + '[' /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64 '!=' / ']'
+    + rm -rf /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64
+    ++ dirname /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64
+    + mkdir -p /home/admiller/rpmbuild/BUILDROOT
+    + mkdir /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64
+    + cd bello-0.1
+    + mkdir -p /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64//usr/bin
+    + install -m 0755 bello /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64//usr/bin/bello
+    + /usr/lib/rpm/find-debuginfo.sh --strict-build-id -m --run-dwz --dwz-low-mem-die-limit 10000000 --dwz-max-die-limit 110000000 /home/admiller/rpmbuild/BUILD/bello-0.1
+    /usr/lib/rpm/sepdebugcrcfix: Updated 0 CRC32s, 0 CRC32s did match.
+    + '[' noarch = noarch ']'
+    + case "${QA_CHECK_RPATHS:-}" in
+    + /usr/lib/rpm/check-buildroot
+    + /usr/lib/rpm/redhat/brp-compress
+    + /usr/lib/rpm/redhat/brp-strip-static-archive /usr/bin/strip
+    + /usr/lib/rpm/brp-python-bytecompile /usr/bin/python 1
+    + /usr/lib/rpm/redhat/brp-python-hardlink
+    + /usr/lib/rpm/redhat/brp-java-repack-jars
+    Processing files: bello-0.1-1.el7.noarch
+    Executing(%license): /bin/sh -e /var/tmp/rpm-tmp.7wU0nl
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd bello-0.1
+    + LICENSEDIR=/home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64/usr/share/licenses/bello-0.1
+    + export LICENSEDIR
+    + /usr/bin/mkdir -p /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64/usr/share/licenses/bello-0.1
+    + cp -pr LICENSE /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64/usr/share/licenses/bello-0.1
+    + exit 0
+    Provides: bello = 0.1-1.el7
+    Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+    Requires: /bin/bash
+    Checking for unpackaged file(s): /usr/lib/rpm/check-files /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64
+    Wrote: /home/admiller/rpmbuild/RPMS/noarch/bello-0.1-1.el7.noarch.rpm
+    Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.R9eRPW
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd bello-0.1
+    + /usr/bin/rm -rf /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64
+    + exit 0
+    Executing(--clean): /bin/sh -e /var/tmp/rpm-tmp.S59sAf
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + rm -rf bello-0.1
+    + exit 0
+
+pello
+"""""
+
+::
+
+    $ rpmbuild --rebuild ~/rpmbuild/SRPMS/pello-0.1.1-1.el7.src.rpm
+    Installing /home/admiller/rpmbuild/SRPMS/pello-0.1.1-1.el7.src.rpm
+    Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.kRf2qV
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd /home/admiller/rpmbuild/BUILD
+    + rm -rf pello-0.1.1
+    + /usr/bin/gzip -dc /home/admiller/rpmbuild/SOURCES/pello-0.1.1.tar.gz
+    + /usr/bin/tar -xf -
+    + STATUS=0
+    + '[' 0 -ne 0 ']'
+    + cd pello-0.1.1
+    + /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
+    + exit 0
+    Executing(%build): /bin/sh -e /var/tmp/rpm-tmp.h0DkgE
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd pello-0.1.1
+    + python -m compileall pello.py
+    Compiling pello.py ...
+    + exit 0
+    Executing(%install): /bin/sh -e /var/tmp/rpm-tmp.k0YN9m
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + '[' /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64 '!=' / ']'
+    + rm -rf /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64
+    ++ dirname /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64
+    + mkdir -p /home/admiller/rpmbuild/BUILDROOT
+    + mkdir /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64
+    + cd pello-0.1.1
+    + mkdir -p /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64//usr/bin
+    + mkdir -p /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64/usr/lib/pello
+    + cat
+    + chmod 0755 /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64//usr/bin/pello
+    + install -m 0644 pello.py pello.pyc /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64/usr/lib/pello/
+    + /usr/lib/rpm/find-debuginfo.sh --strict-build-id -m --run-dwz --dwz-low-mem-die-limit 10000000 --dwz-max-die-limit 110000000 /home/admiller/rpmbuild/BUILD/pello-0.1.1
+    /usr/lib/rpm/sepdebugcrcfix: Updated 0 CRC32s, 0 CRC32s did match.
+    find: 'debug': No such file or directory
+    + '[' noarch = noarch ']'
+    + case "${QA_CHECK_RPATHS:-}" in
+    + /usr/lib/rpm/check-buildroot
+    + /usr/lib/rpm/redhat/brp-compress
+    + /usr/lib/rpm/redhat/brp-strip-static-archive /usr/bin/strip
+    + /usr/lib/rpm/brp-python-bytecompile /usr/bin/python 1
+    + /usr/lib/rpm/redhat/brp-python-hardlink
+    + /usr/lib/rpm/redhat/brp-java-repack-jars
+    Processing files: pello-0.1.1-1.el7.noarch
+    Executing(%license): /bin/sh -e /var/tmp/rpm-tmp.22ODva
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd pello-0.1.1
+    + LICENSEDIR=/home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64/usr/share/licenses/pello-0.1.1
+    + export LICENSEDIR
+    + /usr/bin/mkdir -p /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64/usr/share/licenses/pello-0.1.1
+    + cp -pr LICENSE /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64/usr/share/licenses/pello-0.1.1
+    + exit 0
+    Provides: pello = 0.1.1-1.el7
+    Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PartialHardlinkSets) <= 4.0.4-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+    Requires: /bin/bash
+    Checking for unpackaged file(s): /usr/lib/rpm/check-files /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64
+    Wrote: /home/admiller/rpmbuild/RPMS/noarch/pello-0.1.1-1.el7.noarch.rpm
+    Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.kZTRbM
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd pello-0.1.1
+    + /usr/bin/rm -rf /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64
+    + exit 0
+    Executing(--clean): /bin/sh -e /var/tmp/rpm-tmp.WChx3z
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + rm -rf pello-0.1.1
+    + exit 0
+
+
+cello
+"""""
+
+::
+
+    $ rpmbuild --rebuild ~/rpmbuild/SRPMS/cello-1.0-1.el7.src.rpm
+    Installing /home/admiller/rpmbuild/SRPMS/cello-1.0-1.el7.src.rpm
+    Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.ySAWzh
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd /home/admiller/rpmbuild/BUILD
+    + rm -rf cello-1.0
+    + /usr/bin/gzip -dc /home/admiller/rpmbuild/SOURCES/cello-1.0.tar.gz
+    + /usr/bin/tar -xf -
+    + STATUS=0
+    + '[' 0 -ne 0 ']'
+    + cd cello-1.0
+    + /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
+    + echo 'Patch #0 (cello-output-first-patch.patch):'
+    Patch #0 (cello-output-first-patch.patch):
+    + /usr/bin/cat /home/admiller/rpmbuild/SOURCES/cello-output-first-patch.patch
+    + /usr/bin/patch -p0 --fuzz=0
+    patching file cello.c
+    + exit 0
+    Executing(%build): /bin/sh -e /var/tmp/rpm-tmp.LZZAxn
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd cello-1.0
+    + make -j3
+    gcc -o cello cello.c
+    + exit 0
+    Executing(%install): /bin/sh -e /var/tmp/rpm-tmp.SSAzEt
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + '[' /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64 '!=' / ']'
+    + rm -rf /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64
+    ++ dirname /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64
+    + mkdir -p /home/admiller/rpmbuild/BUILDROOT
+    + mkdir /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64
+    + cd cello-1.0
+    + /usr/bin/make install DESTDIR=/home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64
+    mkdir -p /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64/usr/bin
+    install -m 0755 cello /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64/usr/bin/cello
+    + /usr/lib/rpm/find-debuginfo.sh --strict-build-id -m --run-dwz --dwz-low-mem-die-limit 10000000 --dwz-max-die-limit 110000000 /home/admiller/rpmbuild/BUILD/cello-1.0
+    extracting debug info from /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64/usr/bin/cello
+    dwz: Too few files for multifile optimization
+    /usr/lib/rpm/sepdebugcrcfix: Updated 0 CRC32s, 1 CRC32s did match.
+    + '[' '%{buildarch}' = noarch ']'
+    + QA_CHECK_RPATHS=1
+    + case "${QA_CHECK_RPATHS:-}" in
+    + /usr/lib/rpm/check-rpaths
+    + /usr/lib/rpm/check-buildroot
+    + /usr/lib/rpm/redhat/brp-compress
+    + /usr/lib/rpm/redhat/brp-strip-static-archive /usr/bin/strip
+    + /usr/lib/rpm/brp-python-bytecompile /usr/bin/python 1
+    + /usr/lib/rpm/redhat/brp-python-hardlink
+    + /usr/lib/rpm/redhat/brp-java-repack-jars
+    Processing files: cello-1.0-1.el7.x86_64
+    Executing(%license): /bin/sh -e /var/tmp/rpm-tmp.L0PliA
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd cello-1.0
+    + LICENSEDIR=/home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64/usr/share/licenses/cello-1.0
+    + export LICENSEDIR
+    + /usr/bin/mkdir -p /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64/usr/share/licenses/cello-1.0
+    + cp -pr LICENSE /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64/usr/share/licenses/cello-1.0
+    + exit 0
+    Provides: cello = 1.0-1.el7 cello(x86-64) = 1.0-1.el7
+    Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+    Requires: libc.so.6()(64bit) libc.so.6(GLIBC_2.2.5)(64bit) rtld(GNU_HASH)
+    Processing files: cello-debuginfo-1.0-1.el7.x86_64
+    Provides: cello-debuginfo = 1.0-1.el7 cello-debuginfo(x86-64) = 1.0-1.el7
+    Requires(rpmlib): rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1 rpmlib(CompressedFileNames) <= 3.0.4-1
+    Checking for unpackaged file(s): /usr/lib/rpm/check-files /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64
+    Wrote: /home/admiller/rpmbuild/RPMS/x86_64/cello-1.0-1.el7.x86_64.rpm
+    Wrote: /home/admiller/rpmbuild/RPMS/x86_64/cello-debuginfo-1.0-1.el7.x86_64.rpm
+    Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.oexkNU
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd cello-1.0
+    + /usr/bin/rm -rf /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64
+    + exit 0
+    Executing(--clean): /bin/sh -e /var/tmp/rpm-tmp.ENKUE1
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + rm -rf cello-1.0
+    + exit 0
+
+
+Build Binary
+^^^^^^^^^^^^
+
+Next up, let's "build binary" for each of our examples. Just as in the previous
+example, you will again see the example output generated from building each
+example. Similarly you will notice the output will vary differently based on the
+specific example you view and that the amount of detail provided is quite
+verbose.
+
+The commands required for each are as follows, with detailed output provided for
+each below:
+
+::
+
+    $ rpmbuild -bb ~/rpmbuild/SPECS/bello.spec
+
+    $ rpmbuild -bb ~/rpmbuild/SPECS/pello.spec
+
+    $ rpmbuild -bb ~/rpmbuild/SPECS/cello.spec
+
+Now you've built RPMs!
+
+You will now find the resulting Binary RPMs in ``~/rpmbuild/RPMS/`` depending on
+your `architecture`_ and/or if the package was ``noarch``.
+
+bello
+"""""
+
+::
+
+    $ rpmbuild -bb ~/rpmbuild/SPECS/bello.spec
+    Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.aaCBH0
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd /home/admiller/rpmbuild/BUILD
+    + rm -rf bello-0.1
+    + /usr/bin/gzip -dc /home/admiller/rpmbuild/SOURCES/bello-0.1.tar.gz
+    + /usr/bin/tar -xf -
+    + STATUS=0
+    + '[' 0 -ne 0 ']'
+    + cd bello-0.1
+    + /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
+    + exit 0
+    Executing(%build): /bin/sh -e /var/tmp/rpm-tmp.mOSeGQ
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd bello-0.1
+    + exit 0
+    Executing(%install): /bin/sh -e /var/tmp/rpm-tmp.LW9TFG
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + '[' /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64 '!=' / ']'
+    + rm -rf /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64
+    ++ dirname /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64
+    + mkdir -p /home/admiller/rpmbuild/BUILDROOT
+    + mkdir /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64
+    + cd bello-0.1
+    + mkdir -p /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64//usr/bin
+    + install -m 0755 bello /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64//usr/bin/bello
+    + /usr/lib/rpm/find-debuginfo.sh --strict-build-id -m --run-dwz --dwz-low-mem-die-limit 10000000 --dwz-max-die-limit 110000000 /home/admiller/rpmbuild/BUILD/bello-0.1
+    /usr/lib/rpm/sepdebugcrcfix: Updated 0 CRC32s, 0 CRC32s did match.
+    + '[' noarch = noarch ']'
+    + case "${QA_CHECK_RPATHS:-}" in
+    + /usr/lib/rpm/check-buildroot
+    + /usr/lib/rpm/redhat/brp-compress
+    + /usr/lib/rpm/redhat/brp-strip-static-archive /usr/bin/strip
+    + /usr/lib/rpm/brp-python-bytecompile /usr/bin/python 1
+    + /usr/lib/rpm/redhat/brp-python-hardlink
+    + /usr/lib/rpm/redhat/brp-java-repack-jars
+    Processing files: bello-0.1-1.el7.noarch
+    Executing(%license): /bin/sh -e /var/tmp/rpm-tmp.wAswQw
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd bello-0.1
+    + LICENSEDIR=/home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64/usr/share/licenses/bello-0.1
+    + export LICENSEDIR
+    + /usr/bin/mkdir -p /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64/usr/share/licenses/bello-0.1
+    + cp -pr LICENSE /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64/usr/share/licenses/bello-0.1
+    + exit 0
+    Provides: bello = 0.1-1.el7
+    Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+    Requires: /bin/bash
+    Checking for unpackaged file(s): /usr/lib/rpm/check-files /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64
+    Wrote: /home/admiller/rpmbuild/RPMS/noarch/bello-0.1-1.el7.noarch.rpm
+    Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.74OMCd
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd bello-0.1
+    + /usr/bin/rm -rf /home/admiller/rpmbuild/BUILDROOT/bello-0.1-1.el7.x86_64
+    + exit 0
+
+
+pello
+"""""
+
+::
+
+    $ rpmbuild -bb pello.spec
+    Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.dvOeYv
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd /home/admiller/rpmbuild/BUILD
+    + rm -rf pello-0.1.1
+    + /usr/bin/gzip -dc /home/admiller/rpmbuild/SOURCES/pello-0.1.1.tar.gz
+    + /usr/bin/tar -xf -
+    + STATUS=0
+    + '[' 0 -ne 0 ']'
+    + cd pello-0.1.1
+    + /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
+    + exit 0
+    Executing(%build): /bin/sh -e /var/tmp/rpm-tmp.QD4XFU
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd pello-0.1.1
+    + python -m compileall pello.py
+    Compiling pello.py ...
+    + exit 0
+    Executing(%install): /bin/sh -e /var/tmp/rpm-tmp.qEbZqj
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + '[' /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64 '!=' / ']'
+    + rm -rf /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64
+    ++ dirname /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64
+    + mkdir -p /home/admiller/rpmbuild/BUILDROOT
+    + mkdir /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64
+    + cd pello-0.1.1
+    + mkdir -p /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64//usr/bin
+    + mkdir -p /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64/usr/lib/pello
+    + cat
+    + chmod 0755 /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64//usr/bin/pello
+    + install -m 0644 pello.py pello.pyc /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64/usr/lib/pello/
+    + /usr/lib/rpm/find-debuginfo.sh --strict-build-id -m --run-dwz --dwz-low-mem-die-limit 10000000 --dwz-max-die-limit 110000000 /home/admiller/rpmbuild/BUILD/pello-0.1.1
+    /usr/lib/rpm/sepdebugcrcfix: Updated 0 CRC32s, 0 CRC32s did match.
+    find: 'debug': No such file or directory
+    + '[' noarch = noarch ']'
+    + case "${QA_CHECK_RPATHS:-}" in
+    + /usr/lib/rpm/check-buildroot
+    + /usr/lib/rpm/redhat/brp-compress
+    + /usr/lib/rpm/redhat/brp-strip-static-archive /usr/bin/strip
+    + /usr/lib/rpm/brp-python-bytecompile /usr/bin/python 1
+    + /usr/lib/rpm/redhat/brp-python-hardlink
+    + /usr/lib/rpm/redhat/brp-java-repack-jars
+    Processing files: pello-0.1.1-1.el7.noarch
+    Executing(%license): /bin/sh -e /var/tmp/rpm-tmp.Vc2ApI
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd pello-0.1.1
+    + LICENSEDIR=/home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64/usr/share/licenses/pello-0.1.1
+    + export LICENSEDIR
+    + /usr/bin/mkdir -p /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64/usr/share/licenses/pello-0.1.1
+    + cp -pr LICENSE /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64/usr/share/licenses/pello-0.1.1
+    + exit 0
+    Provides: pello = 0.1.1-1.el7
+    Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PartialHardlinkSets) <= 4.0.4-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+    Requires: /bin/bash
+    Checking for unpackaged file(s): /usr/lib/rpm/check-files /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64
+    Wrote: /home/admiller/rpmbuild/RPMS/noarch/pello-0.1.1-1.el7.noarch.rpm
+    Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.4tTJSw
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd pello-0.1.1
+    + /usr/bin/rm -rf /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64
+    + exit 0
+
+    $ rpmbuild -bb ~/rpmbuild/SPECS/cello.spec
+    Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.FveYdS
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd /home/admiller/rpmbuild/BUILD
+    + rm -rf cello-1.0
+    + /usr/bin/gzip -dc /home/admiller/rpmbuild/SOURCES/cello-1.0.tar.gz
+    + /usr/bin/tar -xf -
+    + STATUS=0
+    + '[' 0 -ne 0 ']'
+    + cd cello-1.0
+    + /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
+    + echo 'Patch #0 (cello-output-first-patch.patch):'
+    Patch #0 (cello-output-first-patch.patch):
+    + /usr/bin/cat /home/admiller/rpmbuild/SOURCES/cello-output-first-patch.patch
+    + /usr/bin/patch -p0 --fuzz=0
+    patching file cello.c
+    + exit 0
+    Executing(%build): /bin/sh -e /var/tmp/rpm-tmp.ros7nt
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd cello-1.0
+    + make -j3
+    gcc -o cello cello.c
+    + exit 0
+    Executing(%install): /bin/sh -e /var/tmp/rpm-tmp.qSW6D4
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + '[' /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64 '!=' / ']'
+    + rm -rf /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64
+    ++ dirname /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64
+    + mkdir -p /home/admiller/rpmbuild/BUILDROOT
+    + mkdir /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64
+    + cd cello-1.0
+    + /usr/bin/make install DESTDIR=/home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64
+    mkdir -p /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64/usr/bin
+    install -m 0755 cello /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64/usr/bin/cello
+    + /usr/lib/rpm/find-debuginfo.sh --strict-build-id -m --run-dwz --dwz-low-mem-die-limit 10000000 --dwz-max-die-limit 110000000 /home/admiller/rpmbuild/BUILD/cello-1.0
+    extracting debug info from /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64/usr/bin/cello
+    dwz: Too few files for multifile optimization
+    /usr/lib/rpm/sepdebugcrcfix: Updated 0 CRC32s, 1 CRC32s did match.
+    + '[' '%{buildarch}' = noarch ']'
+    + QA_CHECK_RPATHS=1
+    + case "${QA_CHECK_RPATHS:-}" in
+    + /usr/lib/rpm/check-rpaths
+    + /usr/lib/rpm/check-buildroot
+    + /usr/lib/rpm/redhat/brp-compress
+    + /usr/lib/rpm/redhat/brp-strip-static-archive /usr/bin/strip
+    + /usr/lib/rpm/brp-python-bytecompile /usr/bin/python 1
+    + /usr/lib/rpm/redhat/brp-python-hardlink
+    + /usr/lib/rpm/redhat/brp-java-repack-jars
+    Processing files: cello-1.0-1.el7.x86_64
+    Executing(%license): /bin/sh -e /var/tmp/rpm-tmp.IqHIpG
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd cello-1.0
+    + LICENSEDIR=/home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64/usr/share/licenses/cello-1.0
+    + export LICENSEDIR
+    + /usr/bin/mkdir -p /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64/usr/share/licenses/cello-1.0
+    + cp -pr LICENSE /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64/usr/share/licenses/cello-1.0
+    + exit 0
+    Provides: cello = 1.0-1.el7 cello(x86-64) = 1.0-1.el7
+    Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+    Requires: libc.so.6()(64bit) libc.so.6(GLIBC_2.2.5)(64bit) rtld(GNU_HASH)
+    Processing files: cello-debuginfo-1.0-1.el7.x86_64
+    Provides: cello-debuginfo = 1.0-1.el7 cello-debuginfo(x86-64) = 1.0-1.el7
+    Requires(rpmlib): rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1 rpmlib(CompressedFileNames) <= 3.0.4-1
+    Checking for unpackaged file(s): /usr/lib/rpm/check-files /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64
+    Wrote: /home/admiller/rpmbuild/RPMS/x86_64/cello-1.0-1.el7.x86_64.rpm
+    Wrote: /home/admiller/rpmbuild/RPMS/x86_64/cello-debuginfo-1.0-1.el7.x86_64.rpm
+    Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.ZRORXv
+    + umask 022
+    + cd /home/admiller/rpmbuild/BUILD
+    + cd cello-1.0
+    + /usr/bin/rm -rf /home/admiller/rpmbuild/BUILDROOT/cello-1.0-1.el7.x86_64
+    + exit 0
 
 Checking RPMs For Sanity
 ========================

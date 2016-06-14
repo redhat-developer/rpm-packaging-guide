@@ -14,6 +14,13 @@ Prestine Build Environments with Mock
 
 FIXME
 
+::
+
+    $ rpmbuild --rebuild ~/rpmbuild/SRPMS/cello-1.0-1.el7.src.rpm
+    Installing /home/admiller/rpmbuild/SRPMS/cello-1.0-1.el7.src.rpm
+    error: Failed build dependencies:
+            gcc is needed by cello-1.0-1.el7.x86_64
+
 .. _more-macros:
 
 More on Macros
