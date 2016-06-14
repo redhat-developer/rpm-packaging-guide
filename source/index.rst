@@ -125,11 +125,4 @@ feedback, submit a pull request `on GitHub
 
 Thank you for your time.
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
 .. include:: citations.rst
