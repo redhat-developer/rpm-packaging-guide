@@ -74,3 +74,11 @@
     https://www.freedesktop.org/software/systemd/man/systemd.unit.html
 .. _Fedora systemd Packaging Guidelines:
     https://fedoraproject.org/wiki/Packaging:Systemd
+.. _bello-0.1.tar.gz:
+    https://github.com/maxamillion/rpm-guide/raw/master/example-code/bello-0.1.tar.gz
+.. _pello-0.1.1.tar.gz:
+    https://github.com/maxamillion/rpm-guide/raw/master/example-code/pello-0.1.1.tar.gz
+.. _cello-1.0.tar.gz:
+    https://github.com/maxamillion/rpm-guide/raw/master/example-code/cello-1.0.tar.gz
+.. _cello-output-first-patch.patch:
+    https://raw.githubusercontent.com/maxamillion/rpm-guide/master/example-code/cello-output-first-patch.patch

@@ -228,7 +228,7 @@ Distributions.
 Defining Your Own
 ^^^^^^^^^^^^^^^^^
 
-You can define your own Macros, below is an excerpt from the `Official RPM
+You can define your own Macros, below is an excerpt from the `RPM Official
 Documentation`_ and I recommend anyone interested in an exhaustive explanation
 of the many possibilities of defining their own macros to visit that resource.
 It's really quite good and there's little reason to duplicate the bulk of that
@@ -419,7 +419,7 @@ Directive           Definition
 =================== ============================================================
 
 Is is also common for RPM Macros to exist for this function. In our previous
-example we discussed `systemd`_ needing to be notified about new `unit files`_,
+example we discussed `systemd`_ needing to be notified about a new `unit file`_,
 this is easily handled by the systemd scriptlet macros as we can see from the
 below example output. More information on this can be found in the `Fedora
 systemd Packaging Guidelines`_.

@@ -298,6 +298,16 @@ there's an utility called ``rpmdev-newspec`` which will create one for us and we
 will just fill in the various directives or add new fields as needed. This
 provides us with a nice baseline template.
 
+If you have not already done so by way of another section of the guide, go ahead
+and download the example programs now and place them in your
+``~/rpmbuild/SOURCES`` directory.
+
+* `bello-0.1.tar.gz`_
+* `pello-0.1.1.tar.gz`_
+* `cello-1.0.tar.gz`_
+
+    * `cello-output-first-patch.patch`_
+
 Let's go ahead and create a SPEC file for each of our three implementations of
 our example and then we will look at the SPEC files and the
 
