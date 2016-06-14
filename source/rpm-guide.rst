@@ -42,8 +42,8 @@ What is a RPM?
 --------------
 
 To kick things off, let's first define what an RPM actually is. An RPM package
-is simply a file that contains some software as well as information the system
-needs to know about that files. More specifically, it is a file containing a
+is simply a file that contains some files as well as information the system
+needs to know about those files. More specifically, it is a file containing a
 `cpio`_ archive and metadata about itself. The `cpio`_ archive is the payload
 and the RPM Header contains the metadata. The package manager ``rpm`` uses this
 metadata to determine things like dependencies, where to install files, etc.
@@ -108,7 +108,7 @@ SRPMS               When the correct arguments are passed to ``rpmbuild`` to
 What is a SPEC File?
 --------------------
 
-A SPEC file can be thought of the as the **recipe** for that the ``rpmbuild``
+A SPEC file can be thought of the as the **recipe** that the ``rpmbuild``
 utility uses to actually build an RPM. It tells the build system what to do by
 defining instructions in a series of sections. The sections are defined between
 the *Preamble* and the *Body*. Within the *Preamble* we will define a series of
@@ -176,8 +176,9 @@ For example, if we were to query about a specific package:
 
 Here ``python`` is our Package Name, ``2.7.5`` is our Version, and ``34.el7`` is
 our Release. The final marker is ``x86_64`` and is our architecture, which is
-not something we control as a RPM Packager but is a side effect of the
-``rpmbuild`` build environment, something we will cover in more detail later.
+not something we control as a RPM Packager (with the exception of ``noarch``,
+more on that later) but is a side effect of the ``rpmbuild`` build environment,
+something we will cover in more detail later.
 
 
 Body Items
@@ -367,9 +368,10 @@ bello
 ^^^^^
 
 Our first SPEC file will be for our example written in `bash`_ shell script that
-we created a simulated upstream release of (or you downloaded) and placed it's
-source code into ``~/rpmbuild/SOURCES/`` earlier. Let's go ahead and open the
-file ``~/rpmbuild/SOURCES/bello.spec`` and start filling in some fields.
+you downloaded (or you created a simulated upstream release in the :ref:`General
+Topics and Background <general-background>` Section) and placed it's source code
+into ``~/rpmbuild/SOURCES/`` earlier. Let's go ahead and open the file
+``~/rpmbuild/SOURCES/bello.spec`` and start filling in some fields.
 
 The following is the output template we were given from ``rpmdev-newspec``.
 
@@ -419,9 +421,9 @@ grouped together at the top of the file: ``Name``, ``Version``, ``Release``,
 information to the command line for ``rpmdev-newspec``.
 
 Let's set the ``Version`` to match what the "upstream" release version of the
-*bello* source code is, which if we remember we set to be ``0.1`` when we
-simulated our upstream source code release earlier (or as it is set by the
-example code you downloaded).
+*bello* source code is, which we can observe is ``0.1`` as set by the example
+code we downloaded (or we created in the :ref:`General Topics and Background
+<general-background>` Section).
 
 The ``Release`` is already set to ``1%{?dist}`` for us, the numerical value
 which is initially ``1`` should be incremented every time the package is updated
@@ -458,7 +460,8 @@ The ``URL`` field is the upstream software's website, not the source code
 download link but the actual project, product, or company website where someone
 would find more information about this particular piece of software. Since we're
 just using an example, we will call this ``https://example.com/bello``. However,
-we will use the rpm macro variable of ``%{name}`` in it's place for consistency.
+we will use the rpm macro variable of ``%{name}`` in it's place for consistency
+and the resulting entry will be ``https://example.com/%{name}``.
 
 The ``Source0`` field is where the upstream software's source code should be
 able to be downloaded from. This URL should link directly to the specific
@@ -500,7 +503,7 @@ Since we don't have a build step, we can simply omit the ``BuildRequires``
 directive. There is no need to define is as "undefined" or otherwise, omitting
 it's inclusion will suffice.
 
-Something we need to add here since this is software written in an  interpreted
+Something we need to add here since this is software written in an interpreted
 programming language with no natively compiled extensions is a ``BuildArch``
 entry that is set to ``noarch`` in order to tell RPM that this package does not
 need to be bound to the processor architecture that it is built using.
@@ -572,8 +575,8 @@ provides and where it's intended for them to live on the system that the RPM is
 installed upon. Note here that this isn't relative to the ``%{buildroot}`` but
 the full path for the files as they are expected to exist on the end system
 after installation. Therefore, the listing for the ``bello`` file we are
-installing will be ``%{_bindir}/%{name}`` (this would be ``%{_bindir}/bello`` if
-we weren't using the rpm macro variable instead of the hard coded name).
+installing will be ``%{_bindir}/%{name}`` (this would be ``/usr/bin/bello`` if
+we weren't using the rpm macros).
 
 Also within this section, you will sometimes need a built-in macro to provide
 context on a file. This can be useful for Systems Administrators and end users
@@ -659,9 +662,11 @@ pello
 ^^^^^
 
 Our second SPEC file will be for our example written in the `Python`_
-programming language that we created a simulated upstream release of previously
-(or you downloaded) and placed it's source code into ``~/rpmbuild/SOURCES/``
-earlier.
+programming language that  you downloaded (or you created a simulated upstream
+release in the :ref:`General Topics and Background <general-background>`
+Section) and placed it's source code into ``~/rpmbuild/SOURCES/``
+earlier. Let's go ahead and open the file ``~/rpmbuild/SOURCES/bello.spec``
+and start filling in some fields.
 
 Before we start down this path, we need to address something somewhat unique
 about byte-compiled interpreted software. Since we we will be byte-compiling
@@ -739,9 +744,9 @@ specified because we provided that information to the command line for
 ``rpmdev-newspec``.
 
 Let's set the ``Version`` to match what the "upstream" release version of the
-*pello* source code is, which if we remember we set to be ``0.1.1`` when we
-simulated our upstream source code release earlier (or as it is set by the
-example code you downloaded).
+*pello* source code is, which we can observe is ``0.1.1`` as set by the example
+code we downloaded (or we created in the :ref:`General Topics and Background
+<general-background>` Section).
 
 The ``Release`` is already set to ``1%{?dist}`` for us, the numerical value
 which is initially ``1`` should be incremented every time the package is updated
@@ -863,9 +868,9 @@ the SPEC. In this section we will simply use the provided macro ``%setup -q``.
 
 The ``%build`` section is where we tell the system how to actually build the
 software we are packaging. Here we will perform a byte-compilation of our
-software. For those who read the previous sections, this section of the example
-should look familiar. The ``%build`` section of our SPEC file should look as
-follows.
+software. For those who read the :ref:`General Topics and Background
+<general-background>` Section, this portion of the example should look familiar.
+The ``%build`` section of our SPEC file should look as follows.
 
 .. code-block:: spec
 
@@ -896,11 +901,11 @@ accessed.
 .. note::
     You will notice below that we are hard coding the library path. There are
     various methods to avoid needing to do this, many of which are addressed in
-    the :ref:`Appendix <appendix>` and are specific to the programming language
-    in which the software that is being packaged was written in. In this example
-    we hard code the path for simplicity as to not cover too many topics
+    the :ref:`Appendix <appendix>`, under the :ref:`More on Macros
+    <more-macros>` section, and are specific to the programming language in
+    which the software that is being packaged was written in. In this example we
+    hard code the path for simplicity as to not cover too many topics
     simultaneously.
-
 
 The ``%install`` section should look like the following after your edits:
 
@@ -1086,9 +1091,9 @@ specified because we provided that information to the command line for
 ``rpmdev-newspec``.
 
 Let's set the ``Version`` to match what the "upstream" release version of the
-*cello* source code is, which if we remember we set to be ``1.0`` when we
-simulated our upstream source code release earlier (or as it is set by the
-example code you downloaded).
+*cello* source code is, which we can observe is ``1.0`` as set by the example
+code we downloaded (or we created in the :ref:`General Topics and Background
+<general-background>` Section).
 
 The ``Release`` is already set to ``1%{?dist}`` for us, the numerical value
 which is initially ``1`` should be incremented every time the package is updated

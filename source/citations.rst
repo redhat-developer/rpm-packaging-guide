@@ -3,6 +3,7 @@
 .. _GCC: https://gcc.gnu.org/
 .. _sudo: http://www.sudo.ws/
 .. _git: https://git-scm.com/
+.. _yum: http://yum.baseurl.org/
 .. _Fedora: https://getfedora.org/
 .. _CentOS: https://www.centos.org/
 .. _Python: https://www.python.org/
@@ -10,6 +11,9 @@
 .. _gzip: https://www.gnu.org/software/gzip/
 .. _bash: https://www.gnu.org/software/bash/
 .. _cpio: https://en.wikipedia.org/wiki/Cpio
+.. _Mock: https://fedoraproject.org/wiki/Mock
+.. _EPEL: https://fedoraproject.org/wiki/EPEL
+.. _POSIX: https://en.wikipedia.org/wiki/POSIX
 .. _Linux: https://en.wikipedia.org/wiki/Linux
 .. _GNU make: http://www.gnu.org/software/make/
 .. _chroot: https://en.wikipedia.org/wiki/Chroot
@@ -18,8 +22,10 @@
 .. _patch: http://savannah.gnu.org/projects/patch/
 .. _man pages: https://en.wikipedia.org/wiki/Man_page
 .. _rpm macro: http://rpm.org/wiki/PackagerDocs/Macros
+.. _dnf: https://github.com/rpm-software-management/dnf
 .. _RPM Official Documentation: http://rpm.org/wiki/Docs
 .. _source code: https://en.wikipedia.org/wiki/Source_code
+.. _systemd: https://freedesktop.org/wiki/Software/systemd/
 .. _$PATH: https://en.wikipedia.org/wiki/PATH_%28variable%29
 .. _Part 1: http://www.ibm.com/developerworks/library/l-rpm1/
 .. _Part 2: http://www.ibm.com/developerworks/library/l-rpm2/
@@ -58,5 +64,11 @@
     https://www.gurulabs.com/media/files/courseware-samples/GURULABS-RPM-GUIDE-v1.0.PDF
 .. _Fedora Packaging Guidelines:
     https://fedoraproject.org/wiki/Packaging:Guidelines?rd=Packaging/Guidelines
+.. _Application Specific Guidelines:
+    https://fedoraproject.org/wiki/Packaging:Guidelines#Application_Specific_Guidelines
 .. _download the example source code:
     https://github.com/maxamillion/rpm-guide/tree/master/example-code
+.. _unit file:
+    https://www.freedesktop.org/software/systemd/man/systemd.unit.html
+.. _Fedora systemd Packaging Guidelines:
+    https://fedoraproject.org/wiki/Packaging:Systemd

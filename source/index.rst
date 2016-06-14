@@ -112,6 +112,7 @@ Contents
     rpm-guide
     general-background
     appendix
+    citations
 
 Indices and tables
 ==================
