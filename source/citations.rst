@@ -16,6 +16,7 @@
 .. _Maximum RPM: http://rpm.org/max-rpm-snapshot/
 .. _CPython: https://en.wikipedia.org/wiki/CPython
 .. _patch: http://savannah.gnu.org/projects/patch/
+.. _man pages: https://en.wikipedia.org/wiki/Man_page
 .. _rpm macro: http://rpm.org/wiki/PackagerDocs/Macros
 .. _RPM Official Documentation: http://rpm.org/wiki/Docs
 .. _source code: https://en.wikipedia.org/wiki/Source_code
@@ -27,6 +28,7 @@
 .. _here document: https://en.wikipedia.org/wiki/Here_document
 .. _tarball: https://en.wikipedia.org/wiki/Tar_%28computing%29
 .. _GPLv3: https://www.gnu.org/licenses/quick-guide-gplv3.html
+.. _rpmlint: https://github.com/rpm-software-management/rpmlint
 .. _RHEL: https://www.redhat.com/en/technologies/linux-platforms
 .. _C: https://en.wikipedia.org/wiki/C_%28programming_language%29
 .. _architecture: https://en.wikipedia.org/wiki/Microarchitecture

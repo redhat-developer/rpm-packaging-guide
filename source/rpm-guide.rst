@@ -1929,6 +1929,245 @@ pello
 Checking RPMs For Sanity
 ========================
 
-FIXME: rpmlint
+Once we have created a package, we may desire to perform some sort of checks for
+quality on the package itself and not necessarily just the software we're
+delivering with the RPM.
+
+For this the main tool of choice for RPM Packagers is `rpmlint`_ which performs
+many sanity and error checks that help assist with packaging in more
+maintainable and less error prone fashion. Something to keep in mind is that
+this is going to report things based on very strict guidelines and by way of
+static analysis. There is going to be lack of perspective by the `rpmlint`_ tool
+and what your primary objective is and thus it is sometimes alright to allow
+Errors or Warnings reported by `rpmlint`_ to persist in your packages, but the
+key is to understand **why** we would allow these to persist. In the follow
+sections we will explore a couple examples of just that.
+
+Another really useful feature of `rpmlint`_ is that we can use it to check
+against Binary RPMs, Source RPMs, and SPEC files so that it can be used during
+all stages of packaging and not just after the fact. We will show examples of
+each below.
+
+.. note::
+    For each example below we run `rpmlint`_ without any options, if you would
+    like detailed explanations of what each Error or Warning means, then you can
+    pass the ``-i`` option and run each command as ``rpmlint -i`` instead of
+    just ``rpmlint``. The shorter output is selected for brevity of the
+    document.
+
+bello
+-----
+
+Let's get started by looking at some output and dive into each set of output.
+
+::
+
+    $ rpmlint bello.spec
+    bello.spec: W: invalid-url Source0: https://www.example.com/bello/releases/bello-0.1.tar.gz HTTP Error 404: Not Found
+    0 packages and 1 specfiles checked; 0 errors, 1 warnings.
+
+
+When checking *bello*'s spec file we can see that we only have one warning and
+that is the URL listed in the ``Source0`` directive can not be reached which is
+something that we would expect given that example.com doesn't actually exist out
+in the real world and we've not setup a system with a local DNS entry to point
+to this URL. Since we know why the Warning was emitted and that it was expect,
+this can be safely ignored.
+
+::
+
+    $ rpmlint ~/rpmbuild/SRPMS/bello-0.1-1.el7.src.rpm
+    bello.src: W: invalid-url URL: https://www.example.com/bello HTTP Error 404: Not Found
+    bello.src: W: invalid-url Source0: https://www.example.com/bello/releases/bello-0.1.tar.gz HTTP Error 404: Not Found
+    1 packages and 0 specfiles checked; 0 errors, 2 warnings.
+
+When checking *bello*'s SRPM we can see very similar output from the check
+against the spec file but we also see that the check against the SRPM looks for
+the ``URL`` directive as well as the ``Source0`` directive, neither can be
+reached but as we know is expected and these can also be safely ignored.
+
+::
+
+    $ rpmlint ~/rpmbuild/RPMS/noarch/bello-0.1-1.el7.noarch.rpm
+    bello.noarch: W: invalid-url URL: https://www.example.com/bello HTTP Error 404: Not Found
+    bello.noarch: W: no-documentation
+    bello.noarch: W: no-manual-page-for-binary bello
+    1 packages and 0 specfiles checked; 0 errors, 3 warnings.
+
+Now things will change a bit when looking at Binary RPMs as the `rpmlint`_
+utility is going to check for other things that should be commonly found in
+Binary RPMs such as documentation and/or `man pages`_ as well as things like
+consistent use of the `Filesystem Hierarchy Standard`_. As we can see, this is
+exactly what is being reported and we know that there are no `man pages`_ or
+other documentation because we didn't provide any. Also, once again our old
+friend the ``HTTP Error 404: Not Found`` is present but we're well aware as to
+why.
+
+Other than our few items that we are carrying over because this is a simple
+example, our RPM is passing the `rpmlint`_ checks and all is well!
+
+
+pello
+-----
+
+Next up, let's get look at some more output and dive into it one by one.
+
+::
+
+    $ rpmlint pello.spec
+    pello.spec:30: E: hardcoded-library-path in %{buildroot}/usr/lib/%{name}
+    pello.spec:34: E: hardcoded-library-path in /usr/lib/%{name}/%{name}.pyc
+    pello.spec:39: E: hardcoded-library-path in %{buildroot}/usr/lib/%{name}/
+    pello.spec:43: E: hardcoded-library-path in /usr/lib/%{name}/
+    pello.spec:45: E: hardcoded-library-path in /usr/lib/%{name}/%{name}.py*
+    pello.spec: W: invalid-url Source0: https://www.example.com/pello/releases/pello-0.1.1.tar.gz HTTP Error 404: Not Found
+    0 packages and 1 specfiles checked; 5 errors, 1 warnings.
+
+Now, I know you might be thinking "That's a lot of errors, this example must be
+really wrong" and you would be correct but it is wrong for good reason. The goal
+here is two fold, first to make a byte-compiled example that was not too
+complicated and allowed to demonstrate some scripting in a SPEC file and second
+to show some examples of what we can expect `rpmlint`_ to report other than just
+a simple URL missing.
+
+Looking at the output from the check on *pello*'s spec file we can see that we
+have a new Error entitled ``hardcoded-library-path`` and it was mentioned during
+the previous section that this was known to be incorrect but we were doing it
+anyways. The reality is that this is a half truth. Almost always, you should be
+using the ``%{_libdir}`` rpm macro or some other more sophisticated macro (more
+on this in the :ref:`Appendix <appendix>`. The reason we do not use
+``%{_libdir}`` in this instance is because that macro will expand to be either
+``/usr/lib/`` or ``/usr/lib64/`` depending on a 32-bit or 64-bit
+`architecture`_. Since we are packaging ``noarch`` that would have become
+problematic for one arch or the other in the event of a compile on one, run on
+the other. We also don't dive into more clever rpm macros as they are out of
+scope when trying to learn RPM Packaging at and introductory level, which is
+already a feat of it's own. For the sake of this example, we can ignore this
+Error but in a real packaging scenario you should either have a reasonable
+justification or find the appropriate rpm macro to use.
+
+Once again, the URL listed in the ``Source0`` directive can not be reached which
+is something that we expect for the same reasons given in the previous example.
+Since we know why the Warning was emitted and that it was expect, this can be
+safely ignored also.
+
+::
+
+    $ rpmlint ~/rpmbuild/SRPMS/pello-0.1.1-1.el7.src.rpm
+    pello.src: W: invalid-url URL: https://www.example.com/pello HTTP Error 404: Not Found
+    pello.src:30: E: hardcoded-library-path in %{buildroot}/usr/lib/%{name}
+    pello.src:34: E: hardcoded-library-path in /usr/lib/%{name}/%{name}.pyc
+    pello.src:39: E: hardcoded-library-path in %{buildroot}/usr/lib/%{name}/
+    pello.src:43: E: hardcoded-library-path in /usr/lib/%{name}/
+    pello.src:45: E: hardcoded-library-path in /usr/lib/%{name}/%{name}.py*
+    pello.src: W: invalid-url Source0: https://www.example.com/pello/releases/pello-0.1.1.tar.gz HTTP Error 404: Not Found
+    1 packages and 0 specfiles checked; 5 errors, 2 warnings.
+
+When checking *pello*'s SRPM we can see very similar output from the check
+against the spec file but we also see that the check against the SRPM looks for
+the ``URL`` directive as well as the ``Source0`` directive, neither can be
+reached but as we know is expected and these can also be safely ignored.
+
+Once again, the explanation for the ``hardcoded-library-path`` is the same as we
+covered previously in the ``rpmlint`` output for the SPEC file.
+
+::
+
+    $ rpmlint ~/rpmbuild/RPMS/noarch/pello-0.1.1-1.el7.noarch.rpm
+    pello.noarch: W: invalid-url URL: https://www.example.com/pello HTTP Error 404: Not Found
+    pello.noarch: W: only-non-binary-in-usr-lib
+    pello.noarch: W: no-documentation
+    pello.noarch: E: non-executable-script /usr/lib/pello/pello.py 0644L /usr/bin/env
+    pello.noarch: W: no-manual-page-for-binary pello
+    1 packages and 0 specfiles checked; 1 errors, 4 warnings.
+
+As with the previous example, things change a bit when looking at Binary RPMs as
+the `rpmlint`_ utility is now checking for other things that should be commonly
+found in Binary RPMs such as documentation and/or `man pages`_ as well as things
+like consistent use of the `Filesystem Hierarchy Standard`_. As we can see, this
+is exactly what is being reported and we know that there are no `man pages`_ or
+other documentation because we didn't provide any. Also, once again our old
+friend the ``HTTP Error 404: Not Found`` is present but we're well aware as to
+why.
+
+The two new ones are ``non-executable-script`` and
+``only-non-binary-in-usr-lib``.
+
+First is ``W: only-non-binary-in-usr-lib`` which means that we've provided only
+non-binary artifacts in ``/usr/lib/`` which is normally reserved for shared
+object files which are binary data files and `rpmlint`_ therefore expects at
+least some of our files in ``/usr/lib/`` to be binary. This again rounds back to
+compliance with the `Filesystem Hierarchy Standard`_ as well as files ending up
+in incorrect or inconsistent locations because we are not using the appropriate
+rpm macros. This is of course by design *only* for the course of this example.
+
+Next up is ``E: non-executable-script /usr/lib/pello/pello.py 0644L
+/usr/bin/env`` which is telling us that `rpmlint`_ has found a file with a
+`shebang`_ directive which would normally be an executable and have permissions
+more likely to be ``0755`` instead of ``0644`` (meaning it can not be executed),
+but since we're simply leaving it as an install artifact reference library
+because we used this as an example for doing byte-compilation at build time this
+can also be safely ignored.
+
+Other than our items that we are carrying over for the purposes of the example,
+our RPM is passing the `rpmlint`_ checks and all is well!
+
+cello
+-----
+
+Next up, let's get look at some more output and dive into each.
+
+::
+
+    $ rpmlint ~/rpmbuild/SPECS/cello.spec
+    /home/admiller/rpmbuild/SPECS/cello.spec: W: invalid-url Source0: https://www.example.com/cello/releases/cello-1.0.tar.gz HTTP Error 404: Not Found
+    0 packages and 1 specfiles checked; 0 errors, 1 warnings.
+
+When checking *cello*'s spec file we can see that things appear much more as
+they did in our first example and we only have one warning. This is again that
+the URL listed in the ``Source0`` directive can not be reached which is
+something expected. Since we know why the Warning was emitted and that it was
+expect, this can be safely ignored.
+
+::
+
+    $ rpmlint ~/rpmbuild/SRPMS/cello-1.0-1.el7.src.rpm
+    cello.src: W: invalid-url URL: https://www.example.com/cello HTTP Error 404: Not Found
+    cello.src: W: invalid-url Source0: https://www.example.com/cello/releases/cello-1.0.tar.gz HTTP Error 404: Not Found
+    1 packages and 0 specfiles checked; 0 errors, 2 warnings.
+
+When checking *cello*'s SRPM we can see very similar output from the check
+against the spec file but we also see that the check against the SRPM looks for
+the ``URL`` directive as well as the ``Source0`` directive, neither can be
+reached but as we know is expected and these can also be safely ignored.
+
+
+::
+
+    $ rpmlint ~/rpmbuild/RPMS/x86_64/cello-1.0-1.el7.x86_64.rpm
+    cello.x86_64: W: invalid-url URL: https://www.example.com/cello HTTP Error 404: Not Found
+    cello.x86_64: W: no-documentation
+    cello.x86_64: W: no-manual-page-for-binary cello
+    1 packages and 0 specfiles checked; 0 errors, 3 warnings.
+
+
+As before, the output has changed when looking at Binary RPMs as the `rpmlint`_
+utility is going to check for other things that should be commonly found in
+Binary RPMs such as documentation and/or `man pages`_ as well as things like
+consistent use of the `Filesystem Hierarchy Standard`_. As we can see, this is
+exactly what is being reported just as in the previous examples and we know that
+there are no `man pages`_ or other documentation because we didn't provide any.
+Also, once again the ``HTTP Error 404: Not Found`` is present but we're well
+aware as to why.
+
+Other than our few items that we are carrying over because this is a simple
+example, our RPM is passing the `rpmlint`_ checks and all is well!
+
+That's it!
+
+Our RPMs are sanitized (or we know and understand why they aren't) and it is now
+time to either go forth and Package RPMs or travel on into the
+:ref:`Appendix <appendix>`.
+
 
 .. include:: citations.rst
