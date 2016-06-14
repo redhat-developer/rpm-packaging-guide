@@ -114,6 +114,17 @@ Contents
     appendix
     citations
 
+Contributing to this guide
+--------------------------
+
+If you are currently a RPM Packager and would like to contribute either by way
+of feedback or pull request, please do! Both forms of contribution are greatly
+appreciate and certainly welcome. Feel free to file an issue ticket with
+feedback, submit a pull request `on GitHub
+<https://github.com/maxamillion/rpm-guide>`, or both!
+
+Thank you for your time.
+
 Indices and tables
 ==================
 

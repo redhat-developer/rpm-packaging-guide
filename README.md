@@ -1,16 +1,13 @@
-# * CAUTION: THIS IS A WORK IN PROGRESS *
-
 # RPM Packaging Guide
 [![Documentation
 Status](https://readthedocs.org/projects/rpm-guide/badge/?version=latest)](http://rpm-guide.readthedocs.io/en/latest/?badge=latest)
 
 This is an RPM Packaging Guide.
 
-The original goal here is to provide materials for my
-[Red Hat Summit](https://www.redhat.com/en/summit) lab session entitled
-[From source to RPM in 120
-minutes](https://rh2016.smarteventscloud.com/connect/sessionDetail.ww?SESSION_ID=44520&tclass=popup)
-but as time goes on I hope to expand upon that.
+Many of the guides I have found around the internet are either too detailed, not
+detailed enough, or are simply showing their age and contain old, incorrect or
+outdated information. My hope here is to provide a guide that can be maintained
+and expanded upon over time.
 
 The document itself is written in
 [sphinx-doc](http://www.sphinx-doc.org/en/stable/)
