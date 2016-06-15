@@ -38,7 +38,7 @@ the :ref:`Appendix <appendix>` will satisfy the craving for knowledge that has
 been left out of this section.
 
 What is an RPM?
-----------_----
+---------------
 
 To kick things off, let's first define what an RPM actually is. An RPM package
 is simply a file that contains some files as well as information the system
