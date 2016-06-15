@@ -210,6 +210,162 @@ them, and pre-stage the build chroot.
 
 For more information, please consult the `Mock`_ upstream documentation.
 
+
+Version Control Systems
+-----------------------
+
+When working with RPMs, it is often desireable to utilize a `Version Control
+System`_ (VCS) such as `git`_ for managing components of the software we are
+packaging. Something to note is that storing binary files in a VCS is not
+favorable because it will drastically inflate the size of the source repository
+as these tools are engineered to handle differentials in files (often optimized
+for text files) and this is not something that binary files lend themselves to
+so normally each whole binary file is stored. As a side effect of this there are
+some clever utilities that are popular among upstream Open Source projects that
+work around this problem by either storing the SPEC file where the source code
+is in a VCS (i.e. - it is not in a compressed archive for redistribution) or
+place only the SPEC file and patches in the VCS and upload the compressed
+archive of the upstream release source to what is called a "look aside cache".
+
+In this section we will cover two different options for using a VCS system,
+`git`_, for managing the contents that will ultimately be turned into a RPM
+package. One is called `tito`_ and the other is `dist-git`_.
+
+.. note::
+    For the duration of this section you will need to install the ``git``
+    package on you system in order to follow along.
+
+tito
+^^^^
+
+Tito is an utility that assumes all the source code for the software that is
+going to be packaged is already in a `git`_ source control repository. This is
+good for those practicing a DevOps workflow as it allows for the team writing
+the software to maintain their normal `Branching Workflow`_. Tito will then
+allow for the software to be incrementally packaged, built in an automated
+fashion, and still provide a native installation experience for `RPM`_ based
+systems.
+
+.. note::
+    The `tito`_ package is available in `Fedora`_ as well as in the `EPEL`_
+    repository for use on RHEL 7 and CentOS 7.
+
+Tito operates based on `git tags`_ and will manage tags for you if you elect to
+allow it, but can optionally operate under whatever tagging scheme you prefer as
+this functionality is configurable.
+
+Let's explore a little bit about tito by looking at an upstream project already
+using it. We will actually be using the upstream git repository of the project
+that is our next section's subject, `dist-git`_. Since this project is publicly
+hosted on is publicly hosted on `GitHub`_, let's go ahead and clone the git
+repo.
+
+::
+
+    $ git clone https://github.com/release-engineering/dist-git.git
+    Cloning into 'dist-git'...
+    remote: Counting objects: 425, done.
+    remote: Total 425 (delta 0), reused 0 (delta 0), pack-reused 425
+    Receiving objects: 100% (425/425), 268.76 KiB | 0 bytes/s, done.
+    Resolving deltas: 100% (184/184), done.
+    Checking connectivity... done.
+
+    $ cd dist-git/
+
+    $ ls *.spec
+    dist-git.spec
+
+    $ tree rel-eng/
+    rel-eng/
+    ├── packages
+    │   └── dist-git
+    └── tito.props
+
+    1 directory, 2 files
+
+
+As we can see here, the SPEC file is at the root of the git repository and there
+is a ``rel-eng`` directory in the repository which is used by tito for general
+book keeping, configuration, and various advanced topics like custom tito
+modules. We can see in the directory layout that there is a sub-directory
+entitled ``packages`` which will store a file per package that tito manages in
+the repository as you can have many RPMs in a single git repository and tito
+will handle that just fine. In this scenario however, we see only a single
+package listing and it should be noted that it matches the name of our SPEC
+file. All of this is setup by the command ``tito init`` when the developers of
+`dist-git`_ first initialized their git repo to be managed by tito.
+
+If we were to follow a common workflow of a DevOps Practitioner then we would
+likely want to use this as part of a `Continuous Integration`_ (CI) or
+`Continuous Delivery`_ (CD) process. What we can do in that scenario is perform
+what is known as a "test build" to tito, we can even use mock to do this. We
+could then use the output as the installation point for some other component in
+the pipeline. Below is a simple example of commands that could accomplish this
+and they could be adapted to other environments.
+
+::
+
+    $ tito build --test --srpm
+    Building package [dist-git-0.13-1]
+    Wrote: /tmp/tito/dist-git-git-0.efa5ab8.tar.gz
+
+    Wrote: /tmp/tito/dist-git-0.13-1.git.0.efa5ab8.fc23.src.rpm
+
+    $ tito build --builder=mock --arg mock=epel-7-x86_64 --test --rpm
+    Building package [dist-git-0.13-1]
+    Creating rpms for dist-git-git-0.efa5ab8 in mock: epel-7-x86_64
+    Wrote: /tmp/tito/dist-git-git-0.efa5ab8.tar.gz
+
+    Wrote: /tmp/tito/dist-git-0.13-1.git.0.efa5ab8.fc23.src.rpm
+
+
+    Using srpm: /tmp/tito/dist-git-0.13-1.git.0.efa5ab8.fc23.src.rpm
+    Initializing mock...
+    Installing deps in mock...
+    Building RPMs in mock...
+    Wrote:
+      /tmp/tito/dist-git-selinux-0.13-1.git.0.efa5ab8.el7.centos.noarch.rpm
+      /tmp/tito/dist-git-0.13-1.git.0.efa5ab8.el7.centos.noarch.rpm
+
+    $ sudo yum localinstall /tmp/tito/dist-git-*.noarch.rpm
+    Loaded plugins: product-id, search-disabled-repos, subscription-manager
+    Examining /tmp/tito/dist-git-0.13-1.git.0.efa5ab8.el7.centos.noarch.rpm: dist-git-0.13-1.git.0.efa5ab8.el7.centos.noarch
+    Marking /tmp/tito/dist-git-0.13-1.git.0.efa5ab8.el7.centos.noarch.rpm to be installed
+    Examining /tmp/tito/dist-git-selinux-0.13-1.git.0.efa5ab8.el7.centos.noarch.rpm: dist-git-selinux-0.13-1.git.0.efa5ab8.el7.centos.noarch
+    Marking /tmp/tito/dist-git-selinux-0.13-1.git.0.efa5ab8.el7.centos.noarch.rpm to be installed
+    Resolving Dependencies
+    --> Running transaction check
+    ---> Package dist-git.noarch 0:0.13-1.git.0.efa5ab8.el7.centos will be installed
+
+Note that the final command would need to be run with either sudo or root
+permissions and that much of the output has been omitted for brevity as the
+dependency list is quite long.
+
+This concludes our simple example of how to use tito but it has many amazing
+features for traditional Systems Administrators, RPM Packagers, and DevOps
+Practitioners alike. I would highly recommend consulting the upstream
+documentation found at the `tito` GitHub site for more information on how to
+quickly get started using it for your project as well as various advanced
+features it offers.
+
+dist-git
+^^^^^^^^
+
+The `dist-git`_ utility takes a slightly different approach from that of `tito`_
+such that instead of keeping the raw source code in `git`_ it instead will keep
+SPEC files and patches in a git repository and upload the compressed archive of
+the source code to what is known as a "look-aside cache". The "look-aside-cache"
+is a term that was coined by the use of RPM Build Systems storing large files
+like these "on the side". A system like this is generally tied to a proper RPM
+Build System such as `Koji`_. The build system is then configured to pull the
+items that are listed as ``SourceX`` entries in the SPEC files in from this
+look-aside-cache, while the SPEC and patches remain in a version control system.
+There is also a helper command line tool to assist in this.
+
+In an effort to not duplicate documentation, for more information on how to
+setup a system such as this please refer to the upstream `dist-git`_ docs.
+upstream docs.
+
 .. _more-macros:
 
 More on Macros
