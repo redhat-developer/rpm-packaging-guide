@@ -73,8 +73,8 @@ used through out paragraphs will be written in a ``monospace`` font.
 Prerequisites
 -------------
 
-In order to perform the following the following examples you will need a few
-packages installed on your system:
+In order to perform the following examples you will need a few packages
+installed on your system:
 
 .. note::
     The inclusion of some of the packages below are not actually necessary
