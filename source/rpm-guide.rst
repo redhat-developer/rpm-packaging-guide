@@ -1353,7 +1353,7 @@ on the two main targets of building an RPM and that is creating Source and
 Binary RPMs.
 
 One of the things you may notice about ``rpmbuild`` is that it expects the
-directory structure created in a certain way and for various items suck as
+directory structure created in a certain way and for various items such as
 source code to exist within the context of that directory structure. Luckily,
 this is the same directory structure that was setup by the ``rpmdev-setuptree``
 utility that we used previously to setup our RPM workspace and we have been
