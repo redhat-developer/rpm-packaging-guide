@@ -1371,10 +1371,12 @@ wrong. Another reason is if we want to build a Binary RPM on a different
 hardware platform or `architecture`_.
 
 In order to create a Source RPM we need to pass the "build source" or ``-bs``
-argument to ``rpmbuild`` and we will provide a SPEC file as the argument. We
+option to ``rpmbuild`` and we will provide a SPEC file as the argument. We
 will do so for each of our examples we've created above.
 
 ::
+
+    $ cd ~/rpmbuild/SPECS/
 
     $ rpmbuild -bs bello.spec
     Wrote: /home/admiller/rpmbuild/SRPMS/bello-0.1-1.el7.src.rpm
@@ -1862,6 +1864,11 @@ pello
     + cd pello-0.1.1
     + /usr/bin/rm -rf /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64
     + exit 0
+
+cello
+"""""
+
+::
 
     $ rpmbuild -bb ~/rpmbuild/SPECS/cello.spec
     Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.FveYdS
