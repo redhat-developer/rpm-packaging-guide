@@ -518,7 +518,7 @@ the ``sudo`` portion of the command.
 
 ::
 
-    $ install -m 0755 bello /usr/bin/bello
+    $ sudo install -m 0755 bello /usr/bin/bello
 
 
 As this point, we can execute ``bello`` from our shell no matter what our
