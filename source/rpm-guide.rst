@@ -37,8 +37,8 @@ know about the RPM Packaging format, and if not then hopefully the contents of
 the :ref:`Appendix <appendix>` will satisfy the craving for knowledge that has
 been left out of this section.
 
-What is a RPM?
---------------
+What is an RPM?
+----------_----
 
 To kick things off, let's first define what an RPM actually is. An RPM package
 is simply a file that contains some files as well as information the system
@@ -57,7 +57,7 @@ that may be needed).
 RPM Packaging Workspace
 -----------------------
 
-In the :ref:`Prerequisite <pre-req>` section we installed a package named
+In the :ref:`Prerequisites <pre-req>` section we installed a package named
 ``rpmdevtools`` which provides a number of handy utilities for RPM Packagers.
 
 Feel free to explore the output of the following command and check out the
