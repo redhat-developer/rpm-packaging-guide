@@ -793,7 +793,8 @@ are simulating here. (More on this later).
             rm cello
 
     install:
-            install -m 0755 cello /usr/bin/cello
+            mkdir -p $(DESTDIR)/usr/bin
+            install -m 0755 cello $(DESTDIR)/usr/bin/cello
 
 Let's make a project ``tar.gz`` out of our source code.
 
