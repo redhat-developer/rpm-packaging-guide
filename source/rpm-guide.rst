@@ -250,9 +250,8 @@ the SPEC.
 
 .. note::
     I handy utility of the ``rpm`` command for packager is the ``--eval`` flag
-    which allows you to ask rpm to evaluate a macro so if you see one in a SPEC
-    file that you're not familiar with you can quickly find out what it
-    evaluates to.
+    which allows you to ask rpm to evaluate a macro. If you see a macro in a SPEC
+    file that you're not familiar with, you can quickly evaluate the expression.
 
     ::
 
@@ -286,15 +285,15 @@ section of the :ref:`Appendix <appendix>`.
 Working with SPEC files
 -----------------------
 
-As a RPM Packager, you will likely spend a large majority of your time when
-packaging software in the SPEC file since this is the recipe we use to tell
+As a RPM Packager, you will likely spend a large majority of your time, when
+packaging software, editing the SPEC file. The spec file is the recipe we use to tell
 ``rpmbuild`` how to actually perform a build. In this section we will discuss
 how to create and modify a spec file.
 
-When it comes time to package new software, you will want to create a new SPEC
-file and we *could* write one from scratch from memory but that sounds boring
-and tedious so let's not do that. The good news is that we're in luck and
-there's an utility called ``rpmdev-newspec`` which will create one for us and we
+When it comes time to package new software, a new SPEC file must be created. 
+We *could* write one from scratch from memory but that sounds boring
+and tedious, so let's not do that. The good news is that we're in luck and
+there's an utility called ``rpmdev-newspec``. This utility will create a new spec file for us. We
 will just fill in the various directives or add new fields as needed. This
 provides us with a nice baseline template.
 
