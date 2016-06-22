@@ -415,6 +415,14 @@ Macro               Definition
 %license            This identifies the file listed as a LICENSE file and it
                     will be installed and labeled as such by RPM.
                     Example: ``%license LICENSE``
+%doc                This identifies the file listed as documentation and it
+                    will be installed and labeled as such by RPM. This is often
+                    used not only for documentation about the software being
+                    packaged but also code examples and various items that
+                    should accompany documentation. In the event code examples
+                    are included, care should be taken to remove executable
+                    mode from the file.
+                    Example: ``%doc README``
 %dir                Identifies that the path is a directory that should be owned
                     by this RPM. This is important so that the rpm file manifest
                     accurately knows what directories to clean up on uninstall.
