@@ -378,7 +378,7 @@ bello
 
 Our first SPEC file will be for our example written in `bash`_ shell script that
 you downloaded (or you created a simulated upstream release in the :ref:`General
-Topics and Background <general-background>` Section) and placed it's source code
+Topics and Background <general-background>` Section) and placed its source code
 into ``~/rpmbuild/SOURCES/`` earlier. Let's go ahead and open the file
 ``~/rpmbuild/SOURCES/bello.spec`` and start filling in some fields.
 
