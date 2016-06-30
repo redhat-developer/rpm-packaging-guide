@@ -380,7 +380,7 @@ Our first SPEC file will be for our example written in `bash`_ shell script that
 you downloaded (or you created a simulated upstream release in the :ref:`General
 Topics and Background <general-background>` Section) and placed its source code
 into ``~/rpmbuild/SOURCES/`` earlier. Let's go ahead and open the file
-``~/rpmbuild/SOURCES/bello.spec`` and start filling in some fields.
+``~/rpmbuild/SPECS/bello.spec`` and start filling in some fields.
 
 The following is the output template we were given from ``rpmdev-newspec``.
 
@@ -674,7 +674,7 @@ Our second SPEC file will be for our example written in the `Python`_
 programming language that  you downloaded (or you created a simulated upstream
 release in the :ref:`General Topics and Background <general-background>`
 Section) and placed it's source code into ``~/rpmbuild/SOURCES/``
-earlier. Let's go ahead and open the file ``~/rpmbuild/SOURCES/bello.spec``
+earlier. Let's go ahead and open the file ``~/rpmbuild/SPECS/bello.spec``
 and start filling in some fields.
 
 Before we start down this path, we need to address something somewhat unique
@@ -701,7 +701,7 @@ point into our software. We will do this as a part of our SPEC file itself in
 order to demonstrate how you can script actions inside the SPEC file. We will
 cover the specifics of this in the ``%install`` section later.
 
-Let's go ahead and open the file ``~/rpmbuild/SOURCES/pello.spec`` and start
+Let's go ahead and open the file ``~/rpmbuild/SPECS/pello.spec`` and start
 filling in some fields.
 
 The following is the output template we were given from ``rpmdev-newspec``.
@@ -1048,7 +1048,7 @@ Our third SPEC file will be for our example written in the `C`_ programming
 language that we created a simulated upstream release of previously (or you
 downloaded) and placed it's source code into ``~/rpmbuild/SOURCES/`` earlier.
 
-Let's go ahead and open the file ``~/rpmbuild/SOURCES/cello.spec`` and start
+Let's go ahead and open the file ``~/rpmbuild/SPECS/cello.spec`` and start
 filling in some fields.
 
 The following is the output template we were given from ``rpmdev-newspec``.
