@@ -151,11 +151,14 @@ SPEC Directive      Definition
                     entirely in an interpreted programming language, this should
                     be ``BuildArch: noarch`` otherwise it will automatically
                     inherit the Architecture of the machine it's being built on.
-``BuildRequires``   A comma-separated list of packages required for building
+``BuildRequires``   A comma or whitespace separated list of packages required
+                    for building
                     (compiling) the program. There can be multiple entries of
-                    ``BuildRequires`` each on it's own line in the SPEC file.
-``Requires``        A comma-separate list of packages that are required by the
-                    software to run once installed.
+                    ``BuildRequires`` each on its own line in the SPEC file.
+``Requires``        A comma or whitespace separated list of packages required
+                    by the software to run once installed. There can
+		    be multiple entries of ``Requires`` each on its
+		    own line in the SPEC file.
 ``ExcludeArch``     In the event a piece of software can not operate on a
                     specific processor architecture, you can exclude it here.
 ==================  ============================================================
