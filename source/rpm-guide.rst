@@ -198,7 +198,7 @@ SPEC Directive      Definition
                     build procedure (compile) of the software.
 ``%install``        Command or series of commands used to actually install the
                     various artifacts into a resulting location in the FHS.
-                    Something to note is that this is done withing the relative
+                    Something to note is that this is done within the relative
                     context of the ``%buildroot`` (more on that later).
 ``%check``          Command or series of commands to "test" the software. This
                     is normally things such as unit tests.
