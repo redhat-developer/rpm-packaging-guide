@@ -151,11 +151,14 @@ SPEC Directive      Definition
                     entirely in an interpreted programming language, this should
                     be ``BuildArch: noarch`` otherwise it will automatically
                     inherit the Architecture of the machine it's being built on.
-``BuildRequires``   A comma-separated list of packages required for building
+``BuildRequires``   A comma or whitespace separated list of packages required
+                    for building
                     (compiling) the program. There can be multiple entries of
-                    ``BuildRequires`` each on it's own line in the SPEC file.
-``Requires``        A comma-separate list of packages that are required by the
-                    software to run once installed.
+                    ``BuildRequires`` each on its own line in the SPEC file.
+``Requires``        A comma or whitespace separated list of packages required
+                    by the software to run once installed. There can
+		    be multiple entries of ``Requires`` each on its
+		    own line in the SPEC file.
 ``ExcludeArch``     In the event a piece of software can not operate on a
                     specific processor architecture, you can exclude it here.
 ==================  ============================================================
@@ -198,7 +201,7 @@ SPEC Directive      Definition
                     build procedure (compile) of the software.
 ``%install``        Command or series of commands used to actually install the
                     various artifacts into a resulting location in the FHS.
-                    Something to note is that this is done withing the relative
+                    Something to note is that this is done within the relative
                     context of the ``%buildroot`` (more on that later).
 ``%check``          Command or series of commands to "test" the software. This
                     is normally things such as unit tests.
@@ -378,9 +381,9 @@ bello
 
 Our first SPEC file will be for our example written in `bash`_ shell script that
 you downloaded (or you created a simulated upstream release in the :ref:`General
-Topics and Background <general-background>` Section) and placed it's source code
+Topics and Background <general-background>` Section) and placed its source code
 into ``~/rpmbuild/SOURCES/`` earlier. Let's go ahead and open the file
-``~/rpmbuild/SOURCES/bello.spec`` and start filling in some fields.
+``~/rpmbuild/SPECS/bello.spec`` and start filling in some fields.
 
 The following is the output template we were given from ``rpmdev-newspec``.
 
@@ -674,7 +677,7 @@ Our second SPEC file will be for our example written in the `Python`_
 programming language that  you downloaded (or you created a simulated upstream
 release in the :ref:`General Topics and Background <general-background>`
 Section) and placed it's source code into ``~/rpmbuild/SOURCES/``
-earlier. Let's go ahead and open the file ``~/rpmbuild/SOURCES/bello.spec``
+earlier. Let's go ahead and open the file ``~/rpmbuild/SPECS/bello.spec``
 and start filling in some fields.
 
 Before we start down this path, we need to address something somewhat unique
@@ -701,7 +704,7 @@ point into our software. We will do this as a part of our SPEC file itself in
 order to demonstrate how you can script actions inside the SPEC file. We will
 cover the specifics of this in the ``%install`` section later.
 
-Let's go ahead and open the file ``~/rpmbuild/SOURCES/pello.spec`` and start
+Let's go ahead and open the file ``~/rpmbuild/SPECS/pello.spec`` and start
 filling in some fields.
 
 The following is the output template we were given from ``rpmdev-newspec``.
@@ -1048,7 +1051,7 @@ Our third SPEC file will be for our example written in the `C`_ programming
 language that we created a simulated upstream release of previously (or you
 downloaded) and placed it's source code into ``~/rpmbuild/SOURCES/`` earlier.
 
-Let's go ahead and open the file ``~/rpmbuild/SOURCES/cello.spec`` and start
+Let's go ahead and open the file ``~/rpmbuild/SPECS/cello.spec`` and start
 filling in some fields.
 
 The following is the output template we were given from ``rpmdev-newspec``.
