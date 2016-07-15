@@ -252,9 +252,10 @@ whatever the actual version number is that was entered in the `Version` field of
 the SPEC.
 
 .. note::
-    I handy utility of the ``rpm`` command for packager is the ``--eval`` flag
-    which allows you to ask rpm to evaluate a macro. If you see a macro in a SPEC
-    file that you're not familiar with, you can quickly evaluate the expression.
+    One handy utility of the ``rpm`` command for packagers is the ``--eval``
+    flag which allows you to ask rpm to evaluate a macro. If you see a macro in
+    a SPEC file that you're not familiar with, you can quickly evaluate the
+    expression.
 
     ::
 
@@ -293,7 +294,7 @@ packaging software, editing the SPEC file. The spec file is the recipe we use to
 ``rpmbuild`` how to actually perform a build. In this section we will discuss
 how to create and modify a spec file.
 
-When it comes time to package new software, a new SPEC file must be created. 
+When it comes time to package new software, a new SPEC file must be created.
 We *could* write one from scratch from memory but that sounds boring
 and tedious, so let's not do that. The good news is that we're in luck and
 there's an utility called ``rpmdev-newspec``. This utility will create a new spec file for us. We
