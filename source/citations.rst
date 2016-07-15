@@ -78,18 +78,18 @@
 .. _Application Specific Guidelines:
     https://fedoraproject.org/wiki/Packaging:Guidelines#Application_Specific_Guidelines
 .. _download the example source code:
-    https://github.com/maxamillion/rpm-guide/tree/master/example-code
+    https://github.com/redhat-developer/rpm-packaging-guide/tree/master/example-code
 .. _unit file:
     https://www.freedesktop.org/software/systemd/man/systemd.unit.html
 .. _Fedora systemd Packaging Guidelines:
     https://fedoraproject.org/wiki/Packaging:Systemd
 .. _bello-0.1.tar.gz:
-    https://github.com/maxamillion/rpm-guide/raw/master/example-code/bello-0.1.tar.gz
+    https://github.com/redhat-developer/rpm-packaging-guide/raw/master/example-code/bello-0.1.tar.gz
 .. _pello-0.1.1.tar.gz:
-    https://github.com/maxamillion/rpm-guide/raw/master/example-code/pello-0.1.1.tar.gz
+    https://github.com/redhat-developer/rpm-packaging-guide/raw/master/example-code/pello-0.1.1.tar.gz
 .. _cello-1.0.tar.gz:
-    https://github.com/maxamillion/rpm-guide/raw/master/example-code/cello-1.0.tar.gz
+    https://github.com/redhat-developer/rpm-packaging-guide/raw/master/example-code/cello-1.0.tar.gz
 .. _cello-output-first-patch.patch:
-    https://raw.githubusercontent.com/maxamillion/rpm-guide/master/example-code/cello-output-first-patch.patch
+    https://github.com/redhat-developer/rpm-packaging-guide/master/example-code/cello-output-first-patch.patch
 .. _Branching Workflow:
     https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows
