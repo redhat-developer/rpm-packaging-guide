@@ -314,8 +314,8 @@ community. Below is an example using `Python`_.
     $ python pello.pyc
     Hello World
 
-    $ file foo.pyc
-    foo.pyc: python 2.7 byte-compiled
+    $ file pello.pyc
+    pello.pyc: python 2.7 byte-compiled
 
 You can see here that after we byte-compiled the source ``.py`` file we now have
 a ``.pyc`` file which is of ``python 2.7 byte-compiled`` filetype. This file can
