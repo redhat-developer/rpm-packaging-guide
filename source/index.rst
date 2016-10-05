@@ -112,7 +112,6 @@ Contents
     rpm-guide
     general-background
     appendix
-    citations
 
 Contributing to this guide
 --------------------------
