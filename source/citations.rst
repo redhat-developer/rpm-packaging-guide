@@ -90,6 +90,6 @@
 .. _cello-1.0.tar.gz:
     https://github.com/redhat-developer/rpm-packaging-guide/raw/master/example-code/cello-1.0.tar.gz
 .. _cello-output-first-patch.patch:
-    https://github.com/redhat-developer/rpm-packaging-guide/master/example-code/cello-output-first-patch.patch
+    https://github.com/redhat-developer/rpm-packaging-guide/raw/master/example-code/cello-output-first-patch.patch
 .. _Branching Workflow:
     https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows
