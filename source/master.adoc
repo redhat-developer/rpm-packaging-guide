@@ -1,0 +1,9 @@
+= RPM Packaging Guide
+:imagesdir: images
+:toc: left
+:doctype: book
+
+include::index.adoc[]
+include::rpm-guide.adoc[]
+include::general-background.adoc[]
+include::appendix.adoc[]
