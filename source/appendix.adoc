@@ -21,9 +21,7 @@ Mock is capable of building SRPMs from source configuration management if the
 mock-scm package is present, then building the SRPM into RPMs. See –scm-enable
 in the documentation.” (From the upstream documentation)
 
-Note
-
-In order to use https://fedoraproject.org/wiki/Mock[Mock] on a RHEL or CentOS system, you will need to enable
+NOTE: In order to use https://fedoraproject.org/wiki/Mock[Mock] on a RHEL or CentOS system, you will need to enable
 the “Extra Packages for Enterprise Linux” (https://fedoraproject.org/wiki/EPEL[EPEL]) repository. This is
 a repository provided by the https://getfedora.org/[Fedora] community and has many useful tools
 for RPM Packagers, systems administrators, and developers.
@@ -236,9 +234,7 @@ In this section we will cover two different options for using a VCS system,
 https://git-scm.com/[git], for managing the contents that will ultimately be turned into a RPM
 package. One is called https://github.com/dgoodwin/tito[tito] and the other is https://github.com/release-engineering/dist-git[dist-git].
 
-Note
-
-For the duration of this section you will need to install the ``git``
+NOTE: For the duration of this section you will need to install the ``git``
 package on you system in order to follow along.
 
 [[tito]]
@@ -252,9 +248,7 @@ allow for the software to be incrementally packaged, built in an automated
 fashion, and still provide a native installation experience for http://rpm.org/[RPM] based
 systems.
 
-Note
-
-The https://github.com/dgoodwin/tito[tito] package is available in https://getfedora.org/[Fedora] as well as in the https://fedoraproject.org/wiki/EPEL[EPEL]
+NOTE: The https://github.com/dgoodwin/tito[tito] package is available in https://getfedora.org/[Fedora] as well as in the https://fedoraproject.org/wiki/EPEL[EPEL]
 repository for use on RHEL 7 and CentOS 7.
 
 Tito operates based on https://git-scm.com/book/en/v2/Git-Basics-Tagging[git tags] and will manage tags for you if you elect to

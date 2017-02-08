@@ -17,9 +17,7 @@ the https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hiera
 [[what-is-source-code]]
 == What is Source Code?
 
-Note
-
-If you are familiar with what the following terms mean then feel free to
+NOTE: If you are familiar with what the following terms mean then feel free to
 skip this section: source code, programming, programming languages.
 
 In the world of computer software, **source code** is the term used to the
@@ -29,9 +27,7 @@ format is expressed using a https://en.wikipedia.org/wiki/Programming_language[p
 to a set of rules about that programmers learn so that the text they write is
 meaningful to the computer.
 
-Note
-
-There are many thousands of programming languages in the world. In this
+NOTE: There are many thousands of programming languages in the world. In this
 document we will provide examples of only a couple, some finer points of
 various programming languages are going to vary but hopefully this guide
 will prove to be a good conceptual overview.
@@ -44,9 +40,7 @@ languages. The program is a very common starting place for newcomers to the
 programming world so it may appear familiar to some readers, but if it doesn’t
 do not worry.
 
-Note
-
-In the first two examples below, the ``#!`` line is known as a https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang]
+NOTE: In the first two examples below, the ``#!`` line is known as a https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang]
 and is not technically part of the programming language source code.
 
 This version of the example is written in the https://www.gnu.org/software/bash/[bash] shell built in scripting
@@ -158,9 +152,7 @@ https://en.wikipedia.org/wiki/Microarchitecture[architecture] associated with it
 In this section we will discuss and provide examples of building software from
 it’s source code.
 
-Note
-
-If you are comfortable building software from source code please feel free
+NOTE: If you are comfortable building software from source code please feel free
 to skip this section and move on. However, if you’d like to stick around and
 read it then please feel free and it will hopefully serve as a refresher or
 possibly contain something interesting that’s new to you.
@@ -175,9 +167,7 @@ then be **run** or “**executed**” which tells the computer to perform the ta
 described to it in the source code provided by the programmer who authored the
 software.
 
-Note
-
-There are various methods by which software written in different programming
+NOTE: There are various methods by which software written in different programming
 languages can vary heavily. If the software you are interested in packaging
 doesn’t follow the exact examples here, this will hopefully be an objective
 guideline.
@@ -281,8 +271,8 @@ those who may have skipped the previous section), for https://www.python.org/[Py
 this source code into something the https://www.python.org/[Python] Language Interpreter (known as
 https://en.wikipedia.org/wiki/CPython[CPython]) can execute.
 
-Note
-
+[NOTE]
+====
 In the two examples below, the ``#!`` line is known as a https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang] and is
 not technically part of the programming language source code.
 
@@ -290,6 +280,7 @@ The https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang] allows us to use a
 program loader will parse the line at the top of the file containing
 a ``#!`` character sequence looking a path to the binary executable to use
 as the programming language interpreter.
+====
 
 [[byte-compiled-code]]
 ==== Byte Compiled Code
@@ -315,9 +306,7 @@ heavily based on the programming language, it’s language virtual machine, and
 the tools or processes that are common within that programming language’s
 community. Below is an example using https://www.python.org/[Python].
 
-Note
-
-The practice of byte compiling https://www.python.org/[Python] is common but the exact procedure
+NOTE: The practice of byte compiling https://www.python.org/[Python] is common but the exact procedure
 shown here is not. This is meant to be a simple example. For more
 information, please reference the https://docs.python.org/2/library/distribution.html[Software Packaging and Distribution]
 documentation.
@@ -379,9 +368,7 @@ it represents what is __different__ between to pieces of source code. A __diff__
 created using the ``diff`` command line utility that is provided by http://www.gnu.org/software/diffutils/diffutils.html[diffutils]
 and then it is applied to the original source code using the tool http://savannah.gnu.org/projects/patch/[patch].
 
-Note
-
-Software developer will often use “Version Control Systems” such as https://git-scm.com/[git]
+NOTE: Software developer will often use “Version Control Systems” such as https://git-scm.com/[git]
 to manage their code base. Tools like these provide their own methods of
 creating diffs or patching software but those are outside the scope of this
 document.
@@ -418,9 +405,7 @@ int main(void) {
 Now that we have our original source code preserved and the updated source code
 written, we can generate a patch using the ``diff`` utility.
 
-Note
-
-Here we are using a handful of common arguments for the ``diff`` utility and
+NOTE: Here we are using a handful of common arguments for the ``diff`` utility and
 their documentation is out of the scope of this document. Please reference
 the manual page on your local machine with: ``man diff`` for more
 information.
@@ -572,9 +557,7 @@ A very popular mechanism by which you will install software from source after
 it’s built is by using a command called ``make install`` and in order to do that
 we need to enhance the ``Makefile`` we created previously just a little bit.
 
-Note
-
-The creation of ``Makefile`` is normally done by the developer who writes
+NOTE: The creation of ``Makefile`` is normally done by the developer who writes
 the original source code of the software in question and as a RPM Packager
 this is not generally something you will need to do. This is purely an
 exercise for background knowledge and we will expand upon this as it relates
@@ -583,9 +566,7 @@ to RPM Packaging later.
 Open the ``Makefile`` file up in your favorite text editor and make the
 appropriate edits needed so that it ends up looking exactly as the following.
 
-Note
-
-The use of https://www.gnu.org/software/make/manual/html_node/DESTDIR.html[$(DESTDIR)] is a http://www.gnu.org/software/make/[GNU make] built-in and is commonly used to
+NOTE: The use of https://www.gnu.org/software/make/manual/html_node/DESTDIR.html[$(DESTDIR)] is a http://www.gnu.org/software/make/[GNU make] built-in and is commonly used to
 install into alternative destination directories.
 
 ``Makefile``
@@ -641,9 +622,7 @@ location on the system!
 [[prepping-our-example-upstream-source-code]]
 == Prepping our example upstream source code
 
-Note
-
-If you’re familiar with how upstream software is distributed and would like
+NOTE: If you’re familiar with how upstream software is distributed and would like
 to skip this, please feel free to https://github.com/redhat-developer/rpm-packaging-guide/tree/master/example-code[download the example source code] for
 our fake upstream projects skip this section. However if you are curious how
 the examples are created please feel free to read along.
@@ -652,9 +631,7 @@ Now that we have our RPM Packaging Workspace setup, we should create simulated
 upstream compressed archives of the example programs we have made. We will once
 again list them here just in case a previous section was skipped.
 
-Note
-
-What we are about to do here in this section is not normally something a RPM
+NOTE: What we are about to do here in this section is not normally something a RPM
 Packager has to do, this is normally what happens from an upstream software
 project, product, or developer who actually releases the software as source
 code. This is simply to setup the RPM Build example space and give some
@@ -667,9 +644,7 @@ upstream software release because encounters with a https://en.wikipedia.org/wik
 packaging RPMs is a very common occurrence for a RPM Packager and we should know
 how to properly handle them.
 
-Note
-
-The method used below to create the ``LICENSE`` file is known as a https://en.wikipedia.org/wiki/Here_document[here
+NOTE: The method used below to create the ``LICENSE`` file is known as a https://en.wikipedia.org/wiki/Here_document[here
 document].
 
 Let us go ahead and make a ``LICENSE`` file that can be included in the source

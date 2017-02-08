@@ -19,9 +19,7 @@ learned here should be applicable across all distributions that are https://en.w
 but the examples will need to be adapted for distribution specific items such as
 prerequisite installation items, guidelines, or macros. (More on macros later)
 
-Note
-
-If you have made it this far and don’t know what a software package or a
+NOTE: If you have made it this far and don’t know what a software package or a
 GNU/Linux distribution is, you might be best served by exploring some
 articles on the topics of https://en.wikipedia.org/wiki/Linux[Linux] and https://en.wikipedia.org/wiki/Package_manager[Package Managers].
 
@@ -245,8 +243,8 @@ then use the ``%{version}`` macro and it would be substituted in place by
 whatever the actual version number is that was entered in the <cite>Version</cite> field of
 the SPEC.
 
-Note
-
+[NOTE]
+====
 One handy utility of the ``rpm`` command for packagers is the ``--eval``
 flag which allows you to ask rpm to evaluate a macro. If you see a macro in
 a SPEC file that you’re not familiar with, you can quickly evaluate the
@@ -261,6 +259,7 @@ $ rpm --eval %{_libexecdir}
 /usr/libexec
 
 ----
+====
 
 A common macro we will encounter as a packager is ``%{?dist}`` which signifies
 the “distribution tag” allowing for a short textual representation of the
@@ -313,9 +312,7 @@ and download the example programs now and place them in your
 Let’s go ahead and create a SPEC file for each of our three implementations of
 our example and then we will look at the SPEC files and the
 
-Note
-
-Some programmer focused text editors will pre-populate a new file with the
+NOTE: Some programmer focused text editors will pre-populate a new file with the
 extension ``.spec`` with a SPEC template of their own but ``rpmdev-newspec``
 is an editor-agnostic method which is why it is chosen here.
 
@@ -342,8 +339,8 @@ the directives should look familiar from the
 exact information we will input into these fields in the following sections that
 will focus specifically on each example.
 
-Note
-
+[NOTE]
+====
 The ``rpmdev-newspec`` utility does not use https://en.wikipedia.org/wiki/Linux[Linux] Distribution specific
 guidelines or conventions, however this document is targeted towards using
 conventions and guidelines for https://getfedora.org/[Fedora], https://www.centos.org/[CentOS], and https://www.redhat.com/en/technologies/linux-platforms[RHEL] so you will
@@ -356,6 +353,7 @@ https://getfedora.org/[Fedora] version 18 or newer.
 We also will favor the use of ``%{buildroot}`` notation over
 ``$RPM_BUILD_ROOT`` when referencing RPM’s Buildroot for consistency with
 all other defined or provided macros through out the SPEC
+====
 
 There are three examples below, each one is meant to be self-sufficient in
 instruction such that you can jump to a specific one if it matches your needs
@@ -700,9 +698,7 @@ the program’s execution. This might seem silly for our small example but for
 large software projects with many thousands of lines of code, the performance
 increase of pre-byte-compiled code is sizeable.
 
-Note
-
-The creation of a script to call the byte-compiled code or having
+NOTE: The creation of a script to call the byte-compiled code or having
 a non-byte-compiled entry point into the software is something that upstream
 software developers most often address before doing a release of their
 software to the world, however this is not always the case and this exercise
@@ -922,9 +918,7 @@ code by using a https://en.wikipedia.org/wiki/Here_document[here document]. We w
 byte-compiled file into a library directory on the system such that it can be
 accessed.
 
-Note
-
-You will notice below that we are hard coding the library path. There are
+NOTE: You will notice below that we are hard coding the library path. There are
 various methods to avoid needing to do this, many of which are addressed in
 the <<appendix.adoc#appendix>>, under the <<appendix.adoc#more-on-macros>> section, and are specific to the programming language in
 which the software that is being packaged was written in. In this example we
@@ -2012,9 +2006,7 @@ against Binary RPMs, Source RPMs, and SPEC files so that it can be used during
 all stages of packaging and not just after the fact. We will show examples of
 each below.
 
-Note
-
-For each example below we run https://github.com/rpm-software-management/rpmlint[rpmlint] without any options, if you would
+NOTE: For each example below we run https://github.com/rpm-software-management/rpmlint[rpmlint] without any options, if you would
 like detailed explanations of what each Error or Warning means, then you can
 pass the ``-i`` option and run each command as ``rpmlint -i`` instead of
 just ``rpmlint``. The shorter output is selected for brevity of the

@@ -76,9 +76,7 @@ used through out paragraphs will be written in a ``monospace`` font.
 In order to perform the following examples you will need a few packages
 installed on your system:
 
-Note
-
-The inclusion of some of the packages below are not actually necessary
+NOTE: The inclusion of some of the packages below are not actually necessary
 because they are a part of the default installation of Fedora, RHEL, and
 CentOS but are listed explicitly for perspective of exactly the tools used
 within this document.
