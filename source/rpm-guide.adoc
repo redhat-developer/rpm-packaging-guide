@@ -376,7 +376,7 @@ to demonstrate an common build and installation process
 using tooling for compiling native code.
 |====
 
-[[bello]]
+[[bello-working-with-spec-files]]
 ==== bello
 
 Our first SPEC file will be for our example written in https://www.gnu.org/software/bash/[bash] shell script that
@@ -678,7 +678,7 @@ install -m 0755 %{name} %{buildroot}/%{_bindir}/%{name}
 
 ----
 
-[[pello]]
+[[pello-working-with-spec-files]]
 ==== pello
 
 Our second SPEC file will be for our example written in the https://www.python.org/[Python]
@@ -1055,7 +1055,7 @@ install -m 0644 %{name}.py* %{buildroot}/usr/lib/%{name}/
 
 ----
 
-[[cello]]
+[[cello-working-with-spec-files]]
 ==== cello
 
 Our third SPEC file will be for our example written in the https://en.wikipedia.org/wiki/C_%28programming_language%29[C] programming
