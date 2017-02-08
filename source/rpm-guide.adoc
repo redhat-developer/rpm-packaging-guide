@@ -307,7 +307,7 @@ and download the example programs now and place them in your
 
 *   https://github.com/redhat-developer/rpm-packaging-guide/raw/master/example-code/cello-1.0.tar.gz[cello-1.0.tar.gz]
 
->         *   https://github.com/redhat-developer/rpm-packaging-guide/master/example-code/cello-output-first-patch.patch[cello-output-first-patch.patch]
+**   https://github.com/redhat-developer/rpm-packaging-guide/master/example-code/cello-output-first-patch.patch[cello-output-first-patch.patch]
 
 Let’s go ahead and create a SPEC file for each of our three implementations of
 our example and then we will look at the SPEC files and the
