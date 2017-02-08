@@ -11,11 +11,11 @@ Well hopefully this guide will prove to be helpful.
 
 Below you will find information about RPMs, source code and all sorts of things
 in between. If you are familiar with what “https://en.wikipedia.org/wiki/Source_code[Source Code]” is and how it gets
-compiled or “built” into software then feel free to skip the general-background.html#general-background[General
-Topics and Background] section and move right on into the
-rpm-guide.html#rpm-guide[RPM Guide]. More advanced topics and items otherwise
+compiled or “built” into software then feel free to skip the <<general-background.adoc#general-topics-and-background>>
+section and move right on into the
+<<rpm-guide.adoc#rpm-packaging-guide>>. More advanced topics and items otherwise
 considered out of scope of getting you on the path to packaging software will be
-held in the appendix.html#appendix[Appendix]. However, I hope all sections of this
+held in the <<appendix.adoc#appendix>>. However, I hope all sections of this
 guide do prove useful in some capacity.
 
 This guide is meant to be used however the reader feels they would best like to

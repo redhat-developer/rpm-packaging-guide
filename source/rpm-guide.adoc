@@ -30,7 +30,7 @@ articles on the topics of https://en.wikipedia.org/wiki/Linux[Linux] and https:/
 
 In this section we are going to hopefully cover everything you ever wanted to
 know about the RPM Packaging format, and if not then hopefully the contents of
-the appendix.html#appendix[Appendix] will satisfy the craving for knowledge that has
+the <<appendix.adoc#appendix>> will satisfy the craving for knowledge that has
 been left out of this section.
 
 [[what-is-an-rpm]]
@@ -53,7 +53,7 @@ that may be needed).
 [[rpm-packaging-workspace]]
 === RPM Packaging Workspace
 
-In the index.html#pre-req[Prerequisites] section we installed a package named
+In the <<index.adoc#prerequisites>> section we installed a package named
 ``rpmdevtools`` which provides a number of handy utilities for RPM Packagers.
 
 Feel free to explore the output of the following command and check out the
@@ -214,7 +214,7 @@ There are a series of advanced items including what are known as __scriptlets__
 and __triggers__ which take effect at different points through out the
 installation process on the target machine (not the build process). These are
 out of the scope of this document, but there is plenty of information on them in
-the appendix.html#appendix[Appendix].
+the <<appendix.adoc#appendix>>.
 
 [[buildroots]]
 === BuildRoots
@@ -280,8 +280,8 @@ $ rpm --eval %{?dist}
 
 ----
 
-For more information, please reference the appendix.html#more-macros[More on Macros]
-section of the appendix.html#appendix[Appendix].
+For more information, please reference the <<appendix.adoc#more-on-macros>>
+section of the <<appendix.adoc#appendix>>.
 
 [[working-with-spec-files]]
 === Working with SPEC files
@@ -338,7 +338,7 @@ You will now find three SPEC files in your ``~/rpmbuild/SPECS/`` directory all
 matching the names you passed to ``rpmdev-newspec`` but with the ``.spec`` file
 extension. Take a moment to look at the files using your favorite text editor,
 the directives should look familiar from the
-#what-is-spec-file[What is a SPEC File?] section. We will discuss the
+<<what-is-a-spec-file>> section. We will discuss the
 exact information we will input into these fields in the following sections that
 will focus specifically on each example.
 
@@ -382,8 +382,8 @@ using tooling for compiling native code.
 ==== bello
 
 Our first SPEC file will be for our example written in https://www.gnu.org/software/bash/[bash] shell script that
-you downloaded (or you created a simulated upstream release in the general-background.html#general-background[General
-Topics and Background] Section) and placed its source code
+you downloaded (or you created a simulated upstream release in the <<general-background.adoc#general-topics-and-background>>
+section) and placed its source code
 into ``~/rpmbuild/SOURCES/`` earlier. Let’s go ahead and open the file
 ``~/rpmbuild/SPECS/bello.spec`` and start filling in some fields.
 
@@ -432,7 +432,7 @@ information to the command line for ``rpmdev-newspec``.
 
 Let’s set the ``Version`` to match what the “upstream” release version of the
 __bello__ source code is, which we can observe is ``0.1`` as set by the example
-code we downloaded (or we created in the general-background.html#general-background[General Topics and Background] Section).
+code we downloaded (or we created in the <<general-background.adoc#general-topics-and-background>> section).
 
 The ``Release`` is already set to ``1%{?dist}`` for us, the numerical value
 which is initially ``1`` should be incremented every time the package is updated
@@ -440,7 +440,7 @@ for any reason, such as including a new patch to fix an issue, but doesn’t hav
 a new upstream release ``Version``. When a new upstream release happens (for
 example, bello version ``0.2`` were released) then the ``Release`` number should
 be reset to ``1``. The __disttag__ of ``%{?dist}`` should look familiar from the
-previous section’s coverage of #rpm-macros[RPM Macros].
+previous section’s coverage of <<rpm-macros>>.
 
 The ``Summary`` should be a short, one-line explanation of what this software
 is.
@@ -685,8 +685,8 @@ install -m 0755 %{name} %{buildroot}/%{_bindir}/%{name}
 
 Our second SPEC file will be for our example written in the https://www.python.org/[Python]
 programming language that  you downloaded (or you created a simulated upstream
-release in the general-background.html#general-background[General Topics and Background]
-Section) and placed it’s source code into ``~/rpmbuild/SOURCES/``
+release in the <<general-background.adoc#general-topics-and-background>>
+section) and placed it’s source code into ``~/rpmbuild/SOURCES/``
 earlier. Let’s go ahead and open the file ``~/rpmbuild/SPECS/bello.spec``
 and start filling in some fields.
 
@@ -764,7 +764,7 @@ specified because we provided that information to the command line for
 
 Let’s set the ``Version`` to match what the “upstream” release version of the
 __pello__ source code is, which we can observe is ``0.1.1`` as set by the example
-code we downloaded (or we created in the general-background.html#general-background[General Topics and Background] Section).
+code we downloaded (or we created in the <<general-background.adoc#general-topics-and-background>> section).
 
 The ``Release`` is already set to ``1%{?dist}`` for us, the numerical value
 which is initially ``1`` should be incremented every time the package is updated
@@ -772,7 +772,7 @@ for any reason, such as including a new patch to fix an issue, but doesn’t hav
 a new upstream release ``Version``. When a new upstream release happens (for
 example, pello version ``0.1.2`` were released) then the ``Release`` number
 should be reset to ``1``. The __disttag__ of ``%{?dist}`` should look familiar
-from the previous section’s coverage of #rpm-macros[RPM Macros].
+from the previous section’s coverage of <<rpm-macros>>.
 
 The ``Summary`` should be a short, one-line explanation of what this software
 is.
@@ -891,7 +891,7 @@ the SPEC. In this section we will simply use the provided macro ``%setup -q``.
 
 The ``%build`` section is where we tell the system how to actually build the
 software we are packaging. Here we will perform a byte-compilation of our
-software. For those who read the general-background.html#general-background[General Topics and Background] Section, this portion of the example should look familiar.
+software. For those who read the <<general-background.adoc#general-topics-and-background>> section, this portion of the example should look familiar.
 The ``%build`` section of our SPEC file should look as follows.
 
 [source,java]
@@ -926,7 +926,7 @@ Note
 
 You will notice below that we are hard coding the library path. There are
 various methods to avoid needing to do this, many of which are addressed in
-the appendix.html#appendix[Appendix], under the appendix.html#more-macros[More on Macros] section, and are specific to the programming language in
+the <<appendix.adoc#appendix>>, under the <<appendix.adoc#more-on-macros>> section, and are specific to the programming language in
 which the software that is being packaged was written in. In this example we
 hard code the path for simplicity as to not cover too many topics
 simultaneously.
@@ -1117,7 +1117,7 @@ specified because we provided that information to the command line for
 
 Let’s set the ``Version`` to match what the “upstream” release version of the
 __cello__ source code is, which we can observe is ``1.0`` as set by the example
-code we downloaded (or we created in the general-background.html#general-background[General Topics and Background] Section).
+code we downloaded (or we created in the <<general-background.adoc#general-topics-and-background>> section).
 
 The ``Release`` is already set to ``1%{?dist}`` for us, the numerical value
 which is initially ``1`` should be incremented every time the package is updated
@@ -1125,7 +1125,7 @@ for any reason, such as including a new patch to fix an issue, but doesn’t hav
 a new upstream release ``Version``. When a new upstream release happens (for
 example, cello version ``2.0`` were released) then the ``Release`` number should
 be reset to ``1``. The __disttag__ of ``%{?dist}`` should look familiar from the
-previous section’s coverage of #rpm-macros[RPM Macros].
+previous section’s coverage of <<rpm-macros>>.
 
 The ``Summary`` should be a short, one-line explanation of what this software
 is.
@@ -2106,7 +2106,7 @@ have a new Error entitled ``hardcoded-library-path`` and it was mentioned during
 the previous section that this was known to be incorrect but we were doing it
 anyways. The reality is that this is a half truth. Almost always, you should be
 using the ``%{_libdir}`` rpm macro or some other more sophisticated macro (more
-on this in the appendix.html#appendix[Appendix]. The reason we do not use
+on this in the <<appendix.adoc#appendix>>. The reason we do not use
 ``%{_libdir}`` in this instance is because that macro will expand to be either
 ``/usr/lib/`` or ``/usr/lib64/`` depending on a 32-bit or 64-bit
 https://en.wikipedia.org/wiki/Microarchitecture[architecture]. Since we are packaging ``noarch`` that would have become
@@ -2251,4 +2251,4 @@ That’s it!
 
 Our RPMs are sanitized (or we know and understand why they aren’t) and it is now
 time to either go forth and Package RPMs or travel on into the
-appendix.html#appendix[Appendix].
+<<appendix.adoc#appendix>>.
