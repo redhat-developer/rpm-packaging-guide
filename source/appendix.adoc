@@ -9,7 +9,7 @@ package RPMs in the first place which is what the main goal of this document is.
 [[mock]]
 == Mock
 
-“https://fedoraproject.org/wiki/Mock[Mock] is a tool for building packages. It can build packages for different
+“ https://fedoraproject.org/wiki/Mock[Mock] is a tool for building packages. It can build packages for different
 architectures and different Fedora or RHEL versions than the build host has.
 Mock creates chroots and builds packages in them. Its only task is to reliably
 populate a chroot and attempt to build a package in that chroot.
