@@ -1,5 +1,3 @@
-          
-
 [[welcome-to-rpm-packaging-guide-s-documentation]]
 = Welcome to RPM Packaging Guide’s documentation!
 
@@ -117,5 +115,3 @@ appreciate and certainly welcome. Feel free to file an issue ticket with
 feedback, submit a pull request https://github.com/redhat-developer/rpm-packaging-guide[on GitHub], or both!
 
 Thank you for your time.
-
-          

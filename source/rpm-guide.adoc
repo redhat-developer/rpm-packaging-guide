@@ -1,5 +1,3 @@
-          
-
 [[rpm-packaging-guide]]
 = RPM Packaging Guide
 
@@ -2178,7 +2176,7 @@ compliance with the https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[
 in incorrect or inconsistent locations because we are not using the appropriate
 rpm macros. This is of course by design __only__ for the course of this example.
 
-Next up is 
+Next up is
 [source,java]
 ----
 E: non-executable-script /usr/lib/pello/pello.py 0644L
@@ -2254,5 +2252,3 @@ That’s it!
 Our RPMs are sanitized (or we know and understand why they aren’t) and it is now
 time to either go forth and Package RPMs or travel on into the
 appendix.html#appendix[Appendix].
-
-          

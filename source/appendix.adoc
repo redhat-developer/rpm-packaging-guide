@@ -1,5 +1,3 @@
-          
-
 [[appendix]]
 = Appendix
 
@@ -207,7 +205,7 @@ Finish: run
 As you can see, mock is a fairly verbose tool. You will also notice a lot of
 http://yum.baseurl.org/[yum] or https://github.com/rpm-software-management/dnf[dnf] output (depending on RHEL7, CentOS7, or Fedora mock target)
 that is not found in this output which was omitted for brevity and is often
-omitted after you have done an ``--init`` on a mock target, such as 
+omitted after you have done an ``--init`` on a mock target, such as
 [source,java]
 ----
 mock -r
@@ -403,7 +401,7 @@ To define a macro use:
 
 [source,java]
 ----
-%define <name>[(opts)] 
+%define <name>[(opts)]
 
 ----
 
@@ -564,7 +562,7 @@ are called **scriptlets**.
 One primary example of when and why you’d want to do this is when a system
 service RPM is installed and it provides a https://freedesktop.org/wiki/Software/systemd/[systemd] https://www.freedesktop.org/software/systemd/man/systemd.unit.html[unit file]. At install
 time we will need to notify https://freedesktop.org/wiki/Software/systemd/[systemd] that there is a new unit so that the
-system administrator can run a command similar to 
+system administrator can run a command similar to
 [source,java]
 ----
 systemctl start
@@ -704,5 +702,3 @@ introductory material included in this guide.
 *   IBM RPM Packaging Guide: http://www.ibm.com/developerworks/library/l-rpm1/[Part 1], http://www.ibm.com/developerworks/library/l-rpm2/[Part 2], http://www.ibm.com/developerworks/library/l-rpm3/[Part 3]
 *   <cite>Maximum RPM</cite> (Some material is dated, but this is still a great resource for
 advanced topics.)
-
-          

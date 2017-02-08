@@ -1,5 +1,3 @@
-          
-
 [[general-topics-and-background]]
 = General Topics and Background
 
@@ -881,5 +879,3 @@ $ mv ~/cello-output-first-patch.patch ~/rpmbuild/SOURCES/
 
 Great, now we have all of our upstream source code prep’d and ready to be turned
 into RPMs!
-
-          
