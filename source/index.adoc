@@ -1,8 +1,10 @@
           
 
-= Welcome to RPM Packaging Guide’s documentation!#welcome-to-rpm-packaging-guide-s-documentation[¶]
+[[welcome-to-rpm-packaging-guide-s-documentation]]
+= Welcome to RPM Packaging Guide’s documentation!
 
-== So You Want To Be An RPM Packager?#so-you-want-to-be-an-rpm-packager[¶]
+[[so-you-want-to-be-an-rpm-packager]]
+== So You Want To Be An RPM Packager?
 
 So you want to be an RPM Packager (or you at least need to know how to package
 RPMs because of your dayjob or otherwise)?
@@ -29,7 +31,8 @@ software development or packaging so some topics will likely seem oddly
 introductory for such a guide, but don’t worry that’s by design and you can skip
 past those if you like.
 
-== Document Conventions#document-conventions[¶]
+[[document-conventions]]
+== Document Conventions
 
 Code and command line out put will be placed into a block similar to the
 following:
@@ -69,7 +72,8 @@ documentation.
 Command line utilities, commands, or things otherwise found in code that are
 used through out paragraphs will be written in a ``monospace`` font.
 
-== Prerequisites#prerequisites[¶]
+[[prerequisites]]
+== Prerequisites
 
 In order to perform the following examples you will need a few packages
 installed on your system:
@@ -104,7 +108,8 @@ choosing. We will not be discussing or recommending text editors in this
 document and we trust that everyone has at least one they are comfortable with
 at their disposal.
 
-== Contributing to this guide#contributing-to-this-guide[¶]
+[[contributing-to-this-guide]]
+== Contributing to this guide
 
 If you are currently a RPM Packager and would like to contribute either by way
 of feedback or pull request, please do! Both forms of contribution are greatly

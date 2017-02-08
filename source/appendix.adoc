@@ -1,13 +1,15 @@
           
 
-= Appendix#appendix[¶]
+[[appendix]]
+= Appendix
 
 Here you will find supplementary information that is very good to know and will
 likely prove to helpful for anyone who is going to be building RPMs in an
 serious capacity but isn’t necessarily a hard requirement to learn how to
 package RPMs in the first place which is what the main goal of this document is.
 
-== Mock#mock[¶]
+[[mock]]
+== Mock
 
 “https://fedoraproject.org/wiki/Mock[Mock] is a tool for building packages. It can build packages for different
 architectures and different Fedora or RHEL versions than the build host has.
@@ -216,7 +218,8 @@ them, and pre-stage the build chroot.
 
 For more information, please consult the https://fedoraproject.org/wiki/Mock[Mock] upstream documentation.
 
-== Version Control Systems#version-control-systems[¶]
+[[version-control-systems]]
+== Version Control Systems
 
 When working with RPMs, it is often desireable to utilize a https://en.wikipedia.org/wiki/Version_control[Version Control
 System] (VCS) such as https://git-scm.com/[git] for managing components of the software we are
@@ -240,7 +243,8 @@ Note
 For the duration of this section you will need to install the ``git``
 package on you system in order to follow along.
 
-=== tito#tito[¶]
+[[tito]]
+=== tito
 
 Tito is an utility that assumes all the source code for the software that is
 going to be packaged is already in a https://git-scm.com/[git] source control repository. This is
@@ -355,7 +359,8 @@ documentation found at the <cite>tito</cite> GitHub site for more information on
 quickly get started using it for your project as well as various advanced
 features it offers.
 
-=== dist-git#dist-git[¶]
+[[dist-git]]
+=== dist-git
 
 The https://github.com/release-engineering/dist-git[dist-git] utility takes a slightly different approach from that of https://github.com/dgoodwin/tito[tito]
 such that instead of keeping the raw source code in https://git-scm.com/[git] it instead will keep
@@ -372,7 +377,8 @@ In an effort to not duplicate documentation, for more information on how to
 setup a system such as this please refer to the upstream https://github.com/release-engineering/dist-git[dist-git] docs.
 upstream docs.
 
-== More on Macros#more-on-macros[¶]
+[[more-on-macros]]
+== More on Macros
 
 There are many built-in RPM Macros and we will cover a few in the following
 section, however an exhaustive list can be found rpm.org’s http://rpm.org/wiki/PackagerDocs/Macros[rpm macro] official
@@ -384,7 +390,8 @@ as well as provide information on how to inspect your system to learn about
 others that we don’t cover or for discovering them on other RPM-based https://en.wikipedia.org/wiki/Linux[Linux]
 Distributions.
 
-=== Defining Your Own#defining-your-own[¶]
+[[defining-your-own]]
+=== Defining Your Own
 
 You can define your own Macros, below is an excerpt from the http://rpm.org/wiki/Docs[RPM Official
 Documentation] and I recommend anyone interested in an exhaustive explanation
@@ -408,7 +415,8 @@ an (opts) field. The opts (i.e. string between parentheses) is passed
 exactly as is to getopt(3) for argc/argv processing at the beginning of
 a macro invocation.
 
-=== %files#files[¶]
+[[files]]
+=== %files
 
 Common “advanced” RPM Macros needed in the ``%files`` section are as follows:
 
@@ -441,7 +449,8 @@ Example: ``%config(noreplace)
 %{_sysconfdir}/%{name}/%{name}.conf``
 |====
 
-=== Built In Macros#built-in-macros[¶]
+[[built-in-macros]]
+=== Built In Macros
 
 Your system has many built in RPM Macros and the fastest way to view them all is
 to simply run the ``rpm --showrc`` command, however note that this will contain
@@ -452,7 +461,8 @@ You can also find information about the RPMs macros that come directly with your
 system’s version of RPM by looking at the output of the command ``rpm -ql rpm``
 taking note of the files titled ``macros`` in the directory structure.
 
-=== RPM Distribution Macros#rpm-distribution-macros[¶]
+[[rpm-distribution-macros]]
+=== RPM Distribution Macros
 
 Different distributions will supply different sets of recommended RPM Macros
 based on the language implementation of the software being packaged or the
@@ -512,7 +522,8 @@ $ rpm --eval %{python2_version_nodots}
 
 ----
 
-== Advanced SPEC File Topics#advanced-spec-file-topics[¶]
+[[advanced-spec-file-topics]]
+== Advanced SPEC File Topics
 
 There are various topics in the world of RPM SPEC Files that are considered
 advanced because they have implications on not only the SPEC file, how the
@@ -520,7 +531,8 @@ package is built, but also on the end machine that the resulting RPM is
 installed upon. In this section we will cover the most common of these such as
 Epoch, Scriptlets, and Triggers.
 
-=== Epoch#epoch[¶]
+[[epoch]]
+=== Epoch
 
 First on the list is ``Epoch``, epoch is a way to define weighted dependencies
 based on version numbers. It’s default value is 0 and this is assumed if an
@@ -542,7 +554,8 @@ of upstream software changing versioning number schemes or versions
 incorporating alphabetical characters that can not always be compared reliably
 based on encoding.
 
-=== Triggers and Scriptlets#triggers-and-scriptlets[¶]
+[[triggers-and-scriptlets]]
+=== Triggers and Scriptlets
 
 In RPM Packages, there are a series of directives that can be used to inflict
 necessary or desired change on a system during install time of the RPM. These
@@ -676,7 +689,8 @@ The above items are from the included RPM documentation found in
 ``/usr/share/doc/rpm/triggers`` on Fedora systems and
 ``/usr/share/doc/rpm-4.*/triggers`` on RHEL 7 and CentOS 7 systems.
 
-== References#references[¶]
+[[references]]
+== References
 
 Below are references to various topics of interest around RPMs, RPM Packaging,
 and RPM Building. Some of these will be advanced and extend far beyond the

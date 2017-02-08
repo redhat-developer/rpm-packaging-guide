@@ -1,6 +1,7 @@
           
 
-= RPM Packaging Guide#rpm-packaging-guide[¶]
+[[rpm-packaging-guide]]
+= RPM Packaging Guide
 
 Hello! Welcome to RPM Packaging 101 (for lack of a more inventive title). Here
 you will find all of the information you need in order to start packaging RPMs
@@ -26,14 +27,16 @@ If you have made it this far and don’t know what a software package or a
 GNU/Linux distribution is, you might be best served by exploring some
 articles on the topics of https://en.wikipedia.org/wiki/Linux[Linux] and https://en.wikipedia.org/wiki/Package_manager[Package Managers].
 
-== RPM Packages#rpm-packages[¶]
+[[rpm-packages]]
+== RPM Packages
 
 In this section we are going to hopefully cover everything you ever wanted to
 know about the RPM Packaging format, and if not then hopefully the contents of
 the appendix.html#appendix[Appendix] will satisfy the craving for knowledge that has
 been left out of this section.
 
-=== What is an RPM?#what-is-an-rpm[¶]
+[[what-is-an-rpm]]
+=== What is an RPM?
 
 To kick things off, let’s first define what an RPM actually is. An RPM package
 is simply a file that contains some files as well as information the system
@@ -49,7 +52,8 @@ SPEC file (which describes how to build a binary RPM) and the actually source
 code that the resulting binary RPM will be built out of (including any patches
 that may be needed).
 
-=== RPM Packaging Workspace#rpm-packaging-workspace[¶]
+[[rpm-packaging-workspace]]
+=== RPM Packaging Workspace
 
 In the index.html#pre-req[Prerequisites] section we installed a package named
 ``rpmdevtools`` which provides a number of handy utilities for RPM Packagers.
@@ -99,7 +103,8 @@ build a Source RPM instead of a Binary RPM, the Source RPMs
 (SRPMS) will land in this directory.
 |====
 
-=== What is a SPEC File?#what-is-a-spec-file[¶]
+[[what-is-a-spec-file]]
+=== What is a SPEC File?
 
 A SPEC file can be thought of the as the **recipe** that the ``rpmbuild``
 utility uses to actually build an RPM. It tells the build system what to do by
@@ -108,7 +113,8 @@ the __Preamble__ and the __Body__. Within the __Preamble__ we will define a seri
 metadata items that will be used through out the __Body__ and the __Body__ is where
 the bulk of the work is accomplished.
 
-==== Preamble Items#preamble-items[¶]
+[[preamble-items]]
+==== Preamble Items
 
 In the table below you will find the items that are used in RPM Spec files in
 the Preamble section.
@@ -176,7 +182,8 @@ not something we control as a RPM Packager (with the exception of ``noarch``,
 more on that later) but is a side effect of the ``rpmbuild`` build environment,
 something we will cover in more detail later.
 
-==== Body Items#body-items[¶]
+[[body-items]]
+==== Body Items
 
 In the table below you will find the items that are used in RPM Spec files in
 the body.
@@ -202,7 +209,8 @@ resting place in the context of the target system.
 between different ``Version`` or ``Release`` builds.
 |====
 
-==== Advanced items#advanced-items[¶]
+[[advanced-items]]
+==== Advanced items
 
 There are a series of advanced items including what are known as __scriptlets__
 and __triggers__ which take effect at different points through out the
@@ -210,7 +218,8 @@ installation process on the target machine (not the build process). These are
 out of the scope of this document, but there is plenty of information on them in
 the appendix.html#appendix[Appendix].
 
-=== BuildRoots#buildroots[¶]
+[[buildroots]]
+=== BuildRoots
 
 The term “buildroot” is unfortunately ambiguous and you will often get various
 different definitions. However in the world of RPM Packages this is literally
@@ -223,7 +232,8 @@ as this is effectively what RPM will do at a certain point during an
 installation transaction. Ultimately the payload of the resulting Binary RPM is
 extracted from this environment and put into the https://en.wikipedia.org/wiki/Cpio[cpio] archive.
 
-=== RPM Macros#rpm-macros[¶]
+[[rpm-macros]]
+=== RPM Macros
 
 A http://rpm.org/wiki/PackagerDocs/Macros[rpm macro] is a straight text substitution that can be conditionally assigned
 based on the optional evaluation of a statement when certain built-in
@@ -275,7 +285,8 @@ $ rpm --eval %{?dist}
 For more information, please reference the appendix.html#more-macros[More on Macros]
 section of the appendix.html#appendix[Appendix].
 
-=== Working with SPEC files#working-with-spec-files[¶]
+[[working-with-spec-files]]
+=== Working with SPEC files
 
 As a RPM Packager, you will likely spend a large majority of your time, when
 packaging software, editing the SPEC file. The spec file is the recipe we use to tell
@@ -369,7 +380,8 @@ to demonstrate an common build and installation process
 using tooling for compiling native code.
 |====
 
-==== bello#bello[¶]
+[[bello]]
+==== bello
 
 Our first SPEC file will be for our example written in https://www.gnu.org/software/bash/[bash] shell script that
 you downloaded (or you created a simulated upstream release in the general-background.html#general-background[General
@@ -670,7 +682,8 @@ install -m 0755 %{name} %{buildroot}/%{_bindir}/%{name}
 
 ----
 
-==== pello#pello[¶]
+[[pello]]
+==== pello
 
 Our second SPEC file will be for our example written in the https://www.python.org/[Python]
 programming language that  you downloaded (or you created a simulated upstream
@@ -1050,7 +1063,8 @@ install -m 0644 %{name}.py* %{buildroot}/usr/lib/%{name}/
 
 ----
 
-==== cello#cello[¶]
+[[cello]]
+==== cello
 
 Our third SPEC file will be for our example written in the https://en.wikipedia.org/wiki/C_%28programming_language%29[C] programming
 language that we created a simulated upstream release of previously (or you
@@ -1356,7 +1370,8 @@ make %{?_smp_mflags}
 
 ----
 
-== Building RPMS#building-rpms[¶]
+[[building-rpms]]
+== Building RPMS
 
 When building RPMs there are is one main command, which is ``rpmbuild`` and we
 will use that through out the guide. It has been eluded to in various sections
@@ -1374,7 +1389,8 @@ this is the same directory structure that was setup by the ``rpmdev-setuptree``
 utility that we used previously to setup our RPM workspace and we have been
 placing files in the correct place through out the duration of the guide.
 
-=== Source RPMs#source-rpms[¶]
+[[source-rpms]]
+=== Source RPMs
 
 Before we actually build a Source RPM, let’s quickly address why we would want
 to do this. First, we might want to preserve the exact source of a
@@ -1409,14 +1425,16 @@ hierarchy that we covered previously.
 
 Now it’s time to move on to Binary RPMs!
 
-=== Binary RPMS#binary-rpms[¶]
+[[binary-rpms]]
+=== Binary RPMS
 
 When building Binary RPMs there are a few methods by which we could do this, we
 could “rebuild” a SRPM by passing the ``--rebuild`` option to ``rpmbuild``. We
 could tell ``rpmbuild`` to “build binary” or ``-bb`` and pass a SPEC file as the
 argument similar to how we did for the Source RPMs.
 
-==== Rebuild#rebuild[¶]
+[[rebuild]]
+==== Rebuild
 
 Let’s first rebuild each of our examples. Below you will see the example output
 generated from rebuilding each example SRPM. You will notice the output will
@@ -1477,7 +1495,8 @@ Updating / installing...
 
 ----
 
-===== bello#id2[¶]
+[[bello-rebuild]]
+===== bello
 
 [source,java]
 ----
@@ -1550,7 +1569,8 @@ Executing(--clean): /bin/sh -e /var/tmp/rpm-tmp.S59sAf
 
 ----
 
-===== pello#id3[¶]
+[[pello-rebuild]]
+===== pello
 
 [source,java]
 ----
@@ -1629,7 +1649,8 @@ Executing(--clean): /bin/sh -e /var/tmp/rpm-tmp.WChx3z
 
 ----
 
-===== cello#id4[¶]
+[[cello-rebuild]]
+===== cello
 
 [source,java]
 ----
@@ -1718,7 +1739,8 @@ Executing(--clean): /bin/sh -e /var/tmp/rpm-tmp.ENKUE1
 
 ----
 
-==== Build Binary#build-binary[¶]
+[[build-binary]]
+==== Build Binary
 
 Next up, let’s “build binary” for each of our examples. Just as in the previous
 example, you will again see the example output generated from building each
@@ -1744,7 +1766,8 @@ Now you’ve built RPMs!
 You will now find the resulting Binary RPMs in ``~/rpmbuild/RPMS/`` depending on
 your https://en.wikipedia.org/wiki/Microarchitecture[architecture] and/or if the package was ``noarch``.
 
-===== bello#id5[¶]
+[[bello-build-binary]]
+===== bello
 
 [source,java]
 ----
@@ -1811,7 +1834,8 @@ Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.74OMCd
 
 ----
 
-===== pello#id6[¶]
+[[pello-build-binary]]
+===== pello
 
 [source,java]
 ----
@@ -1884,7 +1908,8 @@ Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.4tTJSw
 
 ----
 
-===== cello#id7[¶]
+[[cello-build-binary]]
+===== cello
 
 [source,java]
 ----
@@ -1967,7 +1992,8 @@ Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.ZRORXv
 
 ----
 
-== Checking RPMs For Sanity#checking-rpms-for-sanity[¶]
+[[checking-rpms-for-sanity]]
+== Checking RPMs For Sanity
 
 Once we have created a package, we may desire to perform some sort of checks for
 quality on the package itself and not necessarily just the software we’re
@@ -1996,7 +2022,8 @@ pass the ``-i`` option and run each command as ``rpmlint -i`` instead of
 just ``rpmlint``. The shorter output is selected for brevity of the
 document.
 
-=== bello#id8[¶]
+[[bello-checking-rpms-for-sanity]]
+=== bello
 
 Let’s get started by looking at some output and dive into each set of output.
 
@@ -2051,7 +2078,8 @@ why.
 Other than our few items that we are carrying over because this is a simple
 example, our RPM is passing the https://github.com/rpm-software-management/rpmlint[rpmlint] checks and all is well!
 
-=== pello#id9[¶]
+[[pello-checking-rpms-for-sanity]]
+=== pello
 
 Next up, let’s get look at some more output and dive into it one by one.
 
@@ -2166,7 +2194,8 @@ can also be safely ignored.
 Other than our items that we are carrying over for the purposes of the example,
 our RPM is passing the https://github.com/rpm-software-management/rpmlint[rpmlint] checks and all is well!
 
-=== cello#id10[¶]
+[[cello-checking-rpms-for-sanity]]
+=== cello
 
 Next up, let’s get look at some more output and dive into each.
 

@@ -1,6 +1,7 @@
           
 
-= General Topics and Background#general-topics-and-background[¶]
+[[general-topics-and-background]]
+= General Topics and Background
 
 In this section will we walk through various topics about building software that
 are helpful background or otherwise general topics that are important for a good
@@ -15,7 +16,8 @@ with examples).
 *   Placing those output artifacts somewhere on the system that is useful within
 the https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy Standard].
 
-== What is Source Code?#what-is-source-code[¶]
+[[what-is-source-code]]
+== What is Source Code?
 
 Note
 
@@ -98,7 +100,8 @@ As mentioned before, the output of both examples to the command line will be
 simply, ``Hello World`` when the source code is built and run. The topic of how
 that happens is up next!
 
-== How Programs Are Made#how-programs-are-made[¶]
+[[how-programs-are-made]]
+== How Programs Are Made
 
 Before we dive too far into how to actually build code it is best to first
 understand a few items about software source code and how it becomes
@@ -109,7 +112,8 @@ two common methods:
 1.  Natively Compiled
 2.  Interpreted (Byte Compiled and Raw Interpreted)
 
-=== Natively Compiled Code#natively-compiled-code[¶]
+[[natively-compiled-code]]
+=== Natively Compiled Code
 
 Software written in programming languages that compile to machines code or
 directly to a binary executable (i.e. - something that the computer natively
@@ -121,7 +125,8 @@ that if you compile this particular piece of software on a computer that uses a
 AMD or Intel processor. The method by which this happens will be covered in the
 next section.
 
-=== Interpreted Code#interpreted-code[¶]
+[[interpreted-code]]
+=== Interpreted Code
 
 There are certain programming languages that do not compile down to a
 representation of program that the computer natively understands. These programs
@@ -149,7 +154,8 @@ https://en.wikipedia.org/wiki/Microarchitecture[architecture] specific which mea
 will be considered ``noarch``. Indicating that it does not have an
 https://en.wikipedia.org/wiki/Microarchitecture[architecture] associated with it.
 
-== Building Software from Source#building-software-from-source[¶]
+[[building-software-from-source]]
+== Building Software from Source
 
 In this section we will discuss and provide examples of building software from
 it’s source code.
@@ -178,7 +184,8 @@ languages can vary heavily. If the software you are interested in packaging
 doesn’t follow the exact examples here, this will hopefully be an objective
 guideline.
 
-=== Natively Compiled Code#id1[¶]
+[[natively-compiled-code-building-software-from-source]]
+=== Natively Compiled Code
 
 Referencing the example previously used that is written in https://en.wikipedia.org/wiki/C_%28programming_language%29[C] (listed again
 below for the sake of those who may have skipped the previous section), we will
@@ -197,7 +204,8 @@ int main(void) {
 
 ----
 
-==== Build Process#build-process[¶]
+[[build-process]]
+==== Build Process
 
 In the below example we are going to invoke the https://en.wikipedia.org/wiki/C_%28programming_language%29[C] compiler from the GNU
 Compiler Collection (https://gcc.gnu.org/[GCC]).
@@ -263,7 +271,8 @@ Hello World
 Congratulations! You have now both compiled software manually and used a build
 tool!
 
-=== Interpreted Code#id2[¶]
+[[interpreted-code-building-software-from-source]]
+=== Interpreted Code
 
 For software written in interpreted programming languages, we know that we don’t
 need to compile it, but if it’s a byte compiled language such as https://www.python.org/[Python] there
@@ -284,7 +293,8 @@ program loader will parse the line at the top of the file containing
 a ``#!`` character sequence looking a path to the binary executable to use
 as the programming language interpreter.
 
-==== Byte Compiled Code#byte-compiled-code[¶]
+[[byte-compiled-code]]
+==== Byte Compiled Code
 
 As mentioned previously, this version of the example is written in a programming
 language named https://www.python.org/[Python] and it’s default language virtual machine is one that
@@ -331,7 +341,8 @@ be run with the python language virtual machine and is more efficient than
 passing in just the raw source file, which is a desired attribute of resulting
 software we as a RPM Packager will distribute out to systems.
 
-==== Raw Interpreted#raw-interpreted[¶]
+[[raw-interpreted]]
+==== Raw Interpreted
 
 This version of the example is written in the https://www.gnu.org/software/bash/[bash] shell built in scripting
 language.
@@ -359,7 +370,8 @@ Hello World
 
 ----
 
-== Patching Software#patching-software[¶]
+[[patching-software]]
+== Patching Software
 
 In software and computing a **patch** is the term given to source code that is
 meant to fix other code, this is similar to the way that someone will use
@@ -497,7 +509,8 @@ the patched software and run it!
 
 Next up, installing things!
 
-== Installing Arbitrary Artifacts#installing-arbitrary-artifacts[¶]
+[[installing-arbitrary-artifacts]]
+== Installing Arbitrary Artifacts
 
 One of the many really nice things about https://en.wikipedia.org/wiki/Linux[Linux] systems is the https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem
 Hierarchy Standard] (FHS) which defines areas of the filesystem in which things
@@ -521,7 +534,8 @@ executed easily by users, developers, and sysadmins alike. We will explore two
 ways to accomplish this as they each are quite popular approaches used by RPM
 Packagers.
 
-=== install command#install-command[¶]
+[[install-command]]
+=== install command
 
 When placing arbitrary artifacts onto the system without build automation
 tooling such as http://www.gnu.org/software/make/[GNU make] or because it is a simple script and such tooling
@@ -553,7 +567,8 @@ Hello World
 
 ----
 
-=== make install#make-install[¶]
+[[make-install]]
+=== make install
 
 A very popular mechanism by which you will install software from source after
 it’s built is by using a command called ``make install`` and in order to do that
@@ -625,7 +640,8 @@ Hello World
 Congratulations, you have now installed a build artifact into it’s proper
 location on the system!
 
-== Prepping our example upstream source code#prepping-our-example-upstream-source-code[¶]
+[[prepping-our-example-upstream-source-code]]
+== Prepping our example upstream source code
 
 Note
 
@@ -687,7 +703,8 @@ distribution.
 
 Below is an example procedure for each example implementation.
 
-=== bello#bello[¶]
+[[bello]]
+=== bello
 
 For the https://www.gnu.org/software/bash/[bash] example implementation we will have a fake project called
 __bello__ and since the project named __bello__ produces one thing and that’s
@@ -728,7 +745,8 @@ $ mv /tmp/bello-0.1.tar.gz ~/rpmbuild/SOURCES/
 
 ----
 
-=== pello#pello[¶]
+[[pello]]
+=== pello
 
 For the https://www.python.org/[Python] example implementation we will have a fake project called
 __pello__ and since the project named __pello__ produces one thing and that’s
@@ -769,7 +787,8 @@ $ mv /tmp/pello-0.1.1.tar.gz ~/rpmbuild/SOURCES/
 
 ----
 
-=== cello#cello[¶]
+[[cello]]
+=== cello
 
 For the https://en.wikipedia.org/wiki/C_%28programming_language%29[C] example implementation we will have a fake project called __cello__
 and since the project named __cello__ produces two things, the source code to our
