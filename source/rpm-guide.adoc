@@ -83,6 +83,7 @@ $ tree ~/rpmbuild/
 
 ----
 
+[cols="15%,85%"]
 |====
 | Directory | Purpose
 | BUILD | Various ``%buildroot`` directories will be created here when
@@ -115,6 +116,7 @@ the bulk of the work is accomplished.
 In the table below you will find the items that are used in RPM Spec files in
 the Preamble section.
 
+[cols="15%,85%"]
 |====
 | SPEC Directive | Definition
 | ``Name`` | The (base) name of the package, which should match the SPEC
@@ -184,6 +186,7 @@ something we will cover in more detail later.
 In the table below you will find the items that are used in RPM Spec files in
 the body.
 
+[cols="15%,85%"]
 |====
 | SPEC Directive | Definition
 | ``%description`` | A full description of the software packaged in the RPM, this
@@ -360,6 +363,7 @@ instruction such that you can jump to a specific one if it matches your needs
 for packaging. However, feel free to read them straight through for a full
 exploration of packaging different kinds of software.
 
+[cols="15%,85%"]
 |====
 | Software Name | Explanation of example
 | bello | Software written in a raw interpreted programming language

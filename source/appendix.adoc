@@ -412,6 +412,7 @@ a macro invocation.
 
 Common “advanced” RPM Macros needed in the ``%files`` section are as follows:
 
+[cols="15%,85%"]
 |====
 | Macro | Definition
 | %license | This identifies the file listed as a LICENSE file and it
@@ -577,6 +578,7 @@ available languages can be found in the _RPM Official Documentation_.
 
 Scriptlet directives are as follows:
 
+[cols="15%,85%"]
 |====
 | Directive | Definition
 | ``%pre`` | Scriptlet that is executed just before the package is
