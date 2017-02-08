@@ -237,10 +237,10 @@ functionality is used. What this means is that we can have RPM perform text
 substitutions for us so that we don’t have to.
 
 An example of how this can be extremely useful for a RPM Packager is if we
-wanted to reference the <cite>Version</cite> of the software we are packaging multiple
+wanted to reference the _Version_ of the software we are packaging multiple
 times through out our SPEC file but only want to define it one time. We would
 then use the ``%{version}`` macro and it would be substituted in place by
-whatever the actual version number is that was entered in the <cite>Version</cite> field of
+whatever the actual version number is that was entered in the _Version_ field of
 the SPEC.
 
 [NOTE]
@@ -347,7 +347,7 @@ conventions and guidelines for https://getfedora.org/[Fedora], https://www.cento
 notice:
 
 We remove the use of ``rm $RPM_BUILD_ROOT`` as it is no longer necessary to
-perform that task when building on https://www.redhat.com/en/technologies/linux-platforms[RHEL] or <cite>CentOS</cite> 7.0 or newer or on
+perform that task when building on https://www.redhat.com/en/technologies/linux-platforms[RHEL] or _CentOS_ 7.0 or newer or on
 https://getfedora.org/[Fedora] version 18 or newer.
 
 We also will favor the use of ``%{buildroot}`` notation over

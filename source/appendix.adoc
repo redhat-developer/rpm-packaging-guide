@@ -347,7 +347,7 @@ dependency list is quite long.
 This concludes our simple example of how to use tito but it has many amazing
 features for traditional Systems Administrators, RPM Packagers, and DevOps
 Practitioners alike. I would highly recommend consulting the upstream
-documentation found at the <cite>tito</cite> GitHub site for more information on how to
+documentation found at the _tito_ GitHub site for more information on how to
 quickly get started using it for your project as well as various advanced
 features it offers.
 
@@ -573,7 +573,7 @@ the “section headers” like ``%build`` or ``%install`` in that they are defin
 by multi-line segments of code, often written as standard https://en.wikipedia.org/wiki/POSIX[POSIX] shell script
 but can be a few different programming languages such that RPM for the target
 machine’s distribution is configured to allow them. An exhaustive list of these
-available languages can be found in the <cite>RPM Official Documentation</cite>.
+available languages can be found in the _RPM Official Documentation_.
 
 Scriptlet directives are as follows:
 
@@ -694,5 +694,5 @@ introductory material included in this guide.
 *   https://fedoraproject.org/wiki/Packaging:Guidelines?rd=Packaging/Guidelines[Fedora Packaging Guidelines]
 *   https://en.opensuse.org/openSUSE:Packaging_guidelines[OpenSUSE Packaging Guidelines]
 *   IBM RPM Packaging Guide: http://www.ibm.com/developerworks/library/l-rpm1/[Part 1], http://www.ibm.com/developerworks/library/l-rpm2/[Part 2], http://www.ibm.com/developerworks/library/l-rpm3/[Part 3]
-*   <cite>Maximum RPM</cite> (Some material is dated, but this is still a great resource for
+*   _Maximum RPM_ (Some material is dated, but this is still a great resource for
 advanced topics.)

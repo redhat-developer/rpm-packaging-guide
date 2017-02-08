@@ -344,7 +344,7 @@ printf "Hello World\n"
 
 ----
 
-UNIX-style shells have scripting languages, much like <cite>bash</cite> does, but
+UNIX-style shells have scripting languages, much like _bash_ does, but
 programs written in these languages do not have any kind of byte compile
 procedure and are interpreted directly as they are written so the only procedure
 we have to do is make the file executable and then run it.
