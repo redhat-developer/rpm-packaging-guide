@@ -2,6 +2,7 @@
 :imagesdir: images
 :toc: left
 :doctype: book
+:source-highlighter: coderay
 
 include::index.adoc[]
 include::rpm-guide.adoc[]
