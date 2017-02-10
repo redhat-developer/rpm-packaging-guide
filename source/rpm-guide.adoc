@@ -57,7 +57,7 @@ In the <<index.adoc#prerequisites>> section we installed a package named
 Feel free to explore the output of the following command and check out the
 various utilities manual pages or help dialogs.
 
-[source,java]
+[source,bash]
 ----
 $ rpm -ql rpmdevtools | grep bin
 
@@ -67,7 +67,7 @@ For the sake of setting up our RPM Packaging workspace let’s use the
 ``rpmdev-setuptree`` utility to create our directory layout. We will then define
 what each directory in the directory structure is meant for.
 
-[source,java]
+[source,bash]
 ----
 $ rpmdev-setuptree
 
@@ -167,7 +167,7 @@ filenames are of ``NAME-VERSION-RELEASE`` format.
 
 For example, if we were to query about a specific package:
 
-[source,java]
+[source,bash]
 ----
 $ rpm -q python
 python-2.7.5-34.el7.x86_64
@@ -253,7 +253,7 @@ flag which allows you to ask rpm to evaluate a macro. If you see a macro in
 a SPEC file that you’re not familiar with, you can quickly evaluate the
 expression.
 
-[source,java]
+[source,bash]
 ----
 $ rpm --eval %{_bindir}
 /usr/bin
@@ -270,7 +270,7 @@ distribution used for the build to be injected into a text field.
 
 For example:
 
-[source,java]
+[source,bash]
 ----
 # On a RHEL 7.x machine
 $ rpm --eval %{?dist}
@@ -319,7 +319,7 @@ NOTE: Some programmer focused text editors will pre-populate a new file with the
 extension ``.spec`` with a SPEC template of their own but ``rpmdev-newspec``
 is an editor-agnostic method which is why it is chosen here.
 
-[source,java]
+[source,bash]
 ----
 $ cd ~/rpmbuild/SPECS
 
@@ -391,7 +391,7 @@ into ``~/rpmbuild/SOURCES/`` earlier. Let’s go ahead and open the file
 
 The following is the output template we were given from ``rpmdev-newspec``.
 
-[source,java]
+[source,specfile]
 ----
 Name:           bello
 Version:
@@ -450,7 +450,7 @@ is.
 After your edits, the first section of the SPEC file should resemble the
 following:
 
-[source,java]
+[source,specfile]
 ----
 Name:           bello
 Version:        0.1
@@ -491,7 +491,7 @@ the hard coded examples string previously listed.
 After your edits, the top portion of your spec file should look like the
 following:
 
-[source,java]
+[source,specfile]
 ----
 Name:           bello
 Version:        0.1
@@ -525,7 +525,7 @@ need to be bound to the processor architecture that it is built using.
 After your edits, the top portion of your spec file should look like the
 following:
 
-[source,java]
+[source,specfile]
 ----
 Name:           bello
 Version:        0.1
@@ -578,7 +578,7 @@ place for consistency.
 
 The ``%install`` section should look like the following after your edits:
 
-[source,java]
+[source,specfile]
 ----
 %install
 
@@ -604,7 +604,7 @@ that this is a software license file in the package file manifest metadata.
 
 The ``%files`` section should look like the following after your edits:
 
-[source,java]
+[source,specfile]
 ----
 %files
 %license LICENSE
@@ -621,7 +621,7 @@ section that information would go here. Each change entry can contain multiple
 items and each item should start on a new line and begin with a ``-`` character.
 Below is our example entry:
 
-[source,java]
+[source,specfile]
 ----
 %changelog
 * Tue May 31 2016 Adam Miller <maxamillion@fedoraproject.org> - 0.1-1
@@ -641,7 +641,7 @@ we will cover how to build the RPM!
 
 The full SPEC file should now look like the following:
 
-[source,java]
+[source,specfile]
 ----
 Name:           bello
 Version:        0.1
@@ -720,7 +720,7 @@ filling in some fields.
 
 The following is the output template we were given from ``rpmdev-newspec``.
 
-[source,java]
+[source,specfile]
 ----
 Name:           pello
 Version:
@@ -780,7 +780,7 @@ is.
 After your edits, the first section of the SPEC file should resemble the
 following:
 
-[source,java]
+[source,specfile]
 ----
 Name:           pello
 Version:        0.1.1
@@ -821,7 +821,7 @@ the hard coded examples string previously listed.
 After your edits, the top portion of your spec file should look like the
 following:
 
-[source,java]
+[source,specfile]
 ----
 Name:           pello
 Version:        0.1.1
@@ -854,7 +854,7 @@ need to be bound to the processor architecture that it is built using.
 After your edits, the top portion of your spec file should look like the
 following:
 
-[source,java]
+[source,specfile]
 ----
 Name:           pello
 Version:        0.1
@@ -894,7 +894,7 @@ software we are packaging. Here we will perform a byte-compilation of our
 software. For those who read the <<general-background.adoc#general-topics-and-background>> section, this portion of the example should look familiar.
 The ``%build`` section of our SPEC file should look as follows.
 
-[source,java]
+[source,specfile]
 ----
 %build
 
@@ -931,7 +931,7 @@ simultaneously.
 
 The ``%install`` section should look like the following after your edits:
 
-[source,java]
+[source,specfile]
 ----
 %install
 
@@ -966,7 +966,7 @@ that this is a software license file in the package file manifest metadata.
 
 The ``%files`` section should look like the following after your edits:
 
-[source,java]
+[source,specfile]
 ----
 %files
 %license LICENSE
@@ -985,7 +985,7 @@ section that information would go here. Each change entry can contain multiple
 items and each item should start on a new line and begin with a ``-`` character.
 Below is our example entry:
 
-[source,java]
+[source,specfile]
 ----
 %changelog
 * Tue May 31 2016 Adam Miller <maxamillion@fedoraproject.org> - 0.1-1
@@ -1005,7 +1005,7 @@ we will cover how to build the RPM!
 
 The full SPEC file should now look like the following:
 
-[source,java]
+[source,specfile]
 ----
 Name:           pello
 Version:        0.1.1
@@ -1071,7 +1071,7 @@ filling in some fields.
 
 The following is the output template we were given from ``rpmdev-newspec``.
 
-[source,java]
+[source,specfile]
 ----
 Name:           cello
 Version:
@@ -1131,7 +1131,7 @@ is.
 After your edits, the first section of the SPEC file should resemble the
 following:
 
-[source,java]
+[source,specfile]
 ----
 Name:           cello
 Version:        1.0
@@ -1179,7 +1179,7 @@ need a listing of ``Patch0:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cell
 After your edits, the top portion of your spec file should look like the
 following:
 
-[source,java]
+[source,specfile]
 ----
 Name:           cello
 Version:        1.0
@@ -1208,7 +1208,7 @@ define anything by hand as a ``Requires`` and can omit that directive.
 After your edits, the top portion of your spec file should look like the
 following:
 
-[source,java]
+[source,specfile]
 ----
 Name:           cello
 Version:        0.1
@@ -1247,7 +1247,7 @@ implementation, we can simply use the http://www.gnu.org/software/make/[GNU make
 because we did not provide a https://en.wikipedia.org/wiki/Configure_script[configure script]. The ``%build`` section of our
 SPEC file should look as follows.
 
-[source,java]
+[source,specfile]
 ----
 %build
 make %{?_smp_mflags}
@@ -1267,7 +1267,7 @@ again provided for us by the ``rpmdev-newspec`` command.
 
 The ``%install`` section should look like the following after your edits:
 
-[source,java]
+[source,specfile]
 ----
 %install
 %make_install
@@ -1289,7 +1289,7 @@ that this is a software license file in the package file manifest metadata.
 
 The ``%files`` section should look like the following after your edits:
 
-[source,java]
+[source,specfile]
 ----
 %files
 %license LICENSE
@@ -1306,7 +1306,7 @@ section that information would go here. Each change entry can contain multiple
 items and each item should start on a new line and begin with a ``-`` character.
 Below is our example entry:
 
-[source,java]
+[source,specfile]
 ----
 %changelog
 * Tue May 31 2016 Adam Miller <maxamillion@fedoraproject.org> - 0.1-1
@@ -1325,7 +1325,7 @@ we will cover how to build the RPM!
 
 The full SPEC file should now look like the following:
 
-[source,java]
+[source,specfile]
 ----
 Name:           cello
 Version:        1.0
@@ -1400,7 +1400,7 @@ In order to create a Source RPM we need to pass the “build source” or ``-bs`
 option to ``rpmbuild`` and we will provide a SPEC file as the argument. We
 will do so for each of our examples we’ve created above.
 
-[source,java]
+[source,bash]
 ----
 $ cd ~/rpmbuild/SPECS/
 
@@ -1452,7 +1452,7 @@ back which is covered in the following section.
 The commands required for each are as follows, with detailed output provided for
 each below:
 
-[source,java]
+[source,bash]
 ----
 $ rpmbuild --rebuild ~/rpmbuild/SRPMS/bello-0.1-1.el7.src.rpm
 
@@ -1475,7 +1475,7 @@ want to do this after running a ``--rebuild`` if you want to continue to
 interact with the SPEC and SOURCES which we will want to do for the duration of
 this guide.
 
-[source,java]
+[source,bash]
 ----
 $ rpm -Uvh ~/rpmbuild/SRPMS/bello-0.1-1.el7.src.rpm
 Updating / installing...
@@ -1494,7 +1494,7 @@ Updating / installing...
 [[bello-rebuild]]
 ===== bello
 
-[source,java]
+[source,bash]
 ----
 $ rpmbuild --rebuild ~/rpmbuild/SRPMS/bello-0.1-1.el7.src.rpm
 Installing /home/admiller/rpmbuild/SRPMS/bello-0.1-1.el7.src.rpm
@@ -1568,7 +1568,7 @@ Executing(--clean): /bin/sh -e /var/tmp/rpm-tmp.S59sAf
 [[pello-rebuild]]
 ===== pello
 
-[source,java]
+[source,bash]
 ----
 $ rpmbuild --rebuild ~/rpmbuild/SRPMS/pello-0.1.1-1.el7.src.rpm
 Installing /home/admiller/rpmbuild/SRPMS/pello-0.1.1-1.el7.src.rpm
@@ -1648,7 +1648,7 @@ Executing(--clean): /bin/sh -e /var/tmp/rpm-tmp.WChx3z
 [[cello-rebuild]]
 ===== cello
 
-[source,java]
+[source,bash]
 ----
 $ rpmbuild --rebuild ~/rpmbuild/SRPMS/cello-1.0-1.el7.src.rpm
 Installing /home/admiller/rpmbuild/SRPMS/cello-1.0-1.el7.src.rpm
@@ -1747,7 +1747,7 @@ verbose.
 The commands required for each are as follows, with detailed output provided for
 each below:
 
-[source,java]
+[source,bash]
 ----
 $ rpmbuild -bb ~/rpmbuild/SPECS/bello.spec
 
@@ -1765,7 +1765,7 @@ your https://en.wikipedia.org/wiki/Microarchitecture[architecture] and/or if the
 [[bello-build-binary]]
 ===== bello
 
-[source,java]
+[source,bash]
 ----
 $ rpmbuild -bb ~/rpmbuild/SPECS/bello.spec
 Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.aaCBH0
@@ -1833,7 +1833,7 @@ Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.74OMCd
 [[pello-build-binary]]
 ===== pello
 
-[source,java]
+[source,bash]
 ----
 $ rpmbuild -bb pello.spec
 Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.dvOeYv
@@ -1907,7 +1907,7 @@ Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.4tTJSw
 [[cello-build-binary]]
 ===== cello
 
-[source,java]
+[source,bash]
 ----
 $ rpmbuild -bb ~/rpmbuild/SPECS/cello.spec
 Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.FveYdS
@@ -2021,7 +2021,7 @@ document.
 
 Let’s get started by looking at some output and dive into each set of output.
 
-[source,java]
+[source,bash]
 ----
 $ rpmlint bello.spec
 bello.spec: W: invalid-url Source0: https://www.example.com/bello/releases/bello-0.1.tar.gz HTTP Error 404: Not Found
@@ -2036,7 +2036,7 @@ in the real world and we’ve not setup a system with a local DNS entry to point
 to this URL. Since we know why the Warning was emitted and that it was expect,
 this can be safely ignored.
 
-[source,java]
+[source,bash]
 ----
 $ rpmlint ~/rpmbuild/SRPMS/bello-0.1-1.el7.src.rpm
 bello.src: W: invalid-url URL: https://www.example.com/bello HTTP Error 404: Not Found
@@ -2050,7 +2050,7 @@ against the spec file but we also see that the check against the SRPM looks for
 the ``URL`` directive as well as the ``Source0`` directive, neither can be
 reached but as we know is expected and these can also be safely ignored.
 
-[source,java]
+[source,bash]
 ----
 $ rpmlint ~/rpmbuild/RPMS/noarch/bello-0.1-1.el7.noarch.rpm
 bello.noarch: W: invalid-url URL: https://www.example.com/bello HTTP Error 404: Not Found
@@ -2077,7 +2077,7 @@ example, our RPM is passing the https://github.com/rpm-software-management/rpmli
 
 Next up, let’s get look at some more output and dive into it one by one.
 
-[source,java]
+[source,bash]
 ----
 $ rpmlint pello.spec
 pello.spec:30: E: hardcoded-library-path in %{buildroot}/usr/lib/%{name}
@@ -2118,7 +2118,7 @@ is something that we expect for the same reasons given in the previous example.
 Since we know why the Warning was emitted and that it was expect, this can be
 safely ignored also.
 
-[source,java]
+[source,bash]
 ----
 $ rpmlint ~/rpmbuild/SRPMS/pello-0.1.1-1.el7.src.rpm
 pello.src: W: invalid-url URL: https://www.example.com/pello HTTP Error 404: Not Found
@@ -2140,7 +2140,7 @@ reached but as we know is expected and these can also be safely ignored.
 Once again, the explanation for the ``hardcoded-library-path`` is the same as we
 covered previously in the ``rpmlint`` output for the SPEC file.
 
-[source,java]
+[source,bash]
 ----
 $ rpmlint ~/rpmbuild/RPMS/noarch/pello-0.1.1-1.el7.noarch.rpm
 pello.noarch: W: invalid-url URL: https://www.example.com/pello HTTP Error 404: Not Found
@@ -2173,7 +2173,7 @@ in incorrect or inconsistent locations because we are not using the appropriate
 rpm macros. This is of course by design __only__ for the course of this example.
 
 Next up is
-[source,java]
+[source,bash]
 ----
 E: non-executable-script /usr/lib/pello/pello.py 0644L
 /usr/bin/env
@@ -2193,7 +2193,7 @@ our RPM is passing the https://github.com/rpm-software-management/rpmlint[rpmlin
 
 Next up, let’s get look at some more output and dive into each.
 
-[source,java]
+[source,bash]
 ----
 $ rpmlint ~/rpmbuild/SPECS/cello.spec
 /home/admiller/rpmbuild/SPECS/cello.spec: W: invalid-url Source0: https://www.example.com/cello/releases/cello-1.0.tar.gz HTTP Error 404: Not Found
@@ -2207,7 +2207,7 @@ the URL listed in the ``Source0`` directive can not be reached which is
 something expected. Since we know why the Warning was emitted and that it was
 expect, this can be safely ignored.
 
-[source,java]
+[source,bash]
 ----
 $ rpmlint ~/rpmbuild/SRPMS/cello-1.0-1.el7.src.rpm
 cello.src: W: invalid-url URL: https://www.example.com/cello HTTP Error 404: Not Found
@@ -2221,7 +2221,7 @@ against the spec file but we also see that the check against the SRPM looks for
 the ``URL`` directive as well as the ``Source0`` directive, neither can be
 reached but as we know is expected and these can also be safely ignored.
 
-[source,java]
+[source,bash]
 ----
 $ rpmlint ~/rpmbuild/RPMS/x86_64/cello-1.0-1.el7.x86_64.rpm
 cello.x86_64: W: invalid-url URL: https://www.example.com/cello HTTP Error 404: Not Found

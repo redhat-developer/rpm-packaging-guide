@@ -48,7 +48,7 @@ language.
 
 ``bello``
 
-[source,java]
+[source,bash]
 ----
 #!/bin/bash
 
@@ -61,7 +61,7 @@ https://www.python.org/[Python].
 
 ``pello.py``
 
-[source,java]
+[source,python]
 ----
 #!/usr/bin/env python
 
@@ -73,7 +73,7 @@ This version of the example is written in a programming language named https://e
 
 ``cello.c``
 
-[source,java]
+[source,c]
 ----
 #include <stdio.h>
 
@@ -181,7 +181,7 @@ build this source code into something the computer can execute.
 
 ``cello.c``
 
-[source,java]
+[source,c]
 ----
 #include <stdio.h>
 
@@ -198,7 +198,7 @@ int main(void) {
 In the below example we are going to invoke the https://en.wikipedia.org/wiki/C_%28programming_language%29[C] compiler from the GNU
 Compiler Collection (https://gcc.gnu.org/[GCC]).
 
-[source,java]
+[source,bash]
 ----
 gcc -o cello cello.c
 
@@ -206,7 +206,7 @@ gcc -o cello cello.c
 
 From here we can actually execute the resulting output binary.
 
-[source,java]
+[source,bash]
 ----
 $ ./cello
 Hello World
@@ -223,7 +223,7 @@ example https://en.wikipedia.org/wiki/C_%28programming_language%29[C] source cod
 
 ``Makefile``
 
-[source,java]
+[source,makefile]
 ----
 cello:
         gcc -o cello cello.c
@@ -237,7 +237,7 @@ Now to build our software we can simply run the command ``make``, below you
 will see the command run more than once just for the sake of seeing what is
 expected behavior.
 
-[source,java]
+[source,bash]
 ----
 $ make
 make: 'cello' is up to date.
@@ -293,7 +293,7 @@ the language virtual machine to execute.
 
 ``pello.py``
 
-[source,java]
+[source,python]
 ----
 #!/usr/bin/env python
 
@@ -311,7 +311,7 @@ shown here is not. This is meant to be a simple example. For more
 information, please reference the https://docs.python.org/2/library/distribution.html[Software Packaging and Distribution]
 documentation.
 
-[source,java]
+[source,bash]
 ----
 $ python -m compileall pello.py
 $ python pello.pyc
@@ -336,7 +336,7 @@ language.
 
 ``bello``
 
-[source,java]
+[source,bash]
 ----
 #!/bin/bash
 
@@ -349,7 +349,7 @@ programs written in these languages do not have any kind of byte compile
 procedure and are interpreted directly as they are written so the only procedure
 we have to do is make the file executable and then run it.
 
-[source,java]
+[source,bash]
 ----
 $ chmod +x bello
 $ ./bello
@@ -382,7 +382,7 @@ want to keep the original source code in pristine condition as we will “patch
 it” instead of simply modifying it. A common practice for this is to copy it and
 append ``.orig`` to the filename. Let’s do that now.
 
-[source,java]
+[source,bash]
 ----
 $ cp cello.c cello.c.orig
 
@@ -391,7 +391,7 @@ $ cp cello.c cello.c.orig
 Next, we want to make an edit to ``cello.c`` using our favorite text editor.
 Update your ``cello.c`` to match the output below.
 
-[source,java]
+[source,c]
 ----
 #include <stdio.h>
 
@@ -410,7 +410,7 @@ their documentation is out of the scope of this document. Please reference
 the manual page on your local machine with: ``man diff`` for more
 information.
 
-[source,java]
+[source,diff]
 ----
 $ diff -Naur cello.c.orig cello.c
 --- cello.c.orig        2016-05-26 17:21:30.478523360 -0500
@@ -434,7 +434,7 @@ a file so that we can use it later with the http://savannah.gnu.org/projects/pat
 a requirement but it’s good practice to use a meaningful filename when creating
 patches.
 
-[source,java]
+[source,bash]
 ----
 $ diff -Naur cello.c.orig cello.c > cello-output-first-patch.patch
 
@@ -447,7 +447,7 @@ it is done when building RPMs, the original source code is left in pristine
 condition and we patch it during the process that prepares to source code to be
 built.
 
-[source,java]
+[source,bash]
 ----
 $ cp cello.c.orig cello.c
 
@@ -456,7 +456,7 @@ $ cp cello.c.orig cello.c
 Next up, let’s go ahead and patch the source code by redirecting the patch file
 to the ``patch`` command.
 
-[source,java]
+[source,bash]
 ----
 $ patch < cello-output-first-patch.patch
 patching file cello.c
@@ -474,7 +474,7 @@ int main(void){
 From the output of the ``cat`` command we can see that the patch has been
 successfully applied, let’s build and run it now.
 
-[source,java]
+[source,bash]
 ----
 $ make clean
 rm cello
@@ -532,7 +532,7 @@ created as the arbitrary artifact subject to our installation method. Note that
 you will either need http://www.sudo.ws/[sudo] permissions or run this command as root excluding
 the ``sudo`` portion of the command.
 
-[source,java]
+[source,bash]
 ----
 $ sudo install -m 0755 bello /usr/bin/bello
 
@@ -541,7 +541,7 @@ $ sudo install -m 0755 bello /usr/bin/bello
 As this point, we can execute ``bello`` from our shell no matter what our
 current working directory is because it has been installed into our https://en.wikipedia.org/wiki/PATH_%28variable%29[$PATH].
 
-[source,java]
+[source,bash]
 ----
 $ cd ~/
 
@@ -571,7 +571,7 @@ install into alternative destination directories.
 
 ``Makefile``
 
-[source,java]
+[source,makefile]
 ----
 cello:
         gcc -o cello cello.c
@@ -593,7 +593,7 @@ user and omit the ``sudo`` portion of the command.
 The following will build and install the simple ``cello.c`` program that we had
 written previously.
 
-[source,java]
+[source,bash]
 ----
 $ make
 gcc -o cello cello.c
@@ -607,7 +607,7 @@ Just as in the previous example, we can now execute ``cello`` from our shell no
 matter what our current working directory is because it has been installed into
 our https://en.wikipedia.org/wiki/PATH_%28variable%29[$PATH].
 
-[source,java]
+[source,bash]
 ----
 $ cd ~/
 
@@ -650,7 +650,7 @@ document].
 Let us go ahead and make a ``LICENSE`` file that can be included in the source
 code “release” for each example.
 
-[source,java]
+[source,bash]
 ----
 $ cat > /tmp/LICENSE <<EOF
 This program is free software: you can redistribute it and/or modify
@@ -689,7 +689,7 @@ Here is the listing of the file as mentioned before.
 
 ``bello``
 
-[source,java]
+[source,bash]
 ----
 #!/bin/bash
 
@@ -699,7 +699,7 @@ printf "Hello World\n"
 
 Let’s make a project ``tar.gz`` out of our source code.
 
-[source,java]
+[source,bash]
 ----
 $ mkdir /tmp/bello-0.1
 
@@ -731,7 +731,7 @@ Here is the listing of the file as mentioned before.
 
 ``pello.py``
 
-[source,java]
+[source,python]
 ----
 #!/usr/bin/env python
 
@@ -741,7 +741,7 @@ print("Hello World")
 
 Let’s make a project ``tar.gz`` out of our source code.
 
-[source,java]
+[source,bash]
 ----
 $ mkdir /tmp/pello-0.1.1
 
@@ -782,7 +782,7 @@ are simulating here. (More on this later).
 
 ``cello.c``
 
-[source,java]
+[source,c]
 ----
 #include <stdio.h>
 
@@ -795,7 +795,7 @@ int main(void) {
 
 ``cello-output-first-patch.patch``
 
-[source,java]
+[source,diff]
 ----
 --- cello.c.orig        2016-05-26 17:21:30.478523360 -0500
 +++ cello.c     2016-05-27 14:53:20.668588245 -0500
@@ -812,7 +812,7 @@ int main(void) {
 
 ``Makefile``
 
-[source,java]
+[source,makefile]
 ----
 cello:
         gcc -o cello cello.c
@@ -828,7 +828,7 @@ install:
 
 Let’s make a project ``tar.gz`` out of our source code.
 
-[source,java]
+[source,bash]
 ----
 $ mkdir /tmp/cello-1.0
 

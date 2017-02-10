@@ -35,7 +35,7 @@ past those if you like.
 Code and command line out put will be placed into a block similar to the
 following:
 
-[source,java]
+[source,txt]
 ----
 This is a block! We can do all sorts of cool code and command line stuff
 here!
@@ -44,14 +44,14 @@ Look, more lines!
 
 ----
 
-[source,java]
+[source,bash]
 ----
 $ echo "Here's some command line output!"
 Here's some command line output!
 
 ----
 
-[source,java]
+[source,python]
 ----
 #!/usr/bin/env python
 
@@ -83,7 +83,7 @@ within this document.
 
 *   For https://getfedora.org/[Fedora]:
 
-[source,java]
+[source,bash]
 ----
 $ dnf install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils
 patch rpmdevtools
@@ -92,7 +92,7 @@ patch rpmdevtools
 
 *   For https://www.redhat.com/en/technologies/linux-platforms[RHEL] or https://www.centos.org/[CentOS] (this guide assumes version 7.x of either):
 
-[source,java]
+[source,bash]
 ----
 $ yum install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils
 patch rpmdevtools

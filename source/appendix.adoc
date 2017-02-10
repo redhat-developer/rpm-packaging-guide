@@ -41,7 +41,7 @@ be built for. You simply specify the configuration you want to use (minus the
 for both RHEL 7 and Fedora 23 using the following commands without ever having
 to use different machines.
 
-[source,java]
+[source,bash]
 ----
 $ mock -r epel-7-x86_64 ~/rpmbuild/SRPMS/cello-1.0-1.el7.src.rpm
 
@@ -73,7 +73,7 @@ commonly on most RPM Packager’s systems, some RPM Packages can have over a doz
 ``BuildRequires`` and this allows you to not need to clutter up your workstation
 with otherwise un-needed or un-necessary packages.
 
-[source,java]
+[source,bash]
 ----
 $ rpmbuild --rebuild ~/rpmbuild/SRPMS/cello-1.0-1.el7.src.rpm
 Installing /home/admiller/rpmbuild/SRPMS/cello-1.0-1.el7.src.rpm
@@ -204,7 +204,7 @@ As you can see, mock is a fairly verbose tool. You will also notice a lot of
 http://yum.baseurl.org/[yum] or https://github.com/rpm-software-management/dnf[dnf] output (depending on RHEL7, CentOS7, or Fedora mock target)
 that is not found in this output which was omitted for brevity and is often
 omitted after you have done an ``--init`` on a mock target, such as
-[source,java]
+[source,bash]
 ----
 mock -r
 epel-7-x86_64 --init
@@ -261,7 +261,7 @@ that is our next section’s subject, https://github.com/release-engineering/dis
 hosted on is publicly hosted on https://github.com/[GitHub], let’s go ahead and clone the git
 repo.
 
-[source,java]
+[source,bash]
 ----
 $ git clone https://github.com/release-engineering/dist-git.git
 Cloning into 'dist-git'...
@@ -305,7 +305,7 @@ could then use the output as the installation point for some other component in
 the pipeline. Below is a simple example of commands that could accomplish this
 and they could be adapted to other environments.
 
-[source,java]
+[source,bash]
 ----
 $ tito build --test --srpm
 Building package [dist-git-0.13-1]
@@ -393,7 +393,7 @@ content here.
 
 To define a macro use:
 
-[source,java]
+[source,specfile]
 ----
 %define <name>[(opts)]
 
@@ -475,7 +475,7 @@ One example of these kinds of RPMs would be for https://www.python.org/[Python] 
 have the ``python2-rpm-macros`` package installed (available in EPEL for RHEL
 7 and CentOS 7), we have a number of python2 specific macros available to us.
 
-[source,java]
+[source,bash]
 ----
 $ rpm -ql python2-rpm-macros
 /usr/lib/rpm/macros.d/macros.python2
@@ -496,7 +496,7 @@ interested in what these will evaluate to which we can do with ``rpm --eval`` in
 order to determine what they do as well as how they may be helpful to us when
 packaging RPMs.
 
-[source,java]
+[source,bash]
 ----
 $ rpm --eval %{__python2}
 /usr/bin/python2
@@ -558,7 +558,7 @@ One primary example of when and why you’d want to do this is when a system
 service RPM is installed and it provides a https://freedesktop.org/wiki/Software/systemd/[systemd] https://www.freedesktop.org/software/systemd/man/systemd.unit.html[unit file]. At install
 time we will need to notify https://freedesktop.org/wiki/Software/systemd/[systemd] that there is a new unit so that the
 system administrator can run a command similar to
-[source,java]
+[source,bash]
 ----
 systemctl start
 foo.service
@@ -597,7 +597,7 @@ this is easily handled by the systemd scriptlet macros as we can see from the
 below example output. More information on this can be found in the https://fedoraproject.org/wiki/Packaging:Systemd[Fedora
 systemd Packaging Guidelines].
 
-[source,java]
+[source,bash]
 ----
 $ rpm --showrc | grep systemd
 -14: __transaction_systemd_inhibit      %{__plugindir}/systemd_inhibit.so
@@ -652,7 +652,7 @@ fine grained control over the entire process.
 
 The order in which each is executed and the details of which are provided below.
 
-[source,java]
+[source,specfile]
 ----
 all-%pretrans
 ...
