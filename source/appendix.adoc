@@ -204,13 +204,8 @@ As you can see, mock is a fairly verbose tool. You will also notice a lot of
 http://yum.baseurl.org/[yum] or https://github.com/rpm-software-management/dnf[dnf] output (depending on RHEL7, CentOS7, or Fedora mock target)
 that is not found in this output which was omitted for brevity and is often
 omitted after you have done an ``--init`` on a mock target, such as
-[source,bash]
-----
-mock -r
-epel-7-x86_64 --init
-----
- which will pre-download all the required packages, cache
-them, and pre-stage the build chroot.
+``mock -r epel-7-x86_64 --init`` which will pre-download all the
+required packages, cache them, and pre-stage the build chroot.
 
 For more information, please consult the https://fedoraproject.org/wiki/Mock[Mock] upstream documentation.
 
@@ -557,13 +552,8 @@ are called **scriptlets**.
 One primary example of when and why you’d want to do this is when a system
 service RPM is installed and it provides a https://freedesktop.org/wiki/Software/systemd/[systemd] https://www.freedesktop.org/software/systemd/man/systemd.unit.html[unit file]. At install
 time we will need to notify https://freedesktop.org/wiki/Software/systemd/[systemd] that there is a new unit so that the
-system administrator can run a command similar to
-[source,bash]
-----
-systemctl start
-foo.service
-----
- after the fictional RPM ``foo`` (which provides some service
+system administrator can run a command similar to ``systemctl start
+foo.service`` after the fictional RPM ``foo`` (which provides some service
 daemon in this example) has been installed. Similarly, we would need to inverse
 of this action upon uninstallation so that an administrator would not get errors
 due to the daemon’s binary no longer being installed but the unit file still

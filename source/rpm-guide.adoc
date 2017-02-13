@@ -2172,13 +2172,8 @@ compliance with the https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[
 in incorrect or inconsistent locations because we are not using the appropriate
 rpm macros. This is of course by design __only__ for the course of this example.
 
-Next up is
-[source,bash]
-----
-E: non-executable-script /usr/lib/pello/pello.py 0644L
-/usr/bin/env
-----
- which is telling us that https://github.com/rpm-software-management/rpmlint[rpmlint] has found a file with a
+Next up is ``E: non-executable-script /usr/lib/pello/pello.py 0644L /usr/bin/env``
+which is telling us that https://github.com/rpm-software-management/rpmlint[rpmlint] has found a file with a
 https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang] directive which would normally be an executable and have permissions
 more likely to be ``0755`` instead of ``0644`` (meaning it can not be executed),
 but since we’re simply leaving it as an install artifact reference library
