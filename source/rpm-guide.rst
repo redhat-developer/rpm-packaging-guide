@@ -227,7 +227,7 @@ The term "buildroot" is unfortunately ambiguous and you will often get various
 different definitions. However in the world of RPM Packages this is literally
 a `chroot`_ environment such that you are creating a filesystem hierarchy in
 a new "fake" root directory much in the way these contents can be laid down upon
-an actual system's filesystem and not violate it's integrity. Imagine this much
+an actual system's filesystem and not violate its integrity. Imagine this much
 in the same way that you would imagine creating the contents for a `tarball`_
 such that it would be expanded at the root (/) directory of an existing system
 as this is effectively what RPM will do at a certain point during an
@@ -472,7 +472,7 @@ The ``URL`` field is the upstream software's website, not the source code
 download link but the actual project, product, or company website where someone
 would find more information about this particular piece of software. Since we're
 just using an example, we will call this ``https://example.com/bello``. However,
-we will use the rpm macro variable of ``%{name}`` in it's place for consistency
+we will use the rpm macro variable of ``%{name}`` in its place for consistency
 and the resulting entry will be ``https://example.com/%{name}``.
 
 The ``Source0`` field is where the upstream software's source code should be
@@ -513,7 +513,7 @@ define ``bash`` as a requirement using the ``Requires`` directive.
 
 Since we don't have a build step, we can simply omit the ``BuildRequires``
 directive. There is no need to define is as "undefined" or otherwise, omitting
-it's inclusion will suffice.
+its inclusion will suffice.
 
 Something we need to add here since this is software written in an interpreted
 programming language with no natively compiled extensions is a ``BuildArch``
@@ -569,7 +569,7 @@ Since the only thing we need to do in order to install ``bello`` into this
 environment is create the destination directory for the executable `bash`_
 script file and then install the file into that directory, we can do so by using
 the same ``install`` command but we will make a slight modification since we are
-inside the SPEC file and we will use the macro variable of ``%{name}`` in it's
+inside the SPEC file and we will use the macro variable of ``%{name}`` in its
 place for consistency.
 
 The ``%install`` section should look like the following after your edits:
@@ -676,7 +676,7 @@ pello
 Our second SPEC file will be for our example written in the `Python`_
 programming language that  you downloaded (or you created a simulated upstream
 release in the :ref:`General Topics and Background <general-background>`
-Section) and placed it's source code into ``~/rpmbuild/SOURCES/``
+Section) and placed its source code into ``~/rpmbuild/SOURCES/``
 earlier. Let's go ahead and open the file ``~/rpmbuild/SPECS/bello.spec``
 and start filling in some fields.
 
@@ -795,7 +795,7 @@ The ``URL`` field is the upstream software's website, not the source code
 download link but the actual project, product, or company website where someone
 would find more information about this particular piece of software. Since we're
 just using an example, we will call this ``https://example.com/pello``. However,
-we will use the rpm macro variable of ``%{name}`` in it's place for consistency.
+we will use the rpm macro variable of ``%{name}`` in its place for consistency.
 
 The ``Source0`` field is where the upstream software's source code should be
 able to be downloaded from. This URL should link directly to the specific
@@ -1049,7 +1049,7 @@ cello
 
 Our third SPEC file will be for our example written in the `C`_ programming
 language that we created a simulated upstream release of previously (or you
-downloaded) and placed it's source code into ``~/rpmbuild/SOURCES/`` earlier.
+downloaded) and placed its source code into ``~/rpmbuild/SOURCES/`` earlier.
 
 Let's go ahead and open the file ``~/rpmbuild/SPECS/cello.spec`` and start
 filling in some fields.
@@ -1145,7 +1145,7 @@ The ``URL`` field is the upstream software's website, not the source code
 download link but the actual project, product, or company website where someone
 would find more information about this particular piece of software. Since we're
 just using an example, we will call this ``https://example.com/cello``. However,
-we will use the rpm macro variable of ``%{name}`` in it's place for consistency.
+we will use the rpm macro variable of ``%{name}`` in its place for consistency.
 
 The ``Source0`` field is where the upstream software's source code should be
 able to be downloaded from. This URL should link directly to the specific
@@ -2066,7 +2066,7 @@ on this in the :ref:`Appendix <appendix>`. The reason we do not use
 problematic for one arch or the other in the event of a compile on one, run on
 the other. We also don't dive into more clever rpm macros as they are out of
 scope when trying to learn RPM Packaging at and introductory level, which is
-already a feat of it's own. For the sake of this example, we can ignore this
+already a feat of its own. For the sake of this example, we can ignore this
 Error but in a real packaging scenario you should either have a reasonable
 justification or find the appropriate rpm macro to use.
 
