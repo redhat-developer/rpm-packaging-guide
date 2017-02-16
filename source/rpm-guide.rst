@@ -1347,7 +1347,7 @@ Building RPMS
 =============
 
 When building RPMs there are is one main command, which is ``rpmbuild`` and we
-will use that through out the guide. It has been eluded to in various sections
+will use that through out the guide. It has been alluded to in various sections
 in the guide but now we're actually going to dig in and get our hands dirty.
 
 We will cover a couple different combinations of arguments we can pass to
