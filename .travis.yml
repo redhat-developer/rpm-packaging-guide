@@ -1,0 +1,34 @@
+sudo: required
+
+branches:
+  only:
+  - master
+  - publish
+
+services:
+  - docker
+
+before_install:
+  - mkdir -p output
+  - docker pull asciidoctor/docker-asciidoctor
+
+script:
+  - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-html asciidoctor/docker-asciidoctor asciidoctor -D /documents/output source/*.adoc
+  - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-pdf asciidoctor/docker-asciidoctor asciidoctor-pdf -D /documents/output source/*.adoc
+
+after_error: 
+  - docker logs asciidoc-to-html
+  - docker logs asciidoc-to-pdf
+
+after_failure:
+  - docker logs asciidoc-to-html
+  - docker logs asciidoc-to-pdf
+
+after_success:
+  - cd output
+  - git init
+  - git config user.name "${GH_USER_NAME}"
+  - git config user.email "${GH_USER_EMAIL}"
+  - git status
+  - git add *.html ; git commit -m "Deploy to GitHub Pages"
+  - git push --force "https://${GH_TOKEN_2}@${GH_REF_2}" HEAD:master
