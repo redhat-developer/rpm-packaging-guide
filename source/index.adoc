@@ -1,6 +1,14 @@
+= RPM Packaging Guide
+:imagesdir: images
+:toc: left
+:doctype: book
+:source-highlighter: coderay
+
+:leveloffset: 1
 [[welcome-to-rpm-packaging-guide-s-documentation]]
 = Welcome to RPM Packaging Guide’s documentation!
 
+:leveloffset: 1
 [[so-you-want-to-be-an-rpm-packager]]
 == So You Want To Be An RPM Packager?
 
@@ -29,6 +37,7 @@ software development or packaging so some topics will likely seem oddly
 introductory for such a guide, but don’t worry that’s by design and you can skip
 past those if you like.
 
+:leveloffset: 1
 [[document-conventions]]
 == Document Conventions
 
@@ -48,7 +57,6 @@ Look, more lines!
 ----
 $ echo "Here's some command line output!"
 Here's some command line output!
-
 ----
 
 [source,python]
@@ -104,6 +112,7 @@ choosing. We will not be discussing or recommending text editors in this
 document and we trust that everyone has at least one they are comfortable with
 at their disposal.
 
+:leveloffset: 1
 [[contributing-to-this-guide]]
 == Contributing to this guide
 
@@ -113,3 +122,12 @@ appreciate and certainly welcome. Feel free to file an issue ticket with
 feedback, submit a pull request https://github.com/redhat-developer/rpm-packaging-guide[on GitHub], or both!
 
 Thank you for your time.
+
+:leveloffset: 1
+include::rpm-guide.adoc[]
+
+:leveloffset: 1
+include::general-background.adoc[]
+
+:leveloffset: 1
+include::appendix.adoc[]
