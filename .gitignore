@@ -1,2 +1,3 @@
-build/
-source/*.html
+*/build/
+*/master.html
+*/index.html
