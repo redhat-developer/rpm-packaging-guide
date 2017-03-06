@@ -1,0 +1,13 @@
+<title>Packager's Guide</title>
+<productname>Red Hat Enterprise Linux</productname>
+<productnumber>7</productnumber>
+<subtitle>A guide to software packaging for Red Hat Enterprise Linux 7</subtitle>
+<abstract>
+   <para>The Packager's Guide provides basic information on creating, building, and testing RPM packages, and spec file writing. It also contains a spec file reference. The audience are developers and system administrators who have a basic understanding of software packaging and RPM.</para>
+</abstract>
+<authorgroup id="Author_Group">
+        <author>
+                <firstname>Red Hat</firstname>
+                <surname>Customer Content Services</surname>
+        </author>
+</authorgroup>
