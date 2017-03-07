@@ -4,6 +4,8 @@
 :doctype: book
 :source-highlighter: coderay
 
+:community:
+
 include::source/introduction.adoc[leveloffset=+1]
 include::source/rpm-guide.adoc[leveloffset=+1]
 include::source/general-background.adoc[leveloffset=+1]

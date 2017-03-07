@@ -80,13 +80,13 @@ because they are a part of the default installation of Fedora, RHEL, and
 CentOS but are listed explicitly for perspective of exactly the tools used
 within this document.
 
+ifdef::community[]
 *   For https://getfedora.org/[Fedora]:
 
 [source,bash]
 ----
 $ dnf install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils
 patch rpmdevtools
-
 ----
 
 *   For https://www.redhat.com/en/technologies/linux-platforms[RHEL] or https://www.centos.org/[CentOS] (this guide assumes version 7.x of either):
@@ -95,8 +95,19 @@ patch rpmdevtools
 ----
 $ yum install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils
 patch rpmdevtools
-
 ----
+
+endif::[]
+
+ifdef::rhel[]
+*   For https://www.redhat.com/en/technologies/linux-platforms[RHEL] (this guide assumes version 7.x):
+
+[source,bash]
+----
+$ yum install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils
+patch rpmdevtools
+----
+endif::[]
 
 Beyond these preliminary packages you will also need a text editor of your
 choosing. We will not be discussing or recommending text editors in this
