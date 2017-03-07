@@ -1,4 +1,5 @@
 = RPM Packaging Guide
+Adam Miller et al.
 :imagesdir: images
 :toc: left
 :doctype: book
@@ -10,3 +11,4 @@ include::source/introduction.adoc[leveloffset=+1]
 include::source/rpm-guide.adoc[leveloffset=+1]
 include::source/general-background.adoc[leveloffset=+1]
 include::source/appendix.adoc[leveloffset=+1]
+include::source/acknowledgements.adoc[leveloffset=+1]

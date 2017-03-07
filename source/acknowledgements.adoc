@@ -1,0 +1,7 @@
+[appendix]
+= Acknowledgements
+
+Certain portions of this text first appeared in the
+link:https://rpm-packaging-guide.github.io/[RPM Packaging Guide].
+Copyright &copy; 2017 Adam Miller and others. Licensed under a
+link:http://creativecommons.org/licenses/by-sa/3.0/[Creative Commons Attribution-ShareAlike 3.0 Unported License].

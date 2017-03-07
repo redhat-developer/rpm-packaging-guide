@@ -1,4 +1,4 @@
-[[appendix]]
+[appendix]
 = Appendix
 
 Here you will find supplementary information that is very good to know and will
