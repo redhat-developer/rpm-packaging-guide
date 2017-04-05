@@ -50,7 +50,7 @@ metadata to determine things like dependencies, where to install files, etc.
 Conventionally speaking there are two different types of RPM, there is the
 Source RPM (SRPM) and the binary RPM. Both of these share a file format and
 tooling, but they represent very different things. The payload of a SRPM is a
-SPEC file (which describes how to build a binary RPM) and the actually source
+SPEC file (which describes how to build a binary RPM) and the actual source
 code that the resulting binary RPM will be built out of (including any patches
 that may be needed).
 
