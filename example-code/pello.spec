@@ -1,7 +1,7 @@
 Name:           pello
 Version:        0.1.1
 Release:        1%{?dist}
-Summary:        Hello World example implemented in bash script
+Summary:        Hello World example implemented in Python
 
 License:        GPLv3+
 URL:            https://www.example.com/%{name}
