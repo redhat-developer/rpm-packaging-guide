@@ -60,7 +60,7 @@ succeed when you run ``rpmbuild`` because ``foo`` was needed to build and it was
 found on the system at build time. However, if you took the SRPM to another
 system that lacked ``foo`` it would fail, causing an unexpected side effect.
 `Mock`_ solves this by first parsing the contents of the SRPM and installing the
-``BuildRequires`` into it's `chroot`_ which means that if you were missing the
+``BuildRequires`` into its `chroot`_ which means that if you were missing the
 ``BuildRequires`` entry the build would fail because mock would not know to
 install it and it would therefore not be present in the buildroot.
 
@@ -524,7 +524,7 @@ Epoch
 ^^^^^
 
 First on the list is ``Epoch``, epoch is a way to define weighted dependencies
-based on version numbers. It's default value is 0 and this is assumed if an
+based on version numbers. its default value is 0 and this is assumed if an
 ``Epoch`` directive is not listed in the RPM SPEC file. This was not covered in
 the SPEC File section of this guide because it is almost always a bad idea to
 introduce an Epoch value as it will skew what you would normally otherwise
@@ -532,7 +532,7 @@ expect RPM to do when comparing versions of packages.
 
 For example if a package ``foobar`` with ``Epoch: 1`` and ``Version: 1.0`` was
 installed and someone else packaged ``foobar`` with ``Version: 2.0`` but simply
-omitted the ``Epoch`` directive either because they were unaware of it's
+omitted the ``Epoch`` directive either because they were unaware of its
 necessity or simply forgot, that new version would never be considered an update
 because the Epoch version would win out over the traditional
 Name-Version-Release marker that signifies versioning for RPM Packages.

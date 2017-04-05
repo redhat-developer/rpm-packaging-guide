@@ -127,7 +127,7 @@ Interpreted Code
 There are certain programming languages that do not compile down to a
 representation of program that the computer natively understands. These programs
 are **Interpreted** and require a Language `Interpreter`_ or Language Virtual
-Machine(VM). The name *interpreter* comes from it's similarities with how human
+Machine(VM). The name *interpreter* comes from its similarities with how human
 language interpreters convert between two representations of human speech
 to allow two people to talk, a programming language interpreter converts from
 a format that the computer doesn't "speak" to one that it does.
@@ -154,7 +154,7 @@ Building Software from Source
 -----------------------------
 
 In this section we will discuss and provide examples of building software from
-it's source code.
+its source code.
 
 .. note::
     If you are comfortable building software from source code please feel free
@@ -167,7 +167,7 @@ Source code must go through a **build** process and that process will vary based
 on specific programming language but most often this is referred to as
 **compiling** or **translating** the software. For software written in
 interpreted programming languages this step may not be necessary but sometimes it
-is desirable to perform what is known as **byte compiling** as it's build
+is desirable to perform what is known as **byte compiling** as its build
 process. We will cover each scenario below. The resulting built software can
 then be **run** or "**executed**" which tells the computer to perform the task
 described to it in the source code provided by the programmer who authored the
@@ -284,7 +284,7 @@ Byte Compiled Code
 """"""""""""""""""
 
 As mentioned previously, this version of the example is written in a programming
-language named `Python`_ and it's default language virtual machine is one that
+language named `Python`_ and its default language virtual machine is one that
 executes *byte compiled* code. This will "compile" or "translate" the source
 code into an intermediate format that is optimized and will be much faster for
 the language virtual machine to execute.
@@ -298,7 +298,7 @@ the language virtual machine to execute.
     print("Hello World")
 
 The exact procedure to byte compile programs based on language will differ
-heavily based on the programming language, it's language virtual machine, and
+heavily based on the programming language, its language virtual machine, and
 the tools or processes that are common within that programming language's
 community. Below is an example using `Python`_.
 
@@ -369,7 +369,7 @@ and then it is applied to the original source code using the tool `patch`_.
 Let's walk through an example where we create a patch from the original source
 code using ``diff`` and then apply it using the `patch`_ utility. We will
 revisit patching software in a later section when it comes to actually building
-RPMs and hopefully this exercise will prove it's usefulness at that time. First
+RPMs and hopefully this exercise will prove its usefulness at that time. First
 step in patching software is to preserve the original source code because we
 want to keep the original source code in pristine condition as we will "patch
 it" instead of simply modifying it. A common practice for this is to copy it and
@@ -428,8 +428,8 @@ patches.
 
     $ diff -Naur cello.c.orig cello.c > cello-output-first-patch.patch
 
-Now we want to restore the ``cello.c`` file to it's original source code such
-that it is restored to it's pristine state and we we can patch it with our new
+Now we want to restore the ``cello.c`` file to its original source code such
+that it is restored to its pristine state and we we can patch it with our new
 patch file. The reason this particular process is important is because this is how
 it is done when building RPMs, the original source code is left in pristine
 condition and we patch it during the process that prepares to source code to be
@@ -594,7 +594,7 @@ our `$PATH`_.
     $ cello
     Hello World
 
-Congratulations, you have now installed a build artifact into it's proper
+Congratulations, you have now installed a build artifact into its proper
 location on the system!
 
 Prepping our example upstream source code
@@ -651,7 +651,7 @@ code "release" for each example.
 
 Each implementation of the ``Hello World`` example script will be created into a
 `gzip`_ compressed tarball which will be used to simulate what an upstream
-project might release as it's source code to then be consumed and packaged for
+project might release as its source code to then be consumed and packaged for
 distribution.
 
 Below is an example procedure for each example implementation.
@@ -661,7 +661,7 @@ bello
 
 For the `bash`_ example implementation we will have a fake project called
 *bello* and since the project named *bello* produces one thing and that's
-a shell script named ``bello`` then it will only contain that in it's resulting
+a shell script named ``bello`` then it will only contain that in its resulting
 ``tar.gz``. Let's pretend that this is version ``0.1`` of that software and
 we'll mark the ``tar.gz`` file as such.
 
@@ -700,7 +700,7 @@ pello
 
 For the `Python`_ example implementation we will have a fake project called
 *pello* and since the project named *pello* produces one thing and that's
-a small program named ``pello.py`` then it will only contain that in it's
+a small program named ``pello.py`` then it will only contain that in its
 resulting ``tar.gz``. Let's pretend that this is version ``0.1.1`` of this
 software and we'll mark the ``tar.gz`` file as such.
 
@@ -749,8 +749,8 @@ Here is the listing of the files involved as mentioned before.
 You will notice the ``patch`` file is listed here, but it will not go in our
 project tarball because it is something that we as the RPM Packager will apply
 and not something that comes from the upstream source code. RPM Packages are
-built in such a way that the original upstream source code in preserved in it's
-pristine form just as released by it's creator. All patches required to the
+built in such a way that the original upstream source code in preserved in its
+pristine form just as released by its creator. All patches required to the
 software happen at RPM Build time, not before. We will place that in the
 ``~/rpmbuild/SOURCES/`` directory along side the "upstream" source code that we
 are simulating here. (More on this later).

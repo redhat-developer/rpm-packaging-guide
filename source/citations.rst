@@ -27,9 +27,9 @@
 .. _CPython: https://en.wikipedia.org/wiki/CPython
 .. _patch: http://savannah.gnu.org/projects/patch/
 .. _man pages: https://en.wikipedia.org/wiki/Man_page
-.. _rpm macro: http://rpm.org/wiki/PackagerDocs/Macros
+.. _rpm macro: http://rpm.org/user_doc/macros.html
 .. _dnf: https://github.com/rpm-software-management/dnf
-.. _RPM Official Documentation: http://rpm.org/wiki/Docs
+.. _RPM Official Documentation: http://rpm.org/documentation.html
 .. _source code: https://en.wikipedia.org/wiki/Source_code
 .. _systemd: https://freedesktop.org/wiki/Software/systemd/
 .. _$PATH: https://en.wikipedia.org/wiki/PATH_%28variable%29
