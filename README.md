@@ -33,10 +33,19 @@ To render the RHEL 7 version, run:
 
 ## Publishing Mechanism
 
-The publishing mechanism is using a single configuration file in `.travis.yml`
-and is based on a GitHub+Travis CI+Asciidoctor container+GitHub Pages toolchain,
-an idea taken from
+The publishing mechanism uses a single configuration file in `.travis.yml`
+and is based on a **GitHub**+**Travis CI**+**Asciidoctor container**+**GitHub
+Pages** toolchain, an idea taken from
 [http://mgreau.com/asciidoc-to-ghpages/](http://mgreau.com/asciidoc-to-ghpages/).
+
+Each commit pushed to the `publish` branch automatically triggers a community
+version build, so you don't need an extra tool installed locally in order to
+publish an update to the document. When the Asciidoctor container running in
+Travis CI successfully finishes the build, Travis CI pushes the resulting HTML
+and PDF to a staging repo
+[https://github.com/rpm-packaging-guide/rpm-packaging-guide.github.io](https://github.com/rpm-packaging-guide/rpm-packaging-guide.github.io),
+and GitHub Pages then publishes the HTML and PDF to
+[https://rpm-packaging-guide.github.io/](https://rpm-packaging-guide.github.io/).
 
 ## Licensing
 
