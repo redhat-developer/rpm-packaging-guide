@@ -692,6 +692,7 @@ install -m 0755 %{name} %{buildroot}/%{_bindir}/%{name}
 
 [[pello-working-with-spec-files]]
 ==== pello
+// FIXME REWRITE PELLO EXAMPLE SIMILAR TO BELLO ABOVE
 
 Our second SPEC file will be for our example written in the https://www.python.org/[Python]
 programming language that  you downloaded (or you created a simulated upstream
@@ -1069,6 +1070,7 @@ install -m 0644 %{name}.py* %{buildroot}/usr/lib/%{name}/
 
 [[cello-working-with-spec-files]]
 ==== cello
+// FIXME REWRITE CELLO EXAMPLE SIMILAR TO BELLO ABOVE
 
 Our third SPEC file will be for our example written in the https://en.wikipedia.org/wiki/C_%28programming_language%29[C] programming
 language that we created a simulated upstream release of previously (or you
