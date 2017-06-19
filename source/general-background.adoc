@@ -584,40 +584,33 @@ Hello World
 
 You have installed a build artifact into a chosen location on the system.
 
-[[prepping-our-example-upstream-source-code]]
-== Prepping our example upstream source code
+[[preparing-source-code-for-packaging]]
+== Preparing Source Code for Packaging
 
-NOTE: If you’re familiar with how upstream software is distributed and would like
-to skip this, please feel free to https://github.com/redhat-developer/rpm-packaging-guide/tree/master/example-code[download the example source code] for
-our fake upstream projects skip this section. However if you are curious how
-the examples are created please feel free to read along.
+NOTE: The code created in this section can be found
+https://github.com/redhat-developer/rpm-packaging-guide/tree/master/example-code[here].
 
-Now that we have our RPM Packaging Workspace setup, we should create simulated
-upstream compressed archives of the example programs we have made. We will once
-again list them here just in case a previous section was skipped.
+// FIXME FIX & ADD MORE STRUCTURE TO SECTION
 
-NOTE: What we are about to do here in this section is not normally something a RPM
-Packager has to do, this is normally what happens from an upstream software
-project, product, or developer who actually releases the software as source
-code. This is simply to setup the RPM Build example space and give some
-insight into where everything actually comes from.
+Developers often distribute software as compressed archives of source code,
+which are then used to create packages. In this section, you will create such
+compressed archives.
 
-We will also assume https://www.gnu.org/licenses/quick-guide-gplv3.html[GPLv3] as the https://en.wikipedia.org/wiki/Software_license[Software License] for all of these
-simulated upstream software releases. As such, we will need a ``LICENSE`` file
-included with each source code release. We include this in our simulated
-upstream software release because encounters with a https://en.wikipedia.org/wiki/Software_license[Software License] when
-packaging RPMs is a very common occurrence for a RPM Packager and we should know
-how to properly handle them.
+NOTE: Creating source code archives is not normally done by the RPM Packager,
+but by the developer. The packager works with a ready source code archive.
 
-NOTE: The method used below to create the ``LICENSE`` file is known as a https://en.wikipedia.org/wiki/Here_document[here
-document].
+Software should be distributed with a
+https://en.wikipedia.org/wiki/Software_license[software license]. For the
+examples, we will use the
+https://www.gnu.org/licenses/quick-guide-gplv3.html[GPLv3] license. The license
+text goes into the ``LICENSE`` file for each of the example programs. An RPM
+packager needs to deal with license files when packaging.
 
-Let us go ahead and make a ``LICENSE`` file that can be included in the source
-code “release” for each example.
+For use with the following examples, create a ``LICENSE`` file:
 
 [source,bash]
 ----
-$ cat > /tmp/LICENSE <<EOF
+$ cat /tmp/LICENSE
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -630,7 +623,6 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-EOF
 
 ----
 
