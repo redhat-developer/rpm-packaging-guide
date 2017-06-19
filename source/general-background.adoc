@@ -468,42 +468,40 @@ it.
 [[installing-arbitrary-artifacts]]
 == Installing Arbitrary Artifacts
 
-One of the many really nice things about https://en.wikipedia.org/wiki/Linux[Linux] systems is the https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem
-Hierarchy Standard] (FHS) which defines areas of the filesystem in which things
-should be placed. As a RPM Packager this is extremely useful because we will
-always know where to place things that come from our source code.
+A big advantage of https://en.wikipedia.org/wiki/Linux[Linux] and other
+Unix-like systems is the
+https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy
+Standard] (FHS). It specifies in which directory which files should be located.
+Files installed from the RPM packages should be placed according to FHS. For
+example, an executable file should go into a directory that is in
+the system https://en.wikipedia.org/wiki/PATH_%28variable%29[PATH] variable.
 
-This section references the concept of an **Arbitrary Artifact** which in this
-context is anything you can imagine that is a file that you want to install
-somewhere on the system within the FHS. It could be a simple script,
-a pre-existing binary, the binary output of source code that you have created as
-a side effect of a build process, or anything else you can think up. We discuss
-it in such a vague vocabulary in order to demonstrate that the system nor RPM
-care what the __Artifact__ in question is. To both RPM and the system, it is just
-a file that needs to exist in a pre-determined place. The permissions and the
-type of file it is makes it special to the system but that is for us as a RPM
-Packager to decide.
+In the context of this guide, an __Arbitrary Artifact__ is anything installed
+from an RPM to the system. For RPM and for the system it can be a script, a
+binary compiled from the package's source code, a pre-compiled binary, or any
+other file.
 
-For example, once we have built our software we can then place it on the system
-somewhere that will end up in the system https://en.wikipedia.org/wiki/PATH_%28variable%29[$PATH] so that they can be found and
-executed easily by users, developers, and sysadmins alike. We will explore two
-ways to accomplish this as they each are quite popular approaches used by RPM
-Packagers.
+We will explore two popular ways of placing __Arbitrary Artifacts__ in the
+system: using the ``install`` command and using the ``make install`` command.
 
 [[install-command]]
 === install command
 
-When placing arbitrary artifacts onto the system without build automation
-tooling such as http://www.gnu.org/software/make/[GNU make] or because it is a simple script and such tooling
-would be seen as unnecessary overhead, it is a very common practice to use the
-``install`` command (provided to the system by http://www.gnu.org/software/coreutils/coreutils.html[coreutils]) to place the
-artifact in a correct location on the filesystem based on where it should exist
-in the FHS along with appropriate permissions on the target file or directory.
+Sometimes using build automation tooling such as
+http://www.gnu.org/software/make/[GNU make] is not optimal - for example, if the
+packaged program is simple and does not need extra overhead. In these cases,
+packagers often use the ``install`` command (provided to the system by
+http://www.gnu.org/software/coreutils/coreutils.html[coreutils]), which places
+the artifact to the specified directory in the filesystem with a specified set
+of permissions.
 
 The example below is going to use the ``bello`` file that we had previously
 created as the arbitrary artifact subject to our installation method. Note that
 you will either need http://www.sudo.ws/[sudo] permissions or run this command as root excluding
 the ``sudo`` portion of the command.
+
+In this example, ``install`` places the ``bello`` file into ``/usr/bin`` with
+permissions common for executable scripts:
 
 [source,bash]
 ----
@@ -511,12 +509,13 @@ $ sudo install -m 0755 bello /usr/bin/bello
 
 ----
 
-As this point, we can execute ``bello`` from our shell no matter what our
-current working directory is because it has been installed into our https://en.wikipedia.org/wiki/PATH_%28variable%29[$PATH].
+Now ``bello`` is in a directory that is listed in the
+https://en.wikipedia.org/wiki/PATH_%28variable%29[$PATH] variable. Therefore,
+you can execute ``bello`` from any directory without specifying its full path:
 
 [source,bash]
 ----
-$ cd ~/
+$ cd ~
 
 $ bello
 Hello World
@@ -526,21 +525,13 @@ Hello World
 [[make-install]]
 === make install
 
-A very popular mechanism by which you will install software from source after
-it’s built is by using a command called ``make install`` and in order to do that
-we need to enhance the ``Makefile`` we created previously just a little bit.
+A popular automated way to install built software to the system is to use the
+``make install`` command. It requires you to specify how to install the
+arbitrary artifacts to the system in the ``Makefile``.
 
-NOTE: The creation of ``Makefile`` is normally done by the developer who writes
-the original source code of the software in question and as a RPM Packager
-this is not generally something you will need to do. This is purely an
-exercise for background knowledge and we will expand upon this as it relates
-to RPM Packaging later.
+NOTE: Usually ``Makefile``is written by the developer and not by the packager.
 
-Open the ``Makefile`` file up in your favorite text editor and make the
-appropriate edits needed so that it ends up looking exactly as the following.
-
-NOTE: The use of https://www.gnu.org/software/make/manual/html_node/DESTDIR.html[$(DESTDIR)] is a http://www.gnu.org/software/make/[GNU make] built-in and is commonly used to
-install into alternative destination directories.
+Add the ``install`` section to the ``Makefile``:
 
 ``Makefile``
 
@@ -558,13 +549,15 @@ install:
 
 ----
 
-Now we are able to use the make file to both build and install the software from
-source. Note that for the installation portion, like before when we ran the raw
-``install`` command, you will need either http://www.sudo.ws/[sudo] permissions or be the ``root``
-user and omit the ``sudo`` portion of the command.
+The https://www.gnu.org/software/make/manual/html_node/DESTDIR.html[$(DESTDIR)]
+variable is a http://www.gnu.org/software/make/[GNU make] built-in and is
+commonly used to specify installation to a directory different than the root
+directory.
 
-The following will build and install the simple ``cello.c`` program that we had
-written previously.
+Now you can use ``Makefile`` not only to build software, but also to install it
+to the target system.
+
+To build and install the ``cello.c`` program:
 
 [source,bash]
 ----
@@ -576,21 +569,20 @@ install -m 0755 cello /usr/bin/cello
 
 ----
 
-Just as in the previous example, we can now execute ``cello`` from our shell no
-matter what our current working directory is because it has been installed into
-our https://en.wikipedia.org/wiki/PATH_%28variable%29[$PATH].
+Now ``cello`` is in a directory that is listed in the
+https://en.wikipedia.org/wiki/PATH_%28variable%29[$PATH] variable. Therefore,
+you can execute ``cello`` from any directory without specifying its full path:
 
 [source,bash]
 ----
-$ cd ~/
+$ cd ~
 
 $ cello
 Hello World
 
 ----
 
-Congratulations, you have now installed a build artifact into it’s proper
-location on the system!
+You have installed a build artifact into a chosen location on the system.
 
 [[prepping-our-example-upstream-source-code]]
 == Prepping our example upstream source code
