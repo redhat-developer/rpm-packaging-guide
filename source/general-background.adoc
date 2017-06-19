@@ -67,56 +67,52 @@ helpful.
 [[how-programs-are-made]]
 == How Programs Are Made
 
-Before we dive too far into how to actually build code it is best to first
-understand a few items about software source code and how it becomes
-instructions to the computer. Effectively, how programs are actually made. There
-many ways in which a program can be executed but it boils down to effectively
-two common methods:
+There are many methods by which human-readable source code becomes machine code
+- instructions the computer follows to actually execute the program. However,
+all methods can be reduced to these two:
 
-1.  Natively Compiled
-2.  Interpreted (Byte Compiled and Raw Interpreted)
+// FIXME MAYBE SPLIT NUMBER 2 IN TWO. IF DO, ALSO SPLIT FOLLOWING SECTIONS
+1. The program is natively compiled.
+2. The program is interpreted: by raw interpreting or through byte compiling.
 
 [[natively-compiled-code]]
 === Natively Compiled Code
 
-Software written in programming languages that compile to machines code or
-directly to a binary executable (i.e. - something that the computer natively
-understands without an help) that can be run stand alone is considered to be
-**Natively Compiled**. This is important for building http://rpm.org/[RPM] Packages because
-packages built this way are what is known as https://en.wikipedia.org/wiki/Microarchitecture[architecture] specific, meaning
-that if you compile this particular piece of software on a computer that uses a
-64-bit (x86_64) AMD or Intel processor, it will not execute on a (x86) 32-bit
-AMD or Intel processor. The method by which this happens will be covered in the
-next section.
+**Natively compiled** software is software written in a programming language
+that compiles to machine code, with a resulting binary executable file. Such
+software can be run stand-alone.
+
+RPM packages built this way are
+https://en.wikipedia.org/wiki/Microarchitecture[architecture]-specific. This
+means that if you compile such software on a computer that uses a 64-bit
+(x86_64) AMD or Intel processor, it will not execute on a 32-bit (x86) AMD or
+Intel processor. The resulting package will have architecture specified in its
+name.
 
 [[interpreted-code]]
 === Interpreted Code
 
-There are certain programming languages that do not compile down to a
-representation of program that the computer natively understands. These programs
-are **Interpreted** and require a Language https://en.wikipedia.org/wiki/Interpreter_%28computing%29[Interpreter] or Language Virtual
-Machine(VM). The name __interpreter__ comes from it’s similarities with how human
-language interpreters convert between two representations of human speech
-to allow two people to talk, a programming language interpreter converts from
-a format that the computer doesn’t “speak” to one that it does.
+Some programming languages, such as https://www.gnu.org/software/bash/[bash] or
+https://www.python.org/[Python], do not compile to machine code. Instead, their
+programs' source code is executed step by step, without prior transformations,
+by a https://en.wikipedia.org/wiki/Interpreter_%28computing%29[Language
+Interpreter] or a Language Virtual Machine.
 
-There are two types of Interpreted Languages, Byte Compiled and Raw Interpreted
-and the distinction between these is useful to keep in mind when packaging
-software because of the actual ``%build`` process is going to be very different
-and sometimes in the case of Raw Interpreted Languages there will be no series
-of steps required at all for the ``%build``. (What ``%build`` means in detail
-will be explained later, but the short version is this is how we tell the RPM
-Packaging system to actually perform the __build__). Where as Byte Compiled
-programming languages will perform a build task that will “compile” or
-“translate” the code from the programming language source that is human readable
-to an intermediate representation of the program that is more efficient for the
-programming language interpreter to execute.
+There are two types of interpreted languages: byte-compiled and raw-interpreted.
+The program build process for these two types is different.
 
-Software written entirely in programming languages such as https://www.gnu.org/software/bash/[bash] shell script
-and https://www.python.org/[Python] (as used in our example) are __Interpreted__ and therefore are not
-https://en.wikipedia.org/wiki/Microarchitecture[architecture] specific which means the resulting RPM Package that is created
-will be considered ``noarch``. Indicating that it does not have an
-https://en.wikipedia.org/wiki/Microarchitecture[architecture] associated with it.
+Raw-interpreted language programs do not need to be compiled at all, they are
+directly executed by the interpreter.
+
+Byte-compiled languages need to be compiled into byte code, which is then
+executed by the language virtual machine.
+
+This difference reflects on the packaging procedure. Some languages give a
+choice: they can be raw-interpreted or byte-compiled.
+
+Software written entirely in interpreted programming languages is not
+https://en.wikipedia.org/wiki/Microarchitecture[architecture]-specific. Hence,
+the resulting RPM Package will have string ``noarch`` in its name.
 
 [[building-software-from-source]]
 == Building Software from Source
