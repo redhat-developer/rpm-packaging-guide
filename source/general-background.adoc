@@ -626,36 +626,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ----
 
-Each implementation of the ``Hello World`` example script will be created into a
-https://www.gnu.org/software/gzip/[gzip] compressed tarball which will be used to simulate what an upstream
-project might release as it’s source code to then be consumed and packaged for
-distribution.
+[[putting-source-code-into-tarball]]
+== Putting Source Code into Tarball
 
-Below is an example procedure for each example implementation.
+In the examples below, we put each of the three ``Hello World`` programs into a
+https://www.gnu.org/software/gzip/[gzip]-compressed tarball. Software is often
+released this way to be later packaged for distribution.
 
 [[bello]]
 === bello
 
-For the https://www.gnu.org/software/bash/[bash] example implementation we will have a fake project called
-__bello__ and since the project named __bello__ produces one thing and that’s
-a shell script named ``bello`` then it will only contain that in it’s resulting
-``tar.gz``. Let’s pretend that this is version ``0.1`` of that software and
-we’ll mark the ``tar.gz`` file as such.
+The __bello__ project implements ``Hello World`` in
+https://www.gnu.org/software/bash/[bash]. The implementation only contains the
+``bello`` shell script, so the resulting ``tar.gz`` archive will have only one
+file apart from the ``LICENSE`` file. Let us assume that this is version ``0.1``
+of the program.
 
-Here is the listing of the file as mentioned before.
+Prepare the __bello__ project for distribution:
 
-``bello``
-
-[source,bash]
-----
-#!/bin/bash
-
-printf "Hello World\n"
-
-----
-
-Let’s make a project ``tar.gz`` out of our source code.
-
+. Put the files into a single directory:
++
 [source,bash]
 ----
 $ mkdir /tmp/bello-0.1
@@ -664,6 +654,12 @@ $ mv ~/bello /tmp/bello-0.1/
 
 $ cp /tmp/LICENSE /tmp/bello-0.1/
 
+----
+
+. Create the archive for distribution and move it to ``~/rpmbuild/SOURCES/``:
++
+[source,bash]
+----
 $ cd /tmp/
 
 $ tar -cvzf bello-0.1.tar.gz bello-0.1
@@ -678,26 +674,16 @@ $ mv /tmp/bello-0.1.tar.gz ~/rpmbuild/SOURCES/
 [[pello]]
 === pello
 
-For the https://www.python.org/[Python] example implementation we will have a fake project called
-__pello__ and since the project named __pello__ produces one thing and that’s
-a small program named ``pello.py`` then it will only contain that in it’s
-resulting ``tar.gz``. Let’s pretend that this is version ``0.1.1`` of this
-software and we’ll mark the ``tar.gz`` file as such.
+The __pello__ project implements ``Hello World`` in
+https://www.python.org/[Python]. The implementation only contains the
+``pello.py`` program, so the resulting ``tar.gz`` archive will have only one
+file apart from the ``LICENSE`` file. Let us assume that this is version
+``0.1.1`` of the program.
 
-Here is the listing of the file as mentioned before.
+Prepare the __pello__ project for distribution:
 
-``pello.py``
-
-[source,python]
-----
-#!/usr/bin/env python
-
-print("Hello World")
-
-----
-
-Let’s make a project ``tar.gz`` out of our source code.
-
+. Put the files into a single directory:
++
 [source,bash]
 ----
 $ mkdir /tmp/pello-0.1.1
@@ -706,6 +692,11 @@ $ mv ~/pello.py /tmp/pello-0.1.1/
 
 $ cp /tmp/LICENSE /tmp/pello-0.1.1/
 
+----
+
+. Create the archive for distribution and move it to ``~/rpmbuild/SOURCES/``:
+[source,bash]
+----
 $ cd /tmp/
 
 $ tar -cvzf pello-0.1.1.tar.gz pello-0.1.1
@@ -720,71 +711,21 @@ $ mv /tmp/pello-0.1.1.tar.gz ~/rpmbuild/SOURCES/
 [[cello]]
 === cello
 
-For the https://en.wikipedia.org/wiki/C_%28programming_language%29[C] example implementation we will have a fake project called __cello__
-and since the project named __cello__ produces two things, the source code to our
-program named ``cello.c`` and a ``Makefile`` we will need to make sure and
-include both of these in our ``tar.gz``. Let’s pretend that this is version
-``1.0`` of the software and we’ll mark the ``tar.gz`` file as such.
+The __cello__ project implements ``Hello World`` in
+https://en.wikipedia.org/wiki/C_%28programming_language%29[C]. The
+implementation only contains the ``cello.c`` and ``Makefile`` files, so the
+resulting ``tar.gz`` archive will have only two files apart from the ``LICENSE``
+file. Let us assume that this is version ``1.0`` of the program.
 
-Here is the listing of the files involved as mentioned before.
+Note that the ``patch`` file is not distributed in the archive with the program.
+The RPM Packager applies the patch when the RPM is built. The patch will be
+placed in the ``~/rpmbuild/SOURCES/`` directory alongside the ``.tar.gz``.
 
-You will notice the ``patch`` file is listed here, but it will not go in our
-project tarball because it is something that we as the RPM Packager will apply
-and not something that comes from the upstream source code. RPM Packages are
-built in such a way that the original upstream source code in preserved in it’s
-pristine form just as released by it’s creator. All patches required to the
-software happen at RPM Build time, not before. We will place that in the
-``~/rpmbuild/SOURCES/`` directory along side the “upstream” source code that we
-are simulating here. (More on this later).
+Prepare the __cello__ project for distribution:
 
-``cello.c``
 
-[source,c]
-----
-#include <stdio.h>
-
-int main(void) {
-    printf("Hello World\n");
-    return 0;
-}
-
-----
-
-``cello-output-first-patch.patch``
-
-[source,diff]
-----
---- cello.c.orig        2016-05-26 17:21:30.478523360 -0500
-+++ cello.c     2016-05-27 14:53:20.668588245 -0500
-@@ -1,6 +1,6 @@
- #include<stdio.h>
-
- int main(void){
--    printf("Hello World\n");
-+    printf("Hello World from my very first patch!\n");
-     return 1;
- }
-
-----
-
-``Makefile``
-
-[source,makefile]
-----
-cello:
-        gcc -o cello cello.c
-
-clean:
-        rm cello
-
-install:
-        mkdir -p $(DESTDIR)/usr/bin
-        install -m 0755 cello $(DESTDIR)/usr/bin/cello
-
-----
-
-Let’s make a project ``tar.gz`` out of our source code.
-
+. Put the files into a single directory:
++
 [source,bash]
 ----
 $ mkdir /tmp/cello-1.0
@@ -795,6 +736,12 @@ $ mv ~/Makefile /tmp/cello-1.0/
 
 $ cp /tmp/LICENSE /tmp/cello-1.0/
 
+----
+
+. Create the archive for distribution and move it to ``~/rpmbuild/SOURCES/``:
++
+[source,bash]
+----
 $ cd /tmp/
 
 $ tar -cvzf cello-1.0.tar.gz cello-1.0
@@ -805,9 +752,12 @@ cello-1.0/LICENSE
 
 $ mv /tmp/cello-1.0.tar.gz ~/rpmbuild/SOURCES/
 
+. Add the patch:
++
+[source,bash]
+----
 $ mv ~/cello-output-first-patch.patch ~/rpmbuild/SOURCES/
 
 ----
 
-Great, now we have all of our upstream source code prep’d and ready to be turned
-into RPMs!
+Now the source code is ready for packaging into an RPM.
