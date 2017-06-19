@@ -337,37 +337,36 @@ Hello World
 [[patching-software]]
 == Patching Software
 
-In software and computing a **patch** is the term given to source code that is
-meant to fix other code, this is similar to the way that someone will use
-a piece of cloth to patch another piece of cloth that is part of a shirt or
-a blanket. Patches in software are formatted as what is called a __diff__ since
-it represents what is __different__ between to pieces of source code. A __diff__ is
-created using the ``diff`` command line utility that is provided by http://www.gnu.org/software/diffutils/diffutils.html[diffutils]
-and then it is applied to the original source code using the tool http://savannah.gnu.org/projects/patch/[patch].
+A **patch** is source code that updates other source code. It is formatted as a
+__diff__, because it represents what is different between two versions of text.
+A __diff__ is created using the ``diff`` utility, which is then applied to the
+source code using the http://savannah.gnu.org/projects/patch/[patch] utility.
 
-NOTE: Software developer will often use “Version Control Systems” such as https://git-scm.com/[git]
-to manage their code base. Tools like these provide their own methods of
-creating diffs or patching software but those are outside the scope of this
-document.
+NOTE: Software developers often use Version Control Systems such as
+https://git-scm.com/[git] to manage their code base. Such tools provide their
+own methods of creating diffs or patching software.
 
-Let’s walk through an example where we create a patch from the original source
-code using ``diff`` and then apply it using the http://savannah.gnu.org/projects/patch/[patch] utility. We will
-revisit patching software in a later section when it comes to actually building
-RPMs and hopefully this exercise will prove it’s usefulness at that time. First
-step in patching software is to preserve the original source code because we
-want to keep the original source code in pristine condition as we will “patch
-it” instead of simply modifying it. A common practice for this is to copy it and
-append ``.orig`` to the filename. Let’s do that now.
+In the following example, we create a patch from the originial source code using
+``diff`` and then apply it using ``patch``. Patching is used in a later section
+when creating an RPM, <<rpm-guide.adoc#working-with-spec-files>>.
 
+How is patching related to RPM packaging? In packaging, instead of simply
+modifying the original source code, we keep it, and use patches on it.
+
+To create a patch for ``cello.c``:
+
+. Preserve the original source code:
++
 [source,bash]
 ----
 $ cp cello.c cello.c.orig
 
 ----
-
-Next, we want to make an edit to ``cello.c`` using our favorite text editor.
-Update your ``cello.c`` to match the output below.
-
++
+This is a common way to preserve the original source code file.
++
+. Change ``cello.c``:
++
 [source,c]
 ----
 #include <stdio.h>
@@ -378,15 +377,12 @@ int main(void) {
 }
 
 ----
-
-Now that we have our original source code preserved and the updated source code
-written, we can generate a patch using the ``diff`` utility.
-
-NOTE: Here we are using a handful of common arguments for the ``diff`` utility and
-their documentation is out of the scope of this document. Please reference
-the manual page on your local machine with: ``man diff`` for more
-information.
-
++
+. Generate a patch using the ``diff`` utility:
++
+NOTE: We use several common arguments for the ``diff`` utility. For more
+information on them, see the ``diff`` manual page.
++
 [source,diff]
 ----
 $ diff -Naur cello.c.orig cello.c
@@ -403,41 +399,44 @@ $ diff -Naur cello.c.orig cello.c
 \ No newline at end of file
 
 ----
-
-This is the output, you can see lines that start with a ``-`` are being removed
-from the original source code and replaced by the line that starts with ``+``.
-Let’s now save that output to a file this time by redirecting the output to
-a file so that we can use it later with the http://savannah.gnu.org/projects/patch/[patch] utility. It is not
-a requirement but it’s good practice to use a meaningful filename when creating
-patches.
-
++
+Lines starting with a ``-`` are removed from the original source code and
+replaced with the lines that start with ``+``.
++
+. Save the patch to a file:
++
 [source,bash]
 ----
 $ diff -Naur cello.c.orig cello.c > cello-output-first-patch.patch
 
 ----
-
-Now we want to restore the ``cello.c`` file to it’s original source code such
-that it is restored to it’s pristine state and we we can patch it with our new
-patch file. The reason this particular process is important is because this is how
-it is done when building RPMs, the original source code is left in pristine
-condition and we patch it during the process that prepares to source code to be
-built.
-
++
+. Restore the original ``cello.c``:
++
 [source,bash]
 ----
 $ cp cello.c.orig cello.c
 
 ----
++
+We retain the original ``cello.c``, because when an RPM is built, the original
+file is used, not a modified one. For more information, see
+<<rpm-guide.adoc#working-with-spec-files>>.
 
-Next up, let’s go ahead and patch the source code by redirecting the patch file
-to the ``patch`` command.
+To patch ``cello.c`` using ``cello-output-first-patch.patch``, redirect the
+patch file to the ``patch`` command:
 
 [source,bash]
 ----
 $ patch < cello-output-first-patch.patch
 patching file cello.c
 
+----
+
+The contents of ``cello.c`` now reflect the patch:
+
+[source,bash]
+----
 $ cat cello.c
 #include<stdio.h>
 
@@ -448,8 +447,7 @@ int main(void){
 
 ----
 
-From the output of the ``cat`` command we can see that the patch has been
-successfully applied, let’s build and run it now.
+To build and run the patched ``cello.c``:
 
 [source,bash]
 ----
@@ -464,10 +462,8 @@ Hello World from my very first patch!
 
 ----
 
-Congratulations, you have successfully created a patch, patched software, built
-the patched software and run it!
-
-Next up, installing things!
+You have created a patch, patched a program, built the patched program, and run
+it.
 
 [[installing-arbitrary-artifacts]]
 == Installing Arbitrary Artifacts
