@@ -1,4 +1,3 @@
-[[rpm-packaging-guide]]
 = RPM Packaging Guide
 
 [[abstract]]
