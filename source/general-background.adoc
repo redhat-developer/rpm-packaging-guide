@@ -117,35 +117,28 @@ the resulting RPM Package will have string ``noarch`` in its name.
 [[building-software-from-source]]
 == Building Software from Source
 
-In this section we will discuss and provide examples of building software from
-it’s source code.
+This section explains building software from its source code.
 
-NOTE: If you are comfortable building software from source code please feel free
-to skip this section and move on. However, if you’d like to stick around and
-read it then please feel free and it will hopefully serve as a refresher or
-possibly contain something interesting that’s new to you.
+* For software written in compiled languages, the source code goes through a
+**build** process, producing machine code. This process, commonly called
+**compiling** or **translating**, varies for different languages. The resulting
+built software can be **run** or "**executed**", which makes computer perform
+the task specified by the programmer.
+* For software written in raw interpreted languages, the source code is not built,
+but executed directly.
+* For software written in byte-compiled interpreted languages, the source code is
+compiled into byte code, which is then executed by the language virtual machine.
 
-Source code must go through a **build** process and that process will vary based
-on specific programming language but most often this is referred to as
-**compiling** or **translating** the software. For software written in
-interpreted programming languages this step may not be necessary but sometimes it
-is desirable to perform what is known as **byte compiling** as it’s build
-process. We will cover each scenario below. The resulting built software can
-then be **run** or “**executed**” which tells the computer to perform the task
-described to it in the source code provided by the programmer who authored the
-software.
-
-NOTE: There are various methods by which software written in different programming
-languages can vary heavily. If the software you are interested in packaging
-doesn’t follow the exact examples here, this will hopefully be an objective
+NOTE: Software written in different programming languages varies greatly. This
+guide does not cover all the possibilities. However, it provides a starting
 guideline.
 
 [[natively-compiled-code-building-software-from-source]]
 === Natively Compiled Code
 
-Referencing the example previously used that is written in https://en.wikipedia.org/wiki/C_%28programming_language%29[C] (listed again
-below for the sake of those who may have skipped the previous section), we will
-build this source code into something the computer can execute.
+In this example, you will build the ``cello.c`` program written in the
+https://en.wikipedia.org/wiki/C_%28programming_language%29[C] language into an
+executable.
 
 ``cello.c``
 
@@ -160,11 +153,11 @@ int main(void) {
 
 ----
 
-[[build-process]]
-==== Build Process
+[[manual-building]]
+==== Manual Building
 
-In the below example we are going to invoke the https://en.wikipedia.org/wiki/C_%28programming_language%29[C] compiler from the GNU
-Compiler Collection (https://gcc.gnu.org/[GCC]).
+Invoke the https://en.wikipedia.org/wiki/C_%28programming_language%29[C] compiler from the GNU
+Compiler Collection (https://gcc.gnu.org/[GCC]) to compile the source code into binary:
 
 [source,bash]
 ----
@@ -172,7 +165,7 @@ gcc -o cello cello.c
 
 ----
 
-From here we can actually execute the resulting output binary.
+Execute the resulting output binary ``cello``.
 
 [source,bash]
 ----
@@ -181,13 +174,17 @@ Hello World
 
 ----
 
-That’s it! You’ve built natively compiled software from source code!
+That is all. You have built and ran natively compiled software from source code.
 
-Let’s take this one step further and add a http://www.gnu.org/software/make/[GNU make] Makefile which will help
-automate the building of our code. This is an extremely common practice by real
-large scale software and is a good thing to become familiar with as a RPM
-Packager. Let’s create a file named ``Makefile`` in the same directory as our
-example https://en.wikipedia.org/wiki/C_%28programming_language%29[C] source code file named ``cello.c``.
+==== Automated Building
+
+Instead of building the source code manually, you can automate the building.
+This is a common practice used by large-scale software. Automating building is
+done by creating a ``Makefile`` and then running the
+http://www.gnu.org/software/make/[GNU ``make``] utility.
+
+To set up automated building, create a file named ``Makefile`` in the same
+directory as ``cello.c``:
 
 ``Makefile``
 
@@ -201,63 +198,74 @@ clean:
 
 ----
 
-Now to build our software we can simply run the command ``make``, below you
-will see the command run more than once just for the sake of seeing what is
-expected behavior.
+Now to build the software, simply run ``make``:
 
 [source,bash]
 ----
 $ make
 make: 'cello' is up to date.
 
+----
+
+Since there is already a build present, ``make clean`` it and run ``make`` again:
+
+[source,bash]
+----
 $ make clean
 rm cello
 
 $ make
 gcc -o cello cello.c
 
+----
+
+Again, trying to build after another build would do nothing:
+
+[source,bash]
+----
 $ make
 make: 'cello' is up to date.
 
-+$ ./cello
+----
+
+Finally, execute the program:
+
+[source,bash]
+----
+$ ./cello
 Hello World
 
 ----
 
-Congratulations! You have now both compiled software manually and used a build
-tool!
+You have now compiled a program both manually and using a build tool.
 
 [[interpreted-code-building-software-from-source]]
 === Interpreted Code
 
-For software written in interpreted programming languages, we know that we don’t
-need to compile it, but if it’s a byte compiled language such as https://www.python.org/[Python] there
-may still be a step required.
-
-Referencing the two examples previously (listed again below for the sake of
-those who may have skipped the previous section), for https://www.python.org/[Python] we will build
-this source code into something the https://www.python.org/[Python] Language Interpreter (known as
-https://en.wikipedia.org/wiki/CPython[CPython]) can execute.
+The next two examples showcase byte-compiling a program written in
+https://www.python.org/[Python] and raw-interpreting a program written in
+https://www.gnu.org/software/bash/[bash].
 
 [NOTE]
 ====
-In the two examples below, the ``#!`` line is known as a https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang] and is
-not technically part of the programming language source code.
+In the two examples below, the ``#!`` line at the top of the file is known as a
+https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang] and is not part of the
+programming language source code.
 
-The https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang] allows us to use a text file as an executable and the system
-program loader will parse the line at the top of the file containing
-a ``#!`` character sequence looking a path to the binary executable to use
-as the programming language interpreter.
+The https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang] enables using a
+text file as an executable: the system program loader parses the line containing
+the *shebang* to get a path to the binary executable, which is then used as the
+programming language interpreter.
 ====
 
 [[byte-compiled-code]]
-==== Byte Compiled Code
+==== Byte-Compiled Code
 
-As mentioned previously, this version of the example is written in a programming
-language named https://www.python.org/[Python] and it’s default language virtual machine is one that
-executes __byte compiled__ code. This will “compile” or “translate” the source
-code into an intermediate format that is optimized and will be much faster for
-the language virtual machine to execute.
+In this example, you will compile the ``pello.py`` program written in Python
+into byte code, which is then executed by the Python language virtual machine.
+Python source code can also be raw-interpreted, but the byte-compiled version is
+faster. Hence, RPM Packagers prefer to package the byte-compiled version for
+distribution to end users.
 
 ``pello.py``
 
@@ -269,38 +277,41 @@ print("Hello World")
 
 ----
 
-The exact procedure to byte compile programs based on language will differ
-heavily based on the programming language, it’s language virtual machine, and
-the tools or processes that are common within that programming language’s
-community. Below is an example using https://www.python.org/[Python].
+Procedure for byte-compiling programs is different for different languages. It
+depends on the language, the language's virtual machine, and the tools and
+processes used with that language.
 
-NOTE: The practice of byte compiling https://www.python.org/[Python] is common but the exact procedure
-shown here is not. This is meant to be a simple example. For more
-information, please reference the https://docs.python.org/2/library/distribution.html[Software Packaging and Distribution]
-documentation.
+NOTE: https://www.python.org/[Python] is often byte-compiled, but not in the way
+described here. The following procedure aims not to conform to the community
+standards, but to be simple. For real-world Python guidelines, see
+https://docs.python.org/2/library/distribution.html[Software Packaging and
+Distribution].
+
+Byte-compile ``pello.py``:
 
 [source,bash]
 ----
 $ python -m compileall pello.py
-$ python pello.pyc
-Hello World
 
 $ file pello.pyc
 pello.pyc: python 2.7 byte-compiled
 
 ----
 
-You can see here that after we byte-compiled the source ``.py`` file we now have
-a ``.pyc`` file which is of ``python 2.7 byte-compiled`` filetype. This file can
-be run with the python language virtual machine and is more efficient than
-passing in just the raw source file, which is a desired attribute of resulting
-software we as a RPM Packager will distribute out to systems.
+Execute the byte code in ``pello.pyc``:
+
+[source,bash]
+----
+$ python pello.pyc
+Hello World
+
+----
 
 [[raw-interpreted]]
-==== Raw Interpreted
+==== Raw Interpreted Code
 
-This version of the example is written in the https://www.gnu.org/software/bash/[bash] shell built in scripting
-language.
+In this example, you will raw-interpret the ``bello`` program written in the
+https://www.gnu.org/software/bash/[bash] shell built-in language.
 
 ``bello``
 
@@ -312,10 +323,8 @@ printf "Hello World\n"
 
 ----
 
-UNIX-style shells have scripting languages, much like _bash_ does, but
-programs written in these languages do not have any kind of byte compile
-procedure and are interpreted directly as they are written so the only procedure
-we have to do is make the file executable and then run it.
+Programs written in shell scripting languages, like _bash_, are raw-interpreted.
+Hence, you only need to make the file with source code executable and run it:
 
 [source,bash]
 ----
