@@ -1,92 +1,98 @@
-[[welcome-to-rpm-packaging-guide-s-documentation]]
-= Welcome to RPM Packaging Guide’s documentation!
+[[rpm-packaging-guide]]
+= RPM Packaging Guide
 
-[[so-you-want-to-be-an-rpm-packager]]
-== So You Want To Be An RPM Packager?
+[[abstract]]
+== Abstract
 
-So you want to be an RPM Packager (or you at least need to know how to package
-RPMs because of your dayjob or otherwise)?
+// FIXME RENAME "General Topics and Background" TO "Preparing Source Code for Packaging" ?
 
-Well hopefully this guide will prove to be helpful.
+// FIXME MOVE "ABSTRACT", "DOCUMENT CONVENTIONS", "PREREQUISITES", AND "CONTRIBUTING TO THIS GUIDE" TO SEPARATE FILES
+// FIXME ADD "LEGAL NOTICE" BEFORE THE ABSTRACT
 
-Below you will find information about RPMs, source code and all sorts of things
-in between. If you are familiar with what https://en.wikipedia.org/wiki/Source_code[“Source Code”] is and how it gets
-compiled or “built” into software then feel free to skip the <<general-background.adoc#general-topics-and-background>>
-section and move right on into the
-<<rpm-guide.adoc#rpm-packaging-guide>>. More advanced topics and items otherwise
-considered out of scope of getting you on the path to packaging software will be
-held in the <<appendix.adoc#appendix>>. However, I hope all sections of this
-guide do prove useful in some capacity.
+// FIXME WHOLE GUIDE: MAKE MARKUP CONSISTENT, ESPECIALLY FOR TERMS
+// FIXME WHOLE GUIDE: MAKE TONE AND POINT OF VIEW CONSISTENT ("WE" VERSUS "YOU" AND SIMILAR)
+// FIXME WHOLE GUIDE: MAKE TERMS SPELLED CONSISTENTLY: RPM Packager, RPM Package, Binary RPM, Source RPM, AND SO ON
 
-This guide is meant to be used however the reader feels they would best like to
-use it. The sections are arranged such that the reader may start from the
-beginning and go all the way through and the flow of topics should make sense
-with each topic building upon the previous ones. However, if you as the reader
-feel you are comfortable with a topic or would just like to use the guide as
-reference material please feel free to skip sections or jump around as you
-please. The goal here is to be useful to someone with little to no background in
-software development or packaging so some topics will likely seem oddly
-introductory for such a guide, but don’t worry that’s by design and you can skip
-past those if you like.
+// FIXME WHOLE GUIDE: MAKE SECTION NAMES MORE SPECIFIC
+// FIXME WHOLE GUIDE: MAKE SECTION NAMES ACTION-ORIENTED
+// FIXME WHOLE GUIDE: ADD MORE STRUCTURE, ESPECIALLY FOR PROCEDURES
+
+// FIXME RENAME GENERAL BACKGROUND AND RPM GUIDE CHAPTERS
+
+The RPM Packager's Guide documents:
+
+* How to prepare source code for packaging into an RPM. This aims at people with no background in software development. See <<general-background.adoc#general-topics-and-background>>.
+* How to package source code into an RPM. This aims at software developers who need to package software into RPMs. See <<rpm-guide.adoc#rpm-packaging-guide>>.
+* Advanced packaging scenarios. This aims at for RPM packagers dealing with advanced RPM Packaging scenarios. See <<appendix.adoc#appendix>>.
+
+// FIXME MAYBE MOVE THIS PARAGRAPH FROM THE ABSTRACT TO INTRODUCTION?
+The <<general-background.adoc#general-topics-and-background>> is a tutorial that
+prepares people with no experience in software development to RPM Packaging. The
+<<rpm-guide.adoc#rpm-packaging-guide>> is a tutorial that guides through basic
+RPM Packaging. Follow both tutorials from beginning to end. The
+<<appendix.adoc#appendix>> is reference material for information on RPM
+Packaging beyond the basics.
 
 [[document-conventions]]
 == Document Conventions
 
-Code and command line out put will be placed into a block similar to the
-following:
+The document uses the following conventions:
 
-[source,txt]
-----
-This is a block! We can do all sorts of cool code and command line stuff
-here!
-
-Look, more lines!
-
-----
-
+* Command output and contents of text files, including source code, are placed
+in blocks:
++
 [source,bash]
 ----
-$ echo "Here's some command line output!"
-Here's some command line output!
+$ tree ~/rpmbuild/
+/home/user/rpmbuild/
+|-- BUILD
+|-- RPMS
+
+[command output trimmed]
 
 ----
++
+[source,txt]
+----
+Name:           bello
+Version:
+Release:        1%{?dist}
+Summary:
 
+[file contents trimmed]
+
+----
++
 [source,python]
 ----
 #!/usr/bin/env python
 
-def code_example:
-    print("And here's some code with syntax highlighting and everything!")
-
-code_example()
+print("Hello World")
 
 ----
 
-Topics of interest or vocabulary terms will either be referred to as URLs to
-their respective documentation/website, as a **bold** item, or in __italics__. The
-first encounter of the term should be a reference to its respective
-documentation.
+Topics of interest or vocabulary terms are referred to either as URLs to their
+respective documentation or website, in **bold**, or in __italics__. The first
+occurences of some terms link to their respective documentation.
+// FIXME LAST SENTENCE ONLY IN UPSTREAM VERSION
 
-Command line utilities, commands, or things otherwise found in code that are
-used through out paragraphs will be written in a ``monospace`` font.
+Names of utilities, commands, and things normally found in code are written in
+``monospace`` font.
 
 [[prerequisites]]
 == Prerequisites
 
-In order to perform the following examples you will need a few packages
-installed on your system:
+To follow this tutorial, you need these packages installed:
 
-NOTE: The inclusion of some of the packages below are not actually necessary
-because they are a part of the default installation of Fedora, RHEL, and
-CentOS but are listed explicitly for perspective of exactly the tools used
-within this document.
+NOTE: Some of these packages are installed by default on Fedora, RHEL, and
+CentOS. They are listed explicitly to show which tools are used in this guide.
+// FIXME CONDITIONALS
 
 *   For https://getfedora.org/[Fedora]:
 
 [source,bash]
 ----
-$ dnf install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils
-patch rpmdevtools
+$ dnf install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools
 
 ----
 
@@ -94,22 +100,21 @@ patch rpmdevtools
 
 [source,bash]
 ----
-$ yum install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils
-patch rpmdevtools
+$ yum install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools
 
 ----
 
-Beyond these preliminary packages you will also need a text editor of your
-choosing. We will not be discussing or recommending text editors in this
-document and we trust that everyone has at least one they are comfortable with
-at their disposal.
+// FIXME CONDITIONALS
 
 [[contributing-to-this-guide]]
 == Contributing to this guide
+// FIXME THIS SECTION ONLY FOR UPSTREAM
 
-If you are currently a RPM Packager and would like to contribute either by way
+You can contribute to this guide by leaving submitting an issue or a pull
+request on https://github.com/redhat-developer/rpm-packaging-guide[the GitHub
+repository].
+
+If you are currently an RPM Packager and would like to contribute either by way
 of feedback or pull request, please do! Both forms of contribution are greatly
 appreciate and certainly welcome. Feel free to file an issue ticket with
 feedback, submit a pull request https://github.com/redhat-developer/rpm-packaging-guide[on GitHub], or both!
-
-Thank you for your time.
