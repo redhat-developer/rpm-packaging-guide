@@ -1522,35 +1522,26 @@ Most of the information in <<rebuild>> apply here.
 [[checking-rpms-for-sanity]]
 == Checking RPMs For Sanity
 
-Once we have created a package, we may desire to perform some sort of checks for
-quality on the package itself and not necessarily just the software we’re
-delivering with the RPM.
+After creating a package, it is good to check its quality. Quality of the
+package, not of the software delivered within it. The main tool for this is
+https://github.com/rpm-software-management/rpmlint[rpmlint]. It improves RPM
+maintainability and enables sanity and error checking by performing static
+analysis of the RPM. This utility can check Binary RPMs, Source RPMs, and SPEC
+files, so is useful for all stages of packaging, as shown in the following
+examples.
 
-For this the main tool of choice for RPM Packagers is https://github.com/rpm-software-management/rpmlint[rpmlint] which performs
-many sanity and error checks that help assist with packaging in more
-maintainable and less error prone fashion. Something to keep in mind is that
-this is going to report things based on very strict guidelines and by way of
-static analysis. There is going to be lack of perspective by the https://github.com/rpm-software-management/rpmlint[rpmlint] tool
-and what your primary objective is and thus it is sometimes alright to allow
-Errors or Warnings reported by https://github.com/rpm-software-management/rpmlint[rpmlint] to persist in your packages, but the
-key is to understand **why** we would allow these to persist. In the follow
-sections we will explore a couple examples of just that.
+Note that ``rpmlint`` has very strict guidelines, and sometimes it is acceptable
+and necessary to skip some of its Errors and Warnings, as shown in the following
+examples.
 
-Another really useful feature of https://github.com/rpm-software-management/rpmlint[rpmlint] is that we can use it to check
-against Binary RPMs, Source RPMs, and SPEC files so that it can be used during
-all stages of packaging and not just after the fact. We will show examples of
-each below.
-
-NOTE: For each example below we run https://github.com/rpm-software-management/rpmlint[rpmlint] without any options, if you would
-like detailed explanations of what each Error or Warning means, then you can
-pass the ``-i`` option and run each command as ``rpmlint -i`` instead of
-just ``rpmlint``. The shorter output is selected for brevity of the
-document.
+NOTE: In the examples, we run ``rpmlint`` without any options, which produces
+non-verbose output. For detailed explanations of each Error or Warning, run
+``rpmlint -i`` instead.
 
 [[bello-checking-rpms-for-sanity]]
 === bello
 
-Let’s get started by looking at some output and dive into each set of output.
+This is the output of running ``rpmlint`` on the SPEC file for ``bello``:
 
 [source,bash]
 ----
@@ -1560,12 +1551,12 @@ bello.spec: W: invalid-url Source0: https://www.example.com/bello/releases/bello
 
 ----
 
-When checking __bello__‘s spec file we can see that we only have one warning and
-that is the URL listed in the ``Source0`` directive can not be reached which is
-something that we would expect given that example.com doesn’t actually exist out
-in the real world and we’ve not setup a system with a local DNS entry to point
-to this URL. Since we know why the Warning was emitted and that it was expect,
-this can be safely ignored.
+For ``bello.spec`` there is only one warning. It says that the URL listed in the
+``Source0`` directive is unreachable. This is expected, because the specified
+``example.com`` URL does not exist. Presuming that we expect this URL to work in
+the future, we can ignore this warning.
+
+This is the output of running ``rpmlint`` on the SRPM for ``bello``:
 
 [source,bash]
 ----
@@ -1576,10 +1567,19 @@ bello.src: W: invalid-url Source0: https://www.example.com/bello/releases/bello-
 
 ----
 
-When checking __bello__‘s SRPM we can see very similar output from the check
-against the spec file but we also see that the check against the SRPM looks for
-the ``URL`` directive as well as the ``Source0`` directive, neither can be
-reached but as we know is expected and these can also be safely ignored.
+Observations:
+
+* For the ``bello`` SRPM there is a new warning, which says that the URL specified in the ``URL`` directive is unreachable. Assuming the link will be working in the future, we can ignore this warning.
+
+// FIXME ADD HEADING HERE?
+
+When checking Binary RPMs, ``rpmlint`` checks for more things, including:
+
+. documentation
+. https://en.wikipedia.org/wiki/Man_page[manual pages]
+. consistent use of the https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy Standard].
+
+This is the output of running ``rpmlint`` on the Binary RPM for ``bello``:
 
 [source,bash]
 ----
@@ -1591,22 +1591,17 @@ bello.noarch: W: no-manual-page-for-binary bello
 
 ----
 
-Now things will change a bit when looking at Binary RPMs as the https://github.com/rpm-software-management/rpmlint[rpmlint]
-utility is going to check for other things that should be commonly found in
-Binary RPMs such as documentation and/or https://en.wikipedia.org/wiki/Man_page[man pages] as well as things like
-consistent use of the https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy Standard]. As we can see, this is
-exactly what is being reported and we know that there are no https://en.wikipedia.org/wiki/Man_page[man pages] or
-other documentation because we didn’t provide any. Also, once again our old
-friend the ``HTTP Error 404: Not Found`` is present but we’re well aware as to
-why.
+Observations:
 
-Other than our few items that we are carrying over because this is a simple
-example, our RPM is passing the https://github.com/rpm-software-management/rpmlint[rpmlint] checks and all is well!
+* The ``no-documentation`` and ``no-manual-page-for-binary`` warnings say that
+the RPM has no documentation or manual pages, because we did not provide any.
+
+Apart from the above warnings, our RPM is passing ``rpmlint`` checks.
 
 [[pello-checking-rpms-for-sanity]]
 === pello
 
-Next up, let’s get look at some more output and dive into it one by one.
+This is the output of running ``rpmlint`` on the SPEC file for ``pello``:
 
 [source,bash]
 ----
@@ -1621,33 +1616,20 @@ pello.spec: W: invalid-url Source0: https://www.example.com/pello/releases/pello
 
 ----
 
-Now, I know you might be thinking “That’s a lot of errors, this example must be
-really wrong” and you would be correct but it is wrong for good reason. The goal
-here is two fold, first to make a byte-compiled example that was not too
-complicated and allowed to demonstrate some scripting in a SPEC file and second
-to show some examples of what we can expect https://github.com/rpm-software-management/rpmlint[rpmlint] to report other than just
-a simple URL missing.
+Observations:
 
-Looking at the output from the check on __pello__‘s spec file we can see that we
-have a new Error entitled ``hardcoded-library-path`` and it was mentioned during
-the previous section that this was known to be incorrect but we were doing it
-anyways. The reality is that this is a half truth. Almost always, you should be
-using the ``%{_libdir}`` rpm macro or some other more sophisticated macro (more
-on this in the <<appendix.adoc#appendix>>. The reason we do not use
-``%{_libdir}`` in this instance is because that macro will expand to be either
-``/usr/lib/`` or ``/usr/lib64/`` depending on a 32-bit or 64-bit
-https://en.wikipedia.org/wiki/Microarchitecture[architecture]. Since we are packaging ``noarch`` that would have become
-problematic for one arch or the other in the event of a compile on one, run on
-the other. We also don’t dive into more clever rpm macros as they are out of
-scope when trying to learn RPM Packaging at and introductory level, which is
-already a feat of it’s own. For the sake of this example, we can ignore this
-Error but in a real packaging scenario you should either have a reasonable
-justification or find the appropriate rpm macro to use.
+* The ``invalid-url Source0`` warning says that the URL listed in the Source0
+directive is unreachable. This is expected, because the specified example.com
+URL does not exist. Presuming that we expect this URL to work in the future, we
+can ignore this warning.
+* There are many errors, because we intentionally wrote this SPEC file to be
+uncomplicated and to show what errors ``rpmlint`` can report.
+* The ``hardcoded-library-path`` errors suggest to use the ``%{_libdir}`` macro
+instead of hard-coding the library path. For the sake of this example, we ignore
+these errors, but for packages going in production you need a good reason for
+ignoring this error.
 
-Once again, the URL listed in the ``Source0`` directive can not be reached which
-is something that we expect for the same reasons given in the previous example.
-Since we know why the Warning was emitted and that it was expect, this can be
-safely ignored also.
+This is the output of running ``rpmlint`` on the SRPM for ``pello``:
 
 [source,bash]
 ----
@@ -1663,13 +1645,21 @@ pello.src: W: invalid-url Source0: https://www.example.com/pello/releases/pello-
 
 ----
 
-When checking __pello__‘s SRPM we can see very similar output from the check
-against the spec file but we also see that the check against the SRPM looks for
-the ``URL`` directive as well as the ``Source0`` directive, neither can be
-reached but as we know is expected and these can also be safely ignored.
+Observations:
 
-Once again, the explanation for the ``hardcoded-library-path`` is the same as we
-covered previously in the ``rpmlint`` output for the SPEC file.
+* The new ``invalid-url URL`` error here is about the ``URL`` directive, which
+is unreachable. Assuming that we expect the URL to become valid in the future,
+we can ignore this error.
+
+// FIXME ADD HEADING HERE?
+
+When checking Binary RPMs, ``rpmlint`` checks for more things, including:
+
+. documentation
+. https://en.wikipedia.org/wiki/Man_page[manual pages]
+. consistent use of the https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy Standard].
+
+This is the output of running ``rpmlint`` on the Binary RPM for ``pello``:
 
 [source,bash]
 ----
@@ -1683,41 +1673,33 @@ pello.noarch: W: no-manual-page-for-binary pello
 
 ----
 
-As with the previous example, things change a bit when looking at Binary RPMs as
-the https://github.com/rpm-software-management/rpmlint[rpmlint] utility is now checking for other things that should be commonly
-found in Binary RPMs such as documentation and/or https://en.wikipedia.org/wiki/Man_page[man pages] as well as things
-like consistent use of the https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy Standard]. As we can see, this
-is exactly what is being reported and we know that there are no https://en.wikipedia.org/wiki/Man_page[man pages] or
-other documentation because we didn’t provide any. Also, once again our old
-friend the ``HTTP Error 404: Not Found`` is present but we’re well aware as to
-why.
+Observations:
 
-The two new ones are ``non-executable-script`` and
-``only-non-binary-in-usr-lib``.
+* The ``no-documentation`` and ``no-manual-page-for-binary`` warnings say that
+the RPM has no documentation or manual pages, because we did not provide any.
+* The ``only-non-binary-in-usr-lib`` warning says that you provided only
+non-binary artifacts in ``/usr/lib/``. This directory is normally reserved for
+shared object files, which are binary files. Therefore, ``rpmlint`` expects at
+least one or more files in ``/usr/lib/`` to be binary.
++
+This is an example of an ``rpmlint`` check for compliance with
+https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy
+Standard].
++
+Normally, use rpm macros to ensure the correct placement of files. For the sake
+of this example, we can ignore this warning.
+* The ``non-executable-script`` error warns that the ``/usr/lib/pello/pello.py``
+file has no execute permissions. Since this file contains the
+https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang], ``rpmlint`` expects
+the file to be executable. For the purpose of the example, leave this file
+without execute permissions and ignore this error.
 
-First is ``W: only-non-binary-in-usr-lib`` which means that we’ve provided only
-non-binary artifacts in ``/usr/lib/`` which is normally reserved for shared
-object files which are binary data files and https://github.com/rpm-software-management/rpmlint[rpmlint] therefore expects at
-least some of our files in ``/usr/lib/`` to be binary. This again rounds back to
-compliance with the https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy Standard] as well as files ending up
-in incorrect or inconsistent locations because we are not using the appropriate
-rpm macros. This is of course by design __only__ for the course of this example.
-
-Next up is ``E: non-executable-script /usr/lib/pello/pello.py 0644L /usr/bin/env``
-which is telling us that https://github.com/rpm-software-management/rpmlint[rpmlint] has found a file with a
-https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang] directive which would normally be an executable and have permissions
-more likely to be ``0755`` instead of ``0644`` (meaning it can not be executed),
-but since we’re simply leaving it as an install artifact reference library
-because we used this as an example for doing byte-compilation at build time this
-can also be safely ignored.
-
-Other than our items that we are carrying over for the purposes of the example,
-our RPM is passing the https://github.com/rpm-software-management/rpmlint[rpmlint] checks and all is well!
+Apart from the above warnings and errors, our RPM is passing ``rpmlint`` checks.
 
 [[cello-checking-rpms-for-sanity]]
 === cello
 
-Next up, let’s get look at some more output and dive into each.
+This is the output of running ``rpmlint`` on the SPEC file for ``cello``:
 
 [source,bash]
 ----
@@ -1727,11 +1709,14 @@ $ rpmlint ~/rpmbuild/SPECS/cello.spec
 
 ----
 
-When checking __cello__‘s spec file we can see that things appear much more as
-they did in our first example and we only have one warning. This is again that
-the URL listed in the ``Source0`` directive can not be reached which is
-something expected. Since we know why the Warning was emitted and that it was
-expect, this can be safely ignored.
+Observations:
+
+* The only warning for ``cello.spec`` says that the URL listed in the
+``Source0`` directive is unreachable. This is expected, because the specified
+``example.com`` URL does not exist. Presuming that we expect this URL to work in
+the future, we can ignore this warning.
+
+This is the output of running ``rpmlint`` on the SRPM file for ``cello``:
 
 [source,bash]
 ----
@@ -1742,10 +1727,21 @@ cello.src: W: invalid-url Source0: https://www.example.com/cello/releases/cello-
 
 ----
 
-When checking __cello__‘s SRPM we can see very similar output from the check
-against the spec file but we also see that the check against the SRPM looks for
-the ``URL`` directive as well as the ``Source0`` directive, neither can be
-reached but as we know is expected and these can also be safely ignored.
+Observations:
+
+* For the ``cello`` SRPM there is a new warning, which says that the URL
+specified in the ``URL`` directive is unreachable. Assuming the link will be
+working in the future, we can ignore this warning.
+
+When checking Binary RPMs, ``rpmlint`` checks for more things, including:
+
+. documentation
+. https://en.wikipedia.org/wiki/Man_page[manual pages]
+. consistent use of the
+https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy
+Standard].
+
+This is the output of running ``rpmlint`` on the Binary RPM for ``cello``:
 
 [source,bash]
 ----
@@ -1757,20 +1753,15 @@ cello.x86_64: W: no-manual-page-for-binary cello
 
 ----
 
-As before, the output has changed when looking at Binary RPMs as the https://github.com/rpm-software-management/rpmlint[rpmlint]
-utility is going to check for other things that should be commonly found in
-Binary RPMs such as documentation and/or https://en.wikipedia.org/wiki/Man_page[man pages] as well as things like
-consistent use of the https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy Standard]. As we can see, this is
-exactly what is being reported just as in the previous examples and we know that
-there are no https://en.wikipedia.org/wiki/Man_page[man pages] or other documentation because we didn’t provide any.
-Also, once again the ``HTTP Error 404: Not Found`` is present but we’re well
-aware as to why.
+Observations:
 
-Other than our few items that we are carrying over because this is a simple
-example, our RPM is passing the https://github.com/rpm-software-management/rpmlint[rpmlint] checks and all is well!
+* The ``no-documentation`` and ``no-manual-page-for-binary`` warnings say that
+the RPM has no documentation or manual pages, because we did not provide any.
 
-That’s it!
+Apart from the above warnings and errors, our RPM is passing ``rpmlint`` checks.
 
-Our RPMs are sanitized (or we know and understand why they aren’t) and it is now
-time to either go forth and Package RPMs or travel on into the
+// FIXME ADD HEADING
+
+Our RPMs are now ready and checked with ``rpmlint``. This concludes the
+tutorial. For more information on packaging RPMs, proceed to
 <<appendix.adoc#appendix>>.
