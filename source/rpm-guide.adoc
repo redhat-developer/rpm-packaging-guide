@@ -1,58 +1,60 @@
 [[rpm-packaging-guide]]
 = RPM Packaging Guide
 
-Hello! Welcome to RPM Packaging 101 (for lack of a more inventive title). Here
-you will find all of the information you need in order to start packaging RPMs
-for various https://en.wikipedia.org/wiki/Linux[Linux] Distributions that use the http://rpm.org/[RPM] Packaging Format.
-
-This guide assumes no previous knowledge about packaging software for any
-Operating System, Linux or otherwise. However, it should be noted that this
-guide is written to target the Red Hat “family” of Linux distributions, which
-are:
+// FIXME CONDITIONALS
+This tutorial explains packaging RPMs for the Red Hat family of Linux
+distributions, primarily:
 
 *   https://getfedora.org/[Fedora]
 *   https://www.centos.org/[CentOS]
-*   https://www.redhat.com/en/technologies/linux-platforms[Red Hat Enterprise Linux] (often referred to as https://www.redhat.com/en/technologies/linux-platforms[RHEL] for short)
+*   https://www.redhat.com/en/technologies/linux-platforms[Red Hat Enterprise Linux] (often called https://www.redhat.com/en/technologies/linux-platforms[RHEL] for short)
 
-While these distros are the target environment, it should be noted that lessons
-learned here should be applicable across all distributions that are https://en.wikipedia.org/wiki/List_of_Linux_distributions#RPM-based[RPM based]
-but the examples will need to be adapted for distribution specific items such as
-prerequisite installation items, guidelines, or macros. (More on macros later)
+These distributions use the http://rpm.org/[RPM] Packaging Format.
 
-NOTE: If you have made it this far and don’t know what a software package or a
-GNU/Linux distribution is, you might be best served by exploring some
-articles on the topics of https://en.wikipedia.org/wiki/Linux[Linux] and https://en.wikipedia.org/wiki/Package_manager[Package Managers].
+// FIXME CONDITIONALS
+While these distributions are the target environment, this guide is probably
+applicable to all
+https://en.wikipedia.org/wiki/List_of_Linux_distributions#RPM-based[RPM based]
+distributions. However, the instructions need to be adapted for
+distribution-specific features, such as prerequisite installation items,
+guidelines, or macros.
+
+This tutorial assumes no previous knowledge about packaging software for any
+Operating System, Linux or otherwise.
+
+NOTE: If you do not know what a software package or a GNU/Linux distribution is,
+consider exploring some articles on the topics of
+https://en.wikipedia.org/wiki/Linux[Linux] and
+https://en.wikipedia.org/wiki/Package_manager[Package Managers].
+// FIXME MOVE THIS NOTE?
+// FIXME CONDITIONAL: MAKE THIS NOTE ONLY IN UPSTREAM VERSION
 
 [[rpm-packages]]
 == RPM Packages
 
-In this section we are going to hopefully cover everything you ever wanted to
-know about the RPM Packaging format, and if not then hopefully the contents of
-the <<appendix.adoc#appendix>> will satisfy the craving for knowledge that has
-been left out of this section.
+This section covers the basics of the RPM packaging format. See
+<<appendix.adoc#appendix>> for more advanced information.
 
 [[what-is-an-rpm]]
 === What is an RPM?
 
-To kick things off, let’s first define what an RPM actually is. An RPM package
-is simply a file that contains some files as well as information the system
-needs to know about those files. More specifically, it is a file containing a
-https://en.wikipedia.org/wiki/Cpio[cpio] archive and metadata about itself. The https://en.wikipedia.org/wiki/Cpio[cpio] archive is the payload
-and the RPM Header contains the metadata. The package manager ``rpm`` uses this
-metadata to determine things like dependencies, where to install files, etc.
+An RPM package is simply a file containing other files and information about
+them needed by the system. Specifically, an RPM package consists of the
+https://en.wikipedia.org/wiki/Cpio[cpio] archive, which contains the files, and
+the RPM header, which contains metadata about the package. The ``rpm`` package
+manager uses this metadata to determine dependencies, where to install files,
+and other information.
 
-Conventionally speaking there are two different types of RPM, there is the
-Source RPM (SRPM) and the binary RPM. Both of these share a file format and
-tooling, but they represent very different things. The payload of a SRPM is a
-SPEC file (which describes how to build a binary RPM) and the actually source
-code that the resulting binary RPM will be built out of (including any patches
-that may be needed).
+There are two types of RPM packages:
 
-[[rpm-packaging-workspace]]
-=== RPM Packaging Workspace
+* source RPM (SRPM)
+* binary RPM
 
-In the <<index.adoc#prerequisites>> section we installed a package named
-``rpmdevtools`` which provides a number of handy utilities for RPM Packagers.
+SRPMs and binary RPMs share the file format and tooling, but have different
+contents and serve different purposes. An SRPM contains source code, optionally
+patches to it, and a SPEC file, which describes how to build the source code
+into a binary RPM. A binary RPM contains the binaries built from the sources and
+patches.
 
 Feel free to explore the output of the following command and check out the
 various utilities manual pages or help dialogs.
