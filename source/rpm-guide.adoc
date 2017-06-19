@@ -115,69 +115,67 @@ the resulting SRPM is created here.
 [[what-is-a-spec-file]]
 === What is a SPEC File?
 
-A SPEC file can be thought of the as the **recipe** that the ``rpmbuild``
-utility uses to actually build an RPM. It tells the build system what to do by
-defining instructions in a series of sections. The sections are defined between
-the __Preamble__ and the __Body__. Within the __Preamble__ we will define a series of
-metadata items that will be used through out the __Body__ and the __Body__ is where
-the bulk of the work is accomplished.
+A SPEC file can be thought of as the "recipe" that the ``rpmbuild`` utility uses
+to actually build an RPM. It tells the build system what to do by defining
+instructions in a series of sections. The sections are defined in the
+__Preamble__ and the __Body__. The __Preamble__ contains a series of metadata
+items that are used in the __Body__. The __Body__ contains the main
+part of the instructions.
 
 [[preamble-items]]
 ==== Preamble Items
 
-In the table below you will find the items that are used in RPM Spec files in
-the Preamble section.
+This table lists the items used in the Preamble section of the RPM SPEC file:
 
 [cols="15%,85%"]
 |====
 | SPEC Directive | Definition
-| ``Name`` | The (base) name of the package, which should match the SPEC
-file name
+| ``Name`` | The base name of the package, which should match the SPEC
+file name.
 | ``Version`` | The upstream version number of the software.
-| ``Release`` | The initial value should normally be 1%{?dist}, this value
-should be incremented each new release of the package and
-reset to 1 when a new ``Version`` of the software is built.
+| ``Release`` | The number of times this version of the software was released.
+Normally, set the initial value to 1%{?dist}, and increment it with each new
+release of the package. Reset to 1 when a new ``Version`` of the software is
+built.
 | ``Summary`` | A brief, one-line summary of the package.
-| ``License`` | The license of the software being packaged. For packages
-that are destined for community distributions such as
-https://getfedora.org/[Fedora] this must be an Open Source License abiding by the
-specific distribution’s Licensing Guidelines.
-| ``URL`` | The full URL for more information about the program (most
-often this is the upstream project website for the software
-being packaged).
+| ``License`` | The license of the software being packaged.
+// FIXME DELETE? OR USE CONDITIONALS?
+For packages distributed in community distributions such as
+https://getfedora.org/[Fedora] this must be an open source license abiding by
+the specific distribution’s licensing guidelines.
+| ``URL`` | The full URL for more information about the program. Most
+often this is the upstream project website for the software being packaged.
 | ``Source0`` | Path or URL to the compressed archive of the upstream source
-code (unpatched, patches are handled elsewhere). This is
-ideally a listing of the upstream URL resting place and not
-just a local copy of the source. If needed, more SourceX
-directives can be added, incrementing the number each time
-such as: Source1, Source2, Source3, and so on.
+code (unpatched, patches are handled elsewhere). This should point to an
+accessible and reliable storage of the archive, for example, the upstream page
+and not the packager's local storage. If needed, more SourceX directives can be
+added, incrementing the number each time, for example: Source1, Source2,
+Source3, and so on.
 | ``Patch0`` | The name of the first patch to apply to the source code if
 necessary. If needed, more PatchX directives can be added,
-incrementing the number each time such as: Patch1, Patch2,
+incrementing the number each time, for example: Patch1, Patch2,
 Patch3, and so on.
-| ``BuildArch`` | If the package is not architecture dependent, i.e. written
-entirely in an interpreted programming language, this should
-be ``BuildArch: noarch`` otherwise it will automatically
-inherit the Architecture of the machine it’s being built on.
-| ``BuildRequires`` | A comma or whitespace separated list of packages required
-for building
-(compiling) the program. There can be multiple entries of
-``BuildRequires`` each on its own line in the SPEC file.
-| ``Requires`` | A comma or whitespace separated list of packages required
-by the software to run once installed. There can
-be multiple entries of ``Requires`` each on its
-own line in the SPEC file.
-| ``ExcludeArch`` | In the event a piece of software can not operate on a
-specific processor architecture, you can exclude it here.
+| ``BuildArch`` | If the package is not architecture dependent, for example, if
+written entirely in an interpreted programming language, set this to
+``BuildArch: noarch``. If not set, the package automatically inherits the
+Architecture of the machine on which it is built, for example ``x86_64``.
+| ``BuildRequires`` | A comma- or whitespace-separated list of packages required
+for building the program written in a compiled language. There can be multiple
+entries of ``BuildRequires``, each on its own line in the SPEC file.
+| ``Requires`` | A comma- or whitespace-separated list of packages required by
+the software to run once installed. There can be multiple entries of
+``Requires``, each on its own line in the SPEC file.
+| ``ExcludeArch`` | If a piece of software can not operate on a
+specific processor architecture, you can exclude that architecture here.
 |====
 
-There are three “special” directives listed above which are ``Name``,
-``Version``, and ``Release`` which are used to create the RPM package’s
-filename. You will often see these referred to by other RPM Package Maintainers
-and Systems Administrators as **N-V-R** or just simply **NVR** as RPM package
-filenames are of ``NAME-VERSION-RELEASE`` format.
+The ``Name``, ``Version``, and ``Release`` directives comprise the file name of
+the RPM package. RPM Package Maintainers and Systems Administrators often call
+these three directives **N-V-R** or **NVR**, because RPM package filenames have
+the ``NAME-VERSION-RELEASE`` format.
 
-For example, if we were to query about a specific package:
+You can get an example of an ``NAME-VERSION-RELEASE`` by querying using ``rpm``
+for a specific package:
 
 [source,bash]
 ----
@@ -186,36 +184,43 @@ python-2.7.5-34.el7.x86_64
 
 ----
 
-Here ``python`` is our Package Name, ``2.7.5`` is our Version, and ``34.el7`` is
-our Release. The final marker is ``x86_64`` and is our architecture, which is
-not something we control as a RPM Packager (with the exception of ``noarch``,
-more on that later) but is a side effect of the ``rpmbuild`` build environment,
-something we will cover in more detail later.
+Here, ``python`` is the Package Name, ``2.7.5`` is the Version, and ``34.el7`` is
+the Release. The final marker is ``x86_64``, which signals the architecture.
+Unlike the **NVR**, the architecture marker is not under direct control of the
+RPM packager, but is defined by the ``rpmbuild`` build environment. The
+exception to this is the architecture-independent ``noarch`` package.
 
 [[body-items]]
 ==== Body Items
 
-In the table below you will find the items that are used in RPM Spec files in
-the body.
+This table lists the items used in the Body section of the RPM SPEC file:
 
-[cols="15%,85%"]
+[cols="20%,80%"]
 |====
 | SPEC Directive | Definition
-| ``%description`` | A full description of the software packaged in the RPM, this
-can consume multiple lines and be broken into paragraphs.
+| ``%description`` | A full description of the software packaged in the RPM. This
+description can span multiple lines and can be broken into paragraphs.
 | ``%prep`` | Command or series of commands to prepare the software
-to be built. Example is to uncompress the archive in
-``Source0``. This can contain shell script.
-| ``%build`` | Command or series of commands used to actually perform the
-build procedure (compile) of the software.
-| ``%install`` | Command or series of commands used to actually install the
-various artifacts into a resulting location in the FHS.
-Something to note is that this is done within the relative
-context of the ``%buildroot`` (more on that later).
-| ``%check`` | Command or series of commands to “test” the software. This
-is normally things such as unit tests.
-| ``%files`` | The list of files that will be installed in their final
-resting place in the context of the target system.
+to be built, for example, unpacking the archive in
+``Source0``. This directive can contain a shell script.
+| ``%build`` | Command or series of commands for actually building the software
+into machine code (for compiled languages) or byte code (for some interpreted
+languages).
+| ``%install`` | Command or series of commands for copying the desired build
+artifacts from the ``%builddir`` (where the build happens) to the ``%buildroot``
+directory (which contains the directory structure with the files to be
+packaged).
+This usually means copying files from ``~/rpmbuild/BUILD`` to
+``~/rpmbuild/BUILDROOT`` and creating the necessary directories in
+``~/rpmbuild/BUILDROOT``.
+This is only run when creating a package, not when the end-user installs the
+package. See LINK
+// FIXME LINK TO FURTHER SECTION
+for details.
+| ``%check`` | Command or series of commands to test the software. This normally
+includes things such as unit tests.
+| ``%files`` | The list of files that will be installed in the end user's
+system.
 | ``%changelog`` | A record of changes that have happened to the package
 between different ``Version`` or ``Release`` builds.
 |====
@@ -223,47 +228,53 @@ between different ``Version`` or ``Release`` builds.
 [[advanced-items]]
 ==== Advanced items
 
-There are a series of advanced items including what are known as __scriptlets__
-and __triggers__ which take effect at different points through out the
-installation process on the target machine (not the build process). These are
-out of the scope of this document, but there is plenty of information on them in
-the <<appendix.adoc#appendix>>.
+The SPEC file can also contain advanced items. For example, a SPEC file can have
+__scriptlets__ and __triggers__. They take effect at different points during the
+installation process on the end user's system (not the build process).
+
+See the <<appendix.adoc#appendix>> for advanced topics.
 
 [[buildroots]]
 === BuildRoots
 
-The term “buildroot” is unfortunately ambiguous and you will often get various
-different definitions. However in the world of RPM Packages this is literally
-a https://en.wikipedia.org/wiki/Chroot[chroot] environment such that you are creating a filesystem hierarchy in
-a new “fake” root directory much in the way these contents can be laid down upon
-an actual system’s filesystem and not violate it’s integrity. Imagine this much
-in the same way that you would imagine creating the contents for a https://en.wikipedia.org/wiki/Tar_%28computing%29[tarball]
-such that it would be expanded at the root (/) directory of an existing system
-as this is effectively what RPM will do at a certain point during an
-installation transaction. Ultimately the payload of the resulting Binary RPM is
-extracted from this environment and put into the https://en.wikipedia.org/wiki/Cpio[cpio] archive.
+In the context of RPM packaging, "buildroot" is a
+https://en.wikipedia.org/wiki/Chroot[chroot] environment. This means that the
+build artifacts are placed here using the same filesystem hierarchy as will be
+in the end user's system, with "buildroot" acting as the root directory. The
+placement of build artifacts should comply with the filesystem hierarchy
+standard of the end user's system.
+
+The files in "buildroot" are later put into a
+https://en.wikipedia.org/wiki/Cpio[cpio] archive, which becomes the main part of
+the RPM. When RPM is installed on the end user's system, these files are
+extracted in the root directory, preserving the correct hierarchy.
 
 [[rpm-macros]]
 === RPM Macros
 
-A http://rpm.org/wiki/PackagerDocs/Macros[rpm macro] is a straight text substitution that can be conditionally assigned
-based on the optional evaluation of a statement when certain built-in
-functionality is used. What this means is that we can have RPM perform text
-substitutions for us so that we don’t have to.
+// FIXME TOO COMPLEX, UNTANGLE
+A http://rpm.org/wiki/PackagerDocs/Macros[rpm macro] is a straight text
+substitution that can be conditionally assigned based on the optional evaluation
+of a statement when certain built-in functionality is used. What this means is
+that you can have RPM perform text substitutions for you so that you don’t have
+to.
 
-An example of how this can be extremely useful for a RPM Packager is if we
-wanted to reference the _Version_ of the software we are packaging multiple
-times through out our SPEC file but only want to define it one time. We would
-then use the ``%{version}`` macro and it would be substituted in place by
-whatever the actual version number is that was entered in the _Version_ field of
-the SPEC.
+This is useful when, for example, referencing the packaged software _Version_
+multiple times in the SPEC file. You define _Version_ only once - in the
+``%{version}`` macro. Then use ``%{version}`` throughout the SPEC file. Every
+occurence will be automatically substituted by _Version_ you defined previously.
 
 [NOTE]
 ====
-One handy utility of the ``rpm`` command for packagers is the ``--eval``
-flag which allows you to ask rpm to evaluate a macro. If you see a macro in
-a SPEC file that you’re not familiar with, you can quickly evaluate the
-expression.
+If you see an unfamiliar macro, you can evaluate it with:
+
+[source,bash]
+----
+$ rpm --eval %{_MACRO}
+
+----
+
+For example:
 
 [source,bash]
 ----
@@ -274,11 +285,11 @@ $ rpm --eval %{_libexecdir}
 /usr/libexec
 
 ----
+
 ====
 
-A common macro we will encounter as a packager is ``%{?dist}`` which signifies
-the “distribution tag” allowing for a short textual representation of the
-distribution used for the build to be injected into a text field.
+A common macro is ``%{?dist}``, which signifies the “distribution tag”. It
+signals which distribution is used for the build.
 
 For example:
 
@@ -294,8 +305,7 @@ $ rpm --eval %{?dist}
 
 ----
 
-For more information, please reference the <<appendix.adoc#more-on-macros>>
-section of the <<appendix.adoc#appendix>>.
+For more information on macros, see <<appendix.adoc#more-on-macros>>.
 
 [[working-with-spec-files]]
 === Working with SPEC files
