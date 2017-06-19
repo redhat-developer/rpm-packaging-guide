@@ -1,50 +1,25 @@
 [[general-topics-and-background]]
 = General Topics and Background
 
-In this section will we walk through various topics about building software that
-are helpful background or otherwise general topics that are important for a good
-RPM Packager to be familiar with.
-
-*   What is https://en.wikipedia.org/wiki/Source_code[Source Code]?
-*   How Programs Are Made
-*   Building from source into an output artifact (what type of artifact will
-depend on the scenario and we will define what this means more specifically
-with examples).
-*   Patching Software
-*   Placing those output artifacts somewhere on the system that is useful within
-the https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy Standard].
+This chapter is about source code and creating software, which are a necessary
+background for an RPM Packager.
 
 [[what-is-source-code]]
 == What is Source Code?
 
-NOTE: If you are familiar with what the following terms mean then feel free to
-skip this section: source code, programming, programming languages.
+**Source code** is human-readable instructions to the computer, which describe
+how to perform a computation. Source code is expressed using a
+https://en.wikipedia.org/wiki/Programming_language[programming language].
 
-In the world of computer software, **source code** is the term used to the
-representation of instructions to the computer about how to perform a task in
-a way that is human readable, normally as simple text. This human readable
-format is expressed using a https://en.wikipedia.org/wiki/Programming_language[programming language] which basically boils down
-to a set of rules about that programmers learn so that the text they write is
-meaningful to the computer.
+This tutorial features three versions of the ``Hello World`` program, each
+written in a different programming language. Programs written in these three
+different languages are packaged differently, and cover three major use cases of
+an RPM packager.
 
-NOTE: There are many thousands of programming languages in the world. In this
-document we will provide examples of only a couple, some finer points of
-various programming languages are going to vary but hopefully this guide
-will prove to be a good conceptual overview.
+NOTE: There are thousands of programming languages. This document features only
+three of them, but they are enough for a conceptual overview.
 
-For example, the following three examples are all a very simple program that
-will display the text ``Hello World`` to the command line. The reason for three
-versions of the example will become apparent in the next section but this is
-three implementations of the same program written in different programming
-languages. The program is a very common starting place for newcomers to the
-programming world so it may appear familiar to some readers, but if it doesn’t
-do not worry.
-
-NOTE: In the first two examples below, the ``#!`` line is known as a https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang]
-and is not technically part of the programming language source code.
-
-This version of the example is written in the https://www.gnu.org/software/bash/[bash] shell built in scripting
-language.
+``Hello World`` written in https://www.gnu.org/software/bash/[bash]:
 
 ``bello``
 
@@ -56,8 +31,7 @@ printf "Hello World\n"
 
 ----
 
-This version of the example is written in a programming language named
-https://www.python.org/[Python].
+``Hello World`` written in https://www.python.org/[Python]:
 
 ``pello.py``
 
@@ -69,7 +43,7 @@ print("Hello World")
 
 ----
 
-This version of the example is written in a programming language named https://en.wikipedia.org/wiki/C_%28programming_language%29[C].
+``Hello World`` written in https://en.wikipedia.org/wiki/C_%28programming_language%29[C]:
 
 ``cello.c``
 
@@ -84,13 +58,11 @@ int main(void) {
 
 ----
 
-The finer points of how to write software isn’t necessarily important at this
-time but if you felt so inclined to learn to program that would certainly be
-beneficial in your adventures as a software packager.
+The purpose of every one of the three programs is to output ``Hello World`` on
+the command line.
 
-As mentioned before, the output of both examples to the command line will be
-simply, ``Hello World`` when the source code is built and run. The topic of how
-that happens is up next!
+NOTE: Knowing how to program is not necessary for a software packager, but is
+helpful.
 
 [[how-programs-are-made]]
 == How Programs Are Made
