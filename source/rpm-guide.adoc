@@ -310,21 +310,16 @@ For more information on macros, see <<appendix.adoc#more-on-macros>>.
 [[working-with-spec-files]]
 === Working with SPEC files
 
-As a RPM Packager, you will likely spend a large majority of your time, when
-packaging software, editing the SPEC file. The spec file is the recipe we use to tell
-``rpmbuild`` how to actually perform a build. In this section we will discuss
-how to create and modify a spec file.
+A big part of packaging software into RPMs is editing the SPEC file. In this
+section we discuss how to create and modify a spec file.
 
-When it comes time to package new software, a new SPEC file must be created.
-We __could__ write one from scratch from memory but that sounds boring
-and tedious, so let’s not do that. The good news is that we’re in luck and
-there’s an utility called ``rpmdev-newspec``. This utility will create a new spec file for us. We
-will just fill in the various directives or add new fields as needed. This
-provides us with a nice baseline template.
+To package new software, you need to create a new SPEC file. Instead of writing
+it manually from scratch, use the ``rpmdev-newspec`` utility. It creates an
+unpopulated SPEC file, and you fill in the necessary directives and fields.
 
-If you have not already done so by way of another section of the guide, go ahead
-and download the example programs now and place them in your
-``~/rpmbuild/SOURCES`` directory.
+For this tutorial, we use the three example implementations of the 'Hello
+World!' program created in
+<<general-background.adoc#general-topics-and-background>>:
 
 *   https://github.com/redhat-developer/rpm-packaging-guide/raw/master/example-code/bello-0.1.tar.gz[bello-0.1.tar.gz]
 
@@ -332,14 +327,15 @@ and download the example programs now and place them in your
 
 *   https://github.com/redhat-developer/rpm-packaging-guide/raw/master/example-code/cello-1.0.tar.gz[cello-1.0.tar.gz]
 
-**   https://github.com/redhat-developer/rpm-packaging-guide/master/example-code/cello-output-first-patch.patch[cello-output-first-patch.patch]
+**   https://raw.githubusercontent.com/redhat-developer/rpm-packaging-guide/master/example-code/cello-output-first-patch.patch[cello-output-first-patch.patch]
 
-Let’s go ahead and create a SPEC file for each of our three implementations of
-our example and then we will look at the SPEC files and the
+Place them in ``~/rpmbuild/SOURCES``.
 
-NOTE: Some programmer focused text editors will pre-populate a new file with the
-extension ``.spec`` with a SPEC template of their own but ``rpmdev-newspec``
-is an editor-agnostic method which is why it is chosen here.
+Create a SPEC file for each of the three programs:
+
+NOTE: Some programmer-focused text editors pre-populate a new ``.spec`` file
+with their own SPEC template. The ``rpmdev-newspec`` provides an editor-agnostic
+method, which is why it is used in this guide.
 
 [source,bash]
 ----
@@ -356,63 +352,67 @@ pello.spec created; type minimal, rpm version >= 4.11.
 
 ----
 
-You will now find three SPEC files in your ``~/rpmbuild/SPECS/`` directory all
-matching the names you passed to ``rpmdev-newspec`` but with the ``.spec`` file
-extension. Take a moment to look at the files using your favorite text editor,
-the directives should look familiar from the
-<<what-is-a-spec-file>> section. We will discuss the
-exact information we will input into these fields in the following sections that
-will focus specifically on each example.
+The ``~/rpmbuild/SPECS/`` directory now contains three SPEC files named
+``bello.spec``, ``cello.spec``, and ``pello.spec``.
+
+Examine the files. The directives in them represent the ones described in the
+<<what-is-a-spec-file>> section. In the following sections, you will populate
+these SPEC files.
 
 [NOTE]
 ====
-The ``rpmdev-newspec`` utility does not use https://en.wikipedia.org/wiki/Linux[Linux] Distribution specific
-guidelines or conventions, however this document is targeted towards using
-conventions and guidelines for https://getfedora.org/[Fedora], https://www.centos.org/[CentOS], and https://www.redhat.com/en/technologies/linux-platforms[RHEL] so you will
-notice:
+// FIXME MOVE THIS NOTE?
 
-We remove the use of ``rm $RPM_BUILD_ROOT`` as it is no longer necessary to
-perform that task when building on https://www.redhat.com/en/technologies/linux-platforms[RHEL] or _CentOS_ 7.0 or newer or on
-https://getfedora.org/[Fedora] version 18 or newer.
+The ``rpmdev-newspec`` utility does not use guidelines or conventions specific
+to any particular Linux distribution. However, this document targets
+// FIXME CONDITIONAL
+Fedora, CentOS, and RHEL, so you will notice that:
 
-We also will favor the use of ``%{buildroot}`` notation over
+* We remove the use of ``rm $RPM_BUILD_ROOT``, because it is unnecessary to
+perform that task when building on
+https://www.redhat.com/en/technologies/linux-platforms[RHEL] or _CentOS_ 7.0 or
+newer or on https://getfedora.org/[Fedora] version 18 or newer.
+// FIXME CONDITIONAL
+* We favor the use of ``%{buildroot}`` notation over
 ``$RPM_BUILD_ROOT`` when referencing RPM’s Buildroot for consistency with
-all other defined or provided macros through out the SPEC
+all other defined or provided macros throughout the SPEC file.
+
 ====
 
-There are three examples below, each one is meant to be self-sufficient in
-instruction such that you can jump to a specific one if it matches your needs
-for packaging. However, feel free to read them straight through for a full
-exploration of packaging different kinds of software.
+There are three examples below. Each one is fully described, so you can go to
+a specific one if it matches your packaging needs. Or, read them all to fully
+explore packaging different kinds of software.
 
+// FIXME TURN TABLE INTO A LIST?
 [cols="15%,85%"]
 |====
 | Software Name | Explanation of example
-| bello | Software written in a raw interpreted programming language
-does doesn’t require a build but only needs files installed.
-If a pre-compiled binary needs to be packaged, this method
-could also be used since the binary would also just be
-a file.
-| pello | Software written in a byte-compiled interpreted programming
-language used to demonstrate the installation of a byte
-compile process and the installation of the resulting
-pre-optimized files.
-| cello | Software written in a natively compiled programming language
-to demonstrate an common build and installation process
-using tooling for compiling native code.
+| bello | A program written in a raw interpreted programming language. It
+demonstrates when the source code does not to be built, but only needs to be
+installed. If a pre-compiled binary needs to be packaged, you can also use this
+method since the binary would also just be a file.
+| pello | A program written in a byte-compiled interpreted programming language.
+It demonstrates byte-compiling the source code and installating the bytecode -
+the resulting pre-optimized files.
+| cello | A program written in a natively compiled programming language. It
+demonstrates a common process of compiling the source code into machine code and
+installing the resulting executables.
 |====
 
 [[bello-working-with-spec-files]]
 ==== bello
 
-Our first SPEC file will be for our example written in https://www.gnu.org/software/bash/[bash] shell script that
-you downloaded (or you created a simulated upstream release in the <<general-background.adoc#general-topics-and-background>>
-section) and placed its source code
-into ``~/rpmbuild/SOURCES/`` earlier. Let’s go ahead and open the file
-``~/rpmbuild/SPECS/bello.spec`` and start filling in some fields.
+The first SPEC file is for the ``bello`` bash shell script from
+<<general-background.adoc#general-topics-and-background>>.
 
-The following is the output template we were given from ``rpmdev-newspec``.
+Ensure that you have:
 
+. Placed ``bello`` source code into ``~/rpmbuild/SOURCES/``. See
+<<working-with-spec-files>>.
+
+. Created the unpopulated SPEC file ``~/rpmbuild/SPECS/bello.spec``. The file
+has these contents:
++
 [source,specfile]
 ----
 Name:           bello
@@ -449,29 +449,27 @@ rm -rf $RPM_BUILD_ROOT
 
 ----
 
-Let us begin with the first set of directives that ``rpmdev-newspec`` has
-grouped together at the top of the file: ``Name``, ``Version``, ``Release``,
-``Summary``. The ``Name`` is already specified because we provided that
-information to the command line for ``rpmdev-newspec``.
+Now, modify ``~/rpmbuild/SPECS/bello.spec`` for creating ``bello`` RPMs:
 
-Let’s set the ``Version`` to match what the “upstream” release version of the
-__bello__ source code is, which we can observe is ``0.1`` as set by the example
-code we downloaded (or we created in the <<general-background.adoc#general-topics-and-background>> section).
-
-The ``Release`` is already set to ``1%{?dist}`` for us, the numerical value
-which is initially ``1`` should be incremented every time the package is updated
-for any reason, such as including a new patch to fix an issue, but doesn’t have
-a new upstream release ``Version``. When a new upstream release happens (for
-example, bello version ``0.2`` were released) then the ``Release`` number should
-be reset to ``1``. The __disttag__ of ``%{?dist}`` should look familiar from the
-previous section’s coverage of <<rpm-macros>>.
-
-The ``Summary`` should be a short, one-line explanation of what this software
-is.
-
-After your edits, the first section of the SPEC file should resemble the
-following:
-
+. Populate the ``Name``, ``Version``, ``Release``, and ``Summary`` directives:
++
+.. The ``Name`` was already specified as an argument to ``rpmdev-newspec``.
++
+.. Set the ``Version`` to match the “upstream” release version of the ``bello``
+source code, ``0.1``.
++
+.. The ``Release`` is automatically set to ``1%{?dist}``, which is initially
+``1``. Increment the initial value whenever updating the package without a
+change in the upstream release ``Version`` - such as when including a patch.
+Reset ``Release`` to ``1`` when a new upstream release happens, for example, if
+bello version ``0.2`` is released. The __disttag__ macro is covered in LINK.
+// FIXME LINK TO PART ABOUT MACROS
++
+.. The ``Summary`` is a short, one-line explanation of what this software is.
++
+After your edits, the first section of the SPEC file should
+resemble:
++
 [source,specfile]
 ----
 Name:           bello
@@ -480,39 +478,34 @@ Release:        1%{?dist}
 Summary:        Hello World example implemented in bash script
 
 ----
-
-Now, let’s move on to the second set of directives that ``rpmdev-newspec`` has
-grouped together in our SPEC file: ``License``, ``URL``, ``Source0``.
-
-The ``License`` field is the https://en.wikipedia.org/wiki/Software_license[Software License] associated with the source code
-from the upstream release. The exact format for how to label the License in your
-SPEC file will vary depending on which specific RPM based https://en.wikipedia.org/wiki/Linux[Linux] distribution
-guidelines you are following, we will use the notation standards in the https://fedoraproject.org/wiki/Licensing:Main[Fedora
-License Guidelines] for this document and as such this field will contain the
-text ``GPLv3+``
-
-The ``URL`` field is the upstream software’s website, not the source code
-download link but the actual project, product, or company website where someone
-would find more information about this particular piece of software. Since we’re
-just using an example, we will call this ``https://example.com/bello``. However,
-we will use the rpm macro variable of ``%{name}`` in it’s place for consistency
-and the resulting entry will be ``https://example.com/%{name}``.
-
-The ``Source0`` field is where the upstream software’s source code should be
-able to be downloaded from. This URL should link directly to the specific
-version of the source code release that this RPM Package is packaging. Once
-again, since this is an example we will use an example value:
-``https://example.com/bello/releases/bello-0.1.tar.gz`` and while we might want
-to, we should note that this example URL has hard coded values in it that are
-possible to change in the future and are potentially even likely to change such
-as the release version ``0.1``. We can simplify this by only needing to update
-one field in the SPEC file and allowing it to be reused. we will use the value
-``https://example.com/%{name}/releases/%{name}-%{version}.tar.gz`` instead of
-the hard coded examples string previously listed.
-
-After your edits, the top portion of your spec file should look like the
-following:
-
++
+. Populate the ``License``, ``URL``, and ``Source0`` directives:
++
+.. The ``License`` field is the
+https://en.wikipedia.org/wiki/Software_license[Software License] associated with
+the source code from the upstream release. Follow this format for the
+``License`` field:
+// FIXME CONDITIONALS
+https://fedoraproject.org/wiki/Licensing:Main[Fedora License Guidelines]
+// FIXME LINK FOR RHEL GUIDELINES?
+https://example.com[RHEL License Guidelines]
+. For example, use ``GPLv3+``.
++
+.. The ``URL`` field is the upstream software’s website, which provides more
+information about the program. In this example, we can use
+``https://example.com/bello``. However, for consistency, we will use the macro
+variable of ``%{name}`` instead of string ``bello`` for consistency. The
+resulting entry is ``https://example.com/%{name}``.
++
+.. The ``Source0`` field provides URL to the upstream software source code. It
+should link directly to the version of software that is being packaged. In this
+example, we can use ``https://example.com/bello/releases/bello-0.1.tar.gz``.
+Instead, use the %{name} macro. Also, use the %{version} macro to accomodate for
+changes in version. The resulting entry is
+``https://example.com/%{name}/releases/%{name}-%{version}.tar.gz``.
++
+After your edits, the first section of the SPEC file should resemble:
++
 [source,specfile]
 ----
 Name:           bello
@@ -525,28 +518,26 @@ URL:            https://example.com/%{name}
 Source0:        https://example.com/%{name}/release/%{name}-%{version}.tar.gz
 
 ----
-
-Next up we have ``BuildRequires`` and ``Requires``, each of which define
-something that is required by the package. However, ``BuildRequires`` is to tell
-``rpmbuild`` what is needed by your package at **build** time and ``Requires``
-is what is needed by your package at **run** time. In this example there is no
-**build** because the https://www.gnu.org/software/bash/[bash] script is a raw interpreted programming language
-so we will only be installing files into locations on the system, but it does
-require the https://www.gnu.org/software/bash/[bash] shell environment in order to execute so we will need to
-define ``bash`` as a requirement using the ``Requires`` directive.
-
-Since we don’t have a build step, we can simply omit the ``BuildRequires``
-directive. There is no need to define is as “undefined” or otherwise, omitting
-it’s inclusion will suffice.
-
-Something we need to add here since this is software written in an interpreted
-programming language with no natively compiled extensions is a ``BuildArch``
-entry that is set to ``noarch`` in order to tell RPM that this package does not
-need to be bound to the processor architecture that it is built using.
-
-After your edits, the top portion of your spec file should look like the
-following:
-
++
+. Populate the ``BuildRequires`` and ``Requires`` directives and include the
+``BuildArch`` directory:
++
+.. ``BuildRequires`` specifies build-time dependencies for the package. There is
+no building step for ``bello``, because bash is a raw interpreted programming
+language, and the files are simply installed to their location on the system.
+Just delete this directory.
++
+.. ``Requires`` specifies run-time dependencies for the package. The ``bello``
+script requires only the ``bash`` shell environment to execute, so specify ``bash``
+in this directive.
++
+.. Since this is software written in an interpreted programming language with no
+natively compiled extensions, add the ``BuildArch`` directive with the
+``noarch`` value. This tells RPM that this package does not need to be bound to
+the processor architecture on which it is built.
++
+After your edits, the first section of the SPEC file should resemble:
++
 [source,specfile]
 ----
 Name:           bello
@@ -563,43 +554,37 @@ Requires:       bash
 BuildArch:      noarch
 
 ----
-
-The following directives can be thought of as “section headings” because they
-are directives that can define multi-line, multi-instruction, or scripted tasks
-to occur. We will walk through them one by one just as we did with the previous
-items.
-
-The ``%description`` should be a longer, more full length description of the
-software being packaged than what is found in the ``Summary`` directive. For the
-sake of our example, this isn’t really going to contain much content but this
-section can be a full paragraph or more than one paragraph if desired.
-
-The ``%prep`` section is where we __prepare__ our build environment or workspace
-for building. Most often what happens here is the expansion of compressed
-archives of the source code, application of patches, and potentially parsing of
-information provided in the source code that is necessary in a later portion of
-the SPEC. In this section we will simply use the provided macro ``%setup -q``.
-
-The ``%build`` section is where we tell the system how to actually build the
-software we are packaging. However, since this software doesn’t need to be built
-we can simply leave this section blank (removing what was provided by the
-template).
-
-The ``%install`` section is where we instruct ``rpmbuild`` how to install our
-previously built software (in the event of a build process) into the
-``BUILDROOT`` which is effectively a https://en.wikipedia.org/wiki/Chroot[chroot] base directory with nothing in it
-and we will have to construct any paths or directory hierarchies that we will
-need in order to install our software here in their specific locations. However,
-our RPM Macros help us accomplish this task without having to hardcode paths.
-Since the only thing we need to do in order to install ``bello`` into this
-environment is create the destination directory for the executable https://www.gnu.org/software/bash/[bash]
-script file and then install the file into that directory, we can do so by using
-the same ``install`` command but we will make a slight modification since we are
-inside the SPEC file and we will use the macro variable of ``%{name}`` in it’s
-place for consistency.
-
+. Populate the ``%description``, ``%prep``, ``%build``, ``%install``,
+``%files``, and ``%license`` directives. These directives can be thought of as
+“section headings”, because they are directives that can define multi-line,
+multi-instruction, or scripted tasks to occur.
++
+.. The ``%description`` is a longer, fuller description of the software than
+``Summary``, containing one or more paragraphs. In our example we will use only
+a short description.
++
+.. The ``%prep`` section specifies how to prepare the build environment. This
+usually involves expansion of compressed archives of the source code,
+application of patches, and, potentially, parsing of information provided in the
+source code for use in a later portion of the SPEC. In this section we simply
+use the built-in macro ``%setup -q``.
++
+.. The ``%build`` section specifies how to actually build the software we are
+packaging. However, since a ``bash`` does not need to be built, simply remove
+what was provided by the template and leave this section blank.
++
+.. The ``%install`` section contains instructions for ``rpmbuild`` on how to
+install the software, once it has been built, into the ``BUILDROOT`` directory.
+This directory is an empty https://en.wikipedia.org/wiki/Chroot[chroot] base
+directory, which resembles the end user's root directory. Here we should create
+any directories that will contain the installed files.
++
+Since for installing ``bello`` we only need to create the destination directory
+and install the executable ``bash`` script file there, we will use the
+``install`` command. RPM macros allow us to do this without hardcoding paths.
++
 The ``%install`` section should look like the following after your edits:
-
++
 [source,specfile]
 ----
 %install
@@ -609,23 +594,21 @@ mkdir -p %{buildroot}/%{_bindir}
 install -m 0755 %{name} %{buildroot}/%{_bindir}/%{name}
 
 ----
-
-The ``%files`` section is where we provide the list of files that this RPM
-provides and where it’s intended for them to live on the system that the RPM is
-installed upon. Note here that this isn’t relative to the ``%{buildroot}`` but
-the full path for the files as they are expected to exist on the end system
-after installation. Therefore, the listing for the ``bello`` file we are
-installing will be ``%{_bindir}/%{name}`` (this would be ``/usr/bin/bello`` if
-we weren’t using the rpm macros).
-
++
+.. The ``%files`` section specifies the list of files provided by this RPM and
+their full path location on the end user's system. Therefore, the listing for
+the ``bello`` file we are installing is ``/usr/bin/bello``, or, with RPM Macros,
+``%{_bindir}/%{name}``.
++
 Also within this section, you will sometimes need a built-in macro to provide
 context on a file. This can be useful for Systems Administrators and end users
 who might want to query the system with ``rpm`` about the resulting package.
 The built-in macro we will use here is ``%license`` which will tell ``rpmbuild``
 that this is a software license file in the package file manifest metadata.
-
-The ``%files`` section should look like the following after your edits:
-
+// FIXME WHAT DOES THIS MEAN?? FIND OUT & REWRITE
++
+After your edits, the ``%files`` section looks like this:
++
 [source,specfile]
 ----
 %files
@@ -633,16 +616,24 @@ The ``%files`` section should look like the following after your edits:
 %{_bindir}/%{name}
 
 ----
-
-The last section, ``%changelog`` is a list of date-stamped entries that
-correlate to a specific Version-Release of the package. This is not meant to be
-a log of what changed in the software from release to release, but specifically
-to packaging changes. For example, if software in a package needed patching or
-there was a change needed in the build procedure listed in the ``%build``
-section that information would go here. Each change entry can contain multiple
-items and each item should start on a new line and begin with a ``-`` character.
-Below is our example entry:
-
++
+. The last section, ``%changelog``, is a list of datestamped entries for each
+Version-Release of the package. They log packaging changes, not software
+changes. Examples of packaging changes: adding a patch, changing the build
+procedure in ``%build``.
++
+Follow this format for the first line:
++
+.. * _Day-of-Week Month Day Year Name Surname <email>_ - _Version-Release_
++
+Follow this format for the actual change entry:
++
+.. Each change entry can contain multiple items - one for each change
+.. Each item starts on a new line.
+.. Each item begins with a ``-`` character.
++
+An example datestamped entry:
++
 [source,specfile]
 ----
 %changelog
@@ -651,17 +642,12 @@ Below is our example entry:
 - Example second item in the changelog for version-release 0.1-1
 
 ----
++
 
-Note the format above, the date-stamp will begin with a ``*`` character,
-followed by the calendar day of the week, the month, the day of the month, the
-year, then the contact information for the RPM Packager. From there we have
-a ``-`` character before the Version-Release, which is an often used convention
-but not a requirement. Then finally the Version-Release.
+You have now written an entire SPEC file for **bello**. The next section covers
+how to build the RPM.
 
-That’s it! We’ve written an entire SPEC file for **bello**! In the next section
-we will cover how to build the RPM!
-
-The full SPEC file should now look like the following:
+The full SPEC file for **bello** now resembles:
 
 [source,specfile]
 ----
@@ -1387,6 +1373,9 @@ make %{?_smp_mflags}
 - First cello package
 
 ----
+
+The ``rpmdevtools`` package provides a set of SPEC file templates for several
+popular languages in the ``/etc/rpmdevtools/`` directory.
 
 [[building-rpms]]
 == Building RPMS
