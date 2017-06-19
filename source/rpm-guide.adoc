@@ -56,8 +56,13 @@ patches to it, and a SPEC file, which describes how to build the source code
 into a binary RPM. A binary RPM contains the binaries built from the sources and
 patches.
 
-Feel free to explore the output of the following command and check out the
-various utilities manual pages or help dialogs.
+[[rpm-packaging-tools]]
+=== RPM Packaging Tools
+
+// FIXME CHANGE THIS IF MOVE THE PREREQUISITES SECTION
+The ``rpmdevtools`` package, installed in the <<index.adoc#prerequisites>>
+section, provides several utilities for packaging RPMs. To list these utilities,
+run:
 
 [source,bash]
 ----
@@ -65,16 +70,21 @@ $ rpm -ql rpmdevtools | grep bin
 
 ----
 
-For the sake of setting up our RPM Packaging workspace let’s use the
-``rpmdev-setuptree`` utility to create our directory layout. We will then define
-what each directory in the directory structure is meant for.
+For more information on the above utilities, see their manual pages or help
+dialogs.
+
+[[rpm-packaging-workspace]]
+=== RPM Packaging Workspace
+
+To set up a directory layout that is the RPM packaging workspace, use the
+``rpmdev-setuptree`` utility:
 
 [source,bash]
 ----
 $ rpmdev-setuptree
 
 $ tree ~/rpmbuild/
-/home/maxamillion/rpmbuild/
+/home/user/rpmbuild/
 |-- BUILD
 |-- RPMS
 |-- SOURCES
@@ -85,21 +95,21 @@ $ tree ~/rpmbuild/
 
 ----
 
+The created directories serve these purposes:
+
 [cols="15%,85%"]
 |====
 | Directory | Purpose
-| BUILD | Various ``%buildroot`` directories will be created here when
-packages are built. This is useful for inspecting a
-postmortem of a build that goes bad if the logs output don’t
-provide enough information.
-| RPMS | Binary RPMs will land here in subdirectories of
-Architecture. For example: ``noarch`` and ``x86_64``
-| SOURCES | Compressed source archives and any patches should go here,
-this is where the ``rpmbuild`` command will look for them.
-| SPECS | SPEC files live here.
-| SRPMS | When the correct arguments are passed to ``rpmbuild`` to
-build a Source RPM instead of a Binary RPM, the Source RPMs
-(SRPMS) will land in this directory.
+| BUILD | When packages are built, various ``%buildroot`` directories are
+created here. This is useful for investigating a failed build if the logs output
+do not provide enough information.
+| RPMS | Binary RPMs are created here, in subdirectories for different
+architectures, for example in subdirectories ``x86_64`` and ``noarch``.
+| SOURCES | Here, the packager puts compressed source code archives and patches.
+The ``rpmbuild`` command looks for them here.
+| SPECS | The packager puts SPEC files here.
+| SRPMS | When ``rpmbuild`` is used to build an SRPM instead of a binary RPM,
+the resulting SRPM is created here.
 |====
 
 [[what-is-a-spec-file]]
