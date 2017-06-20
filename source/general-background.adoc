@@ -752,6 +752,8 @@ cello-1.0/LICENSE
 
 $ mv /tmp/cello-1.0.tar.gz ~/rpmbuild/SOURCES/
 
+----
+
 . Add the patch:
 +
 [source,bash]
