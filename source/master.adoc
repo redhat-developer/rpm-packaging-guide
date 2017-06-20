@@ -5,6 +5,6 @@
 :source-highlighter: coderay
 
 include::index.adoc[]
-include::rpm-guide.adoc[]
 include::general-background.adoc[]
+include::rpm-guide.adoc[]
 include::appendix.adoc[]
