@@ -18,11 +18,11 @@
 
 // FIXME RENAME GENERAL BACKGROUND AND RPM GUIDE CHAPTERS
 
-The RPM Packager's Guide documents:
+The RPM Packaging Guide documents:
 
-* How to prepare source code for packaging into an RPM. This aims at people with no background in software development. See <<general-background.adoc#general-topics-and-background>>.
-* How to package source code into an RPM. This aims at software developers who need to package software into RPMs. See <<rpm-guide.adoc#rpm-packaging-guide>>.
-* Advanced packaging scenarios. This aims at for RPM packagers dealing with advanced RPM Packaging scenarios. See <<appendix.adoc#appendix>>.
+* How to prepare source code for packaging into an RPM. This is for people with no background in software development. See <<general-background.adoc#general-topics-and-background>>.
+* How to package source code into an RPM. This is for software developers who need to package software into RPMs. See <<rpm-guide.adoc#rpm-packaging-guide>>.
+* Advanced packaging scenarios. This is for RPM packagers dealing with advanced RPM Packaging scenarios. See <<appendix.adoc#appendix>>.
 
 // FIXME MAYBE MOVE THIS PARAGRAPH FROM THE ABSTRACT TO INTRODUCTION?
 The <<general-background.adoc#general-topics-and-background>> is a tutorial that
@@ -107,13 +107,12 @@ $ yum install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffuti
 
 [[contributing-to-this-guide]]
 == Contributing to this guide
-// FIXME THIS SECTION ONLY FOR UPSTREAM
+// FIXME THIS SECTION ONLY FOR UPSTREAM?
 
-You can contribute to this guide by leaving submitting an issue or a pull
-request on https://github.com/redhat-developer/rpm-packaging-guide[the GitHub
-repository].
+You can contribute to this guide by submitting an issue or a pull request on
+https://github.com/redhat-developer/rpm-packaging-guide[the GitHub repository].
 
-If you are currently an RPM Packager and would like to contribute either by way
-of feedback or pull request, please do! Both forms of contribution are greatly
-appreciate and certainly welcome. Feel free to file an issue ticket with
-feedback, submit a pull request https://github.com/redhat-developer/rpm-packaging-guide[on GitHub], or both!
+Both forms of contribution are greatly appreciated and welcome.
+kdfjds
+Feel free to file an issue ticket with feedback, submit a pull request
+https://github.com/redhat-developer/rpm-packaging-guide[on GitHub], or both!
