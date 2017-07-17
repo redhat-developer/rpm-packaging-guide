@@ -673,6 +673,12 @@ The above items are from the included RPM documentation found in
 ``/usr/share/doc/rpm/triggers`` on Fedora systems and
 ``/usr/share/doc/rpm-4.*/triggers`` on RHEL 7 and CentOS 7 systems.
 
+[[rpm-conditionals]]
+=== RPM Conditionals
+
+RPM Conditionals are the tags that enable the conditional inclusion of architecture or operating system-specific sections of the SPEC file. 
+
+
 [[references]]
 == References
 

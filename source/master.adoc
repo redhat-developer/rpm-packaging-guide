@@ -4,7 +4,12 @@
 :doctype: book
 :source-highlighter: coderay
 
-include::index.adoc[]
+include::legal-notice.adoc[]
+include::abstract.adoc[]
+include::introduction.adoc[]
+ifdef::community[]
+include::contributing-to-this-guide.adoc[]
+endif::community[]
 include::general-background.adoc[]
 include::rpm-guide.adoc[]
 include::appendix.adoc[]
