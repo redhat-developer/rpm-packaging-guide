@@ -676,7 +676,104 @@ The above items are from the included RPM documentation found in
 [[rpm-conditionals]]
 === RPM Conditionals
 
-RPM Conditionals are the tags that enable the conditional inclusion of architecture or operating system-specific sections of the SPEC file. 
+Use RPM Conditionals to express any condition in the SPEC file. RPM Conditionals are the tags that enable the conditional inclusion of various sections of the SPEC file.
+
+Most commonly, items in conditionally included sections:
+
+* are architecture-specific
+* are operating system-specific
+* resolve compatibility issues between various versions of operating systems
+* others 
+* others
+
+==== RPM Conditionals Syntax
+
+If a _condition_ is true, then do the _action_.
+
+  %if
+  condition 
+  action
+  %endif 
+  
+If a _condition_ is true, then do the _action_, in other case, do the _another action_. 
+
+  %if
+  condition
+  action 
+  %else
+  another action
+  %endif
+
+If a _condition_ is not true, then do the _action_.
+
+  %if!
+  condition 
+  action
+  %endif
+
+If a _condition_ is not true, then do the _action_, in other case, do the _another action_
+
+  %if!
+  condition
+  action
+  %else
+  another action
+  %endif
+  
+==== RPM Conditionals Examples
+
+===== The %ifarch Conditional
+
+The %ifarch conditional is used to begin a section of the SPEC file that is architecture-specific. It is followed by one or more architecture specifiers, each separated by commas or whitespace. 
+
+  %ifarch
+  i386 sparc
+  
+All **the contents** of the SPEC file **following this conditional block** are processed only on Intel x86 or Sun SPARC-based systems. Note that the syntax is not finished by %endif in this case. 
+
+  %ifarch
+  i386 sparc
+  action
+  %endif
+
+The **specific action** defined in _action_ is performed only on Intel x86 or Sun SPARC-based systems.
+
+
+
+===== The %ifnarch Conditional
+
+The %ifnarch conditional has a reverse logic than %ifarch conditional.
+  
+  %ifnarch
+  alpha
+  
+All **the contents** of the SPEC file **following this conditional block** are processed only if not being done on a Digital Alpha/AXP-based system. Note that the syntax is not finished by %endif in this case.
+  
+  %ifnarch
+  alpha
+  action
+  %endif
+  
+The **specific action** defined in _action_ is processed only if not being done on a Digital Alpha/AXP-based system.
+
+
+===== The %ifos Conditional
+
+The %ifos conditional is used to control processing based on the operating system of the build. It can be followed by one or more operating system names. 
+
+// A conditional block started with %ifos must be closed by a %else or %endif. Here's an example:
+
+  %ifos 
+  linux
+
+All **the contents** of the SPEC file **following this conditional block** are processed only if the build was done on a Linux system. 
+
+  %ifos 
+  linux
+  action
+  %endif
+  
+The **specific action** defined in _action_ is processed only if the build was done on a Linux system. 
 
 
 [[references]]

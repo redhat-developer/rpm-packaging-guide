@@ -388,7 +388,9 @@ these SPEC files.
 
 [NOTE]
 ====
-The ``rpmdev-newspec`` utility does not use guidelines or conventions specific to any particular Linux distribution.
+The ``rpmdev-newspec`` utility does not use guidelines or conventions specific to any particular Linux distribution. However, this document targets
+// FIXME CONDITIONAL
+Fedora, CentOS, and RHEL, so you will notice that:
 
 ifdef::community[]
 * Use ``rm $RPM_BUILD_ROOT``when building on _CentOS_ (versions previous to 7.0) or on https://getfedora.org/[Fedora] (versions previous to 18).
@@ -624,12 +626,8 @@ their full path location on the end user's system. Therefore, the listing for
 the ``bello`` file we are installing is ``/usr/bin/bello``, or, with RPM Macros,
 ``%{_bindir}/%{name}``.
 +
-Also within this section, you will sometimes need a built-in macro to provide
-context on a file. This can be useful for Systems Administrators and end users
-who might want to query the system with ``rpm`` about the resulting package.
-The built-in macro we will use here is ``%license`` which will tell ``rpmbuild``
-that this is a software license file in the package file manifest metadata.
-// FIXME WHAT DOES THIS MEAN?? FIND OUT & REWRITE - consult with Max
+Within this section, you can indicate the role of various files using built-in macros. This is useful for querying the package file manifest metadata using the rpm command. For example, to indicate that the LICENSE file is a software license file, we use the %license macro.
+// FIXME ASK DEVEL FOR AN RPM QUERY EXAMPLE
 +
 After your edits, the ``%files`` section looks like this:
 +
@@ -1565,8 +1563,8 @@ NOTE: In the examples, we run ``rpmlint`` without any options, which produces
 non-verbose output. For detailed explanations of each Error or Warning, run
 ``rpmlint -i`` instead.
 
-[[bello-checking-rpms-for-sanity]]
-=== bello
+[[checking-bello-spec-file]]
+=== Checking the bello SPEC File
 
 This is the output of running ``rpmlint`` on the SPEC file for ``bello``:
 
@@ -1600,8 +1598,8 @@ Observations:
 
 // FIXME ADD HEADING HERE? -done 
 
-[[checking-binary-rpms]]
-==== Checking Binary RPMs
+[[checking-bello-binary-rpm]]
+=== Checking the bello Binary RPM
 
 When checking Binary RPMs, ``rpmlint`` checks for more things, including:
 
@@ -1628,8 +1626,8 @@ the RPM has no documentation or manual pages, because we did not provide any.
 
 Apart from the above warnings, our RPM is passing ``rpmlint`` checks.
 
-[[pello-checking-rpms-for-sanity]]
-=== pello
+[[checking-pello-spec-file]]
+=== Checking the pello SPEC File
 
 This is the output of running ``rpmlint`` on the SPEC file for ``pello``:
 
@@ -1683,8 +1681,8 @@ we can ignore this error.
 
 // FIXME ADD HEADING HERE?  - heading for one sentence?, consult with MAX
 
-[[checking-binary-rpms-2]]
-==== Checking Binary RPMs
+[[checking-pello-binary-rpm]]
+=== Checking the pello Binary RPM
 
 When checking Binary RPMs, ``rpmlint`` checks for more things, including:
 
@@ -1729,8 +1727,8 @@ without execute permissions and ignore this error.
 
 Apart from the above warnings and errors, our RPM is passing ``rpmlint`` checks.
 
-[[cello-checking-rpms-for-sanity]]
-=== cello
+[[checking-cello-spec-file]]
+=== Checking the cello SPEC File
 
 This is the output of running ``rpmlint`` on the SPEC file for ``cello``:
 
@@ -1766,8 +1764,8 @@ Observations:
 specified in the ``URL`` directive is unreachable. Assuming the link will be
 working in the future, we can ignore this warning.
 
-[[checking-binary-rpms-3]]
-==== Checking Binary RPMs
+[[checking-cello-binary-rpm]]
+=== Checking the cello Binary RPM
 
 When checking Binary RPMs, ``rpmlint`` checks for more things, including:
 

@@ -1,0 +1,12 @@
+[[contributing-to-this-guide]]
+== Contributing to this guide
+
+You can contribute to this guide by leaving submitting an issue or a pull
+request on https://github.com/redhat-developer/rpm-packaging-guide[the GitHub
+repository].
+
+If you are currently an RPM Packager and would like to contribute either by way
+of feedback or pull request, please do! Both forms of contribution are greatly
+appreciate and certainly welcome. Feel free to file an issue ticket with
+feedback, submit a pull request https://github.com/redhat-developer/rpm-packaging-guide[on GitHub], or both!
+
