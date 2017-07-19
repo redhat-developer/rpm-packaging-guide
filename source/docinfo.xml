@@ -4,7 +4,7 @@
 <productnumber>7</productnumber>
 <abstract>
     <para>
-      The RPM Packaging Guide is a tutorial on the basics, and a reference on advanced topics on packaging RPMs.
+      The RPM Packaging Guide is a tutorial on basic and a reference on advanced RPM packaging topics.
     </para>
 </abstract>
 <xi:include href="Common_Content/Legal_Notice.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
