@@ -4,7 +4,7 @@
 :doctype: book
 :source-highlighter: coderay
 
-include::index.adoc[]
-include::general-background.adoc[]
-include::rpm-guide.adoc[]
-include::appendix.adoc[]
+include::index.adoc[leveloffset=+1]
+include::general-background.adoc[leveloffset=+1]
+include::rpm-guide.adoc[leveloffset=+1]
+include::appendix.adoc[leveloffset=+1]
