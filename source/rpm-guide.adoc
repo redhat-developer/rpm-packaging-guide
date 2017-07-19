@@ -319,7 +319,7 @@ unpopulated SPEC file, and you fill in the necessary directives and fields.
 
 For this tutorial, we use the three example implementations of the 'Hello
 World!' program created in
-<<general-background.adoc#general-topics-and-background>>:
+<<general-background.adoc#preparing-software-for-packaging>>:
 
 *   https://github.com/redhat-developer/rpm-packaging-guide/raw/master/example-code/bello-0.1.tar.gz[bello-0.1.tar.gz]
 
@@ -403,7 +403,7 @@ installing the resulting executables.
 ==== bello
 
 The first SPEC file is for the ``bello`` bash shell script from
-<<general-background.adoc#general-topics-and-background>>.
+<<general-background.adoc#preparing-software-for-packaging>>.
 
 Ensure that you have:
 
@@ -696,7 +696,7 @@ install -m 0755 %{name} %{buildroot}/%{_bindir}/%{name}
 
 Our second SPEC file will be for our example written in the https://www.python.org/[Python]
 programming language that  you downloaded (or you created a simulated upstream
-release in the <<general-background.adoc#general-topics-and-background>>
+release in the <<general-background.adoc#preparing-software-for-packaging>>
 section) and placed it’s source code into ``~/rpmbuild/SOURCES/``
 earlier. Let’s go ahead and open the file ``~/rpmbuild/SPECS/bello.spec``
 and start filling in some fields.
@@ -773,7 +773,7 @@ specified because we provided that information to the command line for
 
 Let’s set the ``Version`` to match what the “upstream” release version of the
 __pello__ source code is, which we can observe is ``0.1.1`` as set by the example
-code we downloaded (or we created in the <<general-background.adoc#general-topics-and-background>> section).
+code we downloaded (or we created in the <<general-background.adoc#preparing-software-for-packaging>> section).
 
 The ``Release`` is already set to ``1%{?dist}`` for us, the numerical value
 which is initially ``1`` should be incremented every time the package is updated
@@ -900,7 +900,7 @@ the SPEC. In this section we will simply use the provided macro ``%setup -q``.
 
 The ``%build`` section is where we tell the system how to actually build the
 software we are packaging. Here we will perform a byte-compilation of our
-software. For those who read the <<general-background.adoc#general-topics-and-background>> section, this portion of the example should look familiar.
+software. For those who read the <<general-background.adoc#preparing-software-for-packaging>> section, this portion of the example should look familiar.
 The ``%build`` section of our SPEC file should look as follows.
 
 [source,specfile]
@@ -1125,7 +1125,7 @@ specified because we provided that information to the command line for
 
 Let’s set the ``Version`` to match what the “upstream” release version of the
 __cello__ source code is, which we can observe is ``1.0`` as set by the example
-code we downloaded (or we created in the <<general-background.adoc#general-topics-and-background>> section).
+code we downloaded (or we created in the <<general-background.adoc#preparing-software-for-packaging>> section).
 
 The ``Release`` is already set to ``1%{?dist}`` for us, the numerical value
 which is initially ``1`` should be incremented every time the package is updated
