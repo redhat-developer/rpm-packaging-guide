@@ -7,4 +7,31 @@
       The RPM Packaging Guide is a tutorial on basic and a reference on advanced RPM packaging topics.
     </para>
 </abstract>
+<authorgroup>
+  <author>
+    <firstname>Maxim</firstname>
+    <surname>Svistunov</surname>
+    <affiliation>
+      <orgname>Red Hat</orgname>
+      <orgdiv>Customer Content Services</orgdiv>
+    </affiliation>
+    <email>msvistun@redhat.com</email>
+  </author>
+  <author>
+    <firstname>Marie</firstname>
+    <surname>Doleželová</surname>
+    <affiliation>
+      <orgname>Red Hat</orgname>
+      <orgdiv>Customer Content Services</orgdiv>
+    </affiliation>
+    <email>mdolezel@redhat.com</email>
+  </author>
+  <author>
+    <firstname>Adam</firstname>
+    <surname>Miller</surname>
+    <affiliation>
+      <orgname>Red Hat</orgname>
+    </affiliation>
+  </author>
+</authorgroup>
 <xi:include href="Common_Content/Legal_Notice.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
