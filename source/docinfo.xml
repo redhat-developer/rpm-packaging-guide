@@ -1,0 +1,10 @@
+<title>RPM Packaging Guide</title>
+<subtitle>Basic and Advanced RPM Packaging</subtitle>
+<productname>Red Hat Enterprise Linux</productname>
+<productnumber>7</productnumber>
+<abstract>
+    <para>
+      The RPM Packaging Guide is a tutorial on the basics, and a reference on advanced topics on packaging RPMs.
+    </para>
+</abstract>
+<xi:include href="Common_Content/Legal_Notice.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
