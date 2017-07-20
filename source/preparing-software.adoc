@@ -348,7 +348,7 @@ own methods of creating diffs or patching software.
 
 In the following example, we create a patch from the originial source code using
 ``diff`` and then apply it using ``patch``. Patching is used in a later section
-when creating an RPM, <<rpm-guide.adoc#working-with-spec-files>>.
+when creating an RPM, <<packaging-software.adoc#working-with-spec-files>>.
 
 How is patching related to RPM packaging? In packaging, instead of simply
 modifying the original source code, we keep it, and use patches on it.
@@ -421,7 +421,7 @@ $ cp cello.c.orig cello.c
 +
 We retain the original ``cello.c``, because when an RPM is built, the original
 file is used, not a modified one. For more information, see
-<<rpm-guide.adoc#working-with-spec-files>>.
+<<packaging-software.adoc#working-with-spec-files>>.
 
 To patch ``cello.c`` using ``cello-output-first-patch.patch``, redirect the
 patch file to the ``patch`` command:

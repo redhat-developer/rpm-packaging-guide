@@ -6,5 +6,5 @@
 
 include::index.adoc[leveloffset=+1]
 include::preparing-software.adoc[leveloffset=+1]
-include::rpm-guide.adoc[leveloffset=+1]
+include::packaging-software.adoc[leveloffset=+1]
 include::appendix.adoc[leveloffset=+1]
