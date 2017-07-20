@@ -676,13 +676,13 @@ The above items are from the included RPM documentation found in
 [[rpm-conditionals]]
 === RPM Conditionals
 
-Use RPM Conditionals to express any condition in the SPEC file. RPM Conditionals are the tags that enable the conditional inclusion of various sections of the SPEC file.
+You can use RPM Conditionals to express any condition in the SPEC file. RPM Conditionals are the tags that enable the conditional inclusion of various sections of the SPEC file.
 
-Most commonly, items in conditionally included sections:
+Most commonly, conditionl inclusion deals with: 
 
-* are architecture-specific
-* are operating system-specific
-* resolve compatibility issues between various versions of operating systems
+* architecture-specific sections
+* operating system-specific sections
+* resolves compatibility issues between various versions of operating systems
 * others 
 * others
 
