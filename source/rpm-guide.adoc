@@ -1,5 +1,5 @@
-[[rpm-packaging-guide]]
-= RPM Packaging Guide
+[[packaging-software]]
+= Packaging Software
 
 // FIXME CONDITIONALS
 This tutorial explains packaging RPMs for the Red Hat family of Linux

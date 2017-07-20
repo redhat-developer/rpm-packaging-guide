@@ -18,13 +18,13 @@
 The RPM Packaging Guide documents:
 
 * How to prepare source code for packaging into an RPM. This is for people with no background in software development. See <<preparing-software.adoc#preparing-software-for-packaging>>.
-* How to package source code into an RPM. This is for software developers who need to package software into RPMs. See <<rpm-guide.adoc#rpm-packaging-guide>>.
+* How to package source code into an RPM. This is for software developers who need to package software into RPMs. See <<rpm-guide.adoc#packaging-software>>.
 * Advanced packaging scenarios. This is for RPM packagers dealing with advanced RPM Packaging scenarios. See <<appendix.adoc#appendix>>.
 
 // FIXME MAYBE MOVE THIS PARAGRAPH FROM THE ABSTRACT TO INTRODUCTION?
 The <<preparing-software.adoc#preparing-software-for-packaging>> is a tutorial that
 prepares people with no experience in software development to RPM Packaging. The
-<<rpm-guide.adoc#rpm-packaging-guide>> is a tutorial that guides through basic
+<<rpm-guide.adoc#packaging-software>> is a tutorial that guides through basic
 RPM Packaging. Follow both tutorials from beginning to end. The
 <<appendix.adoc#appendix>> is reference material for information on RPM
 Packaging beyond the basics.
