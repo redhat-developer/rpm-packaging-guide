@@ -676,104 +676,79 @@ The above items are from the included RPM documentation found in
 [[rpm-conditionals]]
 === RPM Conditionals
 
-You can use RPM Conditionals to express any condition in the SPEC file. RPM Conditionals are the tags that enable the conditional inclusion of various sections of the SPEC file.
+RPM Conditionals enable the conditional inclusion of various sections of the SPEC file.
 
-Most commonly, conditionl inclusion deals with: 
+Most commonly, conditional inclusions deal with: 
 
 * architecture-specific sections
 * operating system-specific sections
-* resolves compatibility issues between various versions of operating systems
+* compatibility issues between various versions of operating systems
 * others 
-* others
 
 ==== RPM Conditionals Syntax
 
-If a _condition_ is true, then do the _action_.
+If an _expression_ is true, then do some action.
 
-  %if
-  condition 
-  action
+  %if expression 
+  ...
   %endif 
   
-If a _condition_ is true, then do the _action_, in other case, do the _another action_. 
+If an _expression_ is true, then do some action, in other case, do another action.
 
-  %if
-  condition
-  action 
+  %if expression
+  ... 
   %else
-  another action
+  ...
   %endif
 
-If a _condition_ is not true, then do the _action_.
+If an _expression_ is not true, then do some action.
 
-  %if!
-  condition 
-  action
+  %if! expression
+  ...
   %endif
 
-If a _condition_ is not true, then do the _action_, in other case, do the _another action_
+If a _expression_ is not true, then do some action, in other case, do another action.
 
-  %if!
-  condition
-  action
+  %if! expression
+  ...
   %else
-  another action
+  ...
   %endif
   
 ==== RPM Conditionals Examples
 
 ===== The %ifarch Conditional
 
-The %ifarch conditional is used to begin a section of the SPEC file that is architecture-specific. It is followed by one or more architecture specifiers, each separated by commas or whitespace. 
+The %ifarch conditional is used to begin a block of the SPEC file that is architecture-specific. It is followed by one or more architecture specifiers, each separated by commas or whitespace. 
 
-  %ifarch
-  i386 sparc
-  
-All **the contents** of the SPEC file **following this conditional block** are processed only on Intel x86 or Sun SPARC-based systems. Note that the syntax is not finished by %endif in this case. 
-
-  %ifarch
-  i386 sparc
-  action
+  %ifarch i386 sparc
+  ...
   %endif
-
-The **specific action** defined in _action_ is performed only on Intel x86 or Sun SPARC-based systems.
-
+  
+All **the contents** of the SPEC file ** between %ifarch and %endif** are processed only on Intel x86 or Sun SPARC-based systems. 
 
 
 ===== The %ifnarch Conditional
 
 The %ifnarch conditional has a reverse logic than %ifarch conditional.
   
-  %ifnarch
-  alpha
-  
-All **the contents** of the SPEC file **following this conditional block** are processed only if not being done on a Digital Alpha/AXP-based system. Note that the syntax is not finished by %endif in this case.
-  
-  %ifnarch
-  alpha
-  action
+  %ifnarch alpha
+  ...
   %endif
   
-The **specific action** defined in _action_ is processed only if not being done on a Digital Alpha/AXP-based system.
+All **the contents** of the SPEC file ** between %ifnarch and %endif** are processed only if not being done on a Digital Alpha/AXP-based system.
+  
 
 
 ===== The %ifos Conditional
 
 The %ifos conditional is used to control processing based on the operating system of the build. It can be followed by one or more operating system names. 
 
-// A conditional block started with %ifos must be closed by a %else or %endif. Here's an example:
-
-  %ifos 
-  linux
-
-All **the contents** of the SPEC file **following this conditional block** are processed only if the build was done on a Linux system. 
-
-  %ifos 
-  linux
-  action
+  %ifos linux
+  ...
   %endif
-  
-The **specific action** defined in _action_ is processed only if the build was done on a Linux system. 
+
+All **the contents** of the SPEC file **between %ifos and %endif** are processed only if the build was done on a Linux system. 
 
 
 [[references]]
