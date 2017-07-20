@@ -3,10 +3,10 @@
 :toc: left
 :doctype: book
 :source-highlighter: coderay
+// :rhel:
 :community:
 
 
-include::legal-notice.adoc[]
 include::abstract.adoc[]
 include::introduction.adoc[]
 ifdef::community[]

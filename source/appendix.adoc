@@ -724,20 +724,23 @@ If an _expression_ is true, then do some action, in other case, do another actio
   sed -i '/AS_FUNCTION_DESCRIBE/ s/^/#/' acinclude.m4
   %endif
   
-This conditional handles compatibility between RHEL6 and RHEL7. It checks whether the version of RHEL is 6. If it is, then the AS_FUNCTION_DESCRIBE macro, which is not supported by RHEL6, is deleted.
+This conditional handles compatibility between RHEL6 and other operating systems in terms of support of the AS_FUNCTION_DESCRIBE macro. The conditional checks whether the version of RHEL is 6. If it is, then AS_FUNCTION_DESCRIBE, which is not supported by RHEL6, is deleted.
 
-
+ifdef::community[]
   %if 0%{?el6}
   %global ruby_sitearch %(ruby -rrbconfig -e 'puts Config::CONFIG["sitearchdir"]')
   %endif
   
-This conditional handles compatibility between Fedora and RHEL6. RHEL6 differs from Fedora in the way that the ruby_sitearch macro is not defined by default.
-The conditional checks whether the operating system is RHEL6. If it is, ruby_sitearch is defined explicitly. 
+This conditional handles compatibility between the recent version of Fedora and RHEL6 in terms of support of the ruby_sitearch macro. The recent version of Fedora defines ruby_sitearch by default, but RHEL6 does not support this macro. The conditional checks whether the operating system is RHEL6. If it is, ruby_sitearch is defined explicitly. 
+endif::community[]
 
+===== Particular variants of %if Conditional
 
-===== The %ifarch Conditional
+The %ifarch conditional, %ifnarch conditional and %ifos conditional are particular variants of the %if conditionals. These variants are commonly used, so they have their own macros.  
 
-The %ifarch conditional is a special case of RPM conditional, which uses %ifarch instead of %if. The %ifarch conditional is used to begin a block of the SPEC file that is architecture-specific. It is followed by one or more architecture specifiers, each separated by commas or whitespace. 
+====== The %ifarch Conditional
+
+The %ifarch conditional is used to begin a block of the SPEC file that is architecture-specific. It is followed by one or more architecture specifiers, each separated by commas or whitespace. 
 
   %ifarch i386 sparc
   ...
@@ -746,9 +749,9 @@ The %ifarch conditional is a special case of RPM conditional, which uses %ifarch
 All **the contents** of the SPEC file ** between %ifarch and %endif** are processed only on Intel x86 or Sun SPARC-based systems. 
 
 
-===== The %ifnarch Conditional
+====== The %ifnarch Conditional
 
-The %ifnarch conditional is a special case of RPM conditional, which uses %ifnarch instead of %if. The %ifnarch conditional has a reverse logic than %ifarch conditional.
+The %ifnarch conditional has a reverse logic than %ifarch conditional.
   
   %ifnarch alpha
   ...
@@ -760,18 +763,13 @@ All **the contents** of the SPEC file ** between %ifnarch and %endif** are proce
 
 ===== The %ifos Conditional
 
-The %ifos conditional is a special case of RPM conditional, which uses %ifos instead of %if. The %ifos conditional is used to control processing based on the operating system of the build. It can be followed by one or more operating system names. 
+The %ifos conditional is used to control processing based on the operating system of the build. It can be followed by one or more operating system names. 
 
   %ifos linux
   ...
   %endif
 
 All **the contents** of the SPEC file **between %ifos and %endif** are processed only if the build was done on a Linux system. 
-
-
-The following conditional handles compatibility between RHEL6 and RHEL7. It checks whether the version of RHEL is 6. If it is, then the AS_FUNCTION_DESCRIBE macro, which is not supported by RHEL6, is deleted.
-
-
 
 
 [[references]]

@@ -83,12 +83,15 @@ Names of utilities, commands, and things normally found in code are written in
 
 To follow this tutorial, you need these packages installed:
 
-NOTE: Some of these packages are installed by default on Fedora, RHEL, and
-CentOS. They are listed explicitly to show which tools are used in this guide.
-// FIXME CONDITIONALS
+ifdef::community[]
+NOTE: Some of these packages are installed by default on https://getfedora.org/[Fedora], https://www.centos.org/[CentOS] and https://www.redhat.com/en/technologies/linux-platforms[RHEL]. They are listed explicitly to show which tools are used in this guide.
+endif::community[]
+
+ifdef::rhel[]
+NOTE: Some of these packages are installed by default on https://www.redhat.com/en/technologies/linux-platforms[RHEL]. They are listed explicitly to show which tools are used in this guide.
+endif::rhel[]
 
 ifdef::community[]
-*   For https://getfedora.org/[Fedora]:
 
 [source,bash]
 ----
@@ -97,8 +100,9 @@ $ dnf install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffuti
 ----
 endif::community[]
 
+// FIXME - pozor - v komunitní verzi je i RHEL - tj. mělo by tu být dnf a yum také!!!!
+
 ifdef::rhel[]
-*   For https://www.redhat.com/en/technologies/linux-platforms[RHEL] or https://www.centos.org/[CentOS] (this guide assumes version 7.x of either):
 
 [source,bash]
 ----
