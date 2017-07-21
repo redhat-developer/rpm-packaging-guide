@@ -15,18 +15,21 @@ ifdef::rhel[]
 This tutorial explains packaging RPMs for the Red Hat family of Linux distributions, primarily https://www.redhat.com/en/technologies/linux-platforms[Red Hat Enterprise Linux] (often called https://www.redhat.com/en/technologies/linux-platforms[RHEL] for short).
 endif::rhel[]
 
+// FIXME CONDITIONALS-done
+ifdef::community[]
 These distributions use the http://rpm.org/[RPM] Packaging Format.
 
-// FIXME CONDITIONALS
-While these distributions are the target environment, this guide is probably
-applicable to all
-https://en.wikipedia.org/wiki/List_of_Linux_distributions#RPM-based[RPM based]
-distributions. However, the instructions need to be adapted for
-distribution-specific features, such as prerequisite installation items,
+While these distributions are the target environment, this guide is probably applicable to all https://en.wikipedia.org/wiki/List_of_Linux_distributions#RPM-based[RPM based] distributions. However, the instructions need to be adapted for distribution-specific features, such as prerequisite installation items,
 guidelines, or macros.
+endif::community[]
 
-This tutorial assumes no previous knowledge about packaging software for any
-Operating System, Linux or otherwise.
+ifdef::rhel[]
+This distribution use the http://rpm.org/[RPM] Packaging Format.
+
+While this distribution is the target environment, this guide is probably applicable to all https://en.wikipedia.org/wiki/List_of_Linux_distributions#RPM-based[RPM based] distributions. However, the instructions need to be adapted for distribution-specific features, such as prerequisite installation items, guidelines, or macros.
+endif::rhel[]
+
+This tutorial assumes no previous knowledge about packaging software for any Operating System, Linux or otherwise.
 
 ifdef::community[]
 NOTE: If you do not know what a software package or a GNU/Linux distribution is,
