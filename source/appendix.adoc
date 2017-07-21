@@ -375,11 +375,18 @@ There are many built-in RPM Macros and we will cover a few in the following
 section, however an exhaustive list can be found rpm.org’s http://rpm.org/wiki/PackagerDocs/Macros[rpm macro] official
 documentation.
 
+ifdef::community[]
 There are also macros that are provided by your https://en.wikipedia.org/wiki/Linux[Linux] Distribution, we will
 cover some of those provided by https://getfedora.org/[Fedora], https://www.centos.org/[CentOS] and https://www.redhat.com/en/technologies/linux-platforms[RHEL] in this section
 as well as provide information on how to inspect your system to learn about
 others that we don’t cover or for discovering them on other RPM-based https://en.wikipedia.org/wiki/Linux[Linux]
 Distributions.
+endif::community[]
+
+ifdef::rhel[]
+There are also macros that are provided by your https://en.wikipedia.org/wiki/Linux[Linux] Distribution, we will cover some of those provided by https://www.redhat.com/en/technologies/linux-platforms[RHEL] in this section as well as provide information on how to inspect your system to learn about others that we don’t cover or for discovering them on other RPM-based https://en.wikipedia.org/wiki/Linux[Linux]
+Distributions.
+endif::rhel[]
 
 [[defining-your-own]]
 === Defining Your Own
@@ -460,19 +467,37 @@ Different distributions will supply different sets of recommended RPM Macros
 based on the language implementation of the software being packaged or the
 specific Guidelines of the distribution in question.
 
+ifdef::community[]
 These are often provided as RPM Packages themselves and can be installed with
 the distribution package manager, such as http://yum.baseurl.org/[yum] or https://github.com/rpm-software-management/dnf[dnf]. The macro files
 themselves once installed can be found in ``/usr/lib/rpm/macros.d/`` and will be
 included in the ``rpm --showrc`` output by default once installed.
+endif::community[]
+
+ifdef::rhel[]
+These are often provided as RPM Packages themselves and can be installed with
+the distribution package manager, such as http://yum.baseurl.org/[yum]. The macro files
+themselves once installed can be found in ``/usr/lib/rpm/macros.d/`` and will be
+included in the ``rpm --showrc`` output by default once installed.
+endif::rhel[]
 
 One primary example of this is the https://fedoraproject.org/wiki/Packaging:Guidelines?rd=Packaging/Guidelines[Fedora Packaging Guidelines] section
 pertaining specifically to https://fedoraproject.org/wiki/Packaging:Guidelines#Application_Specific_Guidelines[Application Specific Guidelines] which at the time
 of this writing has over 30 different sets of guidelines along with associated
 RPM Macro sets for subject matter specific RPM Packaging.
 
+ifdef::community[]
 One example of these kinds of RPMs would be for https://www.python.org/[Python] version 2.x and if we
 have the ``python2-rpm-macros`` package installed (available in EPEL for RHEL
 7 and CentOS 7), we have a number of python2 specific macros available to us.
+endif::community[]
+
+ifdef::rhel[]
+One example of these kinds of RPMs would be for https://www.python.org/[Python] version 2.x and if we
+have the ``python2-rpm-macros`` package installed (available in EPEL for RHEL
+7), we have a number of python2 specific macros available to us.
+endif::rhel[]
+
 
 [source,bash]
 ----
@@ -673,9 +698,18 @@ all-%posttrans
 
 ----
 
+ifdef::community[]
 The above items are from the included RPM documentation found in
 ``/usr/share/doc/rpm/triggers`` on Fedora systems and
 ``/usr/share/doc/rpm-4.*/triggers`` on RHEL 7 and CentOS 7 systems.
+endif::community[]
+
+ifdef::rhel[]
+The above items are from the included RPM documentation found in
+``/usr/share/doc/rpm-4.*/triggers``.
+endif::rhel[]
+
+
 
 [[rpm-conditionals]]
 === RPM Conditionals

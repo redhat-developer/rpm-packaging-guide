@@ -1,18 +1,18 @@
 [[rpm-packaging-guide]]
 = RPM Packaging Guide
 
-// FIXME CONDITIONALS - why these conditionals distinguishing between the upsream and downstream version does not work?
-
-This tutorial explains packaging RPMs for the Red Hat family of Linux
-distributions, primarily:
+// FIXME CONDITIONALS - done
 
 ifdef::community[]
+This tutorial explains packaging RPMs for the Red Hat family of Linux distributions, primarily:
+
 *   https://getfedora.org/[Fedora]
 *   https://www.centos.org/[CentOS]
+*   https://www.redhat.com/en/technologies/linux-platforms[Red Hat Enterprise Linux] (often called https://www.redhat.com/en/technologies/linux-platforms[RHEL] for short)
 endif::community[]
 
 ifdef::rhel[]
-*   https://www.redhat.com/en/technologies/linux-platforms[Red Hat Enterprise Linux] (often called https://www.redhat.com/en/technologies/linux-platforms[RHEL] for short)
+This tutorial explains packaging RPMs for the Red Hat family of Linux distributions, primarily https://www.redhat.com/en/technologies/linux-platforms[Red Hat Enterprise Linux] (often called https://www.redhat.com/en/technologies/linux-platforms[RHEL] for short).
 endif::rhel[]
 
 These distributions use the http://rpm.org/[RPM] Packaging Format.
@@ -304,6 +304,7 @@ signals which distribution is used for the build.
 
 For example:
 
+ifdef::community[]
 [source,bash]
 ----
 # On a RHEL 7.x machine
@@ -315,6 +316,19 @@ $ rpm --eval %{?dist}
 .fc23
 
 ----
+endif::community[]
+
+ifdef::rhel[]
+[source,bash]
+----
+# On a RHEL 7.x machine
+$ rpm --eval %{?dist}
+.el7
+
+----
+endif::rhel[]
+
+
 
 For more information on macros, see <<appendix.adoc#more-on-macros>>.
 
@@ -370,37 +384,18 @@ Examine the files. The directives in them represent the ones described in the
 <<what-is-a-spec-file>> section. In the following sections, you will populate
 these SPEC files.
 
-// [NOTE]
-// ====
-// FIXME MOVE THIS NOTE?
-
-// The ``rpmdev-newspec`` utility does not use guidelines or conventions specific to any particular Linux distribution. However, this document targets
-// FIXME CONDITIONAL
-// Fedora, CentOS, and RHEL, so you will notice that:
-
-// * We remove the use of ``rm $RPM_BUILD_ROOT``, because it is unnecessary to perform that task when building on https://www.redhat.com/en/technologies/linux-platforms[RHEL] or _CentOS_ 7.0 or newer or on // https://getfedora.org/[Fedora] version 18 or newer.
-// FIXME CONDITIONAL
-// * We favor the use of ``%{buildroot}`` notation over ``$RPM_BUILD_ROOT`` when referencing RPM’s Buildroot for consistency with all other defined or provided macros throughout the SPEC file.
-
-// ====
-
-// My suggestion
-
+ifdef::community[]
 [NOTE]
 ====
 The ``rpmdev-newspec`` utility does not use guidelines or conventions specific to any particular Linux distribution. However, this document targets
-// FIXME CONDITIONAL
 Fedora, CentOS, and RHEL, so you will notice that:
 
-ifdef::community[]
 * Use ``rm $RPM_BUILD_ROOT``when building on _CentOS_ (versions previous to 7.0) or on https://getfedora.org/[Fedora] (versions previous to 18).
-endif::community[]
-
-// FIXME CONDITIONAL - why conditional here?
 
 * We favor the use of ``%{buildroot}`` notation over ``$RPM_BUILD_ROOT`` when referencing RPM’s Buildroot for consistency with all other defined or provided macros throughout the SPEC file.
 
 ====
+endif::community[]
 
 There are three examples below. Each one is fully described, so you can go to
 a specific one if it matches your packaging needs. Or, read them all to fully
