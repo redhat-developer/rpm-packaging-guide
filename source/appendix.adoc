@@ -6,6 +6,7 @@ likely prove to helpful for anyone who is going to be building RPMs in an
 serious capacity but isn’t necessarily a hard requirement to learn how to
 package RPMs in the first place which is what the main goal of this document is.
 
+ifdef::community[]
 [[mock]]
 == Mock
 
@@ -208,7 +209,9 @@ omitted after you have done an ``--init`` on a mock target, such as
 required packages, cache them, and pre-stage the build chroot.
 
 For more information, please consult the https://fedoraproject.org/wiki/Mock[Mock] upstream documentation.
+endif::community[]
 
+ifdef::community[]
 [[version-control-systems]]
 == Version Control Systems
 
@@ -363,6 +366,7 @@ There is also a helper command line tool to assist in this.
 In an effort to not duplicate documentation, for more information on how to
 setup a system such as this please refer to the upstream https://github.com/release-engineering/dist-git[dist-git] docs.
 upstream docs.
+endif::community[]
 
 [[more-on-macros]]
 == More on Macros

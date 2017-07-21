@@ -1418,7 +1418,7 @@ instructions also confirmed to the required structure.
 [[source-rpms]]
 === Source RPMs
 
-Why build a Source RPM?
+Why build a Source RPM (SRPM)?
 
 . To preserve the exact source of a certain Name-Version-Release of the RPM that
 was deployed to an environment. This includes the exact SPEC file, the source
@@ -1430,7 +1430,7 @@ https://en.wikipedia.org/wiki/Microarchitecture[architecture].
 //FIXME FIX STRUCTURE, HERE SHOULD BE A BRIDGEHEAD OR SOMETHING -done
 
 [[create-source-rpms]]
-==== To create a source RPM:
+==== To create a SRPM:
 
   ~]$ rpmbuild -bs SPECFILE
 
@@ -1457,7 +1457,7 @@ Wrote: /home/admiller/rpmbuild/SRPMS/cello-1.0-1.el7.src.rpm
 Note that SRPMs were placed into the ``rpmbuild/SRPMS`` directory, which is part
 of the structure expected by ``rpmbuild``.
 
-This is all there is to building a Source RPM.
+This is all there is to building a SRPM.
 
 [[binary-rpms]]
 === Binary RPMS
@@ -1468,9 +1468,9 @@ There are two methods for building Binary RPMs:
 . Rebuilding it from a SRPM using the ``rpmbuild --rebuild`` command.
 
 [[rebuild]]
-==== Rebuilding from a SRPM
+==== Rebuilding from a Source RPM
 
-To rebuild ``bello``, ``pello``, and ``cello`` from SRPMs, run:
+To rebuild ``bello``, ``pello``, and ``cello`` from Source RPMs (SRPMs), run:
 
 [source,bash]
 ----
@@ -1551,7 +1551,7 @@ After creating a package, it is good to check its quality. Quality of the
 package, not of the software delivered within it. The main tool for this is
 https://github.com/rpm-software-management/rpmlint[rpmlint]. It improves RPM
 maintainability and enables sanity and error checking by performing static
-analysis of the RPM. This utility can check Binary RPMs, Source RPMs, and SPEC
+analysis of the RPM. This utility can check Binary RPMs, Source RPMs (SRPMs), and SPEC
 files, so is useful for all stages of packaging, as shown in the following
 examples.
 
