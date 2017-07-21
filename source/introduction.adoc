@@ -97,6 +97,8 @@ ifdef::community[]
 ----
 $ dnf install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools
 
+$ yum install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools
+
 ----
 endif::community[]
 
