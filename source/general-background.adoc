@@ -1,5 +1,5 @@
-[[general-topics-and-background]]
-= General Topics and Background
+[preparing-programs-for-packaging]]
+= Preparing Programs for Packaging
 
 This chapter is about source code and creating software, which are a necessary
 background for an RPM Packager.

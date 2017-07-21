@@ -1,5 +1,5 @@
-[[rpm-packaging-guide]]
-= RPM Packaging Guide
+[[packaging]]
+= Packaging 
 
 // FIXME CONDITIONALS - done
 
