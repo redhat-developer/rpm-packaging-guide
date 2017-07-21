@@ -777,7 +777,7 @@ ifdef::community[]
   %global with_rubypick 1
   %endif
 
-This conditional handles support for the rubypick tool. If the operating system is Fedora, version 19 or newer, rubypick is supported.
+This conditional handles support for the rubypick tool. If the operating system is Fedora version 19 or newer, rubypick is supported.
 endif::community[]
 
   %if 0%{?milestone:1}%{?revision:1} != 0
@@ -836,7 +836,9 @@ introductory material included in this guide.
 
 *   http://rpm.org/wiki/Docs[RPM Official Documentation]
 *   https://www.gurulabs.com/media/files/courseware-samples/GURULABS-RPM-GUIDE-v1.0.PDF[Gurulabs CREATING RPMS (Student Version)]
+ifdef::community[]
 *   https://fedoraproject.org/wiki/How_to_create_an_RPM_package[Fedora How To Create An RPM Package Guide]
+endif::community[]
 *   https://fedoraproject.org/wiki/Packaging:Guidelines?rd=Packaging/Guidelines[Fedora Packaging Guidelines]
 *   https://en.opensuse.org/openSUSE:Packaging_guidelines[OpenSUSE Packaging Guidelines]
 *   IBM RPM Packaging Guide: http://www.ibm.com/developerworks/library/l-rpm1/[Part 1], http://www.ibm.com/developerworks/library/l-rpm2/[Part 2], http://www.ibm.com/developerworks/library/l-rpm3/[Part 3]

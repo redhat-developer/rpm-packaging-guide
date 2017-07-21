@@ -1422,9 +1422,15 @@ Why build a Source RPM (SRPM)?
 was deployed to an environment. This includes the exact SPEC file, the source
 code, and all relevant patches. This is useful for looking back in history and
 for debugging.
+ifdef::community[]
 . To be able to build a binary RPM on a different hardware platform or
 https://en.wikipedia.org/wiki/Microarchitecture[architecture].
-// FIXME CONDITIONALS - I do not understand why there shoudl be conditionals and where to put it. 
+endif::community[]
+
+ifdef::rhel[]
+. To be able to build a binary RPM on a different hardware platform or architecture.
+endif::rhel[]
+// FIXME CONDITIONALS - conditional because of wikipedie, done
 //FIXME FIX STRUCTURE, HERE SHOULD BE A BRIDGEHEAD OR SOMETHING -done
 
 [[create-source-rpms]]
