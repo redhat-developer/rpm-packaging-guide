@@ -772,6 +772,23 @@ ifdef::community[]
 This conditional handles compatibility between the recent version of Fedora and RHEL6 in terms of support of the ruby_sitearch macro. The recent version of Fedora defines ruby_sitearch by default, but RHEL6 does not support this macro. The conditional checks whether the operating system is RHEL6. If it is, ruby_sitearch is defined explicitly. 
 endif::community[]
 
+ifdef::community[]
+  %if 0%{?fedora} >= 19
+  %global with_rubypick 1
+  %endif
+
+This conditional handles support for the rubypick tool. If the operating system is Fedora, version 19 or newer, rubypick is supported.
+endif::community[]
+
+  %if 0%{?milestone:1}%{?revision:1} != 0
+  %global development_release %{?milestone}%{?!milestone:%{?revision:r%{revision}}}
+  %global ruby_archive %{ruby_archive}-%{?milestone}%{?!milestone:%{?revision:r%{revision}}}
+  %endif
+
+This conditional handles definition of the macros. If ... macros are set, ... macros are defined.
+//FIXME which macros?
+
+
 ===== Particular variants of %if Conditional
 
 The %ifarch conditional, %ifnarch conditional and %ifos conditional are particular variants of the %if conditionals. These variants are commonly used, so they have their own macros.  
