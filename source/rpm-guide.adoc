@@ -400,6 +400,16 @@ Fedora, CentOS, and RHEL, so you will notice that:
 ====
 endif::community[]
 
+ifdef::rhel[]
+[NOTE]
+====
+The ``rpmdev-newspec`` utility does not use guidelines or conventions specific to any particular Linux distribution. However, this document targets RHEL, so you will notice that:
+
+* We favor the use of ``%{buildroot}`` notation over ``$RPM_BUILD_ROOT`` when referencing RPM’s Buildroot for consistency with all other defined or provided macros throughout the SPEC file.
+
+====
+endif::rhel[]
+
 There are three examples below. Each one is fully described, so you can go to
 a specific one if it matches your packaging needs. Or, read them all to fully
 explore packaging different kinds of software.
@@ -515,7 +525,7 @@ endif::community[]
 https://example.com[RHEL License Guidelines]
 . For example, use ``GPLv3+``.
 +
-.. The ``URL`` field is the upstream software’s website, which provides more
+.. The ``URL``field is the upstream software’s website, which provides more
 information about the program. In this example, we can use
 ``https://example.com/bello``. However, for consistency, we will use the macro
 variable of ``%{name}`` instead of string ``bello`` for consistency. The
@@ -821,12 +831,22 @@ Summary:        Hello World example implemented in Python
 Now, let’s move on to the second set of directives that ``rpmdev-newspec`` has
 grouped together in our SPEC file: ``License``, ``URL``, ``Source0``.
 
+ifdef::community[]
 The ``License`` field is the https://en.wikipedia.org/wiki/Software_license[Software License] associated with the source code
 from the upstream release. The exact format for how to label the License in your
 SPEC file will vary depending on which specific RPM based https://en.wikipedia.org/wiki/Linux[Linux] distribution
 guidelines you are following, we will use the notation standards in the https://fedoraproject.org/wiki/Licensing:Main[Fedora
 License Guidelines] for this document and as such this field will contain the
 text ``GPLv3+``
+endif::community[]
+
+ifdef::rhel[]
+The ``License`` field is the Software License associated with the source code
+from the upstream release. The exact format for how to label the License in your
+SPEC file will vary depending on which specific RPM based Linux distribution
+guidelines you are following.
+endif::rhel[]
+
 
 The ``URL`` field is the upstream software’s website, not the source code
 download link but the actual project, product, or company website where someone

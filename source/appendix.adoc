@@ -721,7 +721,8 @@ Most commonly, conditional inclusions deal with:
 * architecture-specific sections
 * operating system-specific sections
 * compatibility issues between various versions of operating systems
-* others 
+* existence and definition of macros
+* ... 
 
 ==== RPM Conditionals Syntax
 
