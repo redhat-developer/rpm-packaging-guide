@@ -763,14 +763,14 @@ If an _expression_ is true, then do some action, in other case, do another actio
   sed -i '/AS_FUNCTION_DESCRIBE/ s/^/#/' acinclude.m4
   %endif
   
-This conditional handles compatibility between RHEL6 and other operating systems in terms of support of the AS_FUNCTION_DESCRIBE macro. The conditional checks whether the version of RHEL is 6. If it is, then AS_FUNCTION_DESCRIBE, which is not supported by RHEL6, is deleted.
+This conditional handles compatibility between RHEL6 and other operating systems in terms of support of the AS_FUNCTION_DESCRIBE macro. When the package is build for RHEL, the %rhel macro is defined and it is expanded to RHEL version. If its value is 6, i.e. the package is build for RHEL 6, then the references to AS_FUNCTION_DESCRIBE, which is not supported by RHEL6, are deleted from autoconfig scripts.
 
 ifdef::community[]
   %if 0%{?el6}
   %global ruby_sitearch %(ruby -rrbconfig -e 'puts Config::CONFIG["sitearchdir"]')
   %endif
   
-This conditional handles compatibility between the recent version of Fedora and RHEL6 in terms of support of the ruby_sitearch macro. The recent version of Fedora defines ruby_sitearch by default, but RHEL6 does not support this macro. The conditional checks whether the operating system is RHEL6. If it is, ruby_sitearch is defined explicitly. 
+This conditional handles compatibility between Fedora version 17 and newer and RHEL6 in terms of support of the %ruby_sitearch macro. Fedora version 17 and newer defines %ruby_sitearch by default, but RHEL6 does not support this macro. The conditional checks whether the operating system is RHEL6. If it is, %ruby_sitearch is defined explicitly. Note that ``0%{?el6}`` has the same meaning as ``0%{?rhel} == 6`` from the previous example, and it tests whether a package is built on RHEL6. 
 endif::community[]
 
 ifdef::community[]
@@ -781,13 +781,13 @@ ifdef::community[]
 This conditional handles support for the rubypick tool. If the operating system is Fedora version 19 or newer, rubypick is supported.
 endif::community[]
 
+  %global ruby_archive %{name}-%{ruby_version}
+
   %if 0%{?milestone:1}%{?revision:1} != 0
-  %global development_release %{?milestone}%{?!milestone:%{?revision:r%{revision}}}
   %global ruby_archive %{ruby_archive}-%{?milestone}%{?!milestone:%{?revision:r%{revision}}}
   %endif
 
-This conditional handles definition of the macros. If ... macros are set, ... macros are defined.
-//FIXME which macros?
+This conditional handles definition of the macros. If the %milestone or ​the %revision macros are set, the %development_release macro is defined and the %ruby_archive macro, which defines the name of the upstream tarball, is redefined.
 
 
 ===== Particular variants of %if Conditional
@@ -802,7 +802,7 @@ The %ifarch conditional is used to begin a block of the SPEC file that is archit
   ...
   %endif
   
-All **the contents** of the SPEC file ** between %ifarch and %endif** are processed only on Intel x86 or Sun SPARC-based systems. 
+All **the contents** of the SPEC file ** between %ifarch and %endif** are processed only on the 32-bit AMD and Intel architectures or Sun SPARC-based systems. 
 
 
 ====== The %ifnarch Conditional
