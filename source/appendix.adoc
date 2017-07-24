@@ -781,13 +781,12 @@ ifdef::community[]
 This conditional handles support for the rubypick tool. If the operating system is Fedora version 19 or newer, rubypick is supported.
 endif::community[]
 
-  %global ruby_archive %{name}-%{ruby_version}
-
+  %define ruby_archive %{name}-%{ruby_version}
   %if 0%{?milestone:1}%{?revision:1} != 0
-  %global ruby_archive %{ruby_archive}-%{?milestone}%{?!milestone:%{?revision:r%{revision}}}
+  %define ruby_archive %{ruby_archive}-%{?milestone}%{?!milestone:%{?revision:r%{revision}}}
   %endif
 
-This conditional handles definition of the macros. If the %milestone or ​the %revision macros are set, the %development_release macro is defined and the %ruby_archive macro, which defines the name of the upstream tarball, is redefined.
+This conditional handles definition of the macros. If the %milestone or ​the %revision macros are set, the %ruby_archive macro, which defines the name of the upstream tarball, is redefined.
 
 
 ===== Particular variants of %if Conditional

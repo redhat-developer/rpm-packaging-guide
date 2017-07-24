@@ -3,8 +3,8 @@
 :toc: left
 :doctype: book
 :source-highlighter: coderay
-//:rhel:
-:community:
+:rhel:
+//:community:
 
 
 include::abstract.adoc[]
