@@ -696,6 +696,7 @@ $ cp /tmp/LICENSE /tmp/pello-0.1.1/
 ----
 
 . Create the archive for distribution and move it to ``~/rpmbuild/SOURCES/``:
++
 [source,bash]
 ----
 $ cd /tmp/

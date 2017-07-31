@@ -720,7 +720,7 @@ Most commonly, conditional inclusions deal with:
 * compatibility issues between various versions of operating systems
 * existence and definition of macros
 
-==== RPM Conditionals Syntax
+=== RPM Conditionals Syntax
 
 If _expression_ is true, then do some action.
 
@@ -750,9 +750,9 @@ If _expression_ is true, then do some action, in other case, do another action.
 //  ...
 //  %endif
 
-==== RPM Conditionals Examples
+=== RPM Conditionals Examples
 
-===== The %if Conditional
+==== The %if Conditional
 
   %if 0%{?rhel} == 6
   sed -i '/AS_FUNCTION_DESCRIBE/ s/^/#/' configure.in
@@ -785,11 +785,11 @@ endif::community[]
 This conditional handles definition of the macros. If the %milestone or ​the %revision macros are set, the %ruby_archive macro, which defines the name of the upstream tarball, is redefined.
 
 
-===== Specialized variants of %if Conditional
+==== Specialized variants of %if Conditional
 
 The %ifarch conditional, %ifnarch conditional and %ifos conditional are specialized variants of the %if conditionals. These variants are commonly used, so they have their own macros.
 
-====== The %ifarch Conditional
+===== The %ifarch Conditional
 
 The %ifarch conditional is used to begin a block of the SPEC file that is architecture-specific. It is followed by one or more architecture specifiers, each separated by commas or whitespace.
 
@@ -800,7 +800,7 @@ The %ifarch conditional is used to begin a block of the SPEC file that is archit
 All the contents of the SPEC file  between %ifarch and %endif are processed only on the 32-bit AMD and Intel architectures or Sun SPARC-based systems.
 
 
-====== The %ifnarch Conditional
+===== The %ifnarch Conditional
 
 The %ifnarch conditional has a reverse logic than %ifarch conditional.
 
@@ -812,7 +812,7 @@ All the contents of the SPEC file between %ifnarch and %endif are processed only
 
 
 
-====== The %ifos Conditional
+===== The %ifos Conditional
 
 The %ifos conditional is used to control processing based on the operating system of the build. It can be followed by one or more operating system names.
 
