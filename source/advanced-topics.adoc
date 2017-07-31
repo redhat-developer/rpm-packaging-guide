@@ -392,7 +392,7 @@ You can define your own Macros. Below is an excerpt from the
 http://rpm.org/wiki/Docs[RPM Official Documentation], which provides a
 comprehensive reference on macros capabilities.
 
-To define a macro use:
+To define a macro, use:
 
 [source,specfile]
 ----
@@ -402,9 +402,9 @@ To define a macro use:
 
 All whitespace surrounding ``\`` is removed.  Name may be composed
 of alphanumeric characters, and the character ``_`` and must be at least
-3 characters in length. A macro without an (opts) field is “simple” in that
+3 characters in length. A macro without an `(opts)` field is “simple” in that
 only recursive macro expansion is performed. A parameterized macro contains
-an (opts) field. The opts (i.e. string between parentheses) is passed
+an `(opts)` field. The `opts` (the string between parentheses) is passed
 exactly as is to getopt(3) for argc/argv processing at the beginning of
 a macro invocation.
 
@@ -447,9 +447,8 @@ Example: ``%config(noreplace)
 === Built-In Macros
 
 Your system has many built-in RPM Macros and the fastest way to view them all is
-to simply run the ``rpm --showrc`` command, however note that this will contain
-a __lot__ of output so it’s often used in combination with a pipe to grep (or
-a clever shell Process Substitution).
+to simply run the ``rpm --showrc`` command. Note that this will contain
+a lot of output so it is often used in combination with a pipe to grep.
 
 You can also find information about the RPMs macros that come directly with your
 system’s version of RPM by looking at the output of the command ``rpm -ql rpm``
@@ -478,7 +477,7 @@ endif::rhel[]
 
 One primary example of this is the https://fedoraproject.org/wiki/Packaging:Guidelines?rd=Packaging/Guidelines[Fedora Packaging Guidelines] section
 pertaining specifically to https://fedoraproject.org/wiki/Packaging:Guidelines#Application_Specific_Guidelines[Application Specific Guidelines] which at the time
-of this writing has over 30 different sets of guidelines along with associated
+of this writing has over 60 different sets of guidelines along with associated
 RPM Macro sets for subject matter specific RPM Packaging.
 
 ifdef::community[]
@@ -720,13 +719,13 @@ Most commonly, conditional inclusions deal with:
 
 === RPM Conditionals Syntax
 
-If _expression_ is true, then do some action.
+If _expression_ is true, then do some action:
 
   %if expression
   ...
   %endif
 
-If _expression_ is true, then do some action, in other case, do another action.
+If _expression_ is true, then do some action, in other case, do another action:
 
   %if expression
   ...
@@ -750,21 +749,21 @@ If _expression_ is true, then do some action, in other case, do another action.
 
 === RPM Conditionals Examples
 
-==== The %if Conditional
+==== The `%if` Conditional
 
   %if 0%{?rhel} == 6
   sed -i '/AS_FUNCTION_DESCRIBE/ s/^/#/' configure.in
   sed -i '/AS_FUNCTION_DESCRIBE/ s/^/#/' acinclude.m4
   %endif
 
-This conditional handles compatibility between RHEL6 and other operating systems in terms of support of the AS_FUNCTION_DESCRIBE macro. When the package is build for RHEL, the %rhel macro is defined and it is expanded to RHEL version. If its value is 6, meaning the package is build for RHEL 6, then the references to AS_FUNCTION_DESCRIBE, which is not supported by RHEL6, are deleted from autoconfig scripts.
+This conditional handles compatibility between RHEL6 and other operating systems in terms of support of the AS_FUNCTION_DESCRIBE macro. When the package is build for RHEL, the `%rhel` macro is defined and it is expanded to RHEL version. If its value is 6, meaning the package is build for RHEL 6, then the references to AS_FUNCTION_DESCRIBE, which is not supported by RHEL6, are deleted from autoconfig scripts.
 
 ifdef::community[]
   %if 0%{?el6}
   %global ruby_sitearch %(ruby -rrbconfig -e 'puts Config::CONFIG["sitearchdir"]')
   %endif
 
-This conditional handles compatibility between Fedora version 17 and newer and RHEL6 in terms of support of the %ruby_sitearch macro. Fedora version 17 and newer defines %ruby_sitearch by default, but RHEL6 does not support this macro. The conditional checks whether the operating system is RHEL6. If it is, %ruby_sitearch is defined explicitly. Note that ``0%{?el6}`` has the same meaning as ``0%{?rhel} == 6`` from the previous example, and it tests whether a package is built on RHEL6.
+This conditional handles compatibility between Fedora version 17 and newer and RHEL6 in terms of support of the `%ruby_sitearch` macro. Fedora version 17 and newer defines `%ruby_sitearch` by default, but RHEL6 does not support this macro. The conditional checks whether the operating system is RHEL6. If it is, `%ruby_sitearch` is defined explicitly. Note that `0%{?el6}` has the same meaning as `0%{?rhel} == 6` from the previous example, and it tests whether a package is built on RHEL6.
 endif::community[]
 
 ifdef::community[]
@@ -780,45 +779,45 @@ endif::community[]
   %define ruby_archive %{ruby_archive}-%{?milestone}%{?!milestone:%{?revision:r%{revision}}}
   %endif
 
-This conditional handles definition of the macros. If the %milestone or ​the %revision macros are set, the %ruby_archive macro, which defines the name of the upstream tarball, is redefined.
+This conditional handles definition of the macros. If the `%milestone` or the `%revision` macros are set, the `%ruby_archive` macro, which defines the name of the upstream tarball, is redefined.
 
 
-==== Specialized variants of %if Conditional
+==== Specialized variants of `%if` Conditional
 
-The %ifarch conditional, %ifnarch conditional and %ifos conditional are specialized variants of the %if conditionals. These variants are commonly used, so they have their own macros.
+The `%ifarch` conditional, `%ifnarch` conditional and `%ifos` conditional are specialized variants of the `%if` conditionals. These variants are commonly used, so they have their own macros.
 
-===== The %ifarch Conditional
+===== The `%ifarch` Conditional
 
-The %ifarch conditional is used to begin a block of the SPEC file that is architecture-specific. It is followed by one or more architecture specifiers, each separated by commas or whitespace.
+The `%ifarch` conditional is used to begin a block of the SPEC file that is architecture-specific. It is followed by one or more architecture specifiers, each separated by commas or whitespace.
 
   %ifarch i386 sparc
   ...
   %endif
 
-All the contents of the SPEC file  between %ifarch and %endif are processed only on the 32-bit AMD and Intel architectures or Sun SPARC-based systems.
+All the contents of the SPEC file  between `%ifarch` and `%endif` are processed only on the 32-bit AMD and Intel architectures or Sun SPARC-based systems.
 
 
-===== The %ifnarch Conditional
+===== The `%ifnarch` Conditional
 
-The %ifnarch conditional has a reverse logic than %ifarch conditional.
+The `%ifnarch` conditional has a reverse logic than `%ifarch` conditional.
 
   %ifnarch alpha
   ...
   %endif
 
-All the contents of the SPEC file between %ifnarch and %endif are processed only if not being done on a Digital Alpha/AXP-based system.
+All the contents of the SPEC file between `%ifnarch` and `%endif` are processed only if not being done on a Digital Alpha/AXP-based system.
 
 
 
-===== The %ifos Conditional
+===== The `%ifos` Conditional
 
-The %ifos conditional is used to control processing based on the operating system of the build. It can be followed by one or more operating system names.
+The `%ifos` conditional is used to control processing based on the operating system of the build. It can be followed by one or more operating system names.
 
   %ifos linux
   ...
   %endif
 
-All the contents of the SPEC file between %ifos and %endif are processed only if the build was done on a Linux system.
+All the contents of the SPEC file between `%ifos` and `%endif` are processed only if the build was done on a Linux system.
 
 
 [[references]]
