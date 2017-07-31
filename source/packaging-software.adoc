@@ -45,7 +45,7 @@ endif::community[]
 == RPM Packages
 
 This section covers the basics of the RPM packaging format. See
-<<appendix.adoc#appendix>> for more advanced information.
+<<advanced-topics.adoc#advanced-topics>> for more advanced information.
 
 [[what-is-an-rpm]]
 === What is an RPM?
@@ -246,7 +246,7 @@ The SPEC file can also contain advanced items. For example, a SPEC file can have
 __scriptlets__ and __triggers__. They take effect at different points during the
 installation process on the end user's system (not the build process).
 
-See the <<appendix.adoc#appendix>> for advanced topics.
+See the <<advanced-topics.adoc#advanced-topics>> for advanced topics.
 
 [[buildroots]]
 === BuildRoots
@@ -333,7 +333,7 @@ endif::rhel[]
 
 
 
-For more information on macros, see <<appendix.adoc#more-on-macros>>.
+For more information on macros, see <<advanced-topics.adoc#more-on-macros>>.
 
 [[working-with-spec-files]]
 === Working with SPEC files
@@ -968,7 +968,7 @@ accessed.
 
 NOTE: You will notice below that we are hard coding the library path. There are
 various methods to avoid needing to do this, many of which are addressed in
-the <<appendix.adoc#appendix>>, under the <<appendix.adoc#more-on-macros>> section, and are specific to the programming language in
+the <<advanced-topics.adoc#advanced-topics>>, under the <<advanced-topics.adoc#more-on-macros>> section, and are specific to the programming language in
 which the software that is being packaged was written in. In this example we
 hard code the path for simplicity as to not cover too many topics
 simultaneously.
@@ -1816,4 +1816,4 @@ Apart from the above warnings and errors, our RPM is passing ``rpmlint`` checks.
 // FIXME ADD HEADING - heading for one sentence?, consult with MAX
 Our RPMs are now ready and checked with ``rpmlint``. This concludes the
 tutorial. For more information on packaging RPMs, proceed to
-<<appendix.adoc#appendix>>.
+<<advanced-topics.adoc#advanced-topics>>.

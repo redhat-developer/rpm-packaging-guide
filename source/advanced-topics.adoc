@@ -1,4 +1,4 @@
-[[appendix]]
+[[advanced-topics]]
 = Appendix
 
 The Appendix covers topics that are beyond the scope of the introductory
