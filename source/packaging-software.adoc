@@ -1419,8 +1419,8 @@ RPMs are built with the ``rpmbuild`` command. Different scenarios and desired
 outcomes require different combinations of arguments to ``rpmbuild``. This
 section describes the two prime scenarios:
 
-. building a binary RPM
 . building a source RPM
+. building a binary RPM
 
 The ``rpmbuild`` command expects a certain directory and file structure. This is
 the same structure as set up by the ``rpmdev-setuptree`` utility. The previous
@@ -1449,9 +1449,10 @@ endif::rhel[]
 [[create-source-rpms]]
 ==== To create a SRPM:
 
-  ~]$ rpmbuild -bs SPECFILE
+[subs="quotes"]
+  ~]$ rpmbuild -bs _SPECFILE_
 
-Substitute SPECFILE with the SPEC file. The ``-bs`` option stands for "build
+Substitute _SPECFILE_ with the SPEC file. The ``-bs`` option stands for "build
 source".
 
 Here we build SRPMs for ``bello``, ``pello``, and ``cello``:
@@ -1481,8 +1482,8 @@ This is all there is to building a SRPM.
 
 There are two methods for building Binary RPMs:
 
-. Building it from a SPEC file using the ``rpmbuild -bb`` command. The ``-bb`` option stands for "build binary".
 . Rebuilding it from a SRPM using the ``rpmbuild --rebuild`` command.
+. Building it from a SPEC file using the ``rpmbuild -bb`` command. The ``-bb`` option stands for "build binary".
 
 [[rebuild]]
 ==== Rebuilding from a Source RPM
@@ -1512,16 +1513,19 @@ is your https://en.wikipedia.org/wiki/Microarchitecture[architecture] or in
 ``~/rpmbuild/RPMS/noarch/``, if the package is not architecture-specific.
 * Invoking ``rpmbuild --rebuild`` involves:
 +
-. installing the contents of the SRPM - the SPEC file and the source code - into the ``~/rpmbuild/`` directory
-. building using the installed contents
-. removing the SPEC file and the source code
-
+--
+. Installing the contents of the SRPM - the SPEC file and the source code - into the ``~/rpmbuild/`` directory.
+. Building using the installed contents.
+. Removing the SPEC file and the source code.
+--
 +
-To retain the SPEC file and the source code after building, you have these
-options:
+You can retain the SPEC file and the source code after building. For this, you
+have two options:
 +
-** When building, use the ``--recompile`` option instead of ``--rebuild``.
-** Install the SRPMs using these commands:
+--
+* When building, use the ``--recompile`` option instead of ``--rebuild``.
+* Install the SRPMs using these commands:
+--
 +
 [source,bash]
 ----
@@ -1538,9 +1542,9 @@ Updating / installing...
    1:cello-1.0-1.el7                  ################################# [100%]
 
 ----
-
-For this guide, execute the ``rpm -Uvh`` commands above to continue interacting
-with the SPEC files and sources.
++
+For this tutorial, execute the ``rpm -Uvh`` commands above to continue
+interacting with the SPEC files and sources.
 
 [[build-binary]]
 ==== Building Binary from the SPEC file
