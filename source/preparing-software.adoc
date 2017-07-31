@@ -134,10 +134,6 @@ but executed directly.
 * For software written in byte-compiled interpreted languages, the source code is
 compiled into byte code, which is then executed by the language virtual machine.
 
-NOTE: Software written in different programming languages varies greatly. This
-guide does not cover all the possibilities. However, it provides a starting
-guideline.
-
 [[natively-compiled-code-building-software-from-source]]
 === Natively Compiled Code
 
