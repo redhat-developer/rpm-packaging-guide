@@ -74,7 +74,7 @@ all methods can be reduced to these two:
 // FIXME MAYBE SPLIT NUMBER 2 IN TWO. IF DO, ALSO SPLIT FOLLOWING SECTIONS -done
 1. The program is natively compiled.
 2. The program is interpreted.
-* raw interpreting 
+* raw interpreting
 * byte compiling
 
 [[natively-compiled-code]]

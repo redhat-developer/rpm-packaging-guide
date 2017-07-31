@@ -715,7 +715,7 @@ endif::rhel[]
 
 RPM Conditionals enable the conditional inclusion of various sections of the SPEC file.
 
-Most commonly, conditional inclusions deal with: 
+Most commonly, conditional inclusions deal with:
 
 * architecture-specific sections
 * operating system-specific sections
@@ -726,14 +726,14 @@ Most commonly, conditional inclusions deal with:
 
 If _expression_ is true, then do some action.
 
-  %if expression 
+  %if expression
   ...
-  %endif 
-  
+  %endif
+
 If _expression_ is true, then do some action, in other case, do another action.
 
   %if expression
-  ... 
+  ...
   %else
   ...
   %endif
@@ -767,8 +767,8 @@ ifdef::community[]
   %if 0%{?el6}
   %global ruby_sitearch %(ruby -rrbconfig -e 'puts Config::CONFIG["sitearchdir"]')
   %endif
-  
-This conditional handles compatibility between Fedora version 17 and newer and RHEL6 in terms of support of the %ruby_sitearch macro. Fedora version 17 and newer defines %ruby_sitearch by default, but RHEL6 does not support this macro. The conditional checks whether the operating system is RHEL6. If it is, %ruby_sitearch is defined explicitly. Note that ``0%{?el6}`` has the same meaning as ``0%{?rhel} == 6`` from the previous example, and it tests whether a package is built on RHEL6. 
+
+This conditional handles compatibility between Fedora version 17 and newer and RHEL6 in terms of support of the %ruby_sitearch macro. Fedora version 17 and newer defines %ruby_sitearch by default, but RHEL6 does not support this macro. The conditional checks whether the operating system is RHEL6. If it is, %ruby_sitearch is defined explicitly. Note that ``0%{?el6}`` has the same meaning as ``0%{?rhel} == 6`` from the previous example, and it tests whether a package is built on RHEL6.
 endif::community[]
 
 ifdef::community[]
@@ -805,13 +805,13 @@ All the contents of the SPEC file  between %ifarch and %endif are processed only
 ====== The %ifnarch Conditional
 
 The %ifnarch conditional has a reverse logic than %ifarch conditional.
-  
+
   %ifnarch alpha
   ...
   %endif
-  
+
 All the contents of the SPEC file between %ifnarch and %endif are processed only if not being done on a Digital Alpha/AXP-based system.
-  
+
 
 
 ====== The %ifos Conditional

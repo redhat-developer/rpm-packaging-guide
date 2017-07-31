@@ -69,7 +69,7 @@ print("Hello World")
 ----
 
 Topics of interest or vocabulary terms are referred to either as URLs to their
-respective documentation or website, in **bold**, or in __italics__. 
+respective documentation or website, in **bold**, or in __italics__.
 ifdef::community[]
 The first occurrences of some terms link to their respective documentation.
 endif::community[]

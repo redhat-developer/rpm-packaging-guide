@@ -1,5 +1,5 @@
 [[packaging]]
-= Packaging 
+= Packaging
 
 // FIXME CONDITIONALS - done
 
@@ -414,7 +414,7 @@ There are three examples below. Each one is fully described, so you can go to
 a specific one if it matches your packaging needs. Or, read them all to fully
 explore packaging different kinds of software.
 
-// FIXME TURN TABLE INTO A LIST? - why?, the table is perfectly clear/well-arranged according to me. 
+// FIXME TURN TABLE INTO A LIST? - why?, the table is perfectly clear/well-arranged according to me.
 [cols="15%,85%"]
 |====
 | Software Name | Explanation of example
@@ -1620,7 +1620,7 @@ Observations:
 
 * For the ``bello`` SRPM there is a new warning, which says that the URL specified in the ``URL`` directive is unreachable. Assuming the link will be working in the future, we can ignore this warning.
 
-// FIXME ADD HEADING HERE? -done 
+// FIXME ADD HEADING HERE? -done
 
 [[checking-bello-binary-rpm]]
 === Checking the bello Binary RPM
