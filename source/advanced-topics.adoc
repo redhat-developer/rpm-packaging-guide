@@ -2,7 +2,7 @@
 = Advanced Topics
 
 This chapter covers topics that are beyond the scope of the introductory
-tutorial but are often useful in production RPM packaging.
+tutorial but are often useful in real-world RPM packaging.
 
 ifdef::community[]
 [[mock]]
