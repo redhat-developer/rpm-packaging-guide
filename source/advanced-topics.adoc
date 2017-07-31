@@ -388,11 +388,9 @@ endif::rhel[]
 [[defining-your-own]]
 === Defining Your Own Macros
 
-You can define your own Macros, below is an excerpt from the http://rpm.org/wiki/Docs[RPM Official
-Documentation] and I recommend anyone interested in an exhaustive explanation
-of the many possibilities of defining their own macros to visit that resource.
-It’s really quite good and there’s little reason to duplicate the bulk of that
-content here.
+You can define your own Macros. Below is an excerpt from the
+http://rpm.org/wiki/Docs[RPM Official Documentation], which provides a
+comprehensive reference on macros capabilities.
 
 To define a macro use:
 
