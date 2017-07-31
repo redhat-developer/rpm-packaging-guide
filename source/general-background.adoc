@@ -69,13 +69,12 @@ helpful.
 
 There are many methods by which human-readable source code becomes machine code
 - instructions the computer follows to actually execute the program. However,
-all methods can be reduced to these two:
+all methods can be reduced to these three:
 
 // FIXME MAYBE SPLIT NUMBER 2 IN TWO. IF DO, ALSO SPLIT FOLLOWING SECTIONS -done
 1. The program is natively compiled.
-2. The program is interpreted.
-* raw interpreting
-* byte compiling
+2. The program is interpreted by raw interpreting.
+3. The program is interpreted by byte compiling.
 
 [[natively-compiled-code]]
 === Natively Compiled Code
