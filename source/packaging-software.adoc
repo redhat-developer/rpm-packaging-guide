@@ -12,7 +12,7 @@ This tutorial explains packaging RPMs for the Red Hat family of Linux distributi
 endif::community[]
 
 ifdef::rhel[]
-This tutorial explains packaging RPMs for the Red Hat family of Linux distributions, primarily https://www.redhat.com/en/technologies/linux-platforms[Red Hat Enterprise Linux] (https://www.redhat.com/en/technologies/linux-platforms[RHEL]).
+This tutorial explains packaging RPMs for the Red Hat family of Linux distributions, primarily https://www.redhat.com/en/technologies/linux-platforms[Red Hat Enterprise Linux] (RHEL).
 endif::rhel[]
 
 // FIXME CONDITIONALS-done
