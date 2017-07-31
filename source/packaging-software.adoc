@@ -24,8 +24,6 @@ guidelines, or macros.
 endif::community[]
 
 ifdef::rhel[]
-RHEL uses the http://rpm.org/[RPM] Packaging Format.
-
 While RHEL is the target environment, this guide is mostly applicable to all https://en.wikipedia.org/wiki/List_of_Linux_distributions#RPM-based[RPM based] distributions. However, the instructions need to be adapted for distribution-specific features, such as prerequisite installation items, guidelines, or macros.
 endif::rhel[]
 
