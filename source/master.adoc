@@ -6,7 +6,6 @@
 :rhel:
 // :community:
 
-include::abstract.adoc[leveloffset=+1]
 include::introduction.adoc[leveloffset=+1]
 include::preparing-software.adoc[leveloffset=+1]
 include::packaging-software.adoc[leveloffset=+1]

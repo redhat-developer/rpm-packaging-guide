@@ -4,7 +4,7 @@
 <productnumber>7</productnumber>
 <abstract>
     <para>
-      The RPM Packaging Guide is a tutorial on basic and a reference on advanced RPM packaging topics.
+      The RPM Packaging Guide documents packaging software into an RPM. It also shows how to prepare source code for packaging. Lastly, the guide explains selected advanced packaging scenarios.
     </para>
 </abstract>
 <authorgroup>
