@@ -1,0 +1,4 @@
+[[abstract]]
+= Abstract
+
+The RPM Packaging Guide documents packaging software into an RPM. It also shows how to prepare source code for packaging. Lastly, the guide explains selected advanced packaging scenarios.
