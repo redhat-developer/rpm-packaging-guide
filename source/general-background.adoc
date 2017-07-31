@@ -1,5 +1,5 @@
-[[general-topics-and-background]]
-= General Topics and Background
+[preparing-programs-for-packaging]]
+= Preparing Programs for Packaging
 
 This chapter is about source code and creating software, which are a necessary
 background for an RPM Packager.
@@ -69,11 +69,12 @@ helpful.
 
 There are many methods by which human-readable source code becomes machine code
 - instructions the computer follows to actually execute the program. However,
-all methods can be reduced to these two:
+all methods can be reduced to these three:
 
-// FIXME MAYBE SPLIT NUMBER 2 IN TWO. IF DO, ALSO SPLIT FOLLOWING SECTIONS
+// FIXME MAYBE SPLIT NUMBER 2 IN TWO. IF DO, ALSO SPLIT FOLLOWING SECTIONS -done
 1. The program is natively compiled.
-2. The program is interpreted: by raw interpreting or through byte compiling.
+2. The program is interpreted by raw interpreting.
+3. The program is interpreted by byte compiling.
 
 [[natively-compiled-code]]
 === Natively Compiled Code
@@ -98,21 +99,25 @@ programs' source code is executed step by step, without prior transformations,
 by a https://en.wikipedia.org/wiki/Interpreter_%28computing%29[Language
 Interpreter] or a Language Virtual Machine.
 
-There are two types of interpreted languages: byte-compiled and raw-interpreted.
-The program build process for these two types is different.
+Software written entirely in interpreted programming languages is not https://en.wikipedia.org/wiki/Microarchitecture[architecture]-specific. Hence, the resulting RPM Package will have string ``noarch`` in its name.
 
+// There are two types of interpreted languages: byte-compiled and raw-interpreted. The program build process for these two types is different.
+
+Interpreted languages are either *byte-compiled* or *raw-interpreted*. These two types differ in program build process and in packaging procedure.
+
+==== Raw-interpreted programs
 Raw-interpreted language programs do not need to be compiled at all, they are
 directly executed by the interpreter.
 
+==== Byte-compiled programs
 Byte-compiled languages need to be compiled into byte code, which is then
 executed by the language virtual machine.
 
-This difference reflects on the packaging procedure. Some languages give a
-choice: they can be raw-interpreted or byte-compiled.
+NOTE: Some languages give a choice: they can be raw-interpreted or byte-compiled.
 
-Software written entirely in interpreted programming languages is not
-https://en.wikipedia.org/wiki/Microarchitecture[architecture]-specific. Hence,
-the resulting RPM Package will have string ``noarch`` in its name.
+// This difference reflects on the packaging procedure. Some languages give a choice: they can be raw-interpreted or byte-compiled.
+
+// Software written entirely in interpreted programming languages is not https://en.wikipedia.org/wiki/Microarchitecture[architecture]-specific. Hence, the resulting RPM Package will have string ``noarch`` in its name.
 
 [[building-software-from-source]]
 == Building Software from Source
@@ -485,7 +490,7 @@ We will explore two popular ways of placing __Arbitrary Artifacts__ in the
 system: using the ``install`` command and using the ``make install`` command.
 
 [[install-command]]
-=== install command
+=== Using the install command
 
 Sometimes using build automation tooling such as
 http://www.gnu.org/software/make/[GNU make] is not optimal - for example, if the
@@ -523,7 +528,7 @@ Hello World
 ----
 
 [[make-install]]
-=== make install
+=== Using the make install command
 
 A popular automated way to install built software to the system is to use the
 ``make install`` command. It requires you to specify how to install the
@@ -590,7 +595,7 @@ You have installed a build artifact into a chosen location on the system.
 NOTE: The code created in this section can be found
 https://github.com/redhat-developer/rpm-packaging-guide/tree/master/example-code[here].
 
-// FIXME FIX & ADD MORE STRUCTURE TO SECTION
+// FIXME FIX & ADD MORE STRUCTURE TO SECTION - to which section is it meant? I would recommend to restructure the section Installing Arbitrary Artifacts, I changed the titles: Install command --> Using the install command, Make install -> Using the make install command
 
 Developers often distribute software as compressed archives of source code,
 which are then used to create packages. In this section, you will create such

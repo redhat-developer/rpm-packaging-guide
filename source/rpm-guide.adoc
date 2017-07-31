@@ -1,33 +1,45 @@
-[[rpm-packaging-guide]]
-= RPM Packaging Guide
+[[packaging]]
+= Packaging
 
-// FIXME CONDITIONALS
-This tutorial explains packaging RPMs for the Red Hat family of Linux
-distributions, primarily:
+// FIXME CONDITIONALS - done
+
+ifdef::community[]
+This tutorial explains packaging RPMs for the Red Hat family of Linux distributions, primarily:
 
 *   https://getfedora.org/[Fedora]
 *   https://www.centos.org/[CentOS]
 *   https://www.redhat.com/en/technologies/linux-platforms[Red Hat Enterprise Linux] (often called https://www.redhat.com/en/technologies/linux-platforms[RHEL] for short)
+endif::community[]
 
+ifdef::rhel[]
+This tutorial explains packaging RPMs for the Red Hat family of Linux distributions, primarily https://www.redhat.com/en/technologies/linux-platforms[Red Hat Enterprise Linux] (often called https://www.redhat.com/en/technologies/linux-platforms[RHEL] for short).
+endif::rhel[]
+
+// FIXME CONDITIONALS-done
+ifdef::community[]
 These distributions use the http://rpm.org/[RPM] Packaging Format.
 
-// FIXME CONDITIONALS
-While these distributions are the target environment, this guide is probably
-applicable to all
-https://en.wikipedia.org/wiki/List_of_Linux_distributions#RPM-based[RPM based]
-distributions. However, the instructions need to be adapted for
-distribution-specific features, such as prerequisite installation items,
+While these distributions are the target environment, this guide is mostly applicable to all https://en.wikipedia.org/wiki/List_of_Linux_distributions#RPM-based[RPM based] distributions. However, the instructions need to be adapted for distribution-specific features, such as prerequisite installation items,
 guidelines, or macros.
+endif::community[]
 
-This tutorial assumes no previous knowledge about packaging software for any
-Operating System, Linux or otherwise.
+ifdef::rhel[]
+RHEL uses the http://rpm.org/[RPM] Packaging Format.
 
+While RHEL is the target environment, this guide is mostly applicable to all https://en.wikipedia.org/wiki/List_of_Linux_distributions#RPM-based[RPM based] distributions. However, the instructions need to be adapted for distribution-specific features, such as prerequisite installation items, guidelines, or macros.
+endif::rhel[]
+
+This tutorial assumes no previous knowledge about packaging software for any Operating System, Linux or otherwise.
+
+ifdef::community[]
 NOTE: If you do not know what a software package or a GNU/Linux distribution is,
 consider exploring some articles on the topics of
 https://en.wikipedia.org/wiki/Linux[Linux] and
 https://en.wikipedia.org/wiki/Package_manager[Package Managers].
-// FIXME MOVE THIS NOTE?
-// FIXME CONDITIONAL: MAKE THIS NOTE ONLY IN UPSTREAM VERSION
+endif::community[]
+
+// FIXME MOVE THIS NOTE? - done? - this note only for upstream version
+// FIXME CONDITIONAL: MAKE THIS NOTE ONLY IN UPSTREAM VERSION -done
 
 [[rpm-packages]]
 == RPM Packages
@@ -139,10 +151,12 @@ release of the package. Reset to 1 when a new ``Version`` of the software is
 built.
 | ``Summary`` | A brief, one-line summary of the package.
 | ``License`` | The license of the software being packaged.
-// FIXME DELETE? OR USE CONDITIONALS?
+// FIXME DELETE? OR USE CONDITIONALS? - conditionals used, done
+ifdef::community[]
 For packages distributed in community distributions such as
 https://getfedora.org/[Fedora] this must be an open source license abiding by
 the specific distribution’s licensing guidelines.
+endif::community[]
 | ``URL`` | The full URL for more information about the program. Most
 often this is the upstream project website for the software being packaged.
 | ``Source0`` | Path or URL to the compressed archive of the upstream source
@@ -214,8 +228,8 @@ This usually means copying files from ``~/rpmbuild/BUILD`` to
 ``~/rpmbuild/BUILDROOT`` and creating the necessary directories in
 ``~/rpmbuild/BUILDROOT``.
 This is only run when creating a package, not when the end-user installs the
-package. See LINK
-// FIXME LINK TO FURTHER SECTION
+package. See <<rpm-guide.adoc#working-with-spec-files>>
+// FIXME LINK TO FURTHER SECTION - done, it that the right link (the right section?)
 for details.
 | ``%check`` | Command or series of commands to test the software. This normally
 includes things such as unit tests.
@@ -252,7 +266,7 @@ extracted in the root directory, preserving the correct hierarchy.
 [[rpm-macros]]
 === RPM Macros
 
-// FIXME TOO COMPLEX, UNTANGLE
+// FIXME TOO COMPLEX, UNTANGLE - consult with Max, What this means is that.... ? This sentence is not well understanddable on my opinion.
 A http://rpm.org/wiki/PackagerDocs/Macros[rpm macro] is a straight text
 substitution that can be conditionally assigned based on the optional evaluation
 of a statement when certain built-in functionality is used. What this means is
@@ -293,6 +307,7 @@ signals which distribution is used for the build.
 
 For example:
 
+ifdef::community[]
 [source,bash]
 ----
 # On a RHEL 7.x machine
@@ -304,6 +319,19 @@ $ rpm --eval %{?dist}
 .fc23
 
 ----
+endif::community[]
+
+ifdef::rhel[]
+[source,bash]
+----
+# On a RHEL 7.x machine
+$ rpm --eval %{?dist}
+.el7
+
+----
+endif::rhel[]
+
+
 
 For more information on macros, see <<appendix.adoc#more-on-macros>>.
 
@@ -359,31 +387,34 @@ Examine the files. The directives in them represent the ones described in the
 <<what-is-a-spec-file>> section. In the following sections, you will populate
 these SPEC files.
 
+ifdef::community[]
 [NOTE]
 ====
-// FIXME MOVE THIS NOTE?
-
-The ``rpmdev-newspec`` utility does not use guidelines or conventions specific
-to any particular Linux distribution. However, this document targets
-// FIXME CONDITIONAL
+The ``rpmdev-newspec`` utility does not use guidelines or conventions specific to any particular Linux distribution. However, this document targets
 Fedora, CentOS, and RHEL, so you will notice that:
 
-* We remove the use of ``rm $RPM_BUILD_ROOT``, because it is unnecessary to
-perform that task when building on
-https://www.redhat.com/en/technologies/linux-platforms[RHEL] or _CentOS_ 7.0 or
-newer or on https://getfedora.org/[Fedora] version 18 or newer.
-// FIXME CONDITIONAL
-* We favor the use of ``%{buildroot}`` notation over
-``$RPM_BUILD_ROOT`` when referencing RPM’s Buildroot for consistency with
-all other defined or provided macros throughout the SPEC file.
+* Use ``rm $RPM_BUILD_ROOT``when building on _CentOS_ (versions previous to 7.0) or on https://getfedora.org/[Fedora] (versions previous to 18).
+
+* We favor the use of ``%{buildroot}`` notation over ``$RPM_BUILD_ROOT`` when referencing RPM’s Buildroot for consistency with all other defined or provided macros throughout the SPEC file.
 
 ====
+endif::community[]
+
+ifdef::rhel[]
+[NOTE]
+====
+The ``rpmdev-newspec`` utility does not use guidelines or conventions specific to any particular Linux distribution. However, this document targets RHEL, so you will notice that:
+
+* We favor the use of ``%{buildroot}`` notation over ``$RPM_BUILD_ROOT`` when referencing RPM’s Buildroot for consistency with all other defined or provided macros throughout the SPEC file.
+
+====
+endif::rhel[]
 
 There are three examples below. Each one is fully described, so you can go to
 a specific one if it matches your packaging needs. Or, read them all to fully
 explore packaging different kinds of software.
 
-// FIXME TURN TABLE INTO A LIST?
+// FIXME TURN TABLE INTO A LIST? - why?, the table is perfectly clear/well-arranged according to me.
 [cols="15%,85%"]
 |====
 | Software Name | Explanation of example
@@ -462,8 +493,8 @@ source code, ``0.1``.
 ``1``. Increment the initial value whenever updating the package without a
 change in the upstream release ``Version`` - such as when including a patch.
 Reset ``Release`` to ``1`` when a new upstream release happens, for example, if
-bello version ``0.2`` is released. The __disttag__ macro is covered in LINK.
-// FIXME LINK TO PART ABOUT MACROS
+bello version ``0.2`` is released. The __disttag__ macro is covered in <<rpm-guide.adoc#rpm-macros>>.
+// FIXME LINK TO PART ABOUT MACROS - done, but it that the right link? (there is not anything about disttag in the chapter RPM macros)
 +
 .. The ``Summary`` is a short, one-line explanation of what this software is.
 +
@@ -485,9 +516,12 @@ Summary:        Hello World example implemented in bash script
 https://en.wikipedia.org/wiki/Software_license[Software License] associated with
 the source code from the upstream release. Follow this format for the
 ``License`` field:
-// FIXME CONDITIONALS
+// FIXME CONDITIONALS - done
+
+ifdef::community[]
 https://fedoraproject.org/wiki/Licensing:Main[Fedora License Guidelines]
-// FIXME LINK FOR RHEL GUIDELINES?
+endif::community[]
+// FIXME LINK FOR RHEL GUIDELINES? - consult with Max where to find the link
 https://example.com[RHEL License Guidelines]
 . For example, use ``GPLv3+``.
 +
@@ -600,12 +634,8 @@ their full path location on the end user's system. Therefore, the listing for
 the ``bello`` file we are installing is ``/usr/bin/bello``, or, with RPM Macros,
 ``%{_bindir}/%{name}``.
 +
-Also within this section, you will sometimes need a built-in macro to provide
-context on a file. This can be useful for Systems Administrators and end users
-who might want to query the system with ``rpm`` about the resulting package.
-The built-in macro we will use here is ``%license`` which will tell ``rpmbuild``
-that this is a software license file in the package file manifest metadata.
-// FIXME WHAT DOES THIS MEAN?? FIND OUT & REWRITE
+Within this section, you can indicate the role of various files using built-in macros. This is useful for querying the package file manifest metadata using the rpm command. For example, to indicate that the LICENSE file is a software license file, we use the %license macro.
+// FIXME ASK DEVEL FOR AN RPM QUERY EXAMPLE
 +
 After your edits, the ``%files`` section looks like this:
 +
@@ -692,7 +722,7 @@ install -m 0755 %{name} %{buildroot}/%{_bindir}/%{name}
 
 [[pello-working-with-spec-files]]
 ==== pello
-// FIXME REWRITE PELLO EXAMPLE SIMILAR TO BELLO ABOVE
+// FIXME REWRITE PELLO EXAMPLE SIMILAR TO BELLO ABOVE - TBD
 
 Our second SPEC file will be for our example written in the https://www.python.org/[Python]
 programming language that  you downloaded (or you created a simulated upstream
@@ -801,12 +831,22 @@ Summary:        Hello World example implemented in Python
 Now, let’s move on to the second set of directives that ``rpmdev-newspec`` has
 grouped together in our SPEC file: ``License``, ``URL``, ``Source0``.
 
+ifdef::community[]
 The ``License`` field is the https://en.wikipedia.org/wiki/Software_license[Software License] associated with the source code
 from the upstream release. The exact format for how to label the License in your
 SPEC file will vary depending on which specific RPM based https://en.wikipedia.org/wiki/Linux[Linux] distribution
 guidelines you are following, we will use the notation standards in the https://fedoraproject.org/wiki/Licensing:Main[Fedora
 License Guidelines] for this document and as such this field will contain the
 text ``GPLv3+``
+endif::community[]
+
+ifdef::rhel[]
+The ``License`` field is the Software License associated with the source code
+from the upstream release. The exact format for how to label the License in your
+SPEC file will vary depending on which specific RPM based Linux distribution
+guidelines you are following.
+endif::rhel[]
+
 
 The ``URL`` field is the upstream software’s website, not the source code
 download link but the actual project, product, or company website where someone
@@ -1396,18 +1436,25 @@ instructions also confirmed to the required structure.
 [[source-rpms]]
 === Source RPMs
 
-Why build a Source RPM?
+Why build a Source RPM (SRPM)?
 
 . To preserve the exact source of a certain Name-Version-Release of the RPM that
 was deployed to an environment. This includes the exact SPEC file, the source
 code, and all relevant patches. This is useful for looking back in history and
 for debugging.
+ifdef::community[]
 . To be able to build a binary RPM on a different hardware platform or
 https://en.wikipedia.org/wiki/Microarchitecture[architecture].
-// FIXME CONDITIONALS
+endif::community[]
 
-//FIXME FIX STRUCTURE, HERE SHOULD BE A BRIDGEHEAD OR SOMETHING
-To create a source RPM:
+ifdef::rhel[]
+. To be able to build a binary RPM on a different hardware platform or architecture.
+endif::rhel[]
+// FIXME CONDITIONALS - conditional because of wikipedie, done
+//FIXME FIX STRUCTURE, HERE SHOULD BE A BRIDGEHEAD OR SOMETHING -done
+
+[[create-source-rpms]]
+==== To create a SRPM:
 
   ~]$ rpmbuild -bs SPECFILE
 
@@ -1434,7 +1481,7 @@ Wrote: /home/admiller/rpmbuild/SRPMS/cello-1.0-1.el7.src.rpm
 Note that SRPMs were placed into the ``rpmbuild/SRPMS`` directory, which is part
 of the structure expected by ``rpmbuild``.
 
-This is all there is to building a Source RPM.
+This is all there is to building a SRPM.
 
 [[binary-rpms]]
 === Binary RPMS
@@ -1445,9 +1492,9 @@ There are two methods for building Binary RPMs:
 . Rebuilding it from a SRPM using the ``rpmbuild --rebuild`` command.
 
 [[rebuild]]
-==== Rebuilding from a SRPM
+==== Rebuilding from a Source RPM
 
-To rebuild ``bello``, ``pello``, and ``cello`` from SRPMs, run:
+To rebuild ``bello``, ``pello``, and ``cello`` from Source RPMs (SRPMs), run:
 
 [source,bash]
 ----
@@ -1528,7 +1575,7 @@ After creating a package, it is good to check its quality. Quality of the
 package, not of the software delivered within it. The main tool for this is
 https://github.com/rpm-software-management/rpmlint[rpmlint]. It improves RPM
 maintainability and enables sanity and error checking by performing static
-analysis of the RPM. This utility can check Binary RPMs, Source RPMs, and SPEC
+analysis of the RPM. This utility can check Binary RPMs, Source RPMs (SRPMs), and SPEC
 files, so is useful for all stages of packaging, as shown in the following
 examples.
 
@@ -1540,8 +1587,8 @@ NOTE: In the examples, we run ``rpmlint`` without any options, which produces
 non-verbose output. For detailed explanations of each Error or Warning, run
 ``rpmlint -i`` instead.
 
-[[bello-checking-rpms-for-sanity]]
-=== bello
+[[checking-bello-spec-file]]
+=== Checking the bello SPEC File
 
 This is the output of running ``rpmlint`` on the SPEC file for ``bello``:
 
@@ -1573,7 +1620,10 @@ Observations:
 
 * For the ``bello`` SRPM there is a new warning, which says that the URL specified in the ``URL`` directive is unreachable. Assuming the link will be working in the future, we can ignore this warning.
 
-// FIXME ADD HEADING HERE?
+// FIXME ADD HEADING HERE? -done
+
+[[checking-bello-binary-rpm]]
+=== Checking the bello Binary RPM
 
 When checking Binary RPMs, ``rpmlint`` checks for more things, including:
 
@@ -1600,8 +1650,8 @@ the RPM has no documentation or manual pages, because we did not provide any.
 
 Apart from the above warnings, our RPM is passing ``rpmlint`` checks.
 
-[[pello-checking-rpms-for-sanity]]
-=== pello
+[[checking-pello-spec-file]]
+=== Checking the pello SPEC File
 
 This is the output of running ``rpmlint`` on the SPEC file for ``pello``:
 
@@ -1653,7 +1703,10 @@ Observations:
 is unreachable. Assuming that we expect the URL to become valid in the future,
 we can ignore this error.
 
-// FIXME ADD HEADING HERE?
+// FIXME ADD HEADING HERE?  - heading for one sentence?, consult with MAX
+
+[[checking-pello-binary-rpm]]
+=== Checking the pello Binary RPM
 
 When checking Binary RPMs, ``rpmlint`` checks for more things, including:
 
@@ -1698,8 +1751,8 @@ without execute permissions and ignore this error.
 
 Apart from the above warnings and errors, our RPM is passing ``rpmlint`` checks.
 
-[[cello-checking-rpms-for-sanity]]
-=== cello
+[[checking-cello-spec-file]]
+=== Checking the cello SPEC File
 
 This is the output of running ``rpmlint`` on the SPEC file for ``cello``:
 
@@ -1735,6 +1788,9 @@ Observations:
 specified in the ``URL`` directive is unreachable. Assuming the link will be
 working in the future, we can ignore this warning.
 
+[[checking-cello-binary-rpm]]
+=== Checking the cello Binary RPM
+
 When checking Binary RPMs, ``rpmlint`` checks for more things, including:
 
 . documentation
@@ -1762,8 +1818,7 @@ the RPM has no documentation or manual pages, because we did not provide any.
 
 Apart from the above warnings and errors, our RPM is passing ``rpmlint`` checks.
 
-// FIXME ADD HEADING
-
+// FIXME ADD HEADING - heading for one sentence?, consult with MAX
 Our RPMs are now ready and checked with ``rpmlint``. This concludes the
 tutorial. For more information on packaging RPMs, proceed to
 <<appendix.adoc#appendix>>.

@@ -6,6 +6,7 @@ likely prove to helpful for anyone who is going to be building RPMs in an
 serious capacity but isn’t necessarily a hard requirement to learn how to
 package RPMs in the first place which is what the main goal of this document is.
 
+ifdef::community[]
 [[mock]]
 == Mock
 
@@ -208,7 +209,9 @@ omitted after you have done an ``--init`` on a mock target, such as
 required packages, cache them, and pre-stage the build chroot.
 
 For more information, please consult the https://fedoraproject.org/wiki/Mock[Mock] upstream documentation.
+endif::community[]
 
+ifdef::community[]
 [[version-control-systems]]
 == Version Control Systems
 
@@ -363,6 +366,7 @@ There is also a helper command line tool to assist in this.
 In an effort to not duplicate documentation, for more information on how to
 setup a system such as this please refer to the upstream https://github.com/release-engineering/dist-git[dist-git] docs.
 upstream docs.
+endif::community[]
 
 [[more-on-macros]]
 == More on Macros
@@ -371,11 +375,17 @@ There are many built-in RPM Macros and we will cover a few in the following
 section, however an exhaustive list can be found rpm.org’s http://rpm.org/wiki/PackagerDocs/Macros[rpm macro] official
 documentation.
 
+ifdef::community[]
 There are also macros that are provided by your https://en.wikipedia.org/wiki/Linux[Linux] Distribution, we will
 cover some of those provided by https://getfedora.org/[Fedora], https://www.centos.org/[CentOS] and https://www.redhat.com/en/technologies/linux-platforms[RHEL] in this section
 as well as provide information on how to inspect your system to learn about
 others that we don’t cover or for discovering them on other RPM-based https://en.wikipedia.org/wiki/Linux[Linux]
 Distributions.
+endif::community[]
+
+ifdef::rhel[]
+There are also macros that are provided by Red Hat Enterprise Linux, some of which we cover in this section. We also see how to inspect your system to learn about other macros.
+endif::rhel[]
 
 [[defining-your-own]]
 === Defining Your Own
@@ -456,19 +466,37 @@ Different distributions will supply different sets of recommended RPM Macros
 based on the language implementation of the software being packaged or the
 specific Guidelines of the distribution in question.
 
+ifdef::community[]
 These are often provided as RPM Packages themselves and can be installed with
 the distribution package manager, such as http://yum.baseurl.org/[yum] or https://github.com/rpm-software-management/dnf[dnf]. The macro files
 themselves once installed can be found in ``/usr/lib/rpm/macros.d/`` and will be
 included in the ``rpm --showrc`` output by default once installed.
+endif::community[]
+
+ifdef::rhel[]
+These are often provided as RPM Packages themselves and can be installed with
+the distribution package manager, such as http://yum.baseurl.org/[yum]. The macro files
+themselves once installed can be found in ``/usr/lib/rpm/macros.d/`` and will be
+included in the ``rpm --showrc`` output by default once installed.
+endif::rhel[]
 
 One primary example of this is the https://fedoraproject.org/wiki/Packaging:Guidelines?rd=Packaging/Guidelines[Fedora Packaging Guidelines] section
 pertaining specifically to https://fedoraproject.org/wiki/Packaging:Guidelines#Application_Specific_Guidelines[Application Specific Guidelines] which at the time
 of this writing has over 30 different sets of guidelines along with associated
 RPM Macro sets for subject matter specific RPM Packaging.
 
-One example of these kinds of RPMs would be for https://www.python.org/[Python] version 2.x and if we
+ifdef::community[]
+One example of this kind of RPMs would be for https://www.python.org/[Python] version 2.x and if we
 have the ``python2-rpm-macros`` package installed (available in EPEL for RHEL
 7 and CentOS 7), we have a number of python2 specific macros available to us.
+endif::community[]
+
+ifdef::rhel[]
+One example of this kind of RPMs would be for https://www.python.org/[Python] version 2.x and if we
+have the ``python2-rpm-macros`` package installed (available in EPEL for RHEL
+7), we have a number of python2 specific macros available to us.
+endif::rhel[]
+
 
 [source,bash]
 ----
@@ -669,9 +697,133 @@ all-%posttrans
 
 ----
 
+ifdef::community[]
 The above items are from the included RPM documentation found in
 ``/usr/share/doc/rpm/triggers`` on Fedora systems and
 ``/usr/share/doc/rpm-4.*/triggers`` on RHEL 7 and CentOS 7 systems.
+endif::community[]
+
+ifdef::rhel[]
+The above items are from the included RPM documentation found in
+``/usr/share/doc/rpm-4.*/triggers``.
+endif::rhel[]
+
+
+
+[[rpm-conditionals]]
+=== RPM Conditionals
+
+RPM Conditionals enable the conditional inclusion of various sections of the SPEC file.
+
+Most commonly, conditional inclusions deal with:
+
+* architecture-specific sections
+* operating system-specific sections
+* compatibility issues between various versions of operating systems
+* existence and definition of macros
+
+==== RPM Conditionals Syntax
+
+If _expression_ is true, then do some action.
+
+  %if expression
+  ...
+  %endif
+
+If _expression_ is true, then do some action, in other case, do another action.
+
+  %if expression
+  ...
+  %else
+  ...
+  %endif
+
+// If _expression_ is not true, then do some action.
+
+//  %if !expression
+//   ...
+//   %endif
+
+// If _expression_ is not true, then do some action, in other case, do another action.
+
+//  %if !expression
+//  ...
+//  %else
+//  ...
+//  %endif
+
+==== RPM Conditionals Examples
+
+===== The %if Conditional
+
+  %if 0%{?rhel} == 6
+  sed -i '/AS_FUNCTION_DESCRIBE/ s/^/#/' configure.in
+  sed -i '/AS_FUNCTION_DESCRIBE/ s/^/#/' acinclude.m4
+  %endif
+
+This conditional handles compatibility between RHEL6 and other operating systems in terms of support of the AS_FUNCTION_DESCRIBE macro. When the package is build for RHEL, the %rhel macro is defined and it is expanded to RHEL version. If its value is 6, meaning the package is build for RHEL 6, then the references to AS_FUNCTION_DESCRIBE, which is not supported by RHEL6, are deleted from autoconfig scripts.
+
+ifdef::community[]
+  %if 0%{?el6}
+  %global ruby_sitearch %(ruby -rrbconfig -e 'puts Config::CONFIG["sitearchdir"]')
+  %endif
+
+This conditional handles compatibility between Fedora version 17 and newer and RHEL6 in terms of support of the %ruby_sitearch macro. Fedora version 17 and newer defines %ruby_sitearch by default, but RHEL6 does not support this macro. The conditional checks whether the operating system is RHEL6. If it is, %ruby_sitearch is defined explicitly. Note that ``0%{?el6}`` has the same meaning as ``0%{?rhel} == 6`` from the previous example, and it tests whether a package is built on RHEL6.
+endif::community[]
+
+ifdef::community[]
+  %if 0%{?fedora} >= 19
+  %global with_rubypick 1
+  %endif
+
+This conditional handles support for the rubypick tool. If the operating system is Fedora version 19 or newer, rubypick is supported.
+endif::community[]
+
+  %define ruby_archive %{name}-%{ruby_version}
+  %if 0%{?milestone:1}%{?revision:1} != 0
+  %define ruby_archive %{ruby_archive}-%{?milestone}%{?!milestone:%{?revision:r%{revision}}}
+  %endif
+
+This conditional handles definition of the macros. If the %milestone or ​the %revision macros are set, the %ruby_archive macro, which defines the name of the upstream tarball, is redefined.
+
+
+===== Specialized variants of %if Conditional
+
+The %ifarch conditional, %ifnarch conditional and %ifos conditional are specialized variants of the %if conditionals. These variants are commonly used, so they have their own macros.
+
+====== The %ifarch Conditional
+
+The %ifarch conditional is used to begin a block of the SPEC file that is architecture-specific. It is followed by one or more architecture specifiers, each separated by commas or whitespace.
+
+  %ifarch i386 sparc
+  ...
+  %endif
+
+All the contents of the SPEC file  between %ifarch and %endif are processed only on the 32-bit AMD and Intel architectures or Sun SPARC-based systems.
+
+
+====== The %ifnarch Conditional
+
+The %ifnarch conditional has a reverse logic than %ifarch conditional.
+
+  %ifnarch alpha
+  ...
+  %endif
+
+All the contents of the SPEC file between %ifnarch and %endif are processed only if not being done on a Digital Alpha/AXP-based system.
+
+
+
+====== The %ifos Conditional
+
+The %ifos conditional is used to control processing based on the operating system of the build. It can be followed by one or more operating system names.
+
+  %ifos linux
+  ...
+  %endif
+
+All the contents of the SPEC file between %ifos and %endif are processed only if the build was done on a Linux system.
+
 
 [[references]]
 == References
@@ -682,7 +834,9 @@ introductory material included in this guide.
 
 *   http://rpm.org/wiki/Docs[RPM Official Documentation]
 *   https://www.gurulabs.com/media/files/courseware-samples/GURULABS-RPM-GUIDE-v1.0.PDF[Gurulabs CREATING RPMS (Student Version)]
+ifdef::community[]
 *   https://fedoraproject.org/wiki/How_to_create_an_RPM_package[Fedora How To Create An RPM Package Guide]
+endif::community[]
 *   https://fedoraproject.org/wiki/Packaging:Guidelines?rd=Packaging/Guidelines[Fedora Packaging Guidelines]
 *   https://en.opensuse.org/openSUSE:Packaging_guidelines[OpenSUSE Packaging Guidelines]
 *   IBM RPM Packaging Guide: http://www.ibm.com/developerworks/library/l-rpm1/[Part 1], http://www.ibm.com/developerworks/library/l-rpm2/[Part 2], http://www.ibm.com/developerworks/library/l-rpm3/[Part 3]

@@ -1,15 +1,13 @@
-= RPM Packaging Guide
-
-[[abstract]]
-== Abstract
+[[introduction]]
+== Introduction
 
 // FIXME RENAME "General Topics and Background" TO "Preparing Source Code for Packaging" ?
 
-// FIXME MOVE "ABSTRACT", "DOCUMENT CONVENTIONS", "PREREQUISITES", AND "CONTRIBUTING TO THIS GUIDE" TO SEPARATE FILES
-// FIXME ADD "LEGAL NOTICE" BEFORE THE ABSTRACT
+// FIXME MOVE "ABSTRACT", "DOCUMENT CONVENTIONS", "PREREQUISITES", AND "CONTRIBUTING TO THIS GUIDE" TO A SEPARATE FILE - done (introduction.adoc)
+// FIXME ADD "LEGAL NOTICE" BEFORE THE ABSTRACT - added, add the text of the legal notice
 
 // FIXME WHOLE GUIDE: MAKE MARKUP CONSISTENT, ESPECIALLY FOR TERMS
-// FIXME WHOLE GUIDE: MAKE TONE AND POINT OF VIEW CONSISTENT ("WE" VERSUS "YOU" AND SIMILAR)
+// FIXME WHOLE GUIDE: MAKE TONE AND POINT OF VIEW CONSISTENT ("WE" VERSUS "YOU" AND SIMILAR) - We - in tutorial part, you - elsewhere?
 // FIXME WHOLE GUIDE: MAKE TERMS SPELLED CONSISTENTLY: RPM Packager, RPM Package, Binary RPM, Source RPM, AND SO ON
 
 // FIXME WHOLE GUIDE: MAKE SECTION NAMES MORE SPECIFIC
@@ -24,7 +22,7 @@ The RPM Packaging Guide documents:
 * How to package source code into an RPM. This is for software developers who need to package software into RPMs. See <<rpm-guide.adoc#rpm-packaging-guide>>.
 * Advanced packaging scenarios. This is for RPM packagers dealing with advanced RPM Packaging scenarios. See <<appendix.adoc#appendix>>.
 
-// FIXME MAYBE MOVE THIS PARAGRAPH FROM THE ABSTRACT TO INTRODUCTION?
+// FIXME MAYBE MOVE THIS PARAGRAPH FROM THE ABSTRACT TO INTRODUCTION? -done
 The <<general-background.adoc#general-topics-and-background>> is a tutorial that
 prepares people with no experience in software development to RPM Packaging. The
 <<rpm-guide.adoc#rpm-packaging-guide>> is a tutorial that guides through basic
@@ -71,9 +69,11 @@ print("Hello World")
 ----
 
 Topics of interest or vocabulary terms are referred to either as URLs to their
-respective documentation or website, in **bold**, or in __italics__. The first
-occurences of some terms link to their respective documentation.
-// FIXME LAST SENTENCE ONLY IN UPSTREAM VERSION
+respective documentation or website, in **bold**, or in __italics__.
+ifdef::community[]
+The first occurrences of some terms link to their respective documentation.
+endif::community[]
+// FIXME LAST SENTENCE ONLY IN UPSTREAM VERSION - done
 
 Names of utilities, commands, and things normally found in code are written in
 ``monospace`` font.
@@ -83,19 +83,28 @@ Names of utilities, commands, and things normally found in code are written in
 
 To follow this tutorial, you need these packages installed:
 
-NOTE: Some of these packages are installed by default on Fedora, RHEL, and
-CentOS. They are listed explicitly to show which tools are used in this guide.
-// FIXME CONDITIONALS
+ifdef::community[]
+NOTE: Some of these packages are installed by default on https://getfedora.org/[Fedora], https://www.centos.org/[CentOS] and https://www.redhat.com/en/technologies/linux-platforms[RHEL]. They are listed explicitly to show which tools are used in this guide.
+endif::community[]
 
-*   For https://getfedora.org/[Fedora]:
+ifdef::rhel[]
+NOTE: Some of these packages are installed by default on https://www.redhat.com/en/technologies/linux-platforms[RHEL]. They are listed explicitly to show which tools are used in this guide.
+endif::rhel[]
+
+ifdef::community[]
 
 [source,bash]
 ----
 $ dnf install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools
 
-----
+$ yum install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools
 
-*   For https://www.redhat.com/en/technologies/linux-platforms[RHEL] or https://www.centos.org/[CentOS] (this guide assumes version 7.x of either):
+----
+endif::community[]
+
+// FIXME - pozor - v komunitní verzi je i RHEL - tj. mělo by tu být dnf a yum také!!!!
+
+ifdef::rhel[]
 
 [source,bash]
 ----
@@ -103,16 +112,4 @@ $ yum install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffuti
 
 ----
 
-// FIXME CONDITIONALS
-
-[[contributing-to-this-guide]]
-== Contributing to this guide
-// FIXME THIS SECTION ONLY FOR UPSTREAM?
-
-You can contribute to this guide by submitting an issue or a pull request on
-https://github.com/redhat-developer/rpm-packaging-guide[the GitHub repository].
-
-Both forms of contribution are greatly appreciated and welcome.
-
-Feel free to file an issue ticket with feedback, submit a pull request
-https://github.com/redhat-developer/rpm-packaging-guide[on GitHub], or both!
+endif::rhel[]
