@@ -486,13 +486,13 @@ of this writing has over 30 different sets of guidelines along with associated
 RPM Macro sets for subject matter specific RPM Packaging.
 
 ifdef::community[]
-One example of these kinds of RPMs would be for https://www.python.org/[Python] version 2.x and if we
+One example of this kind of RPMs would be for https://www.python.org/[Python] version 2.x and if we
 have the ``python2-rpm-macros`` package installed (available in EPEL for RHEL
 7 and CentOS 7), we have a number of python2 specific macros available to us.
 endif::community[]
 
 ifdef::rhel[]
-One example of these kinds of RPMs would be for https://www.python.org/[Python] version 2.x and if we
+One example of this kind of RPMs would be for https://www.python.org/[Python] version 2.x and if we
 have the ``python2-rpm-macros`` package installed (available in EPEL for RHEL
 7), we have a number of python2 specific macros available to us.
 endif::rhel[]
@@ -721,17 +721,16 @@ Most commonly, conditional inclusions deal with:
 * operating system-specific sections
 * compatibility issues between various versions of operating systems
 * existence and definition of macros
-* ... 
 
 ==== RPM Conditionals Syntax
 
-If an _expression_ is true, then do some action.
+If _expression_ is true, then do some action.
 
   %if expression 
   ...
   %endif 
   
-If an _expression_ is true, then do some action, in other case, do another action.
+If _expression_ is true, then do some action, in other case, do another action.
 
   %if expression
   ... 
@@ -739,20 +738,20 @@ If an _expression_ is true, then do some action, in other case, do another actio
   ...
   %endif
 
-// If an _expression_ is not true, then do some action.
+// If _expression_ is not true, then do some action.
 
 //  %if !expression
 //   ...
 //   %endif
 
-// If a _expression_ is not true, then do some action, in other case, do another action.
+// If _expression_ is not true, then do some action, in other case, do another action.
 
 //  %if !expression
 //  ...
 //  %else
 //  ...
 //  %endif
-  
+
 ==== RPM Conditionals Examples
 
 ===== The %if Conditional
@@ -761,8 +760,8 @@ If an _expression_ is true, then do some action, in other case, do another actio
   sed -i '/AS_FUNCTION_DESCRIBE/ s/^/#/' configure.in
   sed -i '/AS_FUNCTION_DESCRIBE/ s/^/#/' acinclude.m4
   %endif
-  
-This conditional handles compatibility between RHEL6 and other operating systems in terms of support of the AS_FUNCTION_DESCRIBE macro. When the package is build for RHEL, the %rhel macro is defined and it is expanded to RHEL version. If its value is 6, i.e. the package is build for RHEL 6, then the references to AS_FUNCTION_DESCRIBE, which is not supported by RHEL6, are deleted from autoconfig scripts.
+
+This conditional handles compatibility between RHEL6 and other operating systems in terms of support of the AS_FUNCTION_DESCRIBE macro. When the package is build for RHEL, the %rhel macro is defined and it is expanded to RHEL version. If its value is 6, meaning the package is build for RHEL 6, then the references to AS_FUNCTION_DESCRIBE, which is not supported by RHEL6, are deleted from autoconfig scripts.
 
 ifdef::community[]
   %if 0%{?el6}
@@ -788,19 +787,19 @@ endif::community[]
 This conditional handles definition of the macros. If the %milestone or ​the %revision macros are set, the %ruby_archive macro, which defines the name of the upstream tarball, is redefined.
 
 
-===== Particular variants of %if Conditional
+===== Specialized variants of %if Conditional
 
-The %ifarch conditional, %ifnarch conditional and %ifos conditional are particular variants of the %if conditionals. These variants are commonly used, so they have their own macros.  
+The %ifarch conditional, %ifnarch conditional and %ifos conditional are specialized variants of the %if conditionals. These variants are commonly used, so they have their own macros.
 
 ====== The %ifarch Conditional
 
-The %ifarch conditional is used to begin a block of the SPEC file that is architecture-specific. It is followed by one or more architecture specifiers, each separated by commas or whitespace. 
+The %ifarch conditional is used to begin a block of the SPEC file that is architecture-specific. It is followed by one or more architecture specifiers, each separated by commas or whitespace.
 
   %ifarch i386 sparc
   ...
   %endif
-  
-All **the contents** of the SPEC file ** between %ifarch and %endif** are processed only on the 32-bit AMD and Intel architectures or Sun SPARC-based systems. 
+
+All the contents of the SPEC file  between %ifarch and %endif are processed only on the 32-bit AMD and Intel architectures or Sun SPARC-based systems.
 
 
 ====== The %ifnarch Conditional
@@ -811,19 +810,19 @@ The %ifnarch conditional has a reverse logic than %ifarch conditional.
   ...
   %endif
   
-All **the contents** of the SPEC file ** between %ifnarch and %endif** are processed only if not being done on a Digital Alpha/AXP-based system.
+All the contents of the SPEC file between %ifnarch and %endif are processed only if not being done on a Digital Alpha/AXP-based system.
   
 
 
-===== The %ifos Conditional
+====== The %ifos Conditional
 
-The %ifos conditional is used to control processing based on the operating system of the build. It can be followed by one or more operating system names. 
+The %ifos conditional is used to control processing based on the operating system of the build. It can be followed by one or more operating system names.
 
   %ifos linux
   ...
   %endif
 
-All **the contents** of the SPEC file **between %ifos and %endif** are processed only if the build was done on a Linux system. 
+All the contents of the SPEC file between %ifos and %endif are processed only if the build was done on a Linux system.
 
 
 [[references]]
