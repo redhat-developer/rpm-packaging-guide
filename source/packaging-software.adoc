@@ -24,7 +24,7 @@ guidelines, or macros.
 endif::community[]
 
 ifdef::rhel[]
-While RHEL is the target environment, this guide is mostly applicable to all https://en.wikipedia.org/wiki/List_of_Linux_distributions#RPM-based[RPM based] distributions. However, the instructions need to be adapted for distribution-specific features, such as prerequisite installation items, guidelines, or macros.
+While RHEL is the target environment, this guide is mostly applicable to all RPM based distributions. However, the instructions need to be adapted for distribution-specific features, such as prerequisite installation items, guidelines, or macros.
 endif::rhel[]
 
 This tutorial assumes no previous knowledge about packaging software for any Operating System, Linux or otherwise.
@@ -50,7 +50,9 @@ This section covers the basics of the RPM packaging format. See
 
 An RPM package is simply a file containing other files and information about
 them needed by the system. Specifically, an RPM package consists of the
-https://en.wikipedia.org/wiki/Cpio[cpio] archive, which contains the files, and
+ifdef::community[https://en.wikipedia.org/wiki/Cpio[cpio]]
+ifdef::rhel[cpio]
+archive, which contains the files, and
 the RPM header, which contains metadata about the package. The ``rpm`` package
 manager uses this metadata to determine dependencies, where to install files,
 and other information.
@@ -249,14 +251,18 @@ See the <<advanced-topics.adoc#advanced-topics>> for advanced topics.
 === BuildRoots
 
 In the context of RPM packaging, "buildroot" is a
-https://en.wikipedia.org/wiki/Chroot[chroot] environment. This means that the
+ifdef::community[https://en.wikipedia.org/wiki/Chroot[chroot]]
+ifdef::rhel[chroot]
+environment. This means that the
 build artifacts are placed here using the same filesystem hierarchy as will be
 in the end user's system, with "buildroot" acting as the root directory. The
 placement of build artifacts should comply with the filesystem hierarchy
 standard of the end user's system.
 
 The files in "buildroot" are later put into a
-https://en.wikipedia.org/wiki/Cpio[cpio] archive, which becomes the main part of
+ifdef::community[https://en.wikipedia.org/wiki/Cpio[cpio]]
+ifdef::rhel[cpio]
+archive, which becomes the main part of
 the RPM. When RPM is installed on the end user's system, these files are
 extracted in the root directory, preserving the correct hierarchy.
 
@@ -508,7 +514,9 @@ Summary:        Hello World example implemented in bash script
 . Populate the ``License``, ``URL``, and ``Source0`` directives:
 +
 * The ``License`` field is the
-https://en.wikipedia.org/wiki/Software_license[Software License] associated with
+ifdef::community[https://en.wikipedia.org/wiki/Software_license[Software License]]
+ifdef::rhel[Software License]
+associated with
 the source code from the upstream release. Follow this format for the
 ``License`` field:
 // FIXME CONDITIONALS - done
@@ -601,7 +609,10 @@ what was provided by the template and leave this section blank.
 +
 * The ``%install`` section contains instructions for ``rpmbuild`` on how to
 install the software, once it has been built, into the ``BUILDROOT`` directory.
-This directory is an empty https://en.wikipedia.org/wiki/Chroot[chroot] base
+This directory is an empty
+ifdef::community[https://en.wikipedia.org/wiki/Chroot[chroot]]
+ifdef::rhel[chroot]
+base
 directory, which resembles the end user's root directory. Here we should create
 any directories that will contain the installed files.
 +
@@ -726,7 +737,10 @@ and start filling in some fields.
 
 Before we start down this path, we need to address something somewhat unique
 about byte-compiled interpreted software. Since we we will be byte-compiling
-this program, the https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang] is no longer applicable because the resulting file
+this program, the
+ifdef::community[https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang]]
+ifdef::rhel[shebang]
+is no longer applicable because the resulting file
 will not contain the entry. It is common practice to either have a
 non-byte-compiled shell script that will call the executable or have a small
 bit of the https://www.python.org/[Python] code that isn’t byte-compiled as the “entry point” into
@@ -946,13 +960,18 @@ python -m compileall pello.py
 
 The ``%install`` section is where we instruct ``rpmbuild`` how to install our
 previously built software into the ``BUILDROOT`` which is effectively a
-https://en.wikipedia.org/wiki/Chroot[chroot] base directory with nothing in it and we will have to construct any
+ifdef::community[https://en.wikipedia.org/wiki/Chroot[chroot]]
+ifdef::rhel[chroot]
+base directory with nothing in it and we will have to construct any
 paths or directory hierarchies that we will need in order to install our
 software here in their specific locations. However, our RPM Macros help us
 accomplish this task without having to hardcode paths.
 
 We had previously discussed that since we will lose the context of a file with
-the https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang] line in it when we byte compile that we will need to create
+the
+ifdef::community[https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang]]
+ifdef::rhel[shebang]
+line in it when we byte compile that we will need to create
 a simple wrapper script in order to accomplish that task. There are many options
 on how to accomplish this including, but not limited to, making a separate
 script and using that as a separate ``SourceX`` directive and the option we’re
@@ -960,7 +979,10 @@ going to show in this example which is to create the file in-line in the SPEC
 file. The reason for showing the example option that we are is simply to
 demonstrate that the SPEC file itself is scriptable. What we’re going to do is
 create a small “wrapper script” which will execute the https://www.python.org/[Python] byte-compiled
-code by using a https://en.wikipedia.org/wiki/Here_document[here document]. We will also need to actually install the
+code by using a
+ifdef::community[https://en.wikipedia.org/wiki/Here_document[here document]]
+ifdef::rhel["here" document]
+. We will also need to actually install the
 byte-compiled file into a library directory on the system such that it can be
 accessed.
 
@@ -1105,7 +1127,10 @@ install -m 0644 %{name}.py* %{buildroot}/usr/lib/%{name}/
 ==== cello
 // FIXME REWRITE CELLO EXAMPLE SIMILAR TO BELLO ABOVE
 
-Our third SPEC file will be for our example written in the https://en.wikipedia.org/wiki/C_%28programming_language%29[C] programming
+Our third SPEC file will be for our example written in the
+ifdef::community[https://en.wikipedia.org/wiki/C_%28programming_language%29[C]]
+ifdef::rhel[C]
+programming
 language that we created a simulated upstream release of previously (or you
 downloaded) and placed it’s source code into ``~/rpmbuild/SOURCES/`` earlier.
 
@@ -1189,9 +1214,15 @@ we will add one to this grouping as it is closely related to the ``Source0`` and
 that is our ``Patch0`` which will list the first patch we need against our
 software.
 
-The ``License`` field is the https://en.wikipedia.org/wiki/Software_license[Software License] associated with the source code
+The ``License`` field is the
+ifdef::community[https://en.wikipedia.org/wiki/Software_license[Software License]]
+ifdef::rhel[Software License]
+associated with the source code
 from the upstream release. The exact format for how to label the License in your
-SPEC file will vary depending on which specific RPM based https://en.wikipedia.org/wiki/Linux[Linux] distribution
+SPEC file will vary depending on which specific RPM based
+ifdef::community[https://en.wikipedia.org/wiki/Linux[Linux]]
+ifdef::rhel[Linux]
+distribution
 guidelines you are following, we will use the notation standards in the https://fedoraproject.org/wiki/Licensing:Main[Fedora
 License Guidelines] for this document and as such this field will contain the
 text ``GPLv3+``
@@ -1245,7 +1276,10 @@ is what is needed by your package at **run** time.
 In this example we will need the ``gcc`` and ``make`` packages in order to
 perform the compilation build process. Runtime requirements are fortunately
 handled for us by rpmbuild because this program does not require anything
-outside of the core https://en.wikipedia.org/wiki/C_%28programming_language%29[C] standard libraries and we therefore will not need to
+outside of the core
+ifdef::community[https://en.wikipedia.org/wiki/C_%28programming_language%29[C]]
+ifdef::rhel[C]
+standard libraries and we therefore will not need to
 define anything by hand as a ``Requires`` and can omit that directive.
 
 After your edits, the top portion of your spec file should look like the
@@ -1284,10 +1318,15 @@ information provided in the source code that is necessary in a later portion of
 the SPEC. In this section we will simply use the provided macro ``%setup -q``.
 
 The ``%build`` section is where we tell the system how to actually build the
-software we are packaging. Since wrote a simple ``Makefile`` for our https://en.wikipedia.org/wiki/C_%28programming_language%29[C]
+software we are packaging. Since wrote a simple ``Makefile`` for our
+ifdef::community[https://en.wikipedia.org/wiki/C_%28programming_language%29[C]]
+ifdef::rhel[C]
 implementation, we can simply use the http://www.gnu.org/software/make/[GNU make] command provided by
 ``rpmdev-newspec``. However, we need to remove the call to ``%configure``
-because we did not provide a https://en.wikipedia.org/wiki/Configure_script[configure script]. The ``%build`` section of our
+because we did not provide a
+ifdef::community[https://en.wikipedia.org/wiki/Configure_script[configure script]]
+ifdef::rhel[configure script]
+The ``%build`` section of our
 SPEC file should look as follows.
 
 [source,specfile]
@@ -1299,7 +1338,9 @@ make %{?_smp_mflags}
 
 The ``%install`` section is where we instruct ``rpmbuild`` how to install our
 previously built software into the ``BUILDROOT`` which is effectively a
-https://en.wikipedia.org/wiki/Chroot[chroot] base directory with nothing in it and we will have to construct any
+ifdef::community[https://en.wikipedia.org/wiki/Chroot[chroot]]
+ifdef::rhel[chroot]
+base directory with nothing in it and we will have to construct any
 paths or directory hierarchies that we will need in order to install our
 software here in their specific locations. However, our RPM Macros help us
 accomplish this task without having to hardcode paths.
@@ -1509,7 +1550,10 @@ Now you have built RPMs. A few notes:
 for debugging. The output varies for different examples and corresponds to their
 SPEC files.
 * The resulting binary RPMs are in ``\~/rpmbuild/RPMS/YOURARCH`` where ``YOURARCH``
-is your https://en.wikipedia.org/wiki/Microarchitecture[architecture] or in
+is your
+ifdef::community[https://en.wikipedia.org/wiki/Microarchitecture[architecture]]
+ifdef::rhel[architecture]
+or in
 ``~/rpmbuild/RPMS/noarch/``, if the package is not architecture-specific.
 * Invoking ``rpmbuild --rebuild`` involves:
 +
@@ -1627,8 +1671,12 @@ Observations:
 When checking Binary RPMs, ``rpmlint`` checks for more things, including:
 
 . documentation
-. https://en.wikipedia.org/wiki/Man_page[manual pages]
-. consistent use of the https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy Standard].
+ifdef::community[. https://en.wikipedia.org/wiki/Man_page[manual pages]]
+ifdef::rhel[. manual pages]
+. consistent use of the
+ifdef::community[https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy Standard]]
+ifdef::rhel[Filesystem Hierarchy Standard]
+.
 
 This is the output of running ``rpmlint`` on the Binary RPM for ``bello``:
 
@@ -1710,8 +1758,11 @@ we can ignore this error.
 When checking Binary RPMs, ``rpmlint`` checks for more things, including:
 
 . documentation
-. https://en.wikipedia.org/wiki/Man_page[manual pages]
-. consistent use of the https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy Standard].
+ifdef::community[. https://en.wikipedia.org/wiki/Man_page[manual pages]]
+ifdef::rhel[. manual pages]
+. consistent use of the
+ifdef::community[. https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy Standard]]
+ifdef::rhel[. Filesystem Hierarchy Standard]
 
 This is the output of running ``rpmlint`` on the Binary RPM for ``pello``:
 
@@ -1737,14 +1788,17 @@ shared object files, which are binary files. Therefore, ``rpmlint`` expects at
 least one or more files in ``/usr/lib/`` to be binary.
 +
 This is an example of an ``rpmlint`` check for compliance with
-https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy
-Standard].
+ifdef::community[https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy Standard]]
+ifdef::rhel[Filesystem Hierarchy Standard]
+.
 +
 Normally, use rpm macros to ensure the correct placement of files. For the sake
 of this example, we can ignore this warning.
 * The ``non-executable-script`` error warns that the ``/usr/lib/pello/pello.py``
 file has no execute permissions. Since this file contains the
-https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang], ``rpmlint`` expects
+ifdef::community[https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang]]
+ifdef::rhel[shebang]
+, ``rpmlint`` expects
 the file to be executable. For the purpose of the example, leave this file
 without execute permissions and ignore this error.
 
@@ -1793,10 +1847,12 @@ working in the future, we can ignore this warning.
 When checking Binary RPMs, ``rpmlint`` checks for more things, including:
 
 . documentation
-. https://en.wikipedia.org/wiki/Man_page[manual pages]
+ifdef::community[. https://en.wikipedia.org/wiki/Man_page[manual pages]]
+ifdef::rhel[. manual pages]
 . consistent use of the
-https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy
-Standard].
+ifdef::community[https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy Standard]]
+ifdef::rhel[Filesystem Hierarchy Standard]
+.
 
 This is the output of running ``rpmlint`` on the Binary RPM for ``cello``:
 

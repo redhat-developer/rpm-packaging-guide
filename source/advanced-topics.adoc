@@ -377,7 +377,7 @@ ifdef::community[]
 There are also macros that are provided by your https://en.wikipedia.org/wiki/Linux[Linux] Distribution, we will
 cover some of those provided by https://getfedora.org/[Fedora], https://www.centos.org/[CentOS] and https://www.redhat.com/en/technologies/linux-platforms[RHEL] in this section
 as well as provide information on how to inspect your system to learn about
-others that we don’t cover or for discovering them on other RPM-based https://en.wikipedia.org/wiki/Linux[Linux]
+others that we don’t cover or for discovering them on other RPM-based Linux
 Distributions.
 endif::community[]
 
@@ -584,7 +584,10 @@ existing in systemd’s running configuration.
 
 There are a small handful of common scriptlet directives, they are similar to
 the “section headers” like ``%build`` or ``%install`` in that they are defined
-by multi-line segments of code, often written as standard https://en.wikipedia.org/wiki/POSIX[POSIX] shell script
+by multi-line segments of code, often written as standard
+ifdef::community[https://en.wikipedia.org/wiki/POSIX[POSIX]]
+ifdef::rhel[POSIX]
+shell script
 but can be a few different programming languages such that RPM for the target
 machine’s distribution is configured to allow them. An exhaustive list of these
 available languages can be found in the _RPM Official Documentation_.

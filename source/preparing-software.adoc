@@ -9,7 +9,9 @@ background for an RPM Packager.
 
 **Source code** is human-readable instructions to the computer, which describe
 how to perform a computation. Source code is expressed using a
-https://en.wikipedia.org/wiki/Programming_language[programming language].
+ifdef::community[https://en.wikipedia.org/wiki/Programming_language[programming language]]
+ifdef::rhel[programming language]
+.
 
 This tutorial features three versions of the ``Hello World`` program, each
 written in a different programming language. Programs written in these three
@@ -43,7 +45,10 @@ print("Hello World")
 
 ----
 
-``Hello World`` written in https://en.wikipedia.org/wiki/C_%28programming_language%29[C]:
+``Hello World`` written in
+ifdef::community[https://en.wikipedia.org/wiki/C_%28programming_language%29[C]]
+ifdef::rhel[C]
+:
 
 ``cello.c``
 
@@ -84,7 +89,9 @@ that compiles to machine code, with a resulting binary executable file. Such
 software can be run stand-alone.
 
 RPM packages built this way are
-https://en.wikipedia.org/wiki/Microarchitecture[architecture]-specific. This
+ifdef::community[https://en.wikipedia.org/wiki/Microarchitecture[architecture]]
+ifdef::rhel[architecture]
+-specific. This
 means that if you compile such software on a computer that uses a 64-bit
 (x86_64) AMD or Intel processor, it will not execute on a 32-bit (x86) AMD or
 Intel processor. The resulting package will have architecture specified in its
@@ -96,10 +103,15 @@ name.
 Some programming languages, such as https://www.gnu.org/software/bash/[bash] or
 https://www.python.org/[Python], do not compile to machine code. Instead, their
 programs' source code is executed step by step, without prior transformations,
-by a https://en.wikipedia.org/wiki/Interpreter_%28computing%29[Language
-Interpreter] or a Language Virtual Machine.
+by a
+ifdef::community[https://en.wikipedia.org/wiki/Interpreter_%28computing%29[Language Interpreter]]
+ifdef::rhel[Language Interpreter]
+or a Language Virtual Machine.
 
-Software written entirely in interpreted programming languages is not https://en.wikipedia.org/wiki/Microarchitecture[architecture]-specific. Hence, the resulting RPM Package will have string ``noarch`` in its name.
+Software written entirely in interpreted programming languages is not
+ifdef::community[https://en.wikipedia.org/wiki/Microarchitecture[architecture]]
+ifdef::rhel[architecture]
+-specific. Hence, the resulting RPM Package will have string ``noarch`` in its name.
 
 // There are two types of interpreted languages: byte-compiled and raw-interpreted. The program build process for these two types is different.
 
@@ -138,7 +150,9 @@ compiled into byte code, which is then executed by the language virtual machine.
 === Natively Compiled Code
 
 In this example, you will build the ``cello.c`` program written in the
-https://en.wikipedia.org/wiki/C_%28programming_language%29[C] language into an
+ifdef::community[https://en.wikipedia.org/wiki/C_%28programming_language%29[C]]
+ifdef::rhel[C]
+language into an
 executable.
 
 ``cello.c``
@@ -157,7 +171,10 @@ int main(void) {
 [[manual-building]]
 ==== Manual Building
 
-Invoke the https://en.wikipedia.org/wiki/C_%28programming_language%29[C] compiler from the GNU
+Invoke the
+ifdef::community[https://en.wikipedia.org/wiki/C_%28programming_language%29[C]]
+ifdef::rhel[C]
+compiler from the GNU
 Compiler Collection (https://gcc.gnu.org/[GCC]) to compile the source code into binary:
 
 [source,bash]
@@ -250,10 +267,15 @@ https://www.gnu.org/software/bash/[bash].
 [NOTE]
 ====
 In the two examples below, the ``#!`` line at the top of the file is known as a
-https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang] and is not part of the
+ifdef::community[https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang]]
+ifdef::rhel[shebang]
+and is not part of the
 programming language source code.
 
-The https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang] enables using a
+The
+ifdef::community[https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang]]
+ifdef::rhel[shebang]
+enables using a
 text file as an executable: the system program loader parses the line containing
 the *shebang* to get a path to the binary executable, which is then used as the
 programming language interpreter.
@@ -469,13 +491,20 @@ it.
 [[installing-arbitrary-artifacts]]
 == Installing Arbitrary Artifacts
 
-A big advantage of https://en.wikipedia.org/wiki/Linux[Linux] and other
+A big advantage of
+ifdef::community[https://en.wikipedia.org/wiki/Linux[Linux]]
+ifdef::rhel[Linux]
+and other
 Unix-like systems is the
-https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy
-Standard] (FHS). It specifies in which directory which files should be located.
+ifdef::community[https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy Standard]]
+ifdef::rhel[Filesystem Hierarchy Standard]
+(FHS). It specifies in which directory which files should be located.
 Files installed from the RPM packages should be placed according to FHS. For
 example, an executable file should go into a directory that is in
-the system https://en.wikipedia.org/wiki/PATH_%28variable%29[PATH] variable.
+the system
+ifdef::community[https://en.wikipedia.org/wiki/PATH_%28variable%29[PATH]]
+ifdef::rhel[PATH]
+variable.
 
 In the context of this guide, an __Arbitrary Artifact__ is anything installed
 from an RPM to the system. For RPM and for the system it can be a script, a
@@ -511,7 +540,9 @@ $ sudo install -m 0755 bello /usr/bin/bello
 ----
 
 Now ``bello`` is in a directory that is listed in the
-https://en.wikipedia.org/wiki/PATH_%28variable%29[$PATH] variable. Therefore,
+ifdef::community[https://en.wikipedia.org/wiki/PATH_%28variable%29[$PATH]]
+ifdef::rhel[$PATH]
+variable. Therefore,
 you can execute ``bello`` from any directory without specifying its full path:
 
 [source,bash]
@@ -571,7 +602,9 @@ install -m 0755 cello /usr/bin/cello
 ----
 
 Now ``cello`` is in a directory that is listed in the
-https://en.wikipedia.org/wiki/PATH_%28variable%29[$PATH] variable. Therefore,
+ifdef::community[https://en.wikipedia.org/wiki/PATH_%28variable%29[$PATH]]
+ifdef::rhel[$PATH]
+variable. Therefore,
 you can execute ``cello`` from any directory without specifying its full path:
 
 [source,bash]
@@ -601,7 +634,9 @@ NOTE: Creating source code archives is not normally done by the RPM Packager,
 but by the developer. The packager works with a ready source code archive.
 
 Software should be distributed with a
-https://en.wikipedia.org/wiki/Software_license[software license]. For the
+ifdef::community[https://en.wikipedia.org/wiki/Software_license[software license]]
+ifdef::rhel[software license]
+. For the
 examples, we will use the
 https://www.gnu.org/licenses/quick-guide-gplv3.html[GPLv3] license. The license
 text goes into the ``LICENSE`` file for each of the example programs. An RPM
@@ -714,7 +749,9 @@ $ mv /tmp/pello-0.1.1.tar.gz ~/rpmbuild/SOURCES/
 === cello
 
 The __cello__ project implements ``Hello World`` in
-https://en.wikipedia.org/wiki/C_%28programming_language%29[C]. The
+ifdef::community[https://en.wikipedia.org/wiki/C_%28programming_language%29[C]]
+ifdef::rhel[C]
+. The
 implementation only contains the ``cello.c`` and ``Makefile`` files, so the
 resulting ``tar.gz`` archive will have only two files apart from the ``LICENSE``
 file. Let us assume that this is version ``1.0`` of the program.
