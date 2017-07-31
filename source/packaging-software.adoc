@@ -1597,7 +1597,9 @@ bello.spec: W: invalid-url Source0: https://www.example.com/bello/releases/bello
 
 ----
 
-For ``bello.spec`` there is only one warning. It says that the URL listed in the
+Observations:
+
+* For ``bello.spec`` there is only one warning. It says that the URL listed in the
 ``Source0`` directive is unreachable. This is expected, because the specified
 ``example.com`` URL does not exist. Presuming that we expect this URL to work in
 the future, we can ignore this warning.
