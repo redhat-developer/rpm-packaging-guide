@@ -137,7 +137,7 @@ part of the instructions.
 
 This table lists the items used in the Preamble section of the RPM SPEC file:
 
-[cols="20%,80%"]
+[cols="30%,70%"]
 |====
 | SPEC Directive | Definition
 | ``Name`` | The base name of the package, which should match the SPEC
