@@ -103,7 +103,7 @@ Software written entirely in interpreted programming languages is not https://en
 
 // There are two types of interpreted languages: byte-compiled and raw-interpreted. The program build process for these two types is different.
 
-Interpreted languages are *byte-compiled* or *raw-interpreted*. These two types differ in program build process and in packaging procedure.
+Interpreted languages are either *byte-compiled* or *raw-interpreted*. These two types differ in program build process and in packaging procedure.
 
 ==== Raw-interpreted programs
 Raw-interpreted language programs do not need to be compiled at all, they are
