@@ -1,7 +1,7 @@
 [[advanced-topics]]
-= Appendix
+= Advanced Topics
 
-The Appendix covers topics that are beyond the scope of the introductory
+This chapter covers topics that are beyond the scope of the introductory
 tutorial but are often useful in production RPM packaging.
 
 ifdef::community[]
