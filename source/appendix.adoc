@@ -384,8 +384,7 @@ Distributions.
 endif::community[]
 
 ifdef::rhel[]
-There are also macros that are provided by your https://en.wikipedia.org/wiki/Linux[Linux] Distribution, we will cover some of those provided by https://www.redhat.com/en/technologies/linux-platforms[RHEL] in this section as well as provide information on how to inspect your system to learn about others that we don’t cover or for discovering them on other RPM-based https://en.wikipedia.org/wiki/Linux[Linux]
-Distributions.
+There are also macros that are provided by Red Hat Enterprise Linux, some of which we cover in this section. We also see how to inspect your system to learn about other macros.
 endif::rhel[]
 
 [[defining-your-own]]
