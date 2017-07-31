@@ -517,19 +517,20 @@ Summary:        Hello World example implemented in bash script
 ifdef::community[https://en.wikipedia.org/wiki/Software_license[Software License]]
 ifdef::rhel[Software License]
 associated with
-the source code from the upstream release. Follow this format for the
-``License`` field:
+the source code from the upstream release.
 // FIXME CONDITIONALS - done
 +
 ifdef::community[]
+Follow this format for the ``License`` field:
 https://fedoraproject.org/wiki/Licensing:Main[Fedora License Guidelines]
 endif::community[]
 // FIXME LINK FOR RHEL GUIDELINES? - consult with Max where to find the link
-https://example.com[RHEL License Guidelines]
 +
 For example, use ``GPLv3+``.
-ing ``bello`` for consistency. The
-resulting entry is ``https://example.com/%{name}``.
++
+* The ``URL`` field provides URL to the upstream software page. For example, use
+``https://example.com/bello``. However, for consistency, utilize the %{name}
+macro and instead use ``https://example.com/%{name}``.
 +
 * The ``Source0`` field provides URL to the upstream software source code. It
 should link directly to the version of software that is being packaged. In this
