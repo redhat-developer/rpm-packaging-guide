@@ -561,7 +561,7 @@ A popular automated way to install built software to the system is to use the
 ``make install`` command. It requires you to specify how to install the
 arbitrary artifacts to the system in the ``Makefile``.
 
-NOTE: Usually ``Makefile``is written by the developer and not by the packager.
+NOTE: Usually ``Makefile`` is written by the developer and not by the packager.
 
 Add the ``install`` section to the ``Makefile``:
 
