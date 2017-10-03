@@ -266,6 +266,15 @@ archive, which becomes the main part of
 the RPM. When RPM is installed on the end user's system, these files are
 extracted in the root directory, preserving the correct hierarchy.
 
+[NOTE]
+====
+In the previous versions of Red Hat Enterprise Linux, the ``BUILD`` directory was removed during the package build.
+Consequently the ``rpmbuild`` process failed. To fix this, make sure you have removed following line from the ``~/.rpmmacros`` SPEC file:
+----
+%buildroot %{_topdir}/BUILD/%{name}-%{version}
+----
+====
+
 [[rpm-macros]]
 === RPM Macros
 
