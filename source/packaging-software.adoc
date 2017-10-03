@@ -288,7 +288,7 @@ to.
 This is useful when, for example, referencing the packaged software _Version_
 multiple times in the SPEC file. You define _Version_ only once - in the
 ``%{version}`` macro. Then use ``%{version}`` throughout the SPEC file. Every
-occurence will be automatically substituted by _Version_ you defined previously.
+occurrence will be automatically substituted by _Version_ you defined previously.
 
 [NOTE]
 ====
