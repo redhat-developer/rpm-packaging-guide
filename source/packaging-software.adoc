@@ -268,11 +268,8 @@ extracted in the root directory, preserving the correct hierarchy.
 
 [NOTE]
 ====
-In the previous versions of Red Hat Enterprise Linux, the ``BUILD`` directory was removed during the package build.
-Consequently the ``rpmbuild`` process failed. To fix this, make sure you have removed following line from the ``~/.rpmmacros`` SPEC file:
-----
-%buildroot %{_topdir}/BUILD/%{name}-%{version}
-----
+// In past, it was either recommended to define the `%buildroot` macro in the `~/.rpmmacros` directory or to define the `BuildRoot` tag directly in a SPEC file. 
+Starting from Red Hat Enterprise Linux 6 release, the `rpmbuild` program has its own defaults. As overriding these defaults leads to several problems, Red Hat does not recommend to define your own value of this macro. You can use the `%{buildroot}` macro with the defaults from the `rpmbuild` directory.
 ====
 
 [[rpm-macros]]
