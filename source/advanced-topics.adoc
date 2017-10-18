@@ -822,7 +822,7 @@ The `%ifos` conditional is used to control processing based on the operating sys
 
 All the contents of the SPEC file between `%ifos` and `%endif` are processed only if the build was done on a Linux system.
 
-[[New_features]]
+[[new-features]]
 == New features of RPM in Red Hat Enterprise Linux 7
 
 This list documents most noticable changes in RPM packaging between Red Hat Enterprise Linux 6 and 7.
@@ -839,21 +839,3 @@ This list documents most noticable changes in RPM packaging between Red Hat Ente
 * The ``%autosetup`` macro for automating patch application, with optional distributed version control system integration has been added.
 * The  automatic dependency generator has been rewritten into extensible and  customizable rule based system with built-in filtering.
 * The OpenPGP V3 public keys are no longer supported.
-
-
-[[references]]
-== References
-
-Below are references to various topics of interest around RPMs, RPM Packaging,
-and RPM Building. Some of these will be advanced and extend far beyond the
-introductory material included in this guide.
-
-*   http://rpm.org/wiki/Docs[The Official RPM Documentation]
-*   https://www.gurulabs.com/media/files/courseware-samples/GURULABS-RPM-GUIDE-v1.0.PDF[Gurulabs CREATING RPMS (Student Version)]
-ifdef::community[]
-*   https://fedoraproject.org/wiki/How_to_create_an_RPM_package[Fedora How To Create An RPM Package Guide]
-endif::community[]
-*   https://fedoraproject.org/wiki/Packaging:Guidelines?rd=Packaging/Guidelines[Fedora Packaging Guidelines]
-*   https://en.opensuse.org/openSUSE:Packaging_guidelines[OpenSUSE Packaging Guidelines]
-*   IBM RPM Packaging Guide: http://www.ibm.com/developerworks/library/l-rpm1/[Part 1], http://www.ibm.com/developerworks/library/l-rpm2/[Part 2], http://www.ibm.com/developerworks/library/l-rpm3/[Part 3]
-*   http://ftp.rpm.org/max-rpm/[Maximum RPM] (a good resource for advanced topics, even though some material is obsolete)
