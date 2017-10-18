@@ -1,8 +1,6 @@
 [[packaging-software]]
 = Packaging Software
 
-// FIXME CONDITIONALS - done
-
 ifdef::community[]
 This tutorial explains packaging RPMs for the Red Hat family of Linux distributions, primarily:
 
@@ -15,7 +13,6 @@ ifdef::rhel[]
 This tutorial explains packaging RPMs for the Red Hat family of Linux distributions, primarily https://www.redhat.com/en/technologies/linux-platforms[Red Hat Enterprise Linux] (RHEL).
 endif::rhel[]
 
-// FIXME CONDITIONALS-done
 ifdef::community[]
 These distributions use the http://rpm.org/[RPM] Packaging Format.
 
@@ -36,14 +33,11 @@ https://en.wikipedia.org/wiki/Linux[Linux] and
 https://en.wikipedia.org/wiki/Package_manager[Package Managers].
 endif::community[]
 
-// FIXME MOVE THIS NOTE? - done? - this note only for upstream version
-// FIXME CONDITIONAL: MAKE THIS NOTE ONLY IN UPSTREAM VERSION -done
-
 [[rpm-packages]]
 == RPM Packages
 
 This section covers the basics of the RPM packaging format. See
-<<advanced-topics.adoc#advanced-topics>> for more advanced information.
+xref:advanced-topics[] for more advanced information.
 
 [[what-is-an-rpm]]
 === What is an RPM?
@@ -71,8 +65,7 @@ patches.
 [[rpm-packaging-tools]]
 === RPM Packaging Tools
 
-// FIXME CHANGE THIS IF MOVE THE PREREQUISITES SECTION
-The ``rpmdevtools`` package, installed in <<index.adoc#prerequisites>>, provides
+The ``rpmdevtools`` package, installed in xref:prerequisites[], provides
 several utilities for packaging RPMs. To list these utilities, run:
 
 [source,bash]
@@ -150,7 +143,6 @@ release of the package. Reset to 1 when a new ``Version`` of the software is
 built.
 | ``Summary`` | A brief, one-line summary of the package.
 | ``License`` | The license of the software being packaged.
-// FIXME DELETE? OR USE CONDITIONALS? - conditionals used, done
 ifdef::community[]
 For packages distributed in community distributions such as
 https://getfedora.org/[Fedora] this must be an open source license abiding by
@@ -227,9 +219,7 @@ This usually means copying files from ``~/rpmbuild/BUILD`` to
 ``~/rpmbuild/BUILDROOT`` and creating the necessary directories in
 ``~/rpmbuild/BUILDROOT``.
 This is only run when creating a package, not when the end-user installs the
-package. See <<rpm-guide.adoc#working-with-spec-files>>
-// FIXME LINK TO FURTHER SECTION - done, it that the right link (the right section?)
-for details.
+package. See xref:working-with-spec-files[] for details.
 | ``%check`` | Command or series of commands to test the software. This normally
 includes things such as unit tests.
 | ``%files`` | The list of files that will be installed in the end user's
@@ -245,7 +235,7 @@ The SPEC file can also contain advanced items. For example, a SPEC file can have
 __scriptlets__ and __triggers__. They take effect at different points during the
 installation process on the end user's system (not the build process).
 
-See the <<advanced-topics.adoc#advanced-topics>> for advanced topics.
+See the xref:advanced-topics[] for advanced topics.
 
 [[buildroots]]
 === BuildRoots
@@ -275,7 +265,6 @@ Starting from Red Hat Enterprise Linux 6 release, the `rpmbuild` program has its
 [[rpm-macros]]
 === RPM Macros
 
-// FIXME TOO COMPLEX, UNTANGLE - consult with Max, What this means is that.... ? This sentence is not well understanddable on my opinion.
 A http://rpm.org/wiki/PackagerDocs/Macros[rpm macro] is a straight text
 substitution that can be conditionally assigned based on the optional evaluation
 of a statement when certain built-in functionality is used. What this means is
@@ -340,9 +329,7 @@ $ rpm --eval %{?dist}
 ----
 endif::rhel[]
 
-
-
-For more information on macros, see <<advanced-topics.adoc#more-on-macros>>.
+For more information on macros, see xref:more-on-macros[].
 
 [[working-with-spec-files]]
 === Working with SPEC files
@@ -355,8 +342,7 @@ it manually from scratch, use the ``rpmdev-newspec`` utility. It creates an
 unpopulated SPEC file, and you fill in the necessary directives and fields.
 
 For this tutorial, we use the three example implementations of the 'Hello
-World!' program created in
-<<preparing-software.adoc#preparing-software-for-packaging>>:
+World!' program created in xref:preparing-software-for-packaging[]:
 
 *   https://github.com/redhat-developer/rpm-packaging-guide/raw/master/example-code/bello-0.1.tar.gz[bello-0.1.tar.gz]
 
@@ -393,7 +379,7 @@ The ``~/rpmbuild/SPECS/`` directory now contains three SPEC files named
 ``bello.spec``, ``cello.spec``, and ``pello.spec``.
 
 Examine the files. The directives in them represent the ones described in the
-<<what-is-a-spec-file>> section. In the following sections, you will populate
+xref:what-is-a-spec-file[] section. In the following sections, you will populate
 these SPEC files.
 
 ifdef::community[]
@@ -421,7 +407,6 @@ There are three examples below. Each one is fully described, so you can go to
 a specific one if it matches your packaging needs. Or, read them all to fully
 explore packaging different kinds of software.
 
-// FIXME TURN TABLE INTO A LIST? - why?, the table is perfectly clear/well-arranged according to me.
 [cols="15%,85%"]
 |====
 | Software Name | Explanation of example
@@ -441,12 +426,12 @@ installing the resulting executables.
 ==== bello
 
 The first SPEC file is for the ``bello`` bash shell script from
-<<preparing-software.adoc#preparing-software-for-packaging>>.
+xref:preparing-software-for-packaging[].
 
 Ensure that you have:
 
 . Placed ``bello`` source code into ``~/rpmbuild/SOURCES/``. See
-<<working-with-spec-files>>.
+xref:working-with-spec-files[].
 
 . Created the unpopulated SPEC file ``~/rpmbuild/SPECS/bello.spec``. The file
 has these contents:
@@ -500,8 +485,8 @@ source code, ``0.1``.
 ``1``. Increment the initial value whenever updating the package without a
 change in the upstream release ``Version`` - such as when including a patch.
 Reset ``Release`` to ``1`` when a new upstream release happens, for example, if
-bello version ``0.2`` is released. The __disttag__ macro is covered in <<rpm-guide.adoc#rpm-macros>>.
-// FIXME LINK TO PART ABOUT MACROS - done, but it that the right link? (there is not anything about disttag in the chapter RPM macros)
+bello version ``0.2`` is released. The _disttag_ macro is covered in
+xref:rpm-macros[].
 +
 * The ``Summary`` is a short, one-line explanation of what this software is.
 +
@@ -524,13 +509,11 @@ ifdef::community[https://en.wikipedia.org/wiki/Software_license[Software License
 ifdef::rhel[Software License]
 associated with
 the source code from the upstream release.
-// FIXME CONDITIONALS - done
 +
 ifdef::community[]
 Follow this format for the ``License`` field:
 https://fedoraproject.org/wiki/Licensing:Main[Fedora License Guidelines]
 endif::community[]
-// FIXME LINK FOR RHEL GUIDELINES? - consult with Max where to find the link
 +
 For example, use ``GPLv3+``.
 +
@@ -644,8 +627,10 @@ their full path location on the end user's system. Therefore, the listing for
 the ``bello`` file we are installing is ``/usr/bin/bello``, or, with RPM Macros,
 ``%{_bindir}/%{name}``.
 +
-Within this section, you can indicate the role of various files using built-in macros. This is useful for querying the package file manifest metadata using the rpm command. For example, to indicate that the LICENSE file is a software license file, we use the %license macro.
-// FIXME ASK DEVEL FOR AN RPM QUERY EXAMPLE
+Within this section, you can indicate the role of various files using built-in
+macros. This is useful for querying the package file manifest metadata using the
+``rpm`` command. For example, to indicate that the LICENSE file is a software
+license file, we use the %license macro.
 +
 After your edits, the ``%files`` section looks like this:
 +
@@ -733,14 +718,12 @@ The next section covers how to build the RPM.
 
 [[pello-working-with-spec-files]]
 ==== pello
-// FIXME REWRITE PELLO EXAMPLE SIMILAR TO BELLO ABOVE - TBD
 
 Our second SPEC file will be for our example written in the https://www.python.org/[Python]
 programming language that  you downloaded (or you created a simulated upstream
-release in the <<preparing-software.adoc#preparing-software-for-packaging>>
-section) and placed it’s source code into ``~/rpmbuild/SOURCES/``
-earlier. Let’s go ahead and open the file ``~/rpmbuild/SPECS/bello.spec``
-and start filling in some fields.
+release in the xref:preparing-software-for-packaging[] section) and placed its
+source code into ``~/rpmbuild/SOURCES/`` earlier. Let’s go ahead and open the
+file ``~/rpmbuild/SPECS/bello.spec`` and start filling in some fields.
 
 Before we start down this path, we need to address something somewhat unique
 about byte-compiled interpreted software. Since we we will be byte-compiling
@@ -817,15 +800,16 @@ specified because we provided that information to the command line for
 
 Let’s set the ``Version`` to match what the “upstream” release version of the
 __pello__ source code is, which we can observe is ``0.1.1`` as set by the example
-code we downloaded (or we created in the <<preparing-software.adoc#preparing-software-for-packaging>> section).
+code we downloaded (or we created in the xref:preparing-software-for-packaging[]
+section).
 
 The ``Release`` is already set to ``1%{?dist}`` for us, the numerical value
 which is initially ``1`` should be incremented every time the package is updated
 for any reason, such as including a new patch to fix an issue, but doesn’t have
 a new upstream release ``Version``. When a new upstream release happens (for
 example, pello version ``0.1.2`` were released) then the ``Release`` number
-should be reset to ``1``. The __disttag__ of ``%{?dist}`` should look familiar
-from the previous section’s coverage of <<rpm-macros>>.
+should be reset to ``1``. The _disttag_ of ``%{?dist}`` should look familiar
+from the previous section’s coverage of xref:rpm-macros.
 
 The ``Summary`` should be a short, one-line explanation of what this software
 is.
@@ -954,7 +938,9 @@ the SPEC. In this section we will simply use the provided macro ``%setup -q``.
 
 The ``%build`` section is where we tell the system how to actually build the
 software we are packaging. Here we will perform a byte-compilation of our
-software. For those who read the <<preparing-software.adoc#preparing-software-for-packaging>> section, this portion of the example should look familiar.
+software. For those who read the xref:preparing-software-for-packaging[] section,
+this portion of the example should look familiar.
+
 The ``%build`` section of our SPEC file should look as follows.
 
 [source,specfile]
@@ -995,10 +981,10 @@ accessed.
 
 NOTE: You will notice below that we are hard coding the library path. There are
 various methods to avoid needing to do this, many of which are addressed in
-the <<advanced-topics.adoc#advanced-topics>>, under the <<advanced-topics.adoc#more-on-macros>> section, and are specific to the programming language in
-which the software that is being packaged was written in. In this example we
-hard code the path for simplicity as to not cover too many topics
-simultaneously.
+xref:advanced-topics[], under the xref:more-on-macros[] section, and are
+specific to the programming language in which the software that is being
+packaged was written in. In this example we hard code the path for simplicity as
+to not cover too many topics simultaneously.
 
 The ``%install`` section should look like the following after your edits:
 
@@ -1132,7 +1118,6 @@ install -m 0644 %{name}.py* %{buildroot}/usr/lib/%{name}/
 
 [[cello-working-with-spec-files]]
 ==== cello
-// FIXME REWRITE CELLO EXAMPLE SIMILAR TO BELLO ABOVE
 
 Our third SPEC file will be for our example written in the
 ifdef::community[https://en.wikipedia.org/wiki/C_%28programming_language%29[C]]
@@ -1190,15 +1175,16 @@ specified because we provided that information to the command line for
 
 Let’s set the ``Version`` to match what the “upstream” release version of the
 __cello__ source code is, which we can observe is ``1.0`` as set by the example
-code we downloaded (or we created in the <<preparing-software.adoc#preparing-software-for-packaging>> section).
+code we downloaded (or we created in the xref:preparing-software-for-packaging[]
+section).
 
 The ``Release`` is already set to ``1%{?dist}`` for us, the numerical value
 which is initially ``1`` should be incremented every time the package is updated
 for any reason, such as including a new patch to fix an issue, but doesn’t have
 a new upstream release ``Version``. When a new upstream release happens (for
 example, cello version ``2.0`` were released) then the ``Release`` number should
-be reset to ``1``. The __disttag__ of ``%{?dist}`` should look familiar from the
-previous section’s coverage of <<rpm-macros>>.
+be reset to ``1``. The _disttag_ of ``%{?dist}`` should look familiar from the
+previous section’s coverage of xref:rpm-macros[].
 
 The ``Summary`` should be a short, one-line explanation of what this software
 is.
@@ -1212,7 +1198,6 @@ Name:           cello
 Version:        1.0
 Release:        1%{?dist}
 Summary:        Hello World example implemented in C
-
 ----
 
 Now, let’s move on to the second set of directives that ``rpmdev-newspec`` has
@@ -1229,10 +1214,9 @@ from the upstream release. The exact format for how to label the License in your
 SPEC file will vary depending on which specific RPM based
 ifdef::community[https://en.wikipedia.org/wiki/Linux[Linux]]
 ifdef::rhel[Linux]
-distribution
-guidelines you are following, we will use the notation standards in the https://fedoraproject.org/wiki/Licensing:Main[Fedora
-License Guidelines] for this document and as such this field will contain the
-text ``GPLv3+``
+distribution guidelines you are following, we will use the notation standards in
+the https://fedoraproject.org/wiki/Licensing:Main[Fedora License Guidelines]
+for this document and as such this field will contain the text ``GPLv3+``
 
 The ``URL`` field is the upstream software’s website, not the source code
 download link but the actual project, product, or company website where someone
@@ -1491,8 +1475,6 @@ endif::community[]
 ifdef::rhel[]
 . To be able to build a binary RPM on a different hardware platform or architecture.
 endif::rhel[]
-// FIXME CONDITIONALS - conditional because of wikipedie, done
-//FIXME FIX STRUCTURE, HERE SHOULD BE A BRIDGEHEAD OR SOMETHING -done
 
 [[create-source-rpms]]
 ==== To create a SRPM:
@@ -1614,7 +1596,7 @@ $ rpmbuild -bb ~/rpmbuild/SPECS/cello.spec
 
 Now you have built RPMs from SPEC files.
 
-Most of the information in <<rebuild>> apply here.
+Most of the information in xref:rebuild[] apply here.
 
 [[checking-rpms-for-sanity]]
 == Checking RPMs For Sanity
@@ -1668,9 +1650,9 @@ bello.src: W: invalid-url Source0: https://www.example.com/bello/releases/bello-
 
 Observations:
 
-* For the ``bello`` SRPM there is a new warning, which says that the URL specified in the ``URL`` directive is unreachable. Assuming the link will be working in the future, we can ignore this warning.
-
-// FIXME ADD HEADING HERE? -done
+* For the ``bello`` SRPM there is a new warning, which says that the URL
+specified in the ``URL`` directive is unreachable. Assuming the link will be
+working in the future, we can ignore this warning.
 
 [[checking-bello-binary-rpm]]
 === Checking the bello Binary RPM
@@ -1756,8 +1738,6 @@ Observations:
 * The new ``invalid-url URL`` error here is about the ``URL`` directive, which
 is unreachable. Assuming that we expect the URL to become valid in the future,
 we can ignore this error.
-
-// FIXME ADD HEADING HERE?  - heading for one sentence?, consult with MAX
 
 [[checking-pello-binary-rpm]]
 === Checking the pello Binary RPM
@@ -1870,7 +1850,6 @@ cello.x86_64: W: invalid-url URL: https://www.example.com/cello HTTP Error 404: 
 cello.x86_64: W: no-documentation
 cello.x86_64: W: no-manual-page-for-binary cello
 1 packages and 0 specfiles checked; 0 errors, 3 warnings.
-
 ----
 
 Observations:
@@ -1880,7 +1859,6 @@ the RPM has no documentation or manual pages, because we did not provide any.
 
 Apart from the above warnings and errors, our RPM is passing ``rpmlint`` checks.
 
-// FIXME ADD HEADING - heading for one sentence?, consult with MAX
 Our RPMs are now ready and checked with ``rpmlint``. This concludes the
 tutorial. For more information on packaging RPMs, proceed to
-<<advanced-topics.adoc#advanced-topics>>.
+xref:advanced-topics[].

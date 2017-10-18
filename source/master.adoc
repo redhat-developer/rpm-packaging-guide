@@ -4,7 +4,6 @@
 :doctype: book
 :source-highlighter: coderay
 :rhel:
-// :community:
 
 include::introduction.adoc[leveloffset=+1]
 include::preparing-software.adoc[leveloffset=+1]

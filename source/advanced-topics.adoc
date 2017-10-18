@@ -848,7 +848,7 @@ Below are references to various topics of interest around RPMs, RPM Packaging,
 and RPM Building. Some of these will be advanced and extend far beyond the
 introductory material included in this guide.
 
-*   http://rpm.org/wiki/Docs[RPM Official Documentation]
+*   http://rpm.org/wiki/Docs[The Official RPM Documentation]
 *   https://www.gurulabs.com/media/files/courseware-samples/GURULABS-RPM-GUIDE-v1.0.PDF[Gurulabs CREATING RPMS (Student Version)]
 ifdef::community[]
 *   https://fedoraproject.org/wiki/How_to_create_an_RPM_package[Fedora How To Create An RPM Package Guide]

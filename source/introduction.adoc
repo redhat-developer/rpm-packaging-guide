@@ -1,34 +1,16 @@
 [[introduction]]
 = Introduction
 
-// FIXME RENAME "General Topics and Background" TO "Preparing Source Code for Packaging" ?
-
-// FIXME MOVE "ABSTRACT", "DOCUMENT CONVENTIONS", "PREREQUISITES", AND "CONTRIBUTING TO THIS GUIDE" TO A SEPARATE FILE - done (introduction.adoc)
-// FIXME ADD "LEGAL NOTICE" BEFORE THE ABSTRACT - added, add the text of the legal notice
-
-// FIXME WHOLE GUIDE: MAKE MARKUP CONSISTENT, ESPECIALLY FOR TERMS
-// FIXME WHOLE GUIDE: MAKE TONE AND POINT OF VIEW CONSISTENT ("WE" VERSUS "YOU" AND SIMILAR) - We - in tutorial part, you - elsewhere?
-// FIXME WHOLE GUIDE: MAKE TERMS SPELLED CONSISTENTLY: RPM Packager, RPM Package, Binary RPM, Source RPM, AND SO ON
-
-// FIXME WHOLE GUIDE: MAKE SECTION NAMES MORE SPECIFIC
-// FIXME WHOLE GUIDE: MAKE SECTION NAMES ACTION-ORIENTED
-// FIXME WHOLE GUIDE: ADD MORE STRUCTURE, ESPECIALLY FOR PROCEDURES
-
-// FIXME RENAME GENERAL BACKGROUND AND RPM GUIDE CHAPTERS
-
 The RPM Packaging Guide documents:
 
-* How to prepare source code for packaging into an RPM. This is for people with no background in software development. See <<preparing-software.adoc#preparing-software-for-packaging>>.
-* How to package source code into an RPM. This is for software developers who need to package software into RPMs. See <<packaging-software.adoc#packaging-software>>.
-* Advanced packaging scenarios. This is for RPM packagers dealing with advanced RPM Packaging scenarios. See <<advanced-topics.adoc#advanced-topics>>.
+How to prepare source code for packaging into an RPM.:: This is for people with
+no background in software development. See xref:preparing-software-for-packaging[].
 
-// FIXME MAYBE MOVE THIS PARAGRAPH FROM THE ABSTRACT TO INTRODUCTION?
-The <<preparing-software.adoc#preparing-software-for-packaging>> is a tutorial that
-prepares people with no experience in software development to RPM Packaging. The
-<<packaging-software.adoc#packaging-software>> is a tutorial that guides through basic
-RPM Packaging. Follow both tutorials from beginning to end. The
-<<advanced-topics.adoc#advanced-topics>> is reference material for information on RPM
-Packaging beyond the basics.
+How to package source code into an RPM.:: This is for software developers who
+need to package software into RPMs. See xref:packaging-software[].
+
+Advanced packaging scenarios.:: This is a reference material for RPM packagers
+dealing with advanced RPM Packaging scenarios. See xref:advanced-topics[].
 
 [[document-conventions]]
 == Document Conventions
@@ -46,7 +28,6 @@ $ tree ~/rpmbuild/
 |-- RPMS
 
 [command output trimmed]
-
 ----
 +
 [source,txt]
@@ -57,7 +38,6 @@ Release:        1%{?dist}
 Summary:
 
 [file contents trimmed]
-
 ----
 +
 [source,python]
@@ -65,17 +45,15 @@ Summary:
 #!/usr/bin/env python
 
 print("Hello World")
-
 ----
 
-Topics of interest or vocabulary terms are referred to either as URLs to their
+* Topics of interest or vocabulary terms are referred to either as URLs to their
 respective documentation or website, in **bold**, or in __italics__.
 ifdef::community[]
 The first occurrences of some terms link to their respective documentation.
 endif::community[]
-// FIXME LAST SENTENCE ONLY IN UPSTREAM VERSION - done
 
-Names of utilities, commands, and things normally found in code are written in
+*   Names of utilities, commands, and things normally found in code are written in
 ``monospace`` font.
 
 [[prerequisites]]
@@ -98,18 +76,14 @@ ifdef::community[]
 $ dnf install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools
 
 $ yum install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools
-
 ----
 endif::community[]
-
-// FIXME - pozor - v komunitní verzi je i RHEL - tj. mělo by tu být dnf a yum také!!!!
 
 ifdef::rhel[]
 
 [source,bash]
 ----
 $ yum install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools
-
 ----
 
 endif::rhel[]

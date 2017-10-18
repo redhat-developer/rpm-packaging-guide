@@ -76,7 +76,6 @@ There are many methods by which human-readable source code becomes machine code
 - instructions the computer follows to actually execute the program. However,
 all methods can be reduced to these three:
 
-// FIXME MAYBE SPLIT NUMBER 2 IN TWO. IF DO, ALSO SPLIT FOLLOWING SECTIONS -done
 1. The program is natively compiled.
 2. The program is interpreted by raw interpreting.
 3. The program is interpreted by byte compiling.
@@ -371,7 +370,7 @@ own methods of creating diffs or patching software.
 
 In the following example, we create a patch from the originial source code using
 ``diff`` and then apply it using ``patch``. Patching is used in a later section
-when creating an RPM, <<packaging-software.adoc#working-with-spec-files>>.
+when creating an RPM, xref:working-with-spec-files[].
 
 How is patching related to RPM packaging? In packaging, instead of simply
 modifying the original source code, we keep it, and use patches on it.
@@ -431,7 +430,6 @@ replaced with the lines that start with ``+``.
 [source,bash]
 ----
 $ diff -Naur cello.c.orig cello.c > cello-output-first-patch.patch
-
 ----
 +
 . Restore the original ``cello.c``:
@@ -439,12 +437,11 @@ $ diff -Naur cello.c.orig cello.c > cello-output-first-patch.patch
 [source,bash]
 ----
 $ cp cello.c.orig cello.c
-
 ----
 +
 We retain the original ``cello.c``, because when an RPM is built, the original
 file is used, not a modified one. For more information, see
-<<packaging-software.adoc#working-with-spec-files>>.
+xref:working-with-spec-files[].
 
 To patch ``cello.c`` using ``cello-output-first-patch.patch``, redirect the
 patch file to the ``patch`` command:
@@ -453,7 +450,6 @@ patch file to the ``patch`` command:
 ----
 $ patch < cello-output-first-patch.patch
 patching file cello.c
-
 ----
 
 The contents of ``cello.c`` now reflect the patch:
@@ -467,7 +463,6 @@ int main(void){
     printf("Hello World from my very first patch!\n");
     return 1;
 }
-
 ----
 
 To build and run the patched ``cello.c``:
@@ -482,7 +477,6 @@ gcc -o cello cello.c
 
 $ ./cello
 Hello World from my very first patch!
-
 ----
 
 You have created a patch, patched a program, built the patched program, and run
@@ -623,8 +617,6 @@ You have installed a build artifact into a chosen location on the system.
 
 NOTE: The code created in this section can be found
 https://github.com/redhat-developer/rpm-packaging-guide/tree/master/example-code[here].
-
-// FIXME FIX & ADD MORE STRUCTURE TO SECTION - to which section is it meant? I would recommend to restructure the section Installing Arbitrary Artifacts, I changed the titles: Install command --> Using the install command, Make install -> Using the make install command
 
 Developers often distribute software as compressed archives of source code,
 which are then used to create packages. In this section, you will create such
