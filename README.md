@@ -1,6 +1,4 @@
 # RPM Packaging Guide
-[![Documentation
-Status](https://readthedocs.org/projects/rpm-guide/badge/?version=latest)](http://rpm-guide.readthedocs.io/en/latest/?badge=latest)
 
 This is an RPM Packaging Guide.
 
@@ -9,26 +7,45 @@ detailed enough, or are simply showing their age and contain old, incorrect or
 outdated information. My hope here is to provide a guide that can be maintained
 and expanded upon over time.
 
-The document itself is written in
+The document itself was originally written in
 [sphinx-doc](http://www.sphinx-doc.org/en/stable/)
-[reStructuredText](http://www.sphinx-doc.org/en/stable/rest.html) and uses the
-[sphinx_rtd_theme](https://github.com/snide/sphinx_rtd_theme).
+[reStructuredText](http://www.sphinx-doc.org/en/stable/rest.html) and was
+published at http://rpm-guide.readthedocs.io/en/latest/.
 
-You can find the document source in `source` in this git repository. In order
-to render it, make sure you have
-[sphinx-doc](http://www.sphinx-doc.org/en/stable/) installed and run [gnu
-make](http://www.gnu.org/software/make/).
+The document is now being converted to AsciiDoc and its draft is published at
+[https://rpm-packaging-guide.github.io/](https://rpm-packaging-guide.github.io/).
+Note that this is a work in progress.
 
-Example:
+You can find the document topic pages in `source` in this git repository. The
+`community` and `rhel` directories contain index pages for an upstream community
+version and a RHEL 7 downstream version, respectively.
 
-    make html
+In order to render it, first make sure you have
+[asciidoctor](http://asciidoctor.org/) installed.
 
-## Rendered Docs
+To render the community version, run:
 
-To find a Rendered Version of the latest Docs, you can find them on ReadTheDocs:
+    asciidoctor community/index.adoc
 
-http://rpm-guide.readthedocs.io/en/latest/
+To render the RHEL 7 version, run:
 
+    asciidoctor rhel/master.adoc
+
+## Publishing Mechanism
+
+The publishing mechanism uses a single configuration file in `.travis.yml`
+and is based on a **GitHub**+**Travis CI**+**Asciidoctor container**+**GitHub
+Pages** toolchain, an idea taken from
+[http://mgreau.com/asciidoc-to-ghpages/](http://mgreau.com/asciidoc-to-ghpages/).
+
+Each commit pushed to the `publish` branch automatically triggers a community
+version build, so you don't need an extra tool installed locally in order to
+publish an update to the document. When the Asciidoctor container running in
+Travis CI successfully finishes the build, Travis CI pushes the resulting HTML
+and PDF to a staging repo
+[https://github.com/rpm-packaging-guide/rpm-packaging-guide.github.io](https://github.com/rpm-packaging-guide/rpm-packaging-guide.github.io),
+and GitHub Pages then publishes the HTML and PDF to
+[https://rpm-packaging-guide.github.io/](https://rpm-packaging-guide.github.io/).
 
 ## Licensing
 
