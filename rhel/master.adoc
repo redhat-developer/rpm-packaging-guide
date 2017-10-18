@@ -5,7 +5,7 @@
 :source-highlighter: coderay
 :rhel:
 
-include::introduction.adoc[leveloffset=+1]
-include::preparing-software.adoc[leveloffset=+1]
-include::packaging-software.adoc[leveloffset=+1]
-include::advanced-topics.adoc[leveloffset=+1]
+include::source/introduction.adoc[leveloffset=+1]
+include::source/preparing-software.adoc[leveloffset=+1]
+include::source/packaging-software.adoc[leveloffset=+1]
+include::source/advanced-topics.adoc[leveloffset=+1]
