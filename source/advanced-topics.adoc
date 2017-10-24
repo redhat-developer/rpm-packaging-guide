@@ -33,7 +33,7 @@ what the build “target” is, these are found on your system in the ``/etc/moc
 directory (once you’ve installed the ``mock`` package). You can build for
 different distributions or releases just by specifying it on the command line.
 Something to keep in mind is that the configuration files that come with mock are
-targeted at Fedora RPM Packagers and as such RHEL and CentOS release versions
+targeted at Fedora RPM Packagers, and as such RHEL and CentOS release versions
 are labeled as “epel” because that is the “target” repository these RPMs would
 be built for. You simply specify the configuration you want to use (minus the
 ``.cfg`` file extension). For example, you could build our ``cello`` example
