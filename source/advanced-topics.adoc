@@ -57,7 +57,7 @@ found on the system at build time. However, if you took the SRPM to another
 system that lacked ``foo`` it would fail, causing an unexpected side effect.
 https://fedoraproject.org/wiki/Mock[Mock] solves this by first parsing the contents of the SRPM and installing the
 ``BuildRequires`` into its https://en.wikipedia.org/wiki/Chroot[chroot] which means that if you were missing the
-``BuildRequires`` entry the build would fail because mock would not know to
+``BuildRequires`` entry, the build would fail because mock would not know to
 install it and it would therefore not be present in the buildroot.
 
 Another example is the opposite scenario, let’s say you need ``gcc`` to build
