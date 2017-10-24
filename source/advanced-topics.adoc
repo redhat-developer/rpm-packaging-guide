@@ -61,7 +61,7 @@ https://fedoraproject.org/wiki/Mock[Mock] solves this by first parsing the conte
 install it and it would therefore not be present in the buildroot.
 
 Another example is the opposite scenario, let’s say you need ``gcc`` to build
-a package but don’t have it installed on your system (which is unlikely as a RPM
+a package but don’t have it installed on your system (which is unlikely as an RPM
 Packager, but just for the sake of the example let us pretend that is true).
 With https://fedoraproject.org/wiki/Mock[Mock], you don’t have to install ``gcc`` on your system because it will
 get installed in the chroot as part of mock’s process.
