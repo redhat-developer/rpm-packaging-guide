@@ -408,6 +408,145 @@ an `(opts)` field. The `opts` (the string between parentheses) is passed
 exactly as is to getopt(3) for argc/argv processing at the beginning of
 a macro invocation.
 
+[[setup]]
+=== %setup
+
+With a bunch of source code tarballs used to build the package, the powerful
+``%setup`` macro and all its advanced features might come handy. But lets begin
+with its standard behavior. You can study it from the ``rpmbuild`` output. At
+the beginning of each phase, it outputs ``Executing(%something)``, e.g.:
+
+[source,bash]
+----
+Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.DhddsG
+----
+
+followed by output, similar to the output of shell when ``set -x`` is enabled
+because it is actually shell output with ``set -x`` enabled. If that is not
+enough, it is possible to peek at the content of ``/var/tmp/rpm-tmp.DhddsG``.
+But since ``rpmbuild`` deletes such temporary files after successful build, you
+have to run it with ``--debug`` option. You can see there the setup of
+environment variables followed by something like:
+
+[source,bash]
+----
+cd '/builddir/build/BUILD'
+rm -rf 'cello-1.0'
+/usr/bin/gzip -dc '/builddir/build/SOURCES/cello-1.0.tar.gz' | /usr/bin/tar -xof -
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+  exit $STATUS
+fi
+cd 'cello-1.0'
+/usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
+----
+
+As you can see, the ``%setup`` ensured we are working in the right directory,
+removed residues of previous builds, unpacked the source tarball and set up some
+default privileges. If we want to adjust the behavior of the ``%setup`` macro,
+we can achieve the by various options.
+
+[[setup-q]]
+==== ``%setup -q``
+
+Option ``-q`` limits verbosity of ``%setup`` macro, which mainly means that only
+``tar -xof`` is executed instead of ``tar -xvvof``. This option is listed here
+as first because it has to be used first.
+
+[[setup-n]]
+==== ``%setup -n``
+
+Sometimes, the folder from expanded tarball has a different name then the
+expected ``%{name}-%{version}``. This could confuse the ``%setup`` macro, and
+hence the proper name of the directory has to be specified by ``-n
+directory_name`` option.
+
+For example, if the package name was ``cello``, but the source code was in
+``hello-1.0.tgz`` archive and contained ``hello/`` directory, the SPEC file
+content would need to be:
+
+[source,specfile]
+----
+Name: cello
+Source0: https://example.com/%{name}/release/hello-%{version}.tar.gz
+…
+%prep
+%setup -n hello
+----
+
+[[setup-c]]
+==== ``%setup -c``
+
+If the source tarball doesn't contain any subdirectories and when unpacked, the
+files from the archive pollute the current directory, we can fix
+that by ``-c`` option. This creates the directory and steps into it prior
+implicit action (the archive expansion). So these would be the lines:
+
+[source,bash]
+----
+/usr/bin/mkdir -p cello-1.0
+cd 'cello-1.0'
+----
+
+The folder is not changed after archive expansion anymore.
+
+[[setup-dt]]
+==== ``%setup -D`` and ``-T``
+
+You can disable deleting of source code directory using ``-D`` option. In other
+words, the following line is not used:
+
+[source,bash]
+----
+rm -rf 'cello-1.0'
+----
+
+This comes handy if the ``%setup`` macro is used several times. In such
+situations, the ``-T`` option might come useful as well. It disables expansion
+of the source tarball because it removes the following line from the script:
+
+[source,bash]
+----
+/usr/bin/gzip -dc '/builddir/build/SOURCES/cello-1.0.tar.gz' | /usr/bin/tar -xvvof -
+----
+
+[[setup-dt]]
+==== ``%setup -a`` and ``-b``
+
+Options ``-a`` and ``-b`` expand specific sources, where ``-b`` (before)
+expands them prior entering the working directory, while ``-a`` (after) after
+entering. Their arguments are source numbers from the SPEC file preamble.
+
+For example, let's say the ``cello-1.0.tar.gz`` archive contains empty
+``examples`` folder, and the examples are shipped in separate ``examples.tar.gz``
+tarball (and they expand into the directory of the same name). In this case, we
+can use ``-a 1``, since we want to expand ``Source1`` after entering the
+working directory:
+
+[source,specfile]
+----
+Source0: https://example.com/%{name}/release/%{name}-%{version}.tar.gz
+Source0: examples.tar.gz
+…
+%prep
+%setup -a 1
+----
+
+But if the examples were in the separate ``cello-1.0-examples.tar.gz`` tarball,
+which expands into ``cello-1.0/examples``, you can use ``-b 1`` options, since
+the ``Source1`` should be expanded prior entering the working directory:
+
+[source,specfile]
+----
+Source0: https://example.com/%{name}/release/%{name}-%{version}.tar.gz
+Source0: %{name}-%{version}-examples.tar.gz
+…
+%prep
+%setup -b 1
+----
+
+You can also use a combination of all these options.
+
 [[files]]
 === %files
 
