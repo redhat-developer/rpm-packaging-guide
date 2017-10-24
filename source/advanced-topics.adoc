@@ -8,7 +8,7 @@ ifdef::community[]
 [[mock]]
 == Mock
 
-“ https://fedoraproject.org/wiki/Mock[Mock] is a tool for building packages. It can build packages for different
+“ https://github.com/rpm-software-management/mock/wiki[Mock] is a tool for building packages. It can build packages for different
 architectures and different Fedora or RHEL versions than the build host has.
 Mock creates chroots and builds packages in them. Its only task is to reliably
 populate a chroot and attempt to build a package in that chroot.
@@ -206,7 +206,7 @@ omitted after you have done an ``--init`` on a mock target, such as
 ``mock -r epel-7-x86_64 --init`` which will pre-download all the
 required packages, cache them, and pre-stage the build chroot.
 
-For more information, please consult the https://fedoraproject.org/wiki/Mock[Mock] upstream documentation.
+For more information, please consult the https://github.com/rpm-software-management/mock/wiki[Mock] upstream documentation.
 endif::community[]
 
 ifdef::community[]
