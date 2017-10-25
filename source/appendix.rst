@@ -5,6 +5,11 @@
 Appendix
 ========
 
+.. attention::
+
+   This guide has been permanently moved to
+   https://rpm-packaging-guide.github.io/ where you can find the latest version.
+
 Here you will find supplementary information that is very good to know and will
 likely prove to helpful for anyone who is going to be building RPMs in an
 serious capacity but isn't necessarily a hard requirement to learn how to

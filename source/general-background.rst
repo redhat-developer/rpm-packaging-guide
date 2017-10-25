@@ -5,6 +5,11 @@
 General Topics and Background
 =============================
 
+.. attention::
+
+   This guide has been permanently moved to
+   https://rpm-packaging-guide.github.io/ where you can find the latest version.
+
 In this section will we walk through various topics about building software that
 are helpful background or otherwise general topics that are important for a good
 RPM Packager to be familiar with.

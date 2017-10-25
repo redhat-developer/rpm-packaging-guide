@@ -3,6 +3,10 @@
 Welcome to RPM Packaging Guide's documentation!
 ===============================================
 
+.. attention::
+
+   This guide has been permanently moved to
+   https://rpm-packaging-guide.github.io/ where you can find the latest version.
 
 So You Want To Be An RPM Packager?
 ----------------------------------

@@ -6,6 +6,11 @@
 RPM Packaging Guide
 ===================
 
+.. attention::
+
+   This guide has been permanently moved to
+   https://rpm-packaging-guide.github.io/ where you can find the latest version.
+
 Hello! Welcome to RPM Packaging 101 (for lack of a more inventive title). Here
 you will find all of the information you need in order to start packaging RPMs
 for various `Linux`_ Distributions that use the `RPM`_ Packaging Format.
