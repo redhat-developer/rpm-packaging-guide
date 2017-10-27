@@ -1238,7 +1238,7 @@ one field in the SPEC file and allowing it to be reused. we will use the value
 the hard coded examples string previously listed.
 
 The next item is to provide a listing for the ``.patch`` file we created earlier
-such that we can apply it to the code later in the ``%setup`` section. We will
+such that we can apply it to the code later in the ``%prep`` section. We will
 need a listing of ``Patch0:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cello-output-first-patch.patch``.
 
 After your edits, the top portion of your spec file should look like the
