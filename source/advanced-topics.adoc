@@ -27,7 +27,7 @@ for RPM Packagers, systems administrators, and developers.
 
 One of the most common use cases RPM Packagers have for https://fedoraproject.org/wiki/Mock[Mock] is to create
 what is known as a “pristine build environment”. By using mock as a “pristine
-build environment”, nothing about the current state of your system afffects
+build environment”, nothing about the current state of your system affects
 the RPM Package itself. Mock uses different configurations to specify
 what the build “target” is, these are found on your system in the ``/etc/mock/``
 directory (once you’ve installed the ``mock`` package). You can build for
