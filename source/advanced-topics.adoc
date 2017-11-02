@@ -396,7 +396,7 @@ To define a macro, use:
 
 [source,specfile]
 ----
-%define <name>[(opts)]
+%global <name>[(opts)] <body>
 
 ----
 
@@ -407,6 +407,15 @@ only recursive macro expansion is performed. A parameterized macro contains
 an `(opts)` field. The `opts` (the string between parentheses) is passed
 exactly as is to getopt(3) for argc/argv processing at the beginning of
 a macro invocation.
+
+You can find in some older example use of `%define <name> <body>`. Note that `%define` and `%global` differ in scope. '%define' has local scope while `%global` has global scope. Additionailly the body of a `%define`’d macro is lazily expanded (i.e. when used), but the body of `%global` is expanded at definition time.
+
+Examples:
+
+----
+%global githash 0ec4e58
+%global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
+----
 
 [[files]]
 === %files
