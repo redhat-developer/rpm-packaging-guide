@@ -12,8 +12,8 @@ before_install:
   - docker pull asciidoctor/docker-asciidoctor
 
 script:
-  - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-html asciidoctor/docker-asciidoctor asciidoctor -D /documents/output community/index.adoc
-  - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-pdf asciidoctor/docker-asciidoctor asciidoctor-pdf -o rpm-packaging-guide.pdf -D /documents/output community/index.adoc
+  - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-html asciidoctor/docker-asciidoctor asciidoctor --destination-dir=/documents/output --out-file=index.html community/index.adoc
+  - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-pdf asciidoctor/docker-asciidoctor asciidoctor-pdf --destination-dir=/documents/output --out-file=rpm-packaging-guide.pdf community/index.adoc
 
 after_error: 
   - docker logs asciidoc-to-html
@@ -28,5 +28,6 @@ deploy:
   skip_cleanup: true
   github_token: $GH_TOKEN
   repo: rpm-packaging-guide/rpm-packaging-guide.github.io
+  target_branch: master
   on:
     branch: master
