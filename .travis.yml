@@ -27,6 +27,7 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GH_TOKEN
+  local_dir: output
   repo: rpm-packaging-guide/rpm-packaging-guide.github.io
   target_branch: master
   on:
