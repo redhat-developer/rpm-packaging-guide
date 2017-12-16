@@ -2,6 +2,7 @@
 Adam Miller, Maxim Svistunov, Marie Doleželová, et al.
 :imagesdir: images
 :toc: left
+:toclevels: 3
 :doctype: book
 :source-highlighter: coderay
 :community:
