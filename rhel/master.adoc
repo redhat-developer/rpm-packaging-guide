@@ -6,6 +6,7 @@
 :rhel:
 
 include::source/introduction.adoc[leveloffset=+1]
+include::source/hello-world.adoc[leveloffset=+1]
 include::source/preparing-software.adoc[leveloffset=+1]
 include::source/packaging-software.adoc[leveloffset=+1]
 include::source/advanced-topics.adoc[leveloffset=+1]
