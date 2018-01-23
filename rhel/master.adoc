@@ -1,6 +1,7 @@
 = RPM Packaging Guide
 :imagesdir: images
 :toc: left
+:toclevels: 3
 :doctype: book
 :source-highlighter: coderay
 :rhel:
