@@ -265,7 +265,7 @@ Starting from Red Hat Enterprise Linux 6 release, the `rpmbuild` program has its
 [[rpm-macros]]
 === RPM Macros
 
-A http://rpm.org/wiki/PackagerDocs/Macros[rpm macro] is a straight text
+An http://rpm.org/user_doc/macros.html[rpm macro] is a straight text
 substitution that can be conditionally assigned based on the optional evaluation
 of a statement when certain built-in functionality is used. What this means is
 that you can have RPM perform text substitutions for you so that you don’t have
