@@ -388,14 +388,14 @@ endif::rhel[]
 === Defining Your Own Macros
 
 You can define your own Macros. Below is an excerpt from the
-http://rpm.org/wiki/Docs[RPM Official Documentation], which provides a
+http://rpm.org/user_doc/macros.html[RPM Official Documentation], which provides a
 comprehensive reference on macros capabilities.
 
 To define a macro, use:
 
 [source,specfile]
 ----
-%define <name>[(opts)]
+%global <name>[(opts)] <body>
 
 ----
 
@@ -406,6 +406,17 @@ only recursive macro expansion is performed. A parameterized macro contains
 an `(opts)` field. The `opts` (the string between parentheses) is passed
 exactly as is to getopt(3) for argc/argv processing at the beginning of
 a macro invocation.
+
+You can find in some older example use of `%define <name> <body>`. Note that `%define` and `%global` differ in scope. '%define' has local scope while `%global` has global scope. Additionailly the body of a `%define`’d macro is lazily expanded (i.e. when used), but the body of `%global` is expanded at definition time.
+
+Examples:
+
+----
+%global githash 0ec4e58
+%global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
+----
+
+NOTE: Macros are always evaluated. Even in comments. Sometimes it is harmless. But in the second example, we are executing python command to get the content of macro. And this command will be executed even when you comment out the macro. Or when you put the name of the macro into %changelog. To really comment out macro use `%%` e.g., `%%global`.
 
 [[files]]
 === %files
