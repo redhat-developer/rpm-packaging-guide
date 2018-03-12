@@ -12,6 +12,13 @@ need to package software into RPMs. See xref:packaging-software[].
 Advanced packaging scenarios.:: This is a reference material for RPM packagers
 dealing with advanced RPM Packaging scenarios. See xref:advanced-topics[].
 
+ifdef::community[]
+[[pdf-version]]
+== PDF Version
+
+You can also download a https://rpm-packaging-guide.github.io/rpm-packaging-guide.pdf[PDF version of this document].
+endif::community[]
+
 [[document-conventions]]
 == Document Conventions
 

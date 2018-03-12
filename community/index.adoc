@@ -2,11 +2,13 @@
 Adam Miller, Maxim Svistunov, Marie Doleželová, et al.
 :imagesdir: images
 :toc: left
+:toclevels: 3
 :doctype: book
 :source-highlighter: coderay
 :community:
 
 include::source/introduction.adoc[leveloffset=+1]
+include::source/hello-world.adoc[leveloffset=+1]
 include::source/preparing-software.adoc[leveloffset=+1]
 include::source/packaging-software.adoc[leveloffset=+1]
 include::source/advanced-topics.adoc[leveloffset=+1]

@@ -1,0 +1,68 @@
+[[hello-world]]
+= Your First RPM Package
+
+Creating an RPM package can be complicated, and you will learn tons of new things. Let's skip all that. Here is
+a complete, working RPM Spec file. We skipped and simplified several things there. See what you can make of it.
+
+[source,specfile]
+----
+Name:       hello-world
+Version:    1
+Release:    1
+Summary:    Most simple RPM package
+License:    FIXME
+
+%description
+This is my first RPM package, which does nothing.
+
+%prep
+# we have no source, so nothing here
+
+%build
+echo > hello-world.sh <<EOF
+#!/usr/bin/bash
+echo Hello world
+EOF
+
+%install
+mkdir -p %{buildroot}/usr/bin/                                                                                                                                                      
+install -m 755 hello-world.sh %{buildroot}/usr/bin/hello-world.sh
+
+%files
+/usr/bin/hello-world.sh
+
+%changelog
+# let skip this for now
+----
+
+Save this file as ``hello-world.spec``.
+
+Now run these commands:
+
+[source,bash]
+----
+$ rpmdev-setuptree
+$ rpmbuild -ba hello-world.spec
+
+----
+
+The command ``rpmdev-setuptree`` creates several working directories. You can run it only once in your lifetime.
+
+The command ``rpmbuild`` creates the actuall rpm package. The output of this command should look like:
+
+[source,txt]
+----
+... [SNIP] 
+Wrote: /home/mirek/rpmbuild/SRPMS/hello-world-1-1.src.rpm
+Wrote: /home/mirek/rpmbuild/RPMS/x86_64/hello-world-1-1.x86_64.rpm
+Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.wgaJzv
++ umask 022
++ cd /home/mirek/rpmbuild/BUILD
++ /usr/bin/rm -rf /home/mirek/rpmbuild/BUILDROOT/hello-world-1-1.x86_64
++ exit 0
+----
+
+The file ``/home/mirek/rpmbuild/RPMS/x86_64/hello-world-1-1.x86_64.rpm`` is your first RPM package. Congratulations!
+You can install it on your system and see if it works.
+
+

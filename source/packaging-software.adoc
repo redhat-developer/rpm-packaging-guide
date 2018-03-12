@@ -265,7 +265,7 @@ Starting from Red Hat Enterprise Linux 6 release, the `rpmbuild` program has its
 [[rpm-macros]]
 === RPM Macros
 
-A http://rpm.org/wiki/PackagerDocs/Macros[rpm macro] is a straight text
+An http://rpm.org/user_doc/macros.html[rpm macro] is a straight text
 substitution that can be conditionally assigned based on the optional evaluation
 of a statement when certain built-in functionality is used. What this means is
 that you can have RPM perform text substitutions for you so that you don’t have
@@ -1238,7 +1238,7 @@ one field in the SPEC file and allowing it to be reused. we will use the value
 the hard coded examples string previously listed.
 
 The next item is to provide a listing for the ``.patch`` file we created earlier
-such that we can apply it to the code later in the ``%setup`` section. We will
+such that we can apply it to the code later in the ``%prep`` section. We will
 need a listing of ``Patch0:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cello-output-first-patch.patch``.
 
 After your edits, the top portion of your spec file should look like the
