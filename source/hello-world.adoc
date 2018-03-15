@@ -19,7 +19,7 @@ This is my first RPM package, which does nothing.
 # we have no source, so nothing here
 
 %build
-echo > hello-world.sh <<EOF
+cat > hello-world.sh <<EOF
 #!/usr/bin/bash
 echo Hello world
 EOF
