@@ -235,7 +235,7 @@ The SPEC file can also contain advanced items. For example, a SPEC file can have
 __scriptlets__ and __triggers__. They take effect at different points during the
 installation process on the end user's system (not the build process).
 
-See the xref:advanced-topics[] for advanced topics.
+See the xref:triggers-and-scriptlets[] for advanced topics.
 
 [[buildroots]]
 === BuildRoots
