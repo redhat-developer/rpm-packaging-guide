@@ -544,12 +544,12 @@ Source0:        https://example.com/%{name}/release/%{name}-%{version}.tar.gz
 ----
 +
 . Populate the ``BuildRequires`` and ``Requires`` directives and include the
-``BuildArch`` directory:
+``BuildArch`` directive:
 +
 * ``BuildRequires`` specifies build-time dependencies for the package. There is
 no building step for ``bello``, because bash is a raw interpreted programming
 language, and the files are simply installed to their location on the system.
-Just delete this directory.
+Just delete this directive.
 +
 * ``Requires`` specifies run-time dependencies for the package. The ``bello``
 script requires only the ``bash`` shell environment to execute, so specify ``bash``
