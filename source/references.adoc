@@ -14,4 +14,6 @@ endif::community[]
 *   https://en.opensuse.org/openSUSE:Packaging_guidelines[OpenSUSE Packaging Guidelines]
 *   IBM RPM Packaging Guide: http://www.ibm.com/developerworks/library/l-rpm1/[Part 1], http://www.ibm.com/developerworks/library/l-rpm2/[Part 2], http://www.ibm.com/developerworks/library/l-rpm3/[Part 3]
 *   http://ftp.rpm.org/max-rpm/[Maximum RPM] (a good resource for advanced topics, even though some material is obsolete)
-*   https://rpm-packaging-guide.github.io/#mock[Mock]
+ifdef::rhel[] 
+*   https://rpm-packaging-guide.github.io/#mock[Mock] 
+endif::rhel[]
