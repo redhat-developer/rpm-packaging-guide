@@ -809,7 +809,7 @@ for any reason, such as including a new patch to fix an issue, but doesn’t hav
 a new upstream release ``Version``. When a new upstream release happens (for
 example, pello version ``0.1.2`` were released) then the ``Release`` number
 should be reset to ``1``. The _disttag_ of ``%{?dist}`` should look familiar
-from the previous section’s coverage of xref:rpm-macros.
+from the previous section’s coverage of xref:rpm-macros[].
 
 The ``Summary`` should be a short, one-line explanation of what this software
 is.
