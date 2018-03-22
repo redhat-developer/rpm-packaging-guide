@@ -411,7 +411,7 @@ explore packaging different kinds of software.
 |====
 | Software Name | Explanation of example
 | bello | A program written in a raw interpreted programming language. It
-demonstrates when the source code does not to be built, but only needs to be
+demonstrates when the source code does not need to be built, but only needs to be
 installed. If a pre-compiled binary needs to be packaged, you can also use this
 method since the binary would also just be a file.
 | pello | A program written in a byte-compiled interpreted programming language.
