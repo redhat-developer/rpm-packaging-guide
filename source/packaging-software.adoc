@@ -981,7 +981,7 @@ accessed.
 
 NOTE: You will notice below that we are hard coding the library path. There are
 various methods to avoid needing to do this, many of which are addressed in
-xref:advanced-topics[], under the xref:more-on-macros[] section, and are
+<<advanced-topics>>, under the xref:more-on-macros[] section, and are
 specific to the programming language in which the software that is being
 packaged was written in. In this example we hard code the path for simplicity as
 to not cover too many topics simultaneously.
