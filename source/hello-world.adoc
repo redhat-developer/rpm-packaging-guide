@@ -1,8 +1,7 @@
 [[hello-world]]
 = Your First RPM Package
 
-Creating an RPM package can be complicated, and you will learn tons of new things. Let's skip all that. Here is
-a complete, working RPM Spec file. We skipped and simplified several things there. See what you can make of it.
+Creating an RPM package can be complicated. Here is a complete, working RPM Spec file with several things skipped and simplified.
 
 [source,specfile]
 ----
@@ -37,7 +36,7 @@ install -m 755 hello-world.sh %{buildroot}/usr/bin/hello-world.sh
 
 Save this file as ``hello-world.spec``.
 
-Now run these commands:
+Now use these commands:
 
 [source,bash]
 ----
@@ -46,9 +45,9 @@ $ rpmbuild -ba hello-world.spec
 
 ----
 
-The command ``rpmdev-setuptree`` creates several working directories. You can run it only once in your lifetime.
+The command ``rpmdev-setuptree`` creates several working directories. You can use it only once in your lifetime.
 
-The command ``rpmbuild`` creates the actuall rpm package. The output of this command should look like:
+The command ``rpmbuild`` creates the actuall rpm package. The output of this command can be similar to:
 
 [source,txt]
 ----
@@ -62,7 +61,6 @@ Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.wgaJzv
 + exit 0
 ----
 
-The file ``/home/mirek/rpmbuild/RPMS/x86_64/hello-world-1-1.x86_64.rpm`` is your first RPM package. Congratulations!
-You can install it on your system and see if it works.
+The file ``/home/mirek/rpmbuild/RPMS/x86_64/hello-world-1-1.x86_64.rpm`` is your first RPM package. It can be installed in the system and tested.
 
 
