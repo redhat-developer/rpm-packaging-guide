@@ -499,7 +499,7 @@ The ``-T`` option disables expansion of the source code tarball by removing the 
 [[setup-ab]]
 ==== %setup -a and -b
 
-Options ``-a`` and ``-b`` expand specific sources. ``-b``, meaning before, expands specific sources prior entering the working directory, while ``-a``, meaning after, expands those sources after entering. Their arguments are source numbers from the spec file preamble.
+Options ``-a`` and ``-b`` expand specific sources. ``-b`` expands specific sources before entering the working directory, while ``-a`` expands those sources after entering. Their arguments are source numbers from the spec file preamble.
 
 For example, let's say the ``cello-1.0.tar.gz`` archive contains empty ``examples`` directory, and the examples are shipped in separate ``examples.tar.gz`` tarball and they expand into the directory of the same name. In this case use ``-a 1``, as we want to expand ``Source1`` after entering the working directory:
 
