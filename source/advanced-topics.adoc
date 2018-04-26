@@ -415,7 +415,7 @@ Examples:
 %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
 ----
 
-NOTE: Macros are always evaluated, even in comments. Sometimes it is harmless. But in the second example, we are executing python command to get the content of a macro. This command will be executed even when you comment out the macro. Or when you put the name of the macro into %changelog. To comment out macro, use `%%`. For example: `%%global`
+NOTE: Macros are always evaluated, even in comments. Sometimes it is harmless. But in the second example, we are executing python command to get the content of a macro. This command will be executed even when you comment out the macro. Or when you put the name of the macro into %changelog. To comment out macro, use `%%`. For example: `%%global`.
 
 [[setup]]
 === %setup
