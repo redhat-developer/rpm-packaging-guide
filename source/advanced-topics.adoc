@@ -406,7 +406,7 @@ an `(opts)` field. The `opts` (the string between parentheses) is passed
 exactly as is to getopt(3) for argc/argv processing at the beginning of
 a macro invocation.
 
-The use of `%define <name> <body>` can be found in older examples. Note that `%define` and `%global` differ in scope. `%define` has local scope while `%global` has global scope. Additionally, the body of a `%define`’d` macro is lazily expanded when used, but the body of `%global` is expanded at definition time.
+The use of `%define <name> <body>` can be found in older examples. Note that the `%define` and `%global` macros differ in scope. `%define` has local scope while `%global` has global scope. Additionally, the body of `%define` is lazily expanded when used, but the body of `%global` is expanded at definition time.
 
 Examples:
 
