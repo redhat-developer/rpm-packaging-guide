@@ -47,7 +47,7 @@ $ rpmbuild -ba hello-world.spec
 
 The command ``rpmdev-setuptree`` creates several working directories. As those directories are stored permanently in $HOME, this command does not need to be used again.
 
-The command ``rpmbuild`` creates the actuall rpm package. The output of this command can be similar to:
+The command ``rpmbuild`` creates the actual rpm package. The output of this command can be similar to:
 
 [source,txt]
 ----
