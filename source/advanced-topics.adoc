@@ -4,6 +4,187 @@
 This chapter covers topics that are beyond the scope of the introductory
 tutorial but are often useful in real-world RPM packaging.
 
+[[Signing-Packages]]
+== Signing Packages
+
+Signing a package is a way to secure the package for an end user. Secure transport can be achieved with implementation of the HTTPS protocol, which can be done when the package was downloaded just before installing. However, the packages are often downloaded in advance and stored in local repositories before they are used. The packages are signed to make sure no third party can alter the content of a package.
+
+There are three ways to sign a package:
+
+* xref:Adding-a-Signature-to-a-Package[Adding a signature to an already existing package].
+
+* xref:Replacing-a-Package-Signature[Replacing the signature on an already existing package].
+
+* xref:Build-time-signing[Signing a package at build-time].
+
+[[Adding-a-Signature-to-a-Package]]
+=== Adding a Signature to a Package
+
+In most cases packages are build without a signature. The signature is added just before release of the package.
+
+In order to add another signature to the package use the --addsign option.
+Having more than one signature makes it possible to record the package's path of ownership
+from the package builder to the end-user.
+
+.Example:
+----
+As an example, a division of a company creates a package and signs it with the division's key. The company's headquarters then checks the package's signature and adds the corporate signature to the package, stating that the signed package is authentic.
+
+With two signatures, the package makes its way to a retailer. The retailer checks the signatures and, if they check out, adds their signature as well.
+
+The package now makes its way to a company that wishes to deploy the package. After checking every signature on the package, they know that it is an authentic copy, unchanged since it was first created. Depending on the deploying company's internal controls, they may choose to add their own signature, to reassure their employees that the package has received their corporate approval.
+----
+
+The output from the --addsign option:
+
+[source,bash]
+----
+# rpm --addsign blather-7.9-1.i386.rpm
+            Enter pass phrase:
+
+Pass phrase is good.
+blather-7.9-1.i386.rpm:
+----
+
+To check the signatures of a package with multiple signatures:
+
+[source,bash]
+----
+# rpm --checksig blather-7.9-1.i386.rpm
+blather-7.9-1.i386.rpm: size pgp pgp md5 OK
+----
+
+The two "pgp" strings in the output of the "rpm --checksig" command show that the package has been signed twice.
+
+RPM makes it possible to add the same signature multiple times. The --addsign option does not check for multiple identical signatures.
+
+[source,bash]
+----
+# rpm --addsig blather-7.9-1.i386.rpm
+              Enter pass phrase:
+
+Pass phrase is good.
+blather-7.9-1.i386.rpm:
+# rpm --addsig blather-7.9-1.i386.rpm
+              Enter pass phrase:
+
+Pass phrase is good.
+blather-7.9-1.i386.rpm:
+# rpm --addsig blather-7.9-1.i386.rpm
+              Enter pass phrase:
+
+Pass phrase is good.
+blather-7.9-1.i386.rpm:
+# rpm --checksig blather-7.9-1.i386.rpm
+blather-7.9-1.i386.rpm: size pgp pgp pgp pgp md5 OK
+----
+
+The output of the "rpm --checksig" command displays four signatures.
+
+[[Replacing-a-Package-Signature]]
+=== Replacing a Package Signature
+
+To change the public key without having to rebuild each package, use the "--resign" option.
+
+[source,bash]
+----
+# rpm --resign blather-7.9-1.i386.rpm
+            Enter pass phrase:
+
+Pass phrase is good.
+blather-7.9-1.i386.rpm:
+----
+
+To use the --resign option on multiple package files:
+
+[source,bash]
+----
+# rpm --resign b*.rpm
+            Enter pass phrase:
+
+Pass phrase is good.
+blather-7.9-1.i386.rpm:
+bother-3.5-1.i386.rpm:
+----
+
+[[Build-time-signing]]
+=== Build-time signing
+
+To sign a package at build-time, use the rpmbuild command with the --sign option. This requires entering the PGP passphrase.
+
+For example:
+
+[source,bash]
+----
+# rpmbuild -ba --sign blather-7.9.spec
+            Enter pass phrase:
+
+Pass phrase is good.
+* Package: blather
+…
+Binary Packaging: blather-7.9-1
+Finding dependencies...
+…
+Generating signature: 1002
+Wrote: /usr/src/redhat/RPMS/i386/blather-7.9-1.i386.rpm
+…
+Source Packaging: blather-7.9-1
+…
+Generating signature: 1002
+Wrote: /usr/src/redhat/SRPMS/blather-7.9-1.src.rpm
+----
+
+The "Generating signature" message appears in both the binary and source packaging sections. The number following the message indicates that the signature added was created using PGP.
+
+[NOTE]
+--
+When using the "--sign" option for "rpmbuild", use only -bb or -ba options for package building.
+--
+
+To verify the signature of a package, use the rpm command with "--checksig" option. For example:
+
+[source,bash]
+----
+# rpm --checksig blather-7.9-1.i386.rpm
+blather-7.9-1.i386.rpm: size pgp md5 OK
+----
+
+[[Multiple-Builds]]
+==== Multiple Builds
+
+When building multiple packages, use the following syntax to avoid entering the PGP passphrase multiple times. For example when building the blather and bother packages, sign them by using the following:
+
+[source,bash]
+----
+# rpmbuild -ba --sign b*.spec
+              Enter pass phrase:
+
+Pass phrase is good.
+* Package: blather
+…
+Binary Packaging: blather-7.9-1
+…
+Generating signature: 1002
+Wrote: /usr/src/redhat/RPMS/i386/blather-7.9-1.i386.rpm
+…
+Source Packaging: blather-7.9-1
+…
+Generating signature: 1002
+Wrote: /usr/src/redhat/SRPMS/blather-7.9-1.src.rpm
+…
+* Package: bother
+…
+Binary Packaging: bother-3.5-1
+…
+Generating signature: 1002
+Wrote: /usr/src/redhat/RPMS/i386/bother-3.5-1.i386.rpm
+…
+Source Packaging: bother-3.5-1
+…
+Generating signature: 1002
+Wrote: /usr/src/redhat/SRPMS/bother-3.5-1.src.rpm
+----
+
 ifdef::community[]
 [[mock]]
 == Mock
