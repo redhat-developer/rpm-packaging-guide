@@ -1,13 +1,7 @@
-[[advanced-topics]]
-= Advanced Topics
-
-This chapter covers topics that are beyond the scope of the introductory
-tutorial but are often useful in real-world RPM packaging.
-
 [[Signing-Packages]]
 == Signing Packages
 
-Signing a package is a way to secure the package for an end user. Secure transport can be achieved with implementation of the HTTPS protocol, which can be done when the package was downloaded just before installing. However, the packages are often downloaded in advance and stored in local repositories before they are used. The packages are signed to make sure no third party can alter the content of a package.
+Signing a package is a way to secure the package for an end user. Secure transport can be achieved with implementation of the HTTPS protocol, which can be done when the package is downloaded just before installing. However, the packages are often downloaded in advance and stored in local repositories before they are used. The packages are signed to make sure no third party can alter the content of a package.
 
 There are three ways to sign a package:
 
@@ -20,22 +14,20 @@ There are three ways to sign a package:
 [[Adding-a-Signature-to-a-Package]]
 === Adding a Signature to a Package
 
-In most cases packages are build without a signature. The signature is added just before release of the package.
+In most cases packages are built without a signature. The signature is added just before the release of the package.
 
-In order to add another signature to the package use the --addsign option.
+In order to add another signature to the package package, use the `--addsign` option.
 Having more than one signature makes it possible to record the package's path of ownership
 from the package builder to the end-user.
 
-.Example:
-----
 As an example, a division of a company creates a package and signs it with the division's key. The company's headquarters then checks the package's signature and adds the corporate signature to the package, stating that the signed package is authentic.
 
 With two signatures, the package makes its way to a retailer. The retailer checks the signatures and, if they check out, adds their signature as well.
 
 The package now makes its way to a company that wishes to deploy the package. After checking every signature on the package, they know that it is an authentic copy, unchanged since it was first created. Depending on the deploying company's internal controls, they may choose to add their own signature, to reassure their employees that the package has received their corporate approval.
-----
 
-The output from the --addsign option:
+
+The output from the `--addsign` option:
 
 [source,bash]
 ----
@@ -54,9 +46,9 @@ To check the signatures of a package with multiple signatures:
 blather-7.9-1.i386.rpm: size pgp pgp md5 OK
 ----
 
-The two "pgp" strings in the output of the "rpm --checksig" command show that the package has been signed twice.
+The two `pgp` strings in the output of the `rpm --checksig` command show that the package has been signed twice.
 
-RPM makes it possible to add the same signature multiple times. The --addsign option does not check for multiple identical signatures.
+RPM makes it possible to add the same signature multiple times. The `--addsign` option does not check for multiple identical signatures.
 
 [source,bash]
 ----
@@ -79,12 +71,12 @@ blather-7.9-1.i386.rpm:
 blather-7.9-1.i386.rpm: size pgp pgp pgp pgp md5 OK
 ----
 
-The output of the "rpm --checksig" command displays four signatures.
+The output of the `rpm --checksig` command displays four signatures.
 
 [[Replacing-a-Package-Signature]]
 === Replacing a Package Signature
 
-To change the public key without having to rebuild each package, use the "--resign" option.
+To change the public key without having to rebuild each package, use the `--resign` option.
 
 [source,bash]
 ----
@@ -138,10 +130,10 @@ The "Generating signature" message appears in both the binary and source packagi
 
 [NOTE]
 --
-When using the "--sign" option for "rpmbuild", use only -bb or -ba options for package building.
+When using the `--sign` option for `rpmbuild`, use only -bb or -ba options for package building.
 --
 
-To verify the signature of a package, use the rpm command with "--checksig" option. For example:
+To verify the signature of a package, use the rpm command with `--checksig` option. For example:
 
 [source,bash]
 ----
@@ -149,10 +141,10 @@ To verify the signature of a package, use the rpm command with "--checksig" opti
 blather-7.9-1.i386.rpm: size pgp md5 OK
 ----
 
-[[Multiple-Builds]]
-==== Multiple Builds
+[[Building-multiple-packages]]
+==== Building multiple packages
 
-When building multiple packages, use the following syntax to avoid entering the PGP passphrase multiple times. For example when building the blather and bother packages, sign them by using the following:
+When building multiple packages, use the following syntax to avoid entering the PGP passphrase multiple times. For example when building the `blather` and `bother` packages, sign them by using the following:
 
 [source,bash]
 ----
