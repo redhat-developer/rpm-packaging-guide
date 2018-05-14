@@ -1,3 +1,9 @@
+[[advanced-topics]]
+= Advanced Topics
+
+This chapter covers topics that are beyond the scope of the introductory
+tutorial but are often useful in real-world RPM packaging.
+
 [[Signing-Packages]]
 == Signing Packages
 
