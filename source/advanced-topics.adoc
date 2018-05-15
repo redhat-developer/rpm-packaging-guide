@@ -37,7 +37,7 @@ The output from the `--addsign` option:
 
 [source,bash]
 ----
-# rpm --addsign blather-7.9-1.i386.rpm
+$ rpm --addsign blather-7.9-1.i386.rpm
             Enter pass phrase:
 
 Pass phrase is good.
@@ -48,7 +48,7 @@ To check the signatures of a package with multiple signatures:
 
 [source,bash]
 ----
-# rpm --checksig blather-7.9-1.i386.rpm
+$ rpm --checksig blather-7.9-1.i386.rpm
 blather-7.9-1.i386.rpm: size pgp pgp md5 OK
 ----
 
@@ -58,22 +58,22 @@ RPM makes it possible to add the same signature multiple times. The `--addsign` 
 
 [source,bash]
 ----
-# rpm --addsig blather-7.9-1.i386.rpm
+$ rpm --addsig blather-7.9-1.i386.rpm
               Enter pass phrase:
 
 Pass phrase is good.
 blather-7.9-1.i386.rpm:
-# rpm --addsig blather-7.9-1.i386.rpm
+$ rpm --addsig blather-7.9-1.i386.rpm
               Enter pass phrase:
 
 Pass phrase is good.
 blather-7.9-1.i386.rpm:
-# rpm --addsig blather-7.9-1.i386.rpm
+$ rpm --addsig blather-7.9-1.i386.rpm
               Enter pass phrase:
 
 Pass phrase is good.
 blather-7.9-1.i386.rpm:
-# rpm --checksig blather-7.9-1.i386.rpm
+$ rpm --checksig blather-7.9-1.i386.rpm
 blather-7.9-1.i386.rpm: size pgp pgp pgp pgp md5 OK
 ----
 
@@ -86,7 +86,7 @@ To change the public key without having to rebuild each package, use the `--resi
 
 [source,bash]
 ----
-# rpm --resign blather-7.9-1.i386.rpm
+$ rpm --resign blather-7.9-1.i386.rpm
             Enter pass phrase:
 
 Pass phrase is good.
@@ -97,7 +97,7 @@ To use the --resign option on multiple package files:
 
 [source,bash]
 ----
-# rpm --resign b*.rpm
+$ rpm --resign b*.rpm
             Enter pass phrase:
 
 Pass phrase is good.
@@ -114,7 +114,7 @@ For example:
 
 [source,bash]
 ----
-# rpmbuild -ba --sign blather-7.9.spec
+$ rpmbuild -ba --sign blather-7.9.spec
             Enter pass phrase:
 
 Pass phrase is good.
@@ -143,7 +143,7 @@ To verify the signature of a package, use the rpm command with `--checksig` opti
 
 [source,bash]
 ----
-# rpm --checksig blather-7.9-1.i386.rpm
+$ rpm --checksig blather-7.9-1.i386.rpm
 blather-7.9-1.i386.rpm: size pgp md5 OK
 ----
 
@@ -154,7 +154,7 @@ When building multiple packages, use the following syntax to avoid entering the 
 
 [source,bash]
 ----
-# rpmbuild -ba --sign b*.spec
+$ rpmbuild -ba --sign b*.spec
               Enter pass phrase:
 
 Pass phrase is good.
