@@ -416,7 +416,7 @@ $ diff -Naur cello.c.orig cello.c
  int main(void){
 -    printf("Hello World!\n");
 +    printf("Hello World from my very first patch!\n");
-     return 1;
+     return 0;
  }
 \ No newline at end of file
 
