@@ -15,7 +15,7 @@ There are three ways to sign a package:
 
 * xref:Replacing-a-Package-Signature[Replacing the signature on an already existing package].
 
-* xref:Build-time-signing[Signing a package at build-time].
+* xref:Build-time-Signing[Signing a package at build-time].
 
 [[Adding-a-Signature-to-a-Package]]
 === Adding a Signature to a Package
@@ -105,8 +105,8 @@ blather-7.9-1.i386.rpm:
 bother-3.5-1.i386.rpm:
 ----
 
-[[Build-time-signing]]
-=== Build-time signing
+[[Build-time-Signing]]
+=== Build-time Signing
 
 To sign a package at build-time, use the rpmbuild command with the --sign option. This requires entering the PGP passphrase.
 
@@ -147,8 +147,8 @@ $ rpm --checksig blather-7.9-1.i386.rpm
 blather-7.9-1.i386.rpm: size pgp md5 OK
 ----
 
-[[Building-multiple-packages]]
-==== Building multiple packages
+[[Building-Multiple-Packages]]
+==== Building Multiple Packages
 
 When building multiple packages, use the following syntax to avoid entering the PGP passphrase multiple times. For example when building the `blather` and `bother` packages, sign them by using the following:
 
