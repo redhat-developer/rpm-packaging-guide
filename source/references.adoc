@@ -1,19 +1,26 @@
 [appendix]
 = References
 
-Below are references to various topics of interest around RPMs, RPM Packaging,
-and RPM Building. Some of these will be advanced and extend far beyond the
-introductory material included in this guide.
+Below are references to various topics of interest around RPMs, RPM Packaging, and RPM Building. Some of these will be advanced and extend far beyond the introductory material included in this guide.
 
-*   http://rpm.org/wiki/Docs[The Official RPM Documentation]
-*   https://www.gurulabs.com/media/files/courseware-samples/GURULABS-RPM-GUIDE-v1.0.PDF[Gurulabs CREATING RPMS (Student Version)]
-ifdef::community[]
-*   https://fedoraproject.org/wiki/How_to_create_an_RPM_package[Fedora How To Create An RPM Package Guide]
-endif::community[]
-*   https://fedoraproject.org/wiki/Packaging:Guidelines?rd=Packaging/Guidelines[Fedora Packaging Guidelines]
-*   https://en.opensuse.org/openSUSE:Packaging_guidelines[OpenSUSE Packaging Guidelines]
-*   IBM RPM Packaging Guide: http://www.ibm.com/developerworks/library/l-rpm1/[Part 1], http://www.ibm.com/developerworks/library/l-rpm2/[Part 2], http://www.ibm.com/developerworks/library/l-rpm3/[Part 3]
-*   http://ftp.rpm.org/max-rpm/[Maximum RPM] (a good resource for advanced topics, even though some material is obsolete)
-ifdef::rhel[] 
-*   https://rpm-packaging-guide.github.io/#mock[Mock] 
+ifdef::rhel[]
+
+*   https://developers.redhat.com/products/softwarecollections/overview/[Red Hat Software Collections] - The Red Hat Software Collections provides continuously updated development tools in latest stable versions.
+
+*   https://rpm-packaging-guide.github.io/#mock[Mock] - Mock provides package building solution for various architectures and different Fedora or RHEL versions than has the build host.
+ 
 endif::rhel[]
+
+ifdef::community[]
+
+*   https://www.softwarecollections.org/en/[Software Collections] - SoftwareCollections.org is the home for projects creating Software Collections (SCLs) for Red Hat Enterprise Linux, Fedora, CentOS, and Scientific Linux.
+
+*   https://docs.fedoraproject.org/quick-docs/en-US/creating-rpm-packages.html[Creating RPM package] - Step-by-step guide for learning basics of RPM packaging.
+
+*   http://www.ibm.com/developerworks/library/l-rpm1/[Part 1], http://www.ibm.com/developerworks/library/l-rpm2/[Part 2], http://www.ibm.com/developerworks/library/l-rpm3/[Part 3] - IBM RPM packaging guide.
+
+endif::community[]
+
+*   http://rpm.org/documentation[RPM Documentation] - The official RPM documentation.
+
+*   https://fedoraproject.org/wiki/Packaging:Guidelines?rd=Packaging/Guidelines[Fedora Packaging Guidelines] - Packaging guidelines for Fedora useful for all RPM based distributions.
