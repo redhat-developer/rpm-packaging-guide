@@ -410,7 +410,7 @@ a macro invocation.
 --
 Older RPM SPEC files may use the `%define <name> <body>` macro pattern. The differences between `%define` and `%global` macros are as follows:
 
-* `%define` has local scope, which means that it applies only to a specified part of a SPEC file. In addition, the body of a `%define` macro is expanded when used.
+* `%define` has local scope, which means that it applies only to a specified part of a SPEC file. In addition, the body of a `%define` macro is expanded when used--it is lazily evaluated.
 * `%global` has global scope, which means that it applies to an entire SPEC file. In addition, the body of a `%global` macro is expanded at definition time.
 --
 
