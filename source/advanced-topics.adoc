@@ -1028,7 +1028,56 @@ The above items are from the included RPM documentation found in
 ``/usr/share/doc/rpm-4.*/triggers``.
 endif::rhel[]
 
+[id="Using-Non-Shell-Scripts-in-SPEC-File"]
+==== Using Non-Shell Scripts in SPEC File
 
+A scriptlet option, `-p`, in a SPEC file allows to invoke a specific interpreter instead of the default `-p{nbsp}/bin/sh`. An illustrative example is a script, which prints out a message after the installation of `pello.py`.
+
+. Open the `pello.spec` file. 
+
+. Find the following line:
++
+[source,specfile]
+----
+install -m 0644 %{name}.py* %{buildroot}/usr/lib/%{name}/
+----
++
+Under this line insert following code:
++
+[source,specfile]
+----
+%post -p /usr/bin/python3
+print("This is {} code".format("python"))
+----
+
+. Build your package according to the xref:building-rpms[] chapter.
+
+. Install your package:
++
+[source,bash]
+----
+# dnf install ~/rpmbuild/RPMS/noarch/pello-0.1.1-1.fc27.noarch.rpm
+----
++
+The output of this command is the following message after the installation:
++
+[source]
+----
+Installing       : pello-0.1.1-1.fc27.noarch                              1/1
+Running scriptlet: pello-0.1.1-1.fc27.noarch                              1/1
+This is python code
+----
+
+[NOTE]
+--
+* To use a Python{nbsp}3 script:
+Write a line `%post -p /usr/bin/python3` under the line `install{nbsp}-m` in a SPEC file.
+
+* To use a Lua script:
+Write a line `%post -p <lua>` under the line `install{nbsp}-m` in a SPEC file.
+
+* This way any interpreter can be specified in a SPEC file.
+--
 
 [[rpm-conditionals]]
 == RPM Conditionals
