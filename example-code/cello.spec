@@ -14,7 +14,7 @@ BuildRequires:  make
 
 %description
 The long-tail description for our Hello World Example implemented in
-C
+C.
 
 %prep
 %setup -q

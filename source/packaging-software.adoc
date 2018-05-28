@@ -690,7 +690,7 @@ BuildArch:      noarch
 
 %description
 The long-tail description for our Hello World Example implemented in
-bash script
+bash script.
 
 %prep
 %setup -q
@@ -1081,7 +1081,7 @@ BuildArch:      noarch
 
 %description
 The long-tail description for our Hello World Example implemented in
-Python
+Python.
 
 %prep
 %setup -q
@@ -1418,7 +1418,7 @@ BuildRequires:  make
 
 %description
 The long-tail description for our Hello World Example implemented in
-C
+C.
 
 %prep
 %setup -q

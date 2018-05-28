@@ -15,7 +15,7 @@ BuildArch:      noarch
 
 %description
 The long-tail description for our Hello World Example implemented in
-Python
+Python.
 
 %prep
 %setup -q
