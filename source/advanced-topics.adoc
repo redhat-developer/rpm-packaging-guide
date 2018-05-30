@@ -320,7 +320,7 @@ Executing(%build): /bin/sh -e /var/tmp/rpm-tmp.UxRVtI
 + cd /builddir/build/BUILD
 + cd cello-1.0
 + make -j2
-gcc -o cello cello.c
+gcc -g -o cello cello.c
 + exit 0
 Executing(%install): /bin/sh -e /var/tmp/rpm-tmp.K3i2dL
 + umask 022

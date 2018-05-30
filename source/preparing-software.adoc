@@ -178,7 +178,7 @@ Compiler Collection (https://gcc.gnu.org/[GCC]) to compile the source code into 
 
 [source,bash]
 ----
-gcc -o cello cello.c
+gcc -g -o cello cello.c
 
 ----
 
@@ -208,7 +208,7 @@ directory as ``cello.c``:
 [source,makefile]
 ----
 cello:
-        gcc -o cello cello.c
+        gcc -g -o cello cello.c
 
 clean:
         rm cello
@@ -232,7 +232,7 @@ $ make clean
 rm cello
 
 $ make
-gcc -o cello cello.c
+gcc -g -o cello cello.c
 
 ----
 
@@ -473,7 +473,7 @@ $ make clean
 rm cello
 
 $ make
-gcc -o cello cello.c
+gcc -g -o cello cello.c
 
 $ ./cello
 Hello World from my very first patch!
@@ -564,7 +564,7 @@ Add the ``install`` section to the ``Makefile``:
 [source,makefile]
 ----
 cello:
-        gcc -o cello cello.c
+        gcc -g -o cello cello.c
 
 clean:
         rm cello
@@ -588,7 +588,7 @@ To build and install the ``cello.c`` program:
 [source,bash]
 ----
 $ make
-gcc -o cello cello.c
+gcc -g -o cello cello.c
 
 $ sudo make install
 install -m 0755 cello /usr/bin/cello
