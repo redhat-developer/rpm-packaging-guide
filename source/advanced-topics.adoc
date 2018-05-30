@@ -1052,6 +1052,7 @@ print("This is {} code".format("python"))
 
 . Build your package according to the xref:building-rpms[] chapter.
 
+ifdef::community[]
 . Install your package:
 +
 [source,bash]
@@ -1067,6 +1068,25 @@ Installing       : pello-0.1.1-1.fc27.noarch                              1/1
 Running scriptlet: pello-0.1.1-1.fc27.noarch                              1/1
 This is python code
 ----
+endif::community[]
+
+ifdef::rhel[]
+. Install your package:
++
+[source,bash]
+----
+# yum install ~/home/<username>/rpmbuild/RPMS/noarch/pello-0.1.1-1.fc27.noarch.rpm
+----
++
+The output of this command is the following message after the installation:
++
+[source]
+----
+Installing       : pello-0.1.1-1.fc27.noarch                              1/1
+Running scriptlet: pello-0.1.1-1.fc27.noarch                              1/1
+This is python code
+----
+endif::rhel[]
 
 [NOTE]
 --
@@ -1076,7 +1096,7 @@ Write a line `%post -p /usr/bin/python3` under the line `install -m` in a spec f
 * To use a Lua script:
 Write a line `%post -p <lua>` under the line `install{nbsp}-m` in a spec file.
 
-* This way any interpreter can be specified in a spec file.
+* This way any interpreter can be specified in the spec file.
 --
 
 [[rpm-conditionals]]
