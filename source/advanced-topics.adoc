@@ -1150,7 +1150,7 @@ All the contents of the SPEC file between `%ifos` and `%endif` are processed onl
 [id="Benefits-of-packaging-Python-packages-as-RPMs"]
 ==== Benefits of packaging Python packages as RPMs
 
-In comparison with the Python Package Index (PyPI), RPM allows to specify dependencies of other RPMs that are not necessary Python packages. RPM allows to use cryptographic signing, content of RPM packages is verified, integrated, and tested with the rest of the system. More can be found in the chapter xref:Why-Package-Software-with-RPM[].
+In comparison with the Python Package Index (PyPI), RPM allows to specify dependencies of other RPMs that are not necessary Python packages. RPM allows to use cryptographic signing, content of RPM packages is verified, integrated, and tested with the rest of the operating system. More can be found in the chapter xref:Why-Package-Software-with-RPM[].
 
 ifdef::community[]
 [id="Converting-PyPI-package-to-an-RPM"]
