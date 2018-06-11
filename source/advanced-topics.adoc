@@ -1150,12 +1150,15 @@ All the contents of the SPEC file between `%ifos` and `%endif` are processed onl
 [id="Benefits-of-packaging-Python-packages-as-RPMs"]
 ==== Benefits of packaging Python packages as RPMs
 
-Benefits of packaging Python packages as RPMs are the same as for any other RPM package. More can be found in the chapter xref:Why-Package-Software-with-RPM[].
+In comparison with the Python Package Index (PyPI), RPM allows to specify dependencies of other RPMs that are not necessary Python packages. RPM allows to use cryptographic signing, content of RPM packages is verified, integrated, and tested with the rest of the system. More can be found in the chapter xref:Why-Package-Software-with-RPM[].
 
+ifdef::community[]
 [id="Converting-PyPI-package-to-an-RPM"]
 ==== Converting PyPI package to an RPM
 
 Pyp2rpm is a tool which automatically converts PyPI packages to an RPM spec file. Simple tutorial can be found on this page link:https://github.com/fedora-python/pyp2rpm[pyp2rpm].
+Pyp2rpm is still in development. Some manual corrections might be necessary.
+endif::community[]
 
 [id="Typical-Python-RPM-package-spec-file-description"]
 ==== Typical Python RPM package spec file description
@@ -1216,4 +1219,10 @@ All Python specific RPM macros can be found on this page link:https://fedoraproj
 [id="Differences-in-RPM-packages-for-Python-as-a-Software-Collection"]
 ==== Differences in RPM packages for Python as a Software Collection
 
+ifdef::rhel[]
+Those differences are documented in link:https://access.redhat.com/documentation/en-us/red_hat_software_collections/3/html/packaging_guide/sect-enabling_the_software_collection[Red Hat Software Collections]
+endif::rhel[]
+
+ifdef::community[]
 Those differences are documented in link:https://www.softwarecollections.org/en/docs/guide/#sect-Enabling_the_Software_Collection[Software Collections].
+endif::community[]
