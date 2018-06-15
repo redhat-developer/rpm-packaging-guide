@@ -1075,7 +1075,7 @@ ifdef::rhel[]
 +
 [source,bash]
 ----
-# yum install ~/home/<username>/rpmbuild/RPMS/noarch/pello-0.1.1-1.fc27.noarch.rpm
+# yum install /home/<username>/rpmbuild/RPMS/noarch/pello-0.1.1-1.fc27.noarch.rpm
 ----
 +
 The output of this command is the following message after the installation:
