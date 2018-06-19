@@ -1163,7 +1163,7 @@ endif::community[]
 [id="Typical-Python-RPM-package-spec-file-description"]
 ==== Typical Python RPM package spec file description
 
-There is a chapter xref:what-is-a-spec-file[], which describes spec file in general. Python RPM spec file specifications to spec files shown already in this guide might be shown in this example:
+There is a chapter xref:what-is-a-spec-file[], which describes spec file in general. However Python RPM spec file has some specifications. This example illustrates some of the most common specifications:
 
 [source,specfile]
 ----
@@ -1210,7 +1210,6 @@ LANG=en_US.utf8 %{__python} setup.py test
 %changelog
 ...
 ----
-
 
 [id="Common-macros-for-Python-RPM-packages"]
 ==== Common macros for Python RPM packages
