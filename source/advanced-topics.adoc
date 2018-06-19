@@ -1211,10 +1211,19 @@ LANG=en_US.utf8 %{__python} setup.py test
 ...
 ----
 
+
 [id="Common-macros-for-Python-RPM-packages"]
 ==== Common macros for Python RPM packages
 
+ifdef::community[]
 All Python specific RPM macros can be found on this page link:https://fedoraproject.org/wiki/Packaging:Python#Macros[Python packaging macros].
+endif::community[]
+
+ifdef::rhel[]
+
+// Query for information.
+
+endif::rhel[]
 
 [id="Differences-in-RPM-packages-for-Python-as-a-Software-Collection"]
 ==== Differences in RPM packages for Python as a Software Collection
