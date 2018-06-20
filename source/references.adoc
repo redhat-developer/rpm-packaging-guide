@@ -19,7 +19,7 @@ link:https://www.softwarecollections.org/en/[Software Collections] - SoftwareCol
 
 link:https://docs.fedoraproject.org/quick-docs/en-US/creating-rpm-packages.html[Creating RPM package] - Step-by-step guide for learning basics of RPM packaging.
 
-link:http://www.ibm.com/developerworks/library/l-rpm1/[Packaging software with RPM, Part 1], http://www.ibm.com/developerworks/library/l-rpm2/[Part 2], http://www.ibm.com/developerworks/library/l-rpm3/[Part 3] - IBM RPM packaging guide.
+link:http://www.ibm.com/developerworks/library/l-rpm1/[Packaging software with RPM, Part 1], link:http://www.ibm.com/developerworks/library/l-rpm2/[Part 2], link:http://www.ibm.com/developerworks/library/l-rpm3/[Part 3] - IBM RPM packaging guide.
 
 endif::community[]
 
