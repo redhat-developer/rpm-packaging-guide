@@ -7,7 +7,7 @@ ifdef::rhel[]
 
 link:https://developers.redhat.com/products/softwarecollections/overview/[Red Hat Software Collections Overview] - The Red Hat Software Collections offering provides continuously updated development tools in latest stable versions.
 
-link:https://access.redhat.com/documentation/en-us/red_hat_software_collections/3/html/packaging_guide/ [Red Hat Software Collections] - The Packaging Guide provides an explanation of Software Collections and details how to build and package them.  Developers and system administrators with basic understanding of software packaging with RPM can use this Guide to get started with Software Collections.
+link:https://access.redhat.com/documentation/en-us/red_hat_software_collections/3/html/packaging_guide/[Red Hat Software Collections] - The Packaging Guide provides an explanation of Software Collections and details how to build and package them. Developers and system administrators with basic understanding of software packaging with RPM can use this Guide to get started with Software Collections.
 
 link:https://rpm-packaging-guide.github.io/#mock[Mock] - Mock provides a community-supported package building solution for various architectures and different Fedora or RHEL versions than has the build host.
 
@@ -19,7 +19,7 @@ link:https://www.softwarecollections.org/en/[Software Collections] - SoftwareCol
 
 link:https://docs.fedoraproject.org/quick-docs/en-US/creating-rpm-packages.html[Creating RPM package] - Step-by-step guide for learning basics of RPM packaging.
 
-link:http://www.ibm.com/developerworks/library/l-rpm1/[Part 1], http://www.ibm.com/developerworks/library/l-rpm2/[Part 2], http://www.ibm.com/developerworks/library/l-rpm3/[Part 3] - IBM RPM packaging guide.
+link:http://www.ibm.com/developerworks/library/l-rpm1/[Packaging software with RPM, Part 1], http://www.ibm.com/developerworks/library/l-rpm2/[Part 2], http://www.ibm.com/developerworks/library/l-rpm3/[Part 3] - IBM RPM packaging guide.
 
 endif::community[]
 
