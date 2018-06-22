@@ -1215,11 +1215,11 @@ LANG=en_US.utf8 %{__python} setup.py test <6>
 ----
 
 <1> The name of this package in PyPI is setuptools, in RPM this package has specification "python" in its name.
-<2> BuildRequires specifies which version of Python is used to build a package.
+<2> BuildRequires specifies what packages are required to to build this package.
 <3> BuildRequires specifies which Python module package python-setuptools requires.
-<4> Without this expression the package might not be possible to build if the package has a C extension. `%{__python} setup.py build` Is similar to make build. Allows to easily build Python packages.
+<4> Without this expression the package might not be possible to build if the package has a C extension. `%{__python} setup.py build` Is similar to make build. Allows to build Python packages.
 <5> The setup.py install is similar to make install. On this line, setup.py install would suffice because it builds and installs the package, but for keeping an RPM standard the package is build with setup.py build and installed with the --skip-build option.
-<6> Tests vary depending on a particular project. However tests require locale. In RHEL it has to be specified on LANG=en_US.utf8.
+<6> Tests vary depending on a particular project. However in RHEL locale has to be specified on LANG=en_US.utf8.
 
 endif::rhel[]
 
@@ -1248,12 +1248,17 @@ ifdef::rhel[]
 |Python 2 interpreter
 
 |python_sitelib
-|/usr/lib/python.X/site-packages
+|/usr/lib/python.X.Y/site-packages
 |Where pure python modules are installed
 
 |python_version
 |2.X
-|Defined in python-devel. Useful when running programs with Python version in filename.
+|Defined in python-devel. Useful when running programs with Python version in filename
+
+|python_sitearch
+|/usr/lib64/python2.X/site-packages on 64-bit AMD or Intel processor, /usr/lib/python2.X/site-packages on a 32-bit AMD or Intel processor
+| Where python2 extension modules that are compiled C are installed
+
 |===
 
 endif::rhel[]
