@@ -1256,7 +1256,7 @@ ifdef::rhel[]
 |Defined in python-devel. Useful when running programs with Python version in filename
 
 |python_sitearch
-|/usr/lib64/python2.X/site-packages on a 64-bit system, /usr/lib/python2.X/site-packages on a 32-bit system
+|/usr/lib64/python2.X/site-packages on a 64-bit system
 |Where python2 extension modules that are compiled with C are installed
 |===
 
