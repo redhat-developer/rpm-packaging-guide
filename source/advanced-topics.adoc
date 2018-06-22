@@ -1249,7 +1249,7 @@ ifdef::rhel[]
 
 |python_sitelib
 |/usr/lib/python.X.Y/site-packages
-|Where pure python modules are installed
+|Where Python modules written only in Python are installed
 
 |python_version
 |2.X
