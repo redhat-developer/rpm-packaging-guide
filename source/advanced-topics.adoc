@@ -1153,23 +1153,26 @@ All the contents of the SPEC file between `%ifos` and `%endif` are processed onl
 In comparison with the Python Package Index (PyPI), RPM allows to specify dependencies of other RPMs that are not necessary Python packages. RPM allows to use cryptographic signing, content of RPM packages is verified, integrated, and tested with the rest of the operating system. More can be found in the chapter xref:Why-Package-Software-with-RPM[].
 
 ifdef::community[]
+
 [id="Converting-PyPI-package-to-an-RPM"]
 ==== Converting PyPI package to an RPM
 
-Pyp2rpm is a tool which automatically converts PyPI packages to an RPM spec file. Simple tutorial can be found on this page link:https://github.com/fedora-python/pyp2rpm[pyp2rpm].
-Pyp2rpm is still in development. Some manual corrections might be necessary.
+Pyp2rpm is a tool which automatically converts PyPI packages to an RPM spec file. Simple tutorial can be found on this page link:https://github.com/fedora-python/pyp2rpm[pyp2rpm]. Pyp2rpm is still in development. Some manual corrections might be necessary.
+
 endif::community[]
 
 [id="Typical-Python-RPM-package-spec-file-description"]
 ==== Typical Python RPM package spec file description
 
-There is a chapter xref:what-is-a-spec-file[], which describes spec file in general. However Python RPM spec file has some specifications. This example illustrates some of the most common specifications:
+There is a chapter xref:what-is-a-spec-file[], which describes spec file in general. However Python RPM spec file has some specifications. A package setuptools is used as an illustrative example:
+
+ifdef::rhel[]
 
 [source,specfile]
 ----
-Name:           python-setuptools
+Name:           python-setuptools <1>
 Version:        0.9.8
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Easily build and distribute Python packages
 License:        Python or ZPLv2.0
 URL:            https://pypi.org/project/setuptools/
@@ -1177,10 +1180,10 @@ Source0:        https://files.pythonhosted.org/packages/source/s/setuptools/setu
 
 BuildArch:      noarch
 
-BuildRequires:  python2-devel
+BuildRequires:  python2-devel <2>
 
-BuildRequires:  python-backports-ssl_match_hostname
-Requires:         python-backports-ssl_match_hostname
+BuildRequires:  python-backports-ssl_match_hostname <3>
+Requires:       python-backports-ssl_match_hostname
 
 %description
 Setuptools is a collection of enhancements to the Python distutils that allow
@@ -1194,13 +1197,13 @@ execute the software that requires pkg_resources.py.
 %setup -q -n setuptools-%{version}
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
+CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build <4>
 
 %install
-%{__python} setup.py install --skip-build --root %{buildroot}
+%{__python} setup.py install --skip-build --root %{buildroot} <5>
 
 %check
-LANG=en_US.utf8 %{__python} setup.py test
+LANG=en_US.utf8 %{__python} setup.py test <6>
 
 %files
 %doc *.txt docs
@@ -1211,16 +1214,47 @@ LANG=en_US.utf8 %{__python} setup.py test
 ...
 ----
 
+<1> The name of this package in PyPI is setuptools, in RPM this package has specification "python" in its name.
+<2> BuildRequires specifies which version of Python is used to build a package.
+<3> BuildRequires specifies which Python module package python-setuptools requires.
+<4> Without this expression the package might not be possible to build if the package has a C extension. `%{__python} setup.py build` Is similar to make build. Allows to easily install Python packages.
+<5> The setup.py install is similar to make install. On this line, setup.py install would suffice because it builds and installs the package, but for keeping an RPM standard the package is build with setup.py build and installed with the --skip-build option.
+<6> Tests vary depending on a particular project. However tests require locale. In Fedora it can be LANG=en_US.utf8 as well as LANG=C.utf8.
+
+endif::rhel[]
+
+ifdef::community[]
+
+Next: Use spec file to desribe typical python RPM package in Fedora. https://src.fedoraproject.org/rpms/python-setuptools/blob/master/f/python-setuptools.spec
+
+endif::community[]
+
 [id="Common-macros-for-Python-RPM-packages"]
 ==== Common macros for Python RPM packages
 
 ifdef::community[]
+
 All Python specific RPM macros can be found on this page link:https://fedoraproject.org/wiki/Packaging:Python#Macros[Python packaging macros].
+
 endif::community[]
 
 ifdef::rhel[]
 
-// Query for information.
+|===
+|Macro |Normal Definition |Notes
+
+|__python
+|/usr/bin/python
+|Python 2 interpreter
+
+|python_sitelib
+|/usr/lib/python.X/site-packages
+|Where pure python modules are installed
+
+|python_version
+|2.X
+|Defined in python-devel. Useful when running programs with Python version in filename.
+|===
 
 endif::rhel[]
 
@@ -1228,9 +1262,13 @@ endif::rhel[]
 ==== Differences in RPM packages for Python as a Software Collection
 
 ifdef::rhel[]
+
 Those differences are documented in link:https://access.redhat.com/documentation/en-us/red_hat_software_collections/3/html/packaging_guide/sect-enabling_the_software_collection[Red Hat Software Collections]
+
 endif::rhel[]
 
 ifdef::community[]
+
 Those differences are documented in link:https://www.softwarecollections.org/en/docs/guide/#sect-Enabling_the_Software_Collection[Software Collections].
+
 endif::community[]
