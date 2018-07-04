@@ -461,14 +461,14 @@ rel-eng/
 
 ----
 
-As we can see here, the SPEC file is at the root of the git repository and there
+As we can see here, the spec file is at the root of the git repository and there
 is a ``rel-eng`` directory in the repository which is used by tito for general
 book keeping, configuration, and various advanced topics like custom tito
 modules. We can see in the directory layout that there is a sub-directory
 entitled ``packages`` which will store a file per package that tito manages in
 the repository as you can have many RPMs in a single git repository and tito
 will handle that just fine. In this scenario however, we see only a single
-package listing and it should be noted that it matches the name of our SPEC
+package listing and it should be noted that it matches the name of our spec
 file. All of this is setup by the command ``tito init`` when the developers of
 https://github.com/release-engineering/dist-git[dist-git] first initialized their git repo to be managed by tito.
 
@@ -531,13 +531,13 @@ features it offers.
 
 The https://github.com/release-engineering/dist-git[dist-git] utility takes a slightly different approach from that of https://github.com/dgoodwin/tito[tito]
 such that instead of keeping the raw source code in https://git-scm.com/[git] it instead will keep
-SPEC files and patches in a git repository and upload the compressed archive of
+spec files and patches in a git repository and upload the compressed archive of
 the source code to what is known as a “look-aside cache”. The “look-aside-cache”
 is a term that was coined by the use of RPM Build Systems storing large files
 like these “on the side”. A system like this is generally tied to a proper RPM
 Build System such as https://fedorahosted.org/koji/[Koji]. The build system is then configured to pull the
-items that are listed as ``SourceX`` entries in the SPEC files in from this
-look-aside-cache, while the SPEC and patches remain in a version control system.
+items that are listed as ``SourceX`` entries in the spec files in from this
+look-aside-cache, while the spec and patches remain in a version control system.
 There is also a helper command line tool to assist in this.
 
 In an effort to not duplicate documentation, for more information on how to
@@ -858,8 +858,8 @@ While you can define any new macros in the ``~/.rpmmacros`` file, this is discou
 [[epoch-scriptlets-and-triggers]]
 == Epoch, Scriptlets, and Triggers
 
-There are various topics in the world of RPM SPEC Files that are considered
-advanced because they have implications on not only the SPEC file, how the
+There are various topics in the world of RPM spec files that are considered
+advanced because they have implications on not only the spec file, how the
 package is built, but also on the end machine that the resulting RPM is
 installed upon. In this section we will cover the most common of these such as
 Epoch, Scriptlets, and Triggers.
@@ -869,8 +869,8 @@ Epoch, Scriptlets, and Triggers.
 
 First on the list is ``Epoch``, epoch is a way to define weighted dependencies
 based on version numbers. It’s default value is 0 and this is assumed if an
-``Epoch`` directive is not listed in the RPM SPEC file. This was not covered in
-the SPEC File section of this guide because it is almost always a bad idea to
+``Epoch`` directive is not listed in the RPM spec file. This was not covered in
+the spec File section of this guide because it is almost always a bad idea to
 introduce an Epoch value as it will skew what you would normally otherwise
 expect RPM to do when comparing versions of packages.
 
@@ -1028,12 +1028,81 @@ The above items are from the included RPM documentation found in
 ``/usr/share/doc/rpm-4.*/triggers``.
 endif::rhel[]
 
+[id="Using-Non-Shell-Scripts-in-spec-File"]
+==== Using Non-Shell Scripts in spec File
 
+A scriptlet option, `-p`, in a spec file allows to invoke a specific interpreter instead of the default `-p{nbsp}/bin/sh`. An illustrative example is a script, which prints out a message after the installation of `pello.py`.
+
+. Open the `pello.spec` file. 
+
+. Find the following line:
++
+[source,specfile]
+----
+install -m 0644 %{name}.py* %{buildroot}/usr/lib/%{name}/
+----
++
+Under this line, insert the following code:
++
+[source,specfile]
+----
+%post -p /usr/bin/python3
+print("This is {} code".format("python"))
+----
+
+. Build your package according to the xref:building-rpms[] chapter.
+
+ifdef::community[]
+. Install your package:
++
+[source,bash]
+----
+# dnf install /home/<username>/rpmbuild/RPMS/noarch/pello-0.1.1-1.fc27.noarch.rpm
+----
++
+The output of this command is the following message after the installation:
++
+[source]
+----
+Installing       : pello-0.1.1-1.fc27.noarch                              1/1
+Running scriptlet: pello-0.1.1-1.fc27.noarch                              1/1
+This is python code
+----
+endif::community[]
+
+ifdef::rhel[]
+. Install your package:
++
+[source,bash]
+----
+# yum install /home/<username>/rpmbuild/RPMS/noarch/pello-0.1.1-1.fc27.noarch.rpm
+----
++
+The output of this command is the following message after the installation:
++
+[source]
+----
+Installing       : pello-0.1.1-1.fc27.noarch                              1/1
+Running scriptlet: pello-0.1.1-1.fc27.noarch                              1/1
+This is python code
+----
+endif::rhel[]
+
+[NOTE]
+--
+* To use a Python{nbsp}3 script:
+Write a line `%post -p /usr/bin/python3` under the line `install -m` in a spec file.
+
+* To use a Lua script:
+Write a line `%post -p <lua>` under the line `install{nbsp}-m` in a spec file.
+
+* This way any interpreter can be specified in the spec file.
+--
 
 [[rpm-conditionals]]
 == RPM Conditionals
 
-RPM Conditionals enable the conditional inclusion of various sections of the SPEC file.
+RPM Conditionals enable the conditional inclusion of various sections of the spec file.
 
 Most commonly, conditional inclusions deal with:
 
@@ -1119,7 +1188,7 @@ The `%ifarch` conditional is used to begin a block of the SPEC file that is arch
   ...
   %endif
 
-All the contents of the SPEC file  between `%ifarch` and `%endif` are processed only on the 32-bit AMD and Intel architectures or Sun SPARC-based systems.
+All the contents of the spec file  between `%ifarch` and `%endif` are processed only on the 32-bit AMD and Intel architectures or Sun SPARC-based systems.
 
 ===== The `%ifnarch` Conditional
 
@@ -1129,7 +1198,7 @@ The `%ifnarch` conditional has a reverse logic than `%ifarch` conditional.
   ...
   %endif
 
-All the contents of the SPEC file between `%ifnarch` and `%endif` are processed only if not being done on a Digital Alpha/AXP-based system.
+All the contents of the spec file between `%ifnarch` and `%endif` are processed only if not being done on a Digital Alpha/AXP-based system.
 
 ===== The `%ifos` Conditional
 
