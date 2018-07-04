@@ -1121,7 +1121,6 @@ The `%ifarch` conditional is used to begin a block of the SPEC file that is arch
 
 All the contents of the SPEC file  between `%ifarch` and `%endif` are processed only on the 32-bit AMD and Intel architectures or Sun SPARC-based systems.
 
-
 ===== The `%ifnarch` Conditional
 
 The `%ifnarch` conditional has a reverse logic than `%ifarch` conditional.
@@ -1132,8 +1131,6 @@ The `%ifnarch` conditional has a reverse logic than `%ifarch` conditional.
 
 All the contents of the SPEC file between `%ifnarch` and `%endif` are processed only if not being done on a Digital Alpha/AXP-based system.
 
-
-
 ===== The `%ifos` Conditional
 
 The `%ifos` conditional is used to control processing based on the operating system of the build. It can be followed by one or more operating system names.
@@ -1142,7 +1139,7 @@ The `%ifos` conditional is used to control processing based on the operating sys
   ...
   %endif
 
-All the contents of the SPEC file between `%ifos` and `%endif` are processed only if the build was done on a Linux system.
+All the contents of the spec file between `%ifos` and `%endif` are processed only if the build was done on a Linux system.
 
 [id="Packaging-of-Python-RPMs"]
 === Packaging of Python RPMs
