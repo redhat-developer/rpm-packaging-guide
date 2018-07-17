@@ -686,7 +686,7 @@ earlier. Let's go ahead and open the file ``~/rpmbuild/SPECS/bello.spec``
 and start filling in some fields.
 
 Before we start down this path, we need to address something somewhat unique
-about byte-compiled interpreted software. Since we we will be byte-compiling
+about byte-compiled interpreted software. Since we will be byte-compiling
 this program, the `shebang`_ is no longer applicable because the resulting file
 will not contain the entry. It is common practice to either have a
 non-byte-compiled shell script that will call the executable or have a small
