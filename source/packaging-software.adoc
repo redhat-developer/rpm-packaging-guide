@@ -726,7 +726,7 @@ source code into ``~/rpmbuild/SOURCES/`` earlier. Let’s go ahead and open the
 file ``~/rpmbuild/SPECS/bello.spec`` and start filling in some fields.
 
 Before we start down this path, we need to address something somewhat unique
-about byte-compiled interpreted software. Since we we will be byte-compiling
+about byte-compiled interpreted software. Since we will be byte-compiling
 this program, the
 ifdef::community[https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang]]
 ifdef::rhel[shebang]
