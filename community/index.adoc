@@ -1,5 +1,5 @@
 = RPM Packaging Guide
-Adam Miller, Maxim Svistunov, Marie Doleželová, et al.
+Adam Miller, Adam Kvítek, Marie Doleželová, et al.
 :imagesdir: images
 :toc: left
 :toclevels: 3
