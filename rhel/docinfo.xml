@@ -9,13 +9,29 @@
 </abstract>
 <authorgroup>
   <author>
+    <firstname>Lucie</firstname>
+    <surname>Maňásková</surname>
+    <affiliation>
+      <orgname>Red Hat</orgname>
+      <orgdiv>Customer Content Services</orgdiv>
+    </affiliation>
+    <email>lmanasko@redhat.com</email>
+  </author>
+  <author>
+    <firstname>Adam</firstname>
+    <surname>Kvítek</surname>
+    <affiliation>
+      <orgname>Red Hat</orgname>
+      <orgdiv>Customer Content Services</orgdiv>
+    </affiliation>
+  </author>
+  <author>
     <firstname>Maxim</firstname>
     <surname>Svistunov</surname>
     <affiliation>
       <orgname>Red Hat</orgname>
       <orgdiv>Customer Content Services</orgdiv>
     </affiliation>
-    <email>msvistun@redhat.com</email>
   </author>
   <author>
     <firstname>Marie</firstname>
@@ -24,7 +40,6 @@
       <orgname>Red Hat</orgname>
       <orgdiv>Customer Content Services</orgdiv>
     </affiliation>
-    <email>mdolezel@redhat.com</email>
   </author>
   <author>
     <firstname>Adam</firstname>
