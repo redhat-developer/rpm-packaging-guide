@@ -8,6 +8,11 @@
     </para>
 </abstract>
 <authorgroup>
+
+  <corpauthor>
+    <personname>Customer Content Services</personname>
+    <email>rhel-notes@redhat.com</email>
+  </corpauthor>
   <author>
     <firstname>Maxim</firstname>
     <surname>Svistunov</surname>
@@ -15,7 +20,29 @@
       <orgname>Red Hat</orgname>
       <orgdiv>Customer Content Services</orgdiv>
     </affiliation>
-    <email>msvistun@redhat.com</email>
+      </author>
+  <author>
+    <firstname>Adam</firstname>
+    <surname>Miller</surname>
+    <affiliation>
+      <orgname>Red Hat</orgname>
+    </affiliation>
+  </author>
+  <author>
+    <firstname>Adam</firstname>
+    <surname>Kvítek</surname>
+    <affiliation>
+      <orgname>Red Hat</orgname>
+      <orgdiv>Customer Content Services</orgdiv>
+    </affiliation>
+  </author>
+  <author>
+    <firstname>Petr</firstname>
+    <surname>Kovář</surname>
+    <affiliation>
+      <orgname>Red Hat</orgname>
+      <orgdiv>Customer Content Services</orgdiv>
+    </affiliation>
   </author>
   <author>
     <firstname>Marie</firstname>
@@ -24,14 +51,14 @@
       <orgname>Red Hat</orgname>
       <orgdiv>Customer Content Services</orgdiv>
     </affiliation>
-    <email>mdolezel@redhat.com</email>
   </author>
-  <author>
-    <firstname>Adam</firstname>
-    <surname>Miller</surname>
+   <author>
+    <firstname>Miroslav</firstname>
+    <surname>Suchý</surname>
     <affiliation>
       <orgname>Red Hat</orgname>
     </affiliation>
   </author>
-</authorgroup>
+
+  </authorgroup>
 <xi:include href="Common_Content/Legal_Notice.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
