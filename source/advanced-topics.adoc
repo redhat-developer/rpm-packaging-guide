@@ -1190,7 +1190,6 @@ The `%ifarch` conditional is used to begin a block of the SPEC file that is arch
 
 All the contents of the spec file  between `%ifarch` and `%endif` are processed only on the 32-bit AMD and Intel architectures or Sun SPARC-based systems.
 
-
 ===== The `%ifnarch` Conditional
 
 The `%ifnarch` conditional has a reverse logic than `%ifarch` conditional.
@@ -1201,8 +1200,6 @@ The `%ifnarch` conditional has a reverse logic than `%ifarch` conditional.
 
 All the contents of the spec file between `%ifnarch` and `%endif` are processed only if not being done on a Digital Alpha/AXP-based system.
 
-
-
 ===== The `%ifos` Conditional
 
 The `%ifos` conditional is used to control processing based on the operating system of the build. It can be followed by one or more operating system names.
@@ -1212,3 +1209,136 @@ The `%ifos` conditional is used to control processing based on the operating sys
   %endif
 
 All the contents of the spec file between `%ifos` and `%endif` are processed only if the build was done on a Linux system.
+
+[id="Packaging-of-Python-RPMs"]
+=== Packaging of Python RPMs
+
+[id="Benefits-of-packaging-Python-packages-as-RPMs"]
+==== Benefits of packaging Python packages as RPMs
+
+In comparison with the Python Package Index (PyPI), RPM allows to specify dependencies of other RPMs that are not necessary Python packages. RPM allows to use cryptographic signing, content of RPM packages is verified, integrated, and tested with the rest of the operating system. More can be found in the chapter xref:Why-Package-Software-with-RPM[].
+
+ifdef::community[]
+
+[id="Converting-PyPI-package-to-an-RPM"]
+==== Converting PyPI package to an RPM
+
+Pyp2rpm is a tool which automatically converts PyPI packages to an RPM spec file. Simple tutorial can be found on this page link:https://github.com/fedora-python/pyp2rpm[pyp2rpm]. Pyp2rpm is still in development. Some manual corrections might be necessary.
+
+endif::community[]
+
+[id="Typical-Python-RPM-package-spec-file-description"]
+==== Typical Python RPM package spec file description
+
+There is a chapter xref:what-is-a-spec-file[], which describes spec file in general. However Python RPM spec file has some specifications. A package setuptools is used as an illustrative example:
+
+ifdef::rhel[]
+
+[source,specfile]
+----
+Name:           python-setuptools <1>
+Version:        0.9.8
+Release:        1%{?dist}
+Summary:        Easily build and distribute Python packages
+License:        Python or ZPLv2.0
+URL:            https://pypi.org/project/setuptools/
+Source0:        https://files.pythonhosted.org/packages/source/s/setuptools/setuptools-%{version}.zip
+
+BuildArch:      noarch
+
+BuildRequires:  python2-devel <2>
+
+BuildRequires:  python-backports-ssl_match_hostname <3>
+Requires:       python-backports-ssl_match_hostname
+
+%description
+Setuptools is a collection of enhancements to the Python distutils that allow
+you to more easily build and distribute Python packages, especially ones that
+have dependencies on other packages.
+
+This package contains the runtime components of setuptools, necessary to
+execute the software that requires pkg_resources.py.
+
+%prep
+%setup -q -n setuptools-%{version}
+
+%build
+CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build <4>
+
+%install
+%{__python} setup.py install --skip-build --root %{buildroot} <5>
+
+%check
+LANG=en_US.utf8 %{__python} setup.py test <6>
+
+%files
+%doc *.txt docs
+%{python_sitelib}/*
+%{_bindir}/easy_install
+
+%changelog
+...
+----
+
+<1> The name of this package in PyPI is setuptools, in RPM this package has specification "python" in its name.
+<2> BuildRequires specifies what packages are required to to build this package.
+<3> BuildRequires specifies which Python module package python-setuptools requires.
+<4> Without this expression the package might not be possible to build if the package has a C extension. `%{__python} setup.py build` Is similar to make build. Allows to build Python packages.
+<5> The setup.py install is similar to make install. On this line, setup.py install would suffice because it builds and installs the package, but for keeping an RPM standard the package is build with setup.py build and installed with the --skip-build option.
+<6> Tests vary depending on a particular project. However in RHEL locale has to be specified on LANG=en_US.utf8.
+
+endif::rhel[]
+
+ifdef::community[]
+
+// Next: Use spec file to desribe typical python RPM package in Fedora. https://src.fedoraproject.org/rpms/python-setuptools/blob/master/f/python-setuptools.spec
+
+endif::community[]
+
+[id="Common-macros-for-Python-RPM-packages"]
+==== Common macros for Python RPM packages
+
+ifdef::community[]
+
+All Python specific RPM macros can be found on this page link:https://fedoraproject.org/wiki/Packaging:Python#Macros[Python packaging macros].
+
+endif::community[]
+
+ifdef::rhel[]
+
+|===
+|Macro |Normal Definition |Notes
+
+|__python
+|/usr/bin/python
+|Python 2 interpreter
+
+|python_sitelib
+|/usr/lib/python.X.Y/site-packages
+|Where Python modules written only in Python are installed
+
+|python_version
+|2.X
+|Defined in python-devel. Useful when running programs with Python version in filename
+
+|python_sitearch
+|/usr/lib64/python2.X/site-packages on a 64-bit system
+|Where python2 extension modules that are compiled with C are installed
+|===
+
+endif::rhel[]
+
+[id="Differences-in-RPM-packages-for-Python-as-a-Software-Collection"]
+==== Differences in RPM packages for Python as a Software Collection
+
+ifdef::rhel[]
+
+Those differences are documented in link:https://access.redhat.com/documentation/en-us/red_hat_software_collections/3/html/packaging_guide/sect-enabling_the_software_collection[Red Hat Software Collections]
+
+endif::rhel[]
+
+ifdef::community[]
+
+Those differences are documented in link:https://www.softwarecollections.org/en/docs/guide/#sect-Enabling_the_Software_Collection[Software Collections].
+
+endif::community[]
