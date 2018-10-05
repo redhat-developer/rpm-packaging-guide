@@ -461,7 +461,7 @@ $ cat cello.c
 
 int main(void){
     printf("Hello World from my very first patch!\n");
-    return 1;
+    return 0;
 }
 ----
 
