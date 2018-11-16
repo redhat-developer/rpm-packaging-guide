@@ -1541,7 +1541,7 @@ Now you have built RPMs. A few notes:
 * The output generated when creating a binary RPM is verbose, which is helpful
 for debugging. The output varies for different examples and corresponds to their
 SPEC files.
-* The resulting binary RPMs are in ``\~/rpmbuild/RPMS/YOURARCH`` where ``YOURARCH``
+* The resulting binary RPMs are in ``~/rpmbuild/RPMS/YOURARCH`` where ``YOURARCH``
 is your
 ifdef::community[https://en.wikipedia.org/wiki/Microarchitecture[architecture]]
 ifdef::rhel[architecture]
