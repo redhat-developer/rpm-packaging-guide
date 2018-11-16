@@ -1316,7 +1316,7 @@ implementation, we can simply use the http://www.gnu.org/software/make/[GNU make
 ``rpmdev-newspec``. However, we need to remove the call to ``%configure``
 because we did not provide a
 ifdef::community[https://en.wikipedia.org/wiki/Configure_script[configure script]]
-ifdef::rhel[configure script]
+ifdef::rhel[configure script].
 The ``%build`` section of our
 SPEC file should look as follows.
 
