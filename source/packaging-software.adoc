@@ -1479,8 +1479,11 @@ endif::rhel[]
 [[create-source-rpms]]
 ==== To create a SRPM:
 
-[subs="quotes"]
-  ~]$ rpmbuild -bs _SPECFILE_
+[source,bash]
+----
+$ rpmbuild -bs _SPECFILE_
+
+----
 
 Substitute _SPECFILE_ with the SPEC file. The ``-bs`` option stands for "build
 source".
