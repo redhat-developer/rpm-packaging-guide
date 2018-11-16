@@ -1781,7 +1781,7 @@ ifdef::community[https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Fil
 ifdef::rhel[Filesystem Hierarchy Standard]
 .
 +
-Normally, use rpm macros to ensure the correct placement of files. For the sake
+Normally, use RPM macros to ensure the correct placement of files. For the sake
 of this example, we can ignore this warning.
 * The ``non-executable-script`` error warns that the ``/usr/lib/pello/pello.py``
 file has no execute permissions. Since this file contains the
