@@ -850,7 +850,7 @@ The ``URL`` field is the upstream software’s website, not the source code
 download link but the actual project, product, or company website where someone
 would find more information about this particular piece of software. Since we’re
 just using an example, we will call this ``https://example.com/pello``. However,
-we will use the rpm macro variable of ``%{name}`` in it’s place for consistency.
+we will use the RPM macro variable of ``%{name}`` in it’s place for consistency.
 
 The ``Source0`` field is where the upstream software’s source code should be
 able to be downloaded from. This URL should link directly to the specific
