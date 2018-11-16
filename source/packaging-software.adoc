@@ -1668,7 +1668,6 @@ ifdef::rhel[. manual pages]
 . consistent use of the
 ifdef::community[https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy Standard]]
 ifdef::rhel[Filesystem Hierarchy Standard]
-.
 
 This is the output of running ``rpmlint`` on the Binary RPM for ``bello``:
 
