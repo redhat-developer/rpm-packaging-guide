@@ -1709,7 +1709,7 @@ pello.spec: W: invalid-url Source0: https://www.example.com/pello/releases/pello
 Observations:
 
 * The ``invalid-url Source0`` warning says that the URL listed in the Source0
-directive is unreachable. This is expected, because the specified example.com
+directive is unreachable. This is expected, because the specified `example.com`
 URL does not exist. Presuming that we expect this URL to work in the future, we
 can ignore this warning.
 * There are many errors, because we intentionally wrote this SPEC file to be
