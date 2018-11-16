@@ -1266,7 +1266,7 @@ is what is needed by your package at **run** time.
 
 In this example we will need the ``gcc`` and ``make`` packages in order to
 perform the compilation build process. Runtime requirements are fortunately
-handled for us by rpmbuild because this program does not require anything
+handled for us by `rpmbuild` because this program does not require anything
 outside of the core
 ifdef::community[https://en.wikipedia.org/wiki/C_%28programming_language%29[C]]
 ifdef::rhel[C]
