@@ -17,7 +17,7 @@ ifdef::community[]
 
 link:https://www.softwarecollections.org/en/[Software Collections] - SoftwareCollections.org is an open-source project for building and distributing community-supported Software Collections (SCLs) for Red Hat Enterprise Linux, Fedora, CentOS, and Scientific Linux.
 
-link:https://docs.fedoraproject.org/quick-docs/en-US/creating-rpm-packages.html[Creating RPM package] - Step-by-step guide for learning basics of RPM packaging.
+link:https://docs.fedoraproject.org/en-US/quick-docs/creating-rpm-packages/index.html[Creating RPM package] - Step-by-step guide for learning basics of RPM packaging.
 
 link:http://www.ibm.com/developerworks/library/l-rpm1/[Packaging software with RPM, Part 1], link:http://www.ibm.com/developerworks/library/l-rpm2/[Part 2], link:http://www.ibm.com/developerworks/library/l-rpm3/[Part 3] - IBM RPM packaging guide.
 
