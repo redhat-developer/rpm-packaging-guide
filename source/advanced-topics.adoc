@@ -780,8 +780,8 @@ themselves once installed can be found in ``/usr/lib/rpm/macros.d/`` and will be
 included in the ``rpm --showrc`` output by default once installed.
 endif::rhel[]
 
-One primary example of this is the https://fedoraproject.org/wiki/Packaging:Guidelines?rd=Packaging/Guidelines[Fedora Packaging Guidelines] section
-pertaining specifically to https://fedoraproject.org/wiki/Packaging:Guidelines#Application_Specific_Guidelines[Application Specific Guidelines] which at the time
+One primary example of this is the https://docs.fedoraproject.org/en-US/packaging-guidelines/[Fedora Packaging Guidelines] section
+pertaining specifically to https://docs.fedoraproject.org/en-US/packaging-guidelines/#_domain_specific_guidelines[Application Specific Guidelines] which at the time
 of this writing has over 60 different sets of guidelines along with associated
 RPM Macro sets for subject matter specific RPM Packaging.
 
