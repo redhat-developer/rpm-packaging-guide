@@ -192,26 +192,26 @@ architectures and different Fedora or RHEL versions than the build host has.
 Mock creates chroots and builds packages in them. Its only task is to reliably
 populate a chroot and attempt to build a package in that chroot.
 
-Mock also offers a multi-package tool, mockchain, that can build chains of
+Mock also offers a multi-package tool, `mockchain`, that can build chains of
 packages that depend on each other.
 
 Mock is capable of building SRPMs from source configuration management if the
-mock-scm package is present, then building the SRPM into RPMs. See –scm-enable
-in the documentation.” (From the upstream documentation)
+`mock-scm` package is present, then building the SRPM into RPMs. See –scm-enable
+in the documentation. (From the upstream documentation)
 
-NOTE: In order to use https://fedoraproject.org/wiki/Mock[Mock] on a RHEL or CentOS system, you will need to enable
+NOTE: In order to use https://github.com/rpm-software-management/mock/wiki[Mock] on a RHEL or CentOS system, you will need to enable
 the “Extra Packages for Enterprise Linux” (https://fedoraproject.org/wiki/EPEL[EPEL]) repository. This is
 a repository provided by the https://getfedora.org/[Fedora] community and has many useful tools
 for RPM Packagers, systems administrators, and developers.
 
-One of the most common use cases RPM Packagers have for https://fedoraproject.org/wiki/Mock[Mock] is to create
+One of the most common use cases RPM Packagers have for https://github.com/rpm-software-management/mock/wiki[Mock] is to create
 what is known as a “pristine build environment”. By using mock as a “pristine
 build environment”, nothing about the current state of your system affects
 the RPM Package itself. Mock uses different configurations to specify
 what the build “target” is, these are found on your system in the ``/etc/mock/``
 directory (once you’ve installed the ``mock`` package). You can build for
 different distributions or releases just by specifying it on the command line.
-Something to keep in mind is that the configuration files that come with mock are
+Something to keep in mind is that the configuration files that come with `mock` are
 targeted at Fedora RPM Packagers, and as such RHEL and CentOS release versions
 are labeled as “epel” because that is the “target” repository these RPMs would
 be built for. You simply specify the configuration you want to use (minus the
@@ -227,23 +227,23 @@ $ mock -r fedora-23-x86_64 ~/rpmbuild/SRPMS/cello-1.0-1.el7.src.rpm
 
 ----
 
-One example of why you might want to use mock is if you were packaging RPMs on
+One example of why you might want to use `mock` is if you were packaging RPMs on
 your laptop and you had a package installed (we’ll call it ``foo`` for this
 example) that was a ``BuildRequires`` of that package you were creating but
 forgot to actually make the ``BuildRequires: foo`` entry. The build would
 succeed when you run ``rpmbuild`` because ``foo`` was needed to build and it was
 found on the system at build time. However, if you took the SRPM to another
 system that lacked ``foo`` it would fail, causing an unexpected side effect.
-https://fedoraproject.org/wiki/Mock[Mock] solves this by first parsing the contents of the SRPM and installing the
+https://github.com/rpm-software-management/mock/wiki[Mock] solves this by first parsing the contents of the SRPM and installing the
 ``BuildRequires`` into its https://en.wikipedia.org/wiki/Chroot[chroot] which means that if you were missing the
-``BuildRequires`` entry, the build would fail because mock would not know to
+``BuildRequires`` entry, the build would fail because `mock` would not know to
 install it and it would therefore not be present in the buildroot.
 
 Another example is the opposite scenario, let’s say you need ``gcc`` to build
 a package but don’t have it installed on your system (which is unlikely as an RPM
 Packager, but just for the sake of the example let us pretend that is true).
-With https://fedoraproject.org/wiki/Mock[Mock], you don’t have to install ``gcc`` on your system because it will
-get installed in the chroot as part of mock’s process.
+With https://github.com/rpm-software-management/mock/wiki[Mock], you don’t have to install ``gcc`` on your system because it will
+get installed in the chroot as part of `mock`’s process.
 
 Below is an example of attempting to rebuild a package that has a dependency
 that I’m missing on my system. The key thing to note is that while ``gcc`` is
@@ -378,7 +378,7 @@ Finish: run
 
 ----
 
-As you can see, mock is a fairly verbose tool. You will also notice a lot of
+As you can see, `mock` is a fairly verbose tool. You will also notice a lot of
 http://yum.baseurl.org/[yum] or https://github.com/rpm-software-management/dnf[dnf] output (depending on RHEL7, CentOS7, or Fedora mock target)
 that is not found in this output which was omitted for brevity and is often
 omitted after you have done an ``--init`` on a mock target, such as
