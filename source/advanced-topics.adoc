@@ -1029,9 +1029,9 @@ The above items are from the included RPM documentation found in
 endif::rhel[]
 
 [id="Using-Non-Shell-Scripts-in-spec-File"]
-==== Using Non-Shell Scripts in spec File
+==== Using Non-Shell Scripts in SPEC File
 
-A scriptlet option, `-p`, in a spec file allows to invoke a specific interpreter instead of the default `-p{nbsp}/bin/sh`. An illustrative example is a script, which prints out a message after the installation of `pello.py`.
+A scriptlet option, `-p`, in a SPEC file allows to invoke a specific interpreter instead of the default `-p{nbsp}/bin/sh`. An illustrative example is a script, which prints out a message after the installation of `pello.py`.
 
 . Open the `pello.spec` file. 
 
@@ -1091,18 +1091,18 @@ endif::rhel[]
 [NOTE]
 --
 * To use a Python{nbsp}3 script:
-Write a line `%post -p /usr/bin/python3` under the line `install -m` in a spec file.
+Write a line `%post -p /usr/bin/python3` under the line `install -m` in a SPEC file.
 
 * To use a Lua script:
-Write a line `%post -p <lua>` under the line `install{nbsp}-m` in a spec file.
+Write a line `%post -p <lua>` under the line `install{nbsp}-m` in a SPEC file.
 
-* This way any interpreter can be specified in the spec file.
+* This way any interpreter can be specified in the SPEC file.
 --
 
 [[rpm-conditionals]]
 == RPM Conditionals
 
-RPM Conditionals enable the conditional inclusion of various sections of the spec file.
+RPM Conditionals enable the conditional inclusion of various sections of the SPEC file.
 
 Most commonly, conditional inclusions deal with:
 
@@ -1188,7 +1188,7 @@ The `%ifarch` conditional is used to begin a block of the SPEC file that is arch
   ...
   %endif
 
-All the contents of the spec file  between `%ifarch` and `%endif` are processed only on the 32-bit AMD and Intel architectures or Sun SPARC-based systems.
+All the contents of the SPEC file  between `%ifarch` and `%endif` are processed only on the 32-bit AMD and Intel architectures or Sun SPARC-based systems.
 
 
 ===== The `%ifnarch` Conditional
@@ -1199,7 +1199,7 @@ The `%ifnarch` conditional has a reverse logic than `%ifarch` conditional.
   ...
   %endif
 
-All the contents of the spec file between `%ifnarch` and `%endif` are processed only if not being done on a Digital Alpha/AXP-based system.
+All the contents of the SPEC file between `%ifnarch` and `%endif` are processed only if not being done on a Digital Alpha/AXP-based system.
 
 
 
@@ -1211,4 +1211,4 @@ The `%ifos` conditional is used to control processing based on the operating sys
   ...
   %endif
 
-All the contents of the spec file between `%ifos` and `%endif` are processed only if the build was done on a Linux system.
+All the contents of the SPEC file between `%ifos` and `%endif` are processed only if the build was done on a Linux system.
