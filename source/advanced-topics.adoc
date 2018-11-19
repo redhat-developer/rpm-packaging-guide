@@ -108,7 +108,7 @@ bother-3.5-1.i386.rpm:
 [[Build-time-Signing]]
 === Build-time Signing
 
-To sign a package at build-time, use the rpmbuild command with the --sign option. This requires entering the PGP passphrase.
+To sign a package at build-time, use the `rpmbuild` command with the `--sign` option. This requires entering the PGP passphrase.
 
 For example:
 
