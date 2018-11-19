@@ -549,7 +549,7 @@ endif::community[]
 == More on Macros
 
 There are many built-in RPM Macros and we will cover a few in the following
-section, however an exhaustive list can be found at the http://rpm.org/user_doc/macros.html[rpm.org official documentation].
+section, however an exhaustive list can be found at the http://rpm.org/user_doc/macros.html[RPM Official Documentation].
 
 ifdef::community[]
 There are also macros that are provided by your https://en.wikipedia.org/wiki/Linux[Linux] Distribution, we will
