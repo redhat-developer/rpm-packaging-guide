@@ -25,4 +25,4 @@ endif::community[]
 
 link:http://rpm.org/documentation[RPM Documentation] - The official RPM documentation.
 
-link:https://fedoraproject.org/wiki/Packaging:Guidelines?rd=Packaging/Guidelines[Fedora Packaging Guidelines] - The official packaging guidelines for Fedora, useful for all RPM-based distributions.
+link:https://docs.fedoraproject.org/en-US/packaging-guidelines/[Fedora Packaging Guidelines] - The official packaging guidelines for Fedora, useful for all RPM-based distributions.
