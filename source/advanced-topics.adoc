@@ -858,8 +858,8 @@ While you can define any new macros in the ``~/.rpmmacros`` file, this is discou
 [[epoch-scriptlets-and-triggers]]
 == Epoch, Scriptlets, and Triggers
 
-There are various topics in the world of RPM spec files that are considered
-advanced because they have implications on not only the spec file, how the
+There are various topics in the world of RPM SPEC files that are considered
+advanced because they have implications on not only the SPEC file, how the
 package is built, but also on the end machine that the resulting RPM is
 installed upon. In this section we will cover the most common of these such as
 Epoch, Scriptlets, and Triggers.
@@ -869,8 +869,8 @@ Epoch, Scriptlets, and Triggers.
 
 First on the list is ``Epoch``, epoch is a way to define weighted dependencies
 based on version numbers. It’s default value is 0 and this is assumed if an
-``Epoch`` directive is not listed in the RPM spec file. This was not covered in
-the spec File section of this guide because it is almost always a bad idea to
+``Epoch`` directive is not listed in the RPM SPEC file. This was not covered in
+the SPEC File section of this guide because it is almost always a bad idea to
 introduce an Epoch value as it will skew what you would normally otherwise
 expect RPM to do when comparing versions of packages.
 
