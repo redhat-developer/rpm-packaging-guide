@@ -764,7 +764,7 @@ taking note of the files titled ``macros`` in the directory structure.
 
 Different distributions will supply different sets of recommended RPM Macros
 based on the language implementation of the software being packaged or the
-specific Guidelines of the distribution in question.
+specific guidelines of the distribution in question.
 
 ifdef::community[]
 These are often provided as RPM Packages themselves and can be installed with
