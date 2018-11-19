@@ -93,7 +93,7 @@ Pass phrase is good.
 blather-7.9-1.i386.rpm:
 ----
 
-To use the --resign option on multiple package files:
+To use the `--resign` option on multiple package files:
 
 [source,bash]
 ----
