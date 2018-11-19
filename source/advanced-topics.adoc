@@ -888,7 +888,7 @@ incorporating alphabetical characters that can not always be compared reliably
 based on encoding.
 
 [[triggers-and-scriptlets]]
-=== Triggers and Scriptlets
+=== Scriptlets and Triggers
 
 In RPM Packages, there are a series of directives that can be used to inflict
 necessary or desired change on a system during install time of the RPM. These
