@@ -639,7 +639,7 @@ Option ``-q`` limits verbosity of ``%setup`` macro. Only ``tar -xof`` is execute
 
 In some cases, the directory from expanded tarball has a different name than expected ``%{name}-%{version}``. This can lead to an error of the ``%setup`` macro.  The name of a directory has to be specified by ``-n directory_name`` option.
 
-For example, if the package name is ``cello``, but the source code is archived in ``hello-1.0.tgz`` and contained ``hello/`` directory, the spec file content needs to be:
+For example, if the package name is ``cello``, but the source code is archived in ``hello-1.0.tgz`` and contained ``hello/`` directory, the SPEC file content needs to be:
 
 [source,specfile]
 ----
