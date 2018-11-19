@@ -753,7 +753,7 @@ Example: ``%config(noreplace)
 
 Your system has many built-in RPM Macros and the fastest way to view them all is
 to simply run the ``rpm --showrc`` command. Note that this will contain
-a lot of output so it is often used in combination with a pipe to grep.
+a lot of output so it is often used in combination with a pipe to `grep`.
 
 You can also find information about the RPMs macros that come directly with your
 system’s version of RPM by looking at the output of the  ``rpm -ql rpm``
