@@ -136,7 +136,7 @@ The "Generating signature" message appears in both the binary and source packagi
 
 [NOTE]
 --
-When using the `--sign` option for `rpmbuild`, use only -bb or -ba options for package building.
+When using the `--sign` option for `rpmbuild`, use only `-bb` or `-ba` options for package building. `-ba` option mean build binary *and* source packages.
 --
 
 To verify the signature of a package, use the rpm command with `--checksig` option. For example:
