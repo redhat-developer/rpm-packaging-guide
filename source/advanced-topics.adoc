@@ -733,7 +733,7 @@ are included, care should be taken to remove executable
 mode from the file.
 Example: ``%doc README``
 | %dir | Identifies that the path is a directory that should be owned
-by this RPM. This is important so that the rpm file manifest
+by this RPM. This is important so that the RPM file manifest
 accurately knows what directories to clean up on uninstall.
 Example: ``%dir %{_libdir}/%{name}``
 | %config(noreplace) | Specifies that the following file is a configuration file
