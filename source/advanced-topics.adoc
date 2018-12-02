@@ -542,7 +542,6 @@ There is also a helper command line tool to assist in this.
 
 In an effort to not duplicate documentation, for more information on how to
 setup a system such as this please refer to the upstream https://github.com/release-engineering/dist-git[dist-git] docs.
-upstream docs.
 endif::community[]
 
 [[more-on-macros]]
@@ -847,7 +846,7 @@ You can override the distribution macros in the ``~/.rpmmacros`` file. Any chang
 
 There are several macros you can use to override:
 
-``%_topdir /opt/some/working/directory/rpmbuild``:: You can create this directory, including all subdirectories using the ``rpmdev-setuptree`` utility. The value of this macro is by default ``~/rpmbuild``. 
+``%_topdir /opt/some/working/directory/rpmbuild``:: You can create this directory, including all subdirectories using the ``rpmdev-setuptree`` utility. The value of this macro is by default ``~/rpmbuild``.
 
 ``%_smp_mflags -l3``:: This macro is often used to pass to Makefile, for example ``make %{?_smp_mflags}``, and to set a number of concurrent processes during the build phase. By default, it is set to ``-jX``, where ``X`` is a number of cores. If you alter the number of cores, you can speed up or slow down a build of packages.
 
@@ -1033,7 +1032,7 @@ endif::rhel[]
 
 A scriptlet option, `-p`, in a spec file allows to invoke a specific interpreter instead of the default `-p{nbsp}/bin/sh`. An illustrative example is a script, which prints out a message after the installation of `pello.py`.
 
-. Open the `pello.spec` file. 
+. Open the `pello.spec` file.
 
 . Find the following line:
 +
