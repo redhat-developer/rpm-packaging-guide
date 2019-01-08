@@ -1,5 +1,7 @@
---- cello.c.orig	2016-06-13 16:39:56.482961014 -0500
-+++ cello.c	2016-06-13 16:39:13.141290265 -0500
+diff --git cello.c.orig cello.c
+index 3c76cb5..9dbeac1 100644
+--- cello.c.orig
++++ cello.c
 @@ -1,6 +1,6 @@
  #include<stdio.h>
  
@@ -8,4 +10,6 @@
 +    printf("Hello World from my very first patch!\n");
      return 0;
  }
-\ No newline at end of file
+-- 
+2.20.1
+
