@@ -723,7 +723,7 @@ Our second SPEC file will be for our example written in the https://www.python.o
 programming language that  you downloaded (or you created a simulated upstream
 release in the xref:preparing-software-for-packaging[] section) and placed its
 source code into ``~/rpmbuild/SOURCES/`` earlier. Let’s go ahead and open the
-file ``~/rpmbuild/SPECS/bello.spec`` and start filling in some fields.
+file ``~/rpmbuild/SPECS/pello.spec`` and start filling in some fields.
 
 Before we start down this path, we need to address something somewhat unique
 about byte-compiled interpreted software. Since we will be byte-compiling
