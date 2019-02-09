@@ -904,7 +904,7 @@ following:
 [source,specfile]
 ----
 Name:           pello
-Version:        0.1
+Version:        0.1.1
 Release:        1%{?dist}
 Summary:        Hello World example implemented in Python
 
@@ -1045,9 +1045,9 @@ Below is our example entry:
 [source,specfile]
 ----
 %changelog
-* Tue May 31 2016 Adam Miller <maxamillion@fedoraproject.org> - 0.1-1
-- First bello package
-- Example second item in the changelog for version-release 0.1-1
+* Tue May 31 2016 Adam Miller <maxamillion@fedoraproject.org> - 0.1.1-1
+- First pello package
+- Example second item in the changelog for version-release 0.1.1-1
 
 ----
 
