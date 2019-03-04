@@ -432,8 +432,7 @@ this functionality is configurable.
 
 Let’s explore a little bit about tito by looking at an upstream project already
 using it. We will actually be using the upstream git repository of the project
-that is our next section’s subject, https://github.com/release-engineering/dist-git[dist-git]. Since this project is publicly
-hosted on is publicly hosted on https://github.com/[GitHub], let’s go ahead and clone the git
+that is our next section’s subject, https://github.com/release-engineering/dist-git[dist-git]. Since this project is publicly hosted on https://github.com/[GitHub], let’s go ahead and clone the git
 repo.
 
 [source,bash]
