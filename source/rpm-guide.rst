@@ -112,7 +112,7 @@ SRPMS               When the correct arguments are passed to ``rpmbuild`` to
 What is a SPEC File?
 --------------------
 
-A SPEC file can be thought of the as the **recipe** that the ``rpmbuild``
+A SPEC file can be thought of as the **recipe** that the ``rpmbuild``
 utility uses to actually build an RPM. It tells the build system what to do by
 defining instructions in a series of sections. The sections are defined between
 the *Preamble* and the *Body*. Within the *Preamble* we will define a series of
