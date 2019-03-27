@@ -31,7 +31,7 @@ install -m 755 hello-world.sh %{buildroot}/usr/bin/hello-world.sh
 /usr/bin/hello-world.sh
 
 %changelog
-# let skip this for now
+# let's skip this for now
 ----
 
 Save this file as ``hello-world.spec``.
