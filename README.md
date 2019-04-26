@@ -25,9 +25,9 @@ Example:
 
 ## Rendered Docs
 
-To find a Rendered Version of the latest Docs, you can find them on ReadTheDocs:
+To find a Rendered Version of the latest Docs, you can find them at the address:
 
-http://rpm-guide.readthedocs.io/en/latest/
+https://rpm-packaging-guide.github.io/
 
 
 ## Licensing
