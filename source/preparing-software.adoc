@@ -368,7 +368,7 @@ NOTE: Software developers often use Version Control Systems such as
 https://git-scm.com/[git] to manage their code base. Such tools provide their
 own methods of creating diffs or patching software.
 
-In the following example, we create a patch from the originial source code using
+In the following example, we create a patch from the original source code using
 ``diff`` and then apply it using ``patch``. Patching is used in a later section
 when creating an RPM, xref:working-with-spec-files[].
 
