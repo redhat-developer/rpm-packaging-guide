@@ -2,7 +2,8 @@
 = Packaging Software
 
 ifdef::community[]
-This tutorial explains packaging RPMs for the Red Hat family of Linux distributions, primarily:
+This tutorial explains packaging RPMs for the Red Hat family of Linux
+distributions, primarily:
 
 *   https://getfedora.org/[Fedora]
 *   https://www.centos.org/[CentOS]
@@ -10,21 +11,32 @@ This tutorial explains packaging RPMs for the Red Hat family of Linux distributi
 endif::community[]
 
 ifdef::rhel[]
-This tutorial explains packaging RPMs for the Red Hat family of Linux distributions, primarily https://www.redhat.com/en/technologies/linux-platforms[Red Hat Enterprise Linux] (RHEL).
+This tutorial explains packaging RPMs for the Red Hat family of Linux
+distributions, primarily
+https://www.redhat.com/en/technologies/linux-platforms[Red Hat Enterprise Linux]
+(RHEL).
 endif::rhel[]
 
 ifdef::community[]
 These distributions use the http://rpm.org/[RPM] Packaging Format.
 
-While these distributions are the target environment, this guide is mostly applicable to all https://en.wikipedia.org/wiki/List_of_Linux_distributions#RPM-based[RPM based] distributions. However, the instructions need to be adapted for distribution-specific features, such as prerequisite installation items,
+While these distributions are the target environment, this guide is mostly
+applicable to all
+https://en.wikipedia.org/wiki/List_of_Linux_distributions#RPM-based[RPM based]
+distributions. However, the instructions need to be adapted for
+distribution-specific features, such as prerequisite installation items,
 guidelines, or macros.
 endif::community[]
 
 ifdef::rhel[]
-While RHEL is the target environment, this guide is mostly applicable to all RPM based distributions. However, the instructions need to be adapted for distribution-specific features, such as prerequisite installation items, guidelines, or macros.
+While RHEL is the target environment, this guide is mostly applicable to all RPM
+based distributions. However, the instructions need to be adapted for
+distribution-specific features, such as prerequisite installation items,
+guidelines, or macros.
 endif::rhel[]
 
-This tutorial assumes no previous knowledge about packaging software for any Operating System, Linux or otherwise.
+This tutorial assumes no previous knowledge about packaging software for any
+Operating System, Linux or otherwise.
 
 ifdef::community[]
 NOTE: If you do not know what a software package or a GNU/Linux distribution is,
@@ -44,12 +56,10 @@ xref:advanced-topics[] for more advanced information.
 
 An RPM package is simply a file containing other files and information about
 them needed by the system. Specifically, an RPM package consists of the
-ifdef::community[https://en.wikipedia.org/wiki/Cpio[cpio]]
-ifdef::rhel[cpio]
-archive, which contains the files, and
-the RPM header, which contains metadata about the package. The ``rpm`` package
-manager uses this metadata to determine dependencies, where to install files,
-and other information.
+ifdef::community[https://en.wikipedia.org/wiki/Cpio[cpio]] ifdef::rhel[cpio]
+archive, which contains the files, and the RPM header, which contains metadata
+about the package. The ``rpm`` package manager uses this metadata to determine
+dependencies, where to install files, and other information.
 
 There are two types of RPM packages:
 
@@ -65,8 +75,8 @@ patches.
 [[rpm-packaging-tools]]
 === RPM Packaging Tools
 
-The ``rpmdevtools`` package, installed in xref:prerequisites[], provides
-several utilities for packaging RPMs. To list these utilities, run:
+The ``rpmdevtools`` package, installed in xref:prerequisites[], provides several
+utilities for packaging RPMs. To list these utilities, run:
 
 [source,bash]
 ----
@@ -118,8 +128,8 @@ A SPEC file can be thought of as the "recipe" that the ``rpmbuild`` utility uses
 to actually build an RPM. It tells the build system what to do by defining
 instructions in a series of sections. The sections are defined in the
 __Preamble__ and the __Body__. The __Preamble__ contains a series of metadata
-items that are used in the __Body__. The __Body__ contains the main
-part of the instructions.
+items that are used in the __Body__. The __Body__ contains the main part of the
+instructions.
 
 [[preamble-items]]
 ==== Preamble Items
@@ -157,8 +167,8 @@ python-2.7.5-34.el7.x86_64
 
 ----
 
-Here, ``python`` is the Package Name, ``2.7.5`` is the Version, and ``34.el7`` is
-the Release. The final marker is ``x86_64``, which signals the architecture.
+Here, ``python`` is the Package Name, ``2.7.5`` is the Version, and ``34.el7``
+is the Release. The final marker is ``x86_64``, which signals the architecture.
 Unlike the **NVR**, the architecture marker is not under direct control of the
 RPM packager, but is defined by the ``rpmbuild`` build environment. The
 exception to this is the architecture-independent ``noarch`` package.
@@ -194,12 +204,10 @@ See the xref:triggers-and-scriptlets[] for advanced topics.
 
 In the context of RPM packaging, "buildroot" is a
 ifdef::community[https://en.wikipedia.org/wiki/Chroot[chroot]]
-ifdef::rhel[chroot]
-environment. This means that the
-build artifacts are placed here using the same filesystem hierarchy as will be
-in the end user's system, with "buildroot" acting as the root directory. The
-placement of build artifacts should comply with the filesystem hierarchy
-standard of the end user's system.
+ifdef::rhel[chroot] environment. This means that the build artifacts are placed
+here using the same filesystem hierarchy as will be in the end user's system,
+with "buildroot" acting as the root directory. The placement of build artifacts
+should comply with the filesystem hierarchy standard of the end user's system.
 
 The files in "buildroot" are later put into a
 ifdef::community[https://en.wikipedia.org/wiki/Cpio[cpio]]
@@ -211,7 +219,10 @@ extracted in the root directory, preserving the correct hierarchy.
 [NOTE]
 ====
 // In past, it was either recommended to define the `%buildroot` macro in the `~/.rpmmacros` directory or to define the `BuildRoot` tag directly in a SPEC file. 
-Starting from Red Hat Enterprise Linux 6 release, the `rpmbuild` program has its own defaults. As overriding these defaults leads to several problems, Red Hat does not recommend to define your own value of this macro. You can use the `%{buildroot}` macro with the defaults from the `rpmbuild` directory.
+Starting from Red Hat Enterprise Linux 6 release, the `rpmbuild` program has its
+own defaults. As overriding these defaults leads to several problems, Red Hat
+does not recommend to define your own value of this macro. You can use the
+`%{buildroot}` macro with the defaults from the `rpmbuild` directory.
 ====
 
 [[rpm-macros]]
@@ -226,7 +237,8 @@ to.
 This is useful when, for example, referencing the packaged software _Version_
 multiple times in the SPEC file. You define _Version_ only once - in the
 ``%{version}`` macro. Then use ``%{version}`` throughout the SPEC file. Every
-occurrence will be automatically substituted by _Version_ you defined previously.
+occurrence will be automatically substituted by _Version_ you defined
+previously.
 
 [NOTE]
 ====
@@ -337,12 +349,16 @@ these SPEC files.
 ifdef::community[]
 [NOTE]
 ====
-The ``rpmdev-newspec`` utility does not use guidelines or conventions specific to any particular Linux distribution. However, this document targets
-Fedora, CentOS, and RHEL, so you will notice that:
+The ``rpmdev-newspec`` utility does not use guidelines or conventions specific
+to any particular Linux distribution. However, this document targets Fedora,
+CentOS, and RHEL, so you will notice that:
 
-* Use ``rm $RPM_BUILD_ROOT``when building on _CentOS_ (versions previous to 7.0) or on https://getfedora.org/[Fedora] (versions previous to 18).
+* Use ``rm $RPM_BUILD_ROOT``when building on _CentOS_ (versions previous to 7.0)
+or on https://getfedora.org/[Fedora] (versions previous to 18).
 
-* We favor the use of ``%{buildroot}`` notation over ``$RPM_BUILD_ROOT`` when referencing RPM’s Buildroot for consistency with all other defined or provided macros throughout the SPEC file.
+* We favor the use of ``%{buildroot}`` notation over ``$RPM_BUILD_ROOT`` when
+referencing RPM’s Buildroot for consistency with all other defined or provided
+macros throughout the SPEC file.
 
 ====
 endif::community[]
@@ -350,7 +366,11 @@ endif::community[]
 ifdef::rhel[]
 [NOTE]
 ====
-The ``rpmdev-newspec`` utility does not use guidelines or conventions specific to any particular Linux distribution. However, this document targets RHEL, so you will notice that we favor the use of ``%{buildroot}`` notation over ``$RPM_BUILD_ROOT`` when referencing RPM’s Buildroot for consistency with all other defined or provided macros throughout the SPEC file.
+The ``rpmdev-newspec`` utility does not use guidelines or conventions specific
+to any particular Linux distribution. However, this document targets RHEL, so
+you will notice that we favor the use of ``%{buildroot}`` notation over
+``$RPM_BUILD_ROOT`` when referencing RPM’s Buildroot for consistency with all
+other defined or provided macros throughout the SPEC file.
 
 ====
 endif::rhel[]
@@ -671,25 +691,25 @@ source code into ``~/rpmbuild/SOURCES/`` earlier. Let’s go ahead and open the
 file ``~/rpmbuild/SPECS/pello.spec`` and start filling in some fields.
 
 Before we start down this path, we need to address something somewhat unique
-about byte-compiled interpreted software. Since we will be byte-compiling
-this program, the
+about byte-compiled interpreted software. Since we will be byte-compiling this
+program, the
 ifdef::community[https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang]]
-ifdef::rhel[shebang]
-is no longer applicable because the resulting file
-will not contain the entry. It is common practice to either have a
-non-byte-compiled shell script that will call the executable or have a small
-bit of the https://www.python.org/[Python] code that isn’t byte-compiled as the “entry point” into
-the program’s execution. This might seem silly for our small example but for
-large software projects with many thousands of lines of code, the performance
-increase of pre-byte-compiled code is sizeable.
+ifdef::rhel[shebang] is no longer applicable because the resulting file will not
+contain the entry. It is common practice to either have a non-byte-compiled
+shell script that will call the executable or have a small bit of the
+https://www.python.org/[Python] code that isn’t byte-compiled as the “entry
+point” into the program’s execution. This might seem silly for our small example
+but for large software projects with many thousands of lines of code, the
+performance increase of pre-byte-compiled code is sizeable.
 
-NOTE: The creation of a script to call the byte-compiled code or having
-a non-byte-compiled entry point into the software is something that upstream
-software developers most often address before doing a release of their
-software to the world, however this is not always the case and this exercise
-is meant to help address what to do in those situations. For more
-information on how https://www.python.org/[Python] code is normally released and distributed
-please reference the https://docs.python.org/2/library/distribution.html[Software Packaging and Distribution] documentation.
+NOTE: The creation of a script to call the byte-compiled code or having a
+non-byte-compiled entry point into the software is something that upstream
+software developers most often address before doing a release of their software
+to the world, however this is not always the case and this exercise is meant to
+help address what to do in those situations. For more information on how
+https://www.python.org/[Python] code is normally released and distributed please
+reference the https://docs.python.org/2/library/distribution.html[Software
+Packaging and Distribution] documentation.
 
 We will make a small shell script to call our byte compiled code to be the entry
 point into our software. We will do this as a part of our SPEC file itself in
@@ -738,15 +758,14 @@ rm -rf $RPM_BUILD_ROOT
 ----
 
 Just as with the first example, let’s begin with the first set of directives
-that ``rpmdev-newspec`` has grouped together at the top of the file:
-``Name``, ``Version``, ``Release``, ``Summary``. The ``Name`` is already
-specified because we provided that information to the command line for
-``rpmdev-newspec``.
+that ``rpmdev-newspec`` has grouped together at the top of the file: ``Name``,
+``Version``, ``Release``, ``Summary``. The ``Name`` is already specified because
+we provided that information to the command line for ``rpmdev-newspec``.
 
 Let’s set the ``Version`` to match what the “upstream” release version of the
-__pello__ source code is, which we can observe is ``0.1.1`` as set by the example
-code we downloaded (or we created in the xref:preparing-software-for-packaging[]
-section).
+__pello__ source code is, which we can observe is ``0.1.1`` as set by the
+example code we downloaded (or we created in the
+xref:preparing-software-for-packaging[] section).
 
 The ``Release`` is already set to ``1%{?dist}`` for us, the numerical value
 which is initially ``1`` should be incremented every time the package is updated
@@ -775,12 +794,14 @@ Now, let’s move on to the second set of directives that ``rpmdev-newspec`` has
 grouped together in our SPEC file: ``License``, ``URL``, ``Source0``.
 
 ifdef::community[]
-The ``License`` field is the https://en.wikipedia.org/wiki/Software_license[Software License] associated with the source code
-from the upstream release. The exact format for how to label the License in your
-SPEC file will vary depending on which specific RPM based https://en.wikipedia.org/wiki/Linux[Linux] distribution
-guidelines you are following, we will use the notation standards in the https://fedoraproject.org/wiki/Licensing:Main[Fedora
-License Guidelines] for this document and as such this field will contain the
-text ``GPLv3+``
+The ``License`` field is the
+https://en.wikipedia.org/wiki/Software_license[Software License] associated with
+the source code from the upstream release. The exact format for how to label the
+License in your SPEC file will vary depending on which specific RPM based
+https://en.wikipedia.org/wiki/Linux[Linux] distribution guidelines you are
+following, we will use the notation standards in the
+https://fedoraproject.org/wiki/Licensing:Main[Fedora License Guidelines] for
+this document and as such this field will contain the text ``GPLv3+``
 endif::community[]
 
 ifdef::rhel[]
@@ -883,8 +904,8 @@ the SPEC. In this section we will simply use the provided macro ``%setup -q``.
 
 The ``%build`` section is where we tell the system how to actually build the
 software we are packaging. Here we will perform a byte-compilation of our
-software. For those who read the xref:preparing-software-for-packaging[] section,
-this portion of the example should look familiar.
+software. For those who read the xref:preparing-software-for-packaging[]
+section, this portion of the example should look familiar.
 
 The ``%build`` section of our SPEC file should look as follows.
 
@@ -899,37 +920,33 @@ python -m compileall pello.py
 The ``%install`` section is where we instruct ``rpmbuild`` how to install our
 previously built software into the ``BUILDROOT`` which is effectively a
 ifdef::community[https://en.wikipedia.org/wiki/Chroot[chroot]]
-ifdef::rhel[chroot]
-base directory with nothing in it and we will have to construct any
-paths or directory hierarchies that we will need in order to install our
-software here in their specific locations. However, our RPM Macros help us
-accomplish this task without having to hardcode paths.
+ifdef::rhel[chroot] base directory with nothing in it and we will have to
+construct any paths or directory hierarchies that we will need in order to
+install our software here in their specific locations. However, our RPM Macros
+help us accomplish this task without having to hardcode paths.
 
 We had previously discussed that since we will lose the context of a file with
-the
-ifdef::community[https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang]]
-ifdef::rhel[shebang]
-line in it when we byte compile that we will need to create
+the ifdef::community[https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang]]
+ifdef::rhel[shebang] line in it when we byte compile that we will need to create
 a simple wrapper script in order to accomplish that task. There are many options
 on how to accomplish this including, but not limited to, making a separate
 script and using that as a separate ``SourceX`` directive and the option we’re
 going to show in this example which is to create the file in-line in the SPEC
 file. The reason for showing the example option that we are is simply to
 demonstrate that the SPEC file itself is scriptable. What we’re going to do is
-create a small “wrapper script” which will execute the https://www.python.org/[Python] byte-compiled
-code by using a
+create a small“wrapper script” which will execute the
+https://www.python.org/[Python] byte-compiled code by using a
 ifdef::community[https://en.wikipedia.org/wiki/Here_document[here document]]
 ifdef::rhel["here" document]
-. We will also need to actually install the
-byte-compiled file into a library directory on the system such that it can be
-accessed.
+. We will also need to actually install the byte-compiled file into a library
+directory on the system such that it can be accessed.
 
 NOTE: You will notice below that we are hard coding the library path. There are
 various methods to avoid needing to do this, many of which are addressed in
-<<advanced-topics>>, under the xref:more-on-macros[] section, and are
-specific to the programming language in which the software that is being
-packaged was written in. In this example we hard code the path for simplicity as
-to not cover too many topics simultaneously.
+<<advanced-topics>>, under the xref:more-on-macros[] section, and are specific
+to the programming language in which the software that is being packaged was
+written in. In this example we hard code the path for simplicity as to not cover
+too many topics simultaneously.
 
 The ``%install`` section should look like the following after your edits:
 
@@ -962,8 +979,8 @@ well as all the files we placed in it.
 
 Also within this section, you will sometimes need a built-in macro to provide
 context on a file. This can be useful for Systems Administrators and end users
-who might want to query the system with ``rpm`` about the resulting package.
-The built-in macro we will use here is ``%license`` which will tell ``rpmbuild``
+who might want to query the system with ``rpm`` about the resulting package. The
+built-in macro we will use here is ``%license`` which will tell ``rpmbuild``
 that this is a software license file in the package file manifest metadata.
 
 The ``%files`` section should look like the following after your edits:
@@ -998,8 +1015,8 @@ Below is our example entry:
 
 Note the format above, the date-stamp will begin with a ``*`` character,
 followed by the calendar day of the week, the month, the day of the month, the
-year, then the contact information for the RPM Packager. From there we have
-a ``-`` character before the Version-Release, which is an often used convention
+year, then the contact information for the RPM Packager. From there we have a
+``-`` character before the Version-Release, which is an often used convention
 but not a requirement. Then finally the Version-Release.
 
 That’s it! We’ve written an entire SPEC file for **pello**! In the next section
@@ -1553,9 +1570,9 @@ After creating a package, it is good to check its quality. Quality of the
 package, not of the software delivered within it. The main tool for this is
 https://github.com/rpm-software-management/rpmlint[rpmlint]. It improves RPM
 maintainability and enables sanity and error checking by performing static
-analysis of the RPM. This utility can check Binary RPMs, Source RPMs (SRPMs), and SPEC
-files, so is useful for all stages of packaging, as shown in the following
-examples.
+analysis of the RPM. This utility can check Binary RPMs, Source RPMs (SRPMs),
+and SPEC files, so is useful for all stages of packaging, as shown in the
+following examples.
 
 Note that ``rpmlint`` has very strict guidelines, and sometimes it is acceptable
 and necessary to skip some of its Errors and Warnings, as shown in the following
