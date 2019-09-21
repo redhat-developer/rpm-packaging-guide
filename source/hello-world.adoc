@@ -67,5 +67,3 @@ Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.wgaJzv
 
 The file ``/home/mirek/rpmbuild/RPMS/x86_64/hello-world-1-1.x86_64.rpm`` is your
 first RPM package. It can be installed in the system and tested.
-
-
