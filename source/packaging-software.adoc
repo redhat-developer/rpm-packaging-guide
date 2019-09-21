@@ -104,16 +104,11 @@ The created directories serve these purposes:
 [cols="20%,80%"]
 |====
 | Directory | Purpose
-| BUILD | When packages are built, various ``%buildroot`` directories are
-created here. This is useful for investigating a failed build if the logs output
-do not provide enough information.
-| RPMS | Binary RPMs are created here, in subdirectories for different
-architectures, for example in subdirectories ``x86_64`` and ``noarch``.
-| SOURCES | Here, the packager puts compressed source code archives and patches.
-The ``rpmbuild`` command looks for them here.
-| SPECS | The packager puts SPEC files here.
-| SRPMS | When ``rpmbuild`` is used to build an SRPM instead of a binary RPM,
-the resulting SRPM is created here.
+| BUILD     | When packages are built, various ``%buildroot`` directories are created here. This is useful for investigating a failed build if the logs output do not provide enough information.
+| RPMS      | Binary RPMs are created here, in subdirectories for different architectures, for example in subdirectories ``x86_64`` and ``noarch``.
+| SOURCES   | Here, the packager puts compressed source code archives and patches. The ``rpmbuild`` command looks for them here.
+| SPECS     | The packager puts SPEC files here.
+| SRPMS     | When ``rpmbuild`` is used to build an SRPM instead of a binary RPM, the resulting SRPM is created here.
 |====
 
 [[what-is-a-spec-file]]
@@ -133,45 +128,18 @@ This table lists the items used in the Preamble section of the RPM SPEC file:
 
 [cols="30%,70%"]
 |====
-| SPEC Directive | Definition
-| ``Name`` | The base name of the package, which should match the SPEC
-file name.
-| ``Version`` | The upstream version number of the software.
-| ``Release`` | The number of times this version of the software was released.
-Normally, set the initial value to 1%{?dist}, and increment it with each new
-release of the package. Reset to 1 when a new ``Version`` of the software is
-built.
-| ``Summary`` | A brief, one-line summary of the package.
-| ``License`` | The license of the software being packaged.
-ifdef::community[]
-For packages distributed in community distributions such as
-https://getfedora.org/[Fedora] this must be an open source license abiding by
-the specific distribution’s licensing guidelines.
-endif::community[]
-| ``URL`` | The full URL for more information about the program. Most
-often this is the upstream project website for the software being packaged.
-| ``Source0`` | Path or URL to the compressed archive of the upstream source
-code (unpatched, patches are handled elsewhere). This should point to an
-accessible and reliable storage of the archive, for example, the upstream page
-and not the packager's local storage. If needed, more SourceX directives can be
-added, incrementing the number each time, for example: Source1, Source2,
-Source3, and so on.
-| ``Patch0`` | The name of the first patch to apply to the source code if
-necessary. If needed, more PatchX directives can be added,
-incrementing the number each time, for example: Patch1, Patch2,
-Patch3, and so on.
-| ``BuildArch`` | If the package is not architecture dependent, for example, if
-written entirely in an interpreted programming language, set this to
-``BuildArch: noarch``. If not set, the package automatically inherits the
-Architecture of the machine on which it is built, for example ``x86_64``.
-| ``BuildRequires`` | A comma- or whitespace-separated list of packages required
-for building the program written in a compiled language. There can be multiple
-entries of ``BuildRequires``, each on its own line in the SPEC file.
-| ``Requires`` | A comma- or whitespace-separated list of packages required by
-the software to run once installed. There can be multiple entries of
-``Requires``, each on its own line in the SPEC file.
-| ``ExcludeArch`` | If a piece of software can not operate on a
-specific processor architecture, you can exclude that architecture here.
+| SPEC Directive    | Definition
+| ``Name``          | The base name of the package, which should match the SPEC file name.
+| ``Version``       | The upstream version number of the software.
+| ``Release``       | The number of times this version of the software was released. Normally, set the initial value to 1%{?dist}, and increment it with each new release of the package. Reset to 1 when a new ``Version`` of the software is built.
+| ``Summary``       | A brief, one-line summary of the package.
+| ``License``       | The license of the software being packaged. ifdef::community[] For packages distributed in community distributions such as https://getfedora.org/[Fedora] this must be an open source license abiding by the specific distribution’s licensing guidelines. endif::community[]
+| ``URL``           | The full URL for more information about the program. Most often this is the upstream project website for the software being packaged.
+| ``Source0``       | Path or URL to the compressed archive of the upstream source code (unpatched, patches are handled elsewhere). This should point to an accessible and reliable storage of the archive, for example, the upstream page and not the packager's local storage. If needed, more SourceX directives can be added, incrementing the number each time, for example: Source1, Source2, Source3, and so on.
+| ``Patch0``        | The name of the first patch to apply to the source code if necessary. If needed, more PatchX directives can be added, incrementing the number each time, for example: Patch1, Patch2, Patch3, and so on.
+| ``BuildArch``     | If the package is not architecture dependent, for example, if written entirely in an interpreted programming language, set this to ``BuildArch: noarch``. If not set, the package automatically inherits the Architecture of the machine on which it is built, for example ``x86_64``.
+| ``BuildRequires`` | A comma- or whitespace-separated list of packages required for building the program written in a compiled language. There can be multiple entries of ``BuildRequires``, each on its own line in the SPEC file. | ``Requires`` | A comma- or whitespace-separated list of packages required by the software to run once installed. There can be multiple entries of ``Requires``, each on its own line in the SPEC file.
+| ``ExcludeArch``   | If a piece of software can not operate on a specific processor architecture, you can exclude that architecture here.
 |====
 
 The ``Name``, ``Version``, and ``Release`` directives comprise the file name of
@@ -202,30 +170,14 @@ This table lists the items used in the Body section of the RPM SPEC file:
 
 [cols="20%,80%"]
 |====
-| SPEC Directive | Definition
-| ``%description`` | A full description of the software packaged in the RPM. This
-description can span multiple lines and can be broken into paragraphs.
-| ``%prep`` | Command or series of commands to prepare the software
-to be built, for example, unpacking the archive in
-``Source0``. This directive can contain a shell script.
-| ``%build`` | Command or series of commands for actually building the software
-into machine code (for compiled languages) or byte code (for some interpreted
-languages).
-| ``%install`` | Command or series of commands for copying the desired build
-artifacts from the ``%builddir`` (where the build happens) to the ``%buildroot``
-directory (which contains the directory structure with the files to be
-packaged).
-This usually means copying files from ``~/rpmbuild/BUILD`` to
-``~/rpmbuild/BUILDROOT`` and creating the necessary directories in
-``~/rpmbuild/BUILDROOT``.
-This is only run when creating a package, not when the end-user installs the
-package. See xref:working-with-spec-files[] for details.
-| ``%check`` | Command or series of commands to test the software. This normally
-includes things such as unit tests.
-| ``%files`` | The list of files that will be installed in the end user's
-system.
-| ``%changelog`` | A record of changes that have happened to the package
-between different ``Version`` or ``Release`` builds.
+| SPEC Directive   | Definition
+| ``%description`` | A full description of the software packaged in the RPM. This description can span multiple lines and can be broken into paragraphs.
+| ``%prep``        | Command or series of commands to prepare the software to be built, for example, unpacking the archive in ``Source0``. This directive can contain a shell script.
+| ``%build``       | Command or series of commands for actually building the software into machine code (for compiled languages) or byte code (for some interpreted languages).
+| ``%install``     | Command or series of commands for copying the desired build artifacts from the ``%builddir`` (where the build happens) to the ``%buildroot`` directory (which contains the directory structure with the files to be packaged). This usually means copying files from ``~/rpmbuild/BUILD`` to ``~/rpmbuild/BUILDROOT`` and creating the necessary directories in ``~/rpmbuild/BUILDROOT``. This is only run when creating a package, not when the end-user installs the package. See xref:working-with-spec-files[] for details.
+| ``%check``       | Command or series of commands to test the software. This normally includes things such as unit tests.
+| ``%files``       | The list of files that will be installed in the end user's system.
+| ``%changelog``   | A record of changes that have happened to the package between different ``Version`` or ``Release`` builds.
 |====
 
 [[advanced-items]]
@@ -410,16 +362,9 @@ explore packaging different kinds of software.
 [cols="15%,85%"]
 |====
 | Software Name | Explanation of example
-| bello | A program written in a raw interpreted programming language. It
-demonstrates when the source code does not need to be built, but only needs to be
-installed. If a pre-compiled binary needs to be packaged, you can also use this
-method since the binary would also just be a file.
-| pello | A program written in a byte-compiled interpreted programming language.
-It demonstrates byte-compiling the source code and installating the bytecode -
-the resulting pre-optimized files.
-| cello | A program written in a natively compiled programming language. It
-demonstrates a common process of compiling the source code into machine code and
-installing the resulting executables.
+| bello         | A program written in a raw interpreted programming language. It demonstrates when the source code does not need to be built, but only needs to be installed. If a pre-compiled binary needs to be packaged, you can also use this method since the binary would also just be a file.
+| pello         | A program written in a byte-compiled interpreted programming language. It demonstrates byte-compiling the source code and installating the bytecode - the resulting pre-optimized files.
+| cello         | A program written in a natively compiled programming language. It demonstrates a common process of compiling the source code into machine code and installing the resulting executables.
 |====
 
 [[bello-working-with-spec-files]]
