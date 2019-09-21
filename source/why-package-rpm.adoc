@@ -1,19 +1,34 @@
 [[Why-Package-Software-with-RPM]]
 = Why Package Software with RPM?
 
-The RPM Package Manager (RPM) is a package management system that runs on Red Hat Enterprise Linux, CentOS, and Fedora. RPM makes it easier for you to distribute, manage, and update software that you create for Red Hat Enterprise Linux, CentOS, and Fedora. Many software vendors distribute their software via a conventional archive file (such as a tarball). However, there are several advantages in packaging software into RPM packages. These advantages are outlined below.
+The RPM Package Manager (RPM) is a package management system that runs on Red
+Hat Enterprise Linux, CentOS, and Fedora. RPM makes it easier for you to
+distribute, manage, and update software that you create for Red Hat Enterprise
+Linux, CentOS, and Fedora. Many software vendors distribute their software via a
+conventional archive file (such as a tarball). However, there are several
+advantages in packaging software into RPM packages. These advantages are
+outlined below.
 
 With RPM, you can:
 
 Install, reinstall, remove, upgrade and verify packages::
-Users can use standard package management tools (for example Yum or PackageKit) to install, reinstall, remove, upgrade and verify your RPM packages.
+Users can use standard package management tools (for example Yum or PackageKit)
+to install, reinstall, remove, upgrade and verify your RPM packages.
 Use a database of installed packages to query and verify packages::
-Because RPM maintains a database of installed packages and their files, users can easily query and verify packages on their system. 
+Because RPM maintains a database of installed packages and their files, users
+can easily query and verify packages on their system. 
 Use metadata to describe packages, their installation instructions, and so on::
-Each RPM package includes metadata that describes the package's components, version, release, size, project URL, installation instructions, and so on. 
+Each RPM package includes metadata that describes the package's components,
+version, release, size, project URL, installation instructions, and so on. 
 Package pristine software sources into source and binary packages::
-RPM allows you to take pristine software sources and package them into source and binary packages for your users. In source packages, you have the pristine sources along with any patches that were used, plus complete build instructions. This design eases the maintenance of the packages as new versions of your software are released.
+RPM allows you to take pristine software sources and package them into source
+and binary packages for your users. In source packages, you have the pristine
+sources along with any patches that were used, plus complete build instructions.
+This design eases the maintenance of the packages as new versions of your
+software are released.
 Add packages to Yum repositories::
-You can add your package to a Yum repository that enables clients to easily find and deploy your software. 
+You can add your package to a Yum repository that enables clients to easily find
+and deploy your software.
 Digitally sign your packages::
-Using a GPG signing key, you can digitally sign your package so that users are able to verify the authenticity of the package.
+Using a GPG signing key, you can digitally sign your package so that users are
+able to verify the authenticity of the package.
