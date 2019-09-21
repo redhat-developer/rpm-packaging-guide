@@ -7,30 +7,46 @@ tutorial but are often useful in real-world RPM packaging.
 [[Signing-Packages]]
 == Signing Packages
 
-Signing a package is a way to secure the package for an end user. Secure transport can be achieved with implementation of the HTTPS protocol, which can be done when the package is downloaded just before installing. However, the packages are often downloaded in advance and stored in local repositories before they are used. The packages are signed to make sure no third party can alter the content of a package.
+Signing a package is a way to secure the package for an end user. Secure
+transport can be achieved with implementation of the HTTPS protocol, which can
+be done when the package is downloaded just before installing. However, the
+packages are often downloaded in advance and stored in local repositories before
+they are used. The packages are signed to make sure no third party can alter the
+content of a package.
 
 There are three ways to sign a package:
 
-* xref:Adding-a-Signature-to-a-Package[Adding a signature to an already existing package].
+* xref:Adding-a-Signature-to-a-Package[Adding a signature to an already existing
+package].
 
-* xref:Replacing-a-Package-Signature[Replacing the signature on an already existing package].
+* xref:Replacing-a-Package-Signature[Replacing the signature on an already
+existing package].
 
 * xref:Build-time-Signing[Signing a package at build-time].
 
 [[Adding-a-Signature-to-a-Package]]
 === Adding a Signature to a Package
 
-In most cases packages are built without a signature. The signature is added just before the release of the package.
+In most cases packages are built without a signature. The signature is added
+just before the release of the package.
 
-In order to add another signature to the package package, use the `--addsign` option.
-Having more than one signature makes it possible to record the package's path of ownership
-from the package builder to the end-user.
+In order to add another signature to the package package, use the `--addsign`
+option. Having more than one signature makes it possible to record the package's
+path of ownership from the package builder to the end-user.
 
-As an example, a division of a company creates a package and signs it with the division's key. The company's headquarters then checks the package's signature and adds the corporate signature to the package, stating that the signed package is authentic.
+As an example, a division of a company creates a package and signs it with the
+division's key. The company's headquarters then checks the package's signature
+and adds the corporate signature to the package, stating that the signed package
+is authentic.
 
-With two signatures, the package makes its way to a retailer. The retailer checks the signatures and, if they check out, adds their signature as well.
+With two signatures, the package makes its way to a retailer. The retailer
+checks the signatures and, if they check out, adds their signature as well.
 
-The package now makes its way to a company that wishes to deploy the package. After checking every signature on the package, they know that it is an authentic copy, unchanged since it was first created. Depending on the deploying company's internal controls, they may choose to add their own signature, to reassure their employees that the package has received their corporate approval.
+The package now makes its way to a company that wishes to deploy the package.
+After checking every signature on the package, they know that it is an authentic
+copy, unchanged since it was first created. Depending on the deploying company's
+internal controls, they may choose to add their own signature, to reassure their
+employees that the package has received their corporate approval.
 
 
 The output from the `--addsign` option:
@@ -52,9 +68,11 @@ $ rpm --checksig blather-7.9-1.i386.rpm
 blather-7.9-1.i386.rpm: size pgp pgp md5 OK
 ----
 
-The two `pgp` strings in the output of the `rpm --checksig` command show that the package has been signed twice.
+The two `pgp` strings in the output of the `rpm --checksig` command show that
+the package has been signed twice.
 
-RPM makes it possible to add the same signature multiple times. The `--addsign` option does not check for multiple identical signatures.
+RPM makes it possible to add the same signature multiple times. The `--addsign`
+option does not check for multiple identical signatures.
 
 [source,bash]
 ----
@@ -82,7 +100,8 @@ The output of the `rpm --checksig` command displays four signatures.
 [[Replacing-a-Package-Signature]]
 === Replacing a Package Signature
 
-To change the public key without having to rebuild each package, use the `--resign` option.
+To change the public key without having to rebuild each package, use the
+`--resign` option.
 
 [source,bash]
 ----
@@ -108,7 +127,8 @@ bother-3.5-1.i386.rpm:
 [[Build-time-Signing]]
 === Build-time Signing
 
-To sign a package at build-time, use the `rpmbuild` command with the `--sign` option. This requires entering the PGP passphrase.
+To sign a package at build-time, use the `rpmbuild` command with the `--sign`
+option. This requires entering the PGP passphrase.
 
 For example:
 
@@ -132,14 +152,18 @@ Generating signature: 1002
 Wrote: /usr/src/redhat/SRPMS/blather-7.9-1.src.rpm
 ----
 
-The "Generating signature" message appears in both the binary and source packaging sections. The number following the message indicates that the signature added was created using PGP.
+The "Generating signature" message appears in both the binary and source
+packaging sections. The number following the message indicates that the
+signature added was created using PGP.
 
 [NOTE]
 --
-When using the `--sign` option for `rpmbuild`, use only `-bb` or `-ba` options for package building. `-ba` option mean build binary *and* source packages.
+When using the `--sign` option for `rpmbuild`, use only `-bb` or `-ba` options
+for package building. `-ba` option mean build binary *and* source packages.
 --
 
-To verify the signature of a package, use the `rpm` command with `--checksig` option. For example:
+To verify the signature of a package, use the `rpm` command with `--checksig`
+option. For example:
 
 [source,bash]
 ----
@@ -150,7 +174,9 @@ blather-7.9-1.i386.rpm: size pgp md5 OK
 [[Building-Multiple-Packages]]
 ==== Building Multiple Packages
 
-When building multiple packages, use the following syntax to avoid entering the PGP passphrase multiple times. For example when building the `blather` and `bother` packages, sign them by using the following:
+When building multiple packages, use the following syntax to avoid entering the
+PGP passphrase multiple times. For example when building the `blather` and
+`bother` packages, sign them by using the following:
 
 [source,bash]
 ----
@@ -187,10 +213,11 @@ ifdef::community[]
 [[mock]]
 == Mock
 
-https://github.com/rpm-software-management/mock/wiki[Mock] is a tool for building packages. It can build packages for different
-architectures and different Fedora or RHEL versions than the build host has.
-Mock creates chroots and builds packages in them. Its only task is to reliably
-populate a chroot and attempt to build a package in that chroot.
+https://github.com/rpm-software-management/mock/wiki[Mock] is a tool for
+building packages. It can build packages for different architectures and
+different Fedora or RHEL versions than the build host has. Mock creates chroots
+and builds packages in them. Its only task is to reliably populate a chroot and
+attempt to build a package in that chroot.
 
 Mock also offers a multi-package tool, `mockchain`, that can build chains of
 packages that depend on each other.
@@ -199,25 +226,27 @@ Mock is capable of building SRPMs from source configuration management if the
 `mock-scm` package is present, then building the SRPM into RPMs. See –scm-enable
 in the documentation. (From the upstream documentation)
 
-NOTE: In order to use https://github.com/rpm-software-management/mock/wiki[Mock] on a RHEL or CentOS system, you will need to enable
-the “Extra Packages for Enterprise Linux” (https://fedoraproject.org/wiki/EPEL[EPEL]) repository. This is
-a repository provided by the https://getfedora.org/[Fedora] community and has many useful tools
-for RPM Packagers, systems administrators, and developers.
+NOTE: In order to use https://github.com/rpm-software-management/mock/wiki[Mock]
+on a RHEL or CentOS system, you will need to enable the “Extra Packages for
+Enterprise Linux” (https://fedoraproject.org/wiki/EPEL[EPEL]) repository. This
+is a repository provided by the https://getfedora.org/[Fedora] community and has
+many useful tools for RPM Packagers, systems administrators, and developers.
 
-One of the most common use cases RPM Packagers have for https://github.com/rpm-software-management/mock/wiki[Mock] is to create
-what is known as a “pristine build environment”. By using mock as a “pristine
-build environment”, nothing about the current state of your system affects
-the RPM Package itself. Mock uses different configurations to specify
-what the build “target” is, these are found on your system in the ``/etc/mock/``
-directory (once you’ve installed the ``mock`` package). You can build for
-different distributions or releases just by specifying it on the command line.
-Something to keep in mind is that the configuration files that come with `mock` are
+One of the most common use cases RPM Packagers have for
+https://github.com/rpm-software-management/mock/wiki[Mock] is to create what is
+known as a “pristine build environment”. By using mock as a “pristine build
+environment”, nothing about the current state of your system affects the RPM
+Package itself. Mock uses different configurations to specify what the build
+“target” is, these are found on your system in the ``/etc/mock/`` directory
+(once you’ve installed the ``mock`` package). You can build for different
+distributions or releases just by specifying it on the command line. Something
+to keep in mind is that the configuration files that come with `mock` are
 targeted at Fedora RPM Packagers, and as such RHEL and CentOS release versions
 are labeled as “epel” because that is the “target” repository these RPMs would
 be built for. You simply specify the configuration you want to use (minus the
-``.cfg`` file extension). For example, you could build our ``cello`` example
-for both RHEL 7 and Fedora 23 using the following commands without ever having
-to use different machines.
+``.cfg`` file extension). For example, you could build our ``cello`` example for
+both RHEL 7 and Fedora 23 using the following commands without ever having to
+use different machines.
 
 [source,bash]
 ----
@@ -234,16 +263,18 @@ forgot to actually make the ``BuildRequires: foo`` entry. The build would
 succeed when you run ``rpmbuild`` because ``foo`` was needed to build and it was
 found on the system at build time. However, if you took the SRPM to another
 system that lacked ``foo`` it would fail, causing an unexpected side effect.
-https://github.com/rpm-software-management/mock/wiki[Mock] solves this by first parsing the contents of the SRPM and installing the
-``BuildRequires`` into its https://en.wikipedia.org/wiki/Chroot[chroot] which means that if you were missing the
-``BuildRequires`` entry, the build would fail because `mock` would not know to
-install it and it would therefore not be present in the buildroot.
+https://github.com/rpm-software-management/mock/wiki[Mock] solves this by first
+parsing the contents of the SRPM and installing the ``BuildRequires`` into its
+https://en.wikipedia.org/wiki/Chroot[chroot] which means that if you were
+missing the ``BuildRequires`` entry, the build would fail because `mock` would
+not know to install it and it would therefore not be present in the buildroot.
 
-Another example is the opposite scenario, let’s say you need ``gcc`` to build
-a package but don’t have it installed on your system (which is unlikely as an RPM
+Another example is the opposite scenario, let’s say you need ``gcc`` to build a
+package but don’t have it installed on your system (which is unlikely as an RPM
 Packager, but just for the sake of the example let us pretend that is true).
-With https://github.com/rpm-software-management/mock/wiki[Mock], you don’t have to install ``gcc`` on your system because it will
-get installed in the chroot as part of `mock`’s process.
+With https://github.com/rpm-software-management/mock/wiki[Mock], you don’t have
+to install ``gcc`` on your system because it will get installed in the chroot as
+part of `mock`’s process.
 
 Below is an example of attempting to rebuild a package that has a dependency
 that I’m missing on my system. The key thing to note is that while ``gcc`` is
@@ -379,21 +410,25 @@ Finish: run
 ----
 
 As you can see, `mock` is a fairly verbose tool. You will also notice a lot of
-http://yum.baseurl.org/[yum] or https://github.com/rpm-software-management/dnf[dnf] output (depending on RHEL7, CentOS7, or Fedora mock target)
-that is not found in this output which was omitted for brevity and is often
-omitted after you have done an ``--init`` on a mock target, such as
-``mock -r epel-7-x86_64 --init`` which will pre-download all the
-required packages, cache them, and pre-stage the build chroot.
+http://yum.baseurl.org/[yum] or
+https://github.com/rpm-software-management/dnf[dnf] output (depending on RHEL7,
+CentOS7, or Fedora mock target) that is not found in this output which was
+omitted for brevity and is often omitted after you have done an ``--init`` on a
+mock target, such as ``mock -r epel-7-x86_64 --init`` which will pre-download
+all the required packages, cache them, and pre-stage the build chroot.
 
-For more information, please consult the https://github.com/rpm-software-management/mock/wiki[Mock] upstream documentation.
+For more information, please consult the
+https://github.com/rpm-software-management/mock/wiki[Mock] upstream
+documentation.
 endif::community[]
 
 ifdef::community[]
 [[version-control-systems]]
 == Version Control Systems
 
-When working with RPMs, it is often desireable to utilize a https://en.wikipedia.org/wiki/Version_control[Version Control
-System] (VCS) such as https://git-scm.com/[git] for managing components of the software we are
+When working with RPMs, it is often desireable to utilize a
+https://en.wikipedia.org/wiki/Version_control[Version Control System] (VCS) such
+as https://git-scm.com/[git] for managing components of the software we are
 packaging. Something to note is that storing binary files in a VCS is not
 favorable because it will drastically inflate the size of the source repository
 as these tools are engineered to handle differentials in files (often optimized
@@ -406,8 +441,9 @@ place only the SPEC file and patches in the VCS and upload the compressed
 archive of the upstream release source to what is called a “look aside cache”.
 
 In this section we will cover two different options for using a VCS system,
-https://git-scm.com/[git], for managing the contents that will ultimately be turned into a RPM
-package. One is called https://github.com/dgoodwin/tito[tito] and the other is https://github.com/release-engineering/dist-git[dist-git].
+https://git-scm.com/[git], for managing the contents that will ultimately be
+turned into a RPM package. One is called https://github.com/dgoodwin/tito[tito]
+and the other is https://github.com/release-engineering/dist-git[dist-git].
 
 NOTE: For the duration of this section you will need to install the ``git``
 package on you system in order to follow along.
@@ -416,23 +452,29 @@ package on you system in order to follow along.
 === tito
 
 Tito is an utility that assumes all the source code for the software that is
-going to be packaged is already in a https://git-scm.com/[git] source control repository. This is
-good for those practicing a DevOps workflow as it allows for the team writing
-the software to maintain their normal https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows[Branching Workflow]. Tito will then
-allow for the software to be incrementally packaged, built in an automated
-fashion, and still provide a native installation experience for http://rpm.org/[RPM] based
-systems.
+going to be packaged is already in a https://git-scm.com/[git] source control
+repository. This is good for those practicing a DevOps workflow as it allows for
+the team writing the software to maintain their normal
+https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows[Branching
+Workflow]. Tito will then allow for the software to be incrementally packaged,
+built in an automated fashion, and still provide a native installation
+experience for http://rpm.org/[RPM] based systems.
 
-NOTE: The https://github.com/dgoodwin/tito[tito] package is available in https://getfedora.org/[Fedora] as well as in the https://fedoraproject.org/wiki/EPEL[EPEL]
-repository for use on RHEL 7 and CentOS 7.
+NOTE: The https://github.com/dgoodwin/tito[tito] package is available in
+https://getfedora.org/[Fedora] as well as in the
+https://fedoraproject.org/wiki/EPEL[EPEL] repository for use on RHEL 7 and
+CentOS 7.
 
-Tito operates based on https://git-scm.com/book/en/v2/Git-Basics-Tagging[git tags] and will manage tags for you if you elect to
-allow it, but can optionally operate under whatever tagging scheme you prefer as
-this functionality is configurable.
+Tito operates based on https://git-scm.com/book/en/v2/Git-Basics-Tagging[git
+tags] and will manage tags for you if you elect to allow it, but can optionally
+operate under whatever tagging scheme you prefer as this functionality is
+configurable.
 
 Let’s explore a little bit about tito by looking at an upstream project already
 using it. We will actually be using the upstream git repository of the project
-that is our next section’s subject, https://github.com/release-engineering/dist-git[dist-git]. Since this project is publicly hosted on https://github.com/[GitHub], let’s go ahead and clone the git
+that is our next section’s subject,
+https://github.com/release-engineering/dist-git[dist-git]. Since this project is
+publicly hosted on https://github.com/[GitHub], let’s go ahead and clone the git
 repo.
 
 [source,bash]
@@ -469,15 +511,18 @@ the repository as you can have many RPMs in a single git repository and tito
 will handle that just fine. In this scenario however, we see only a single
 package listing and it should be noted that it matches the name of our spec
 file. All of this is setup by the command ``tito init`` when the developers of
-https://github.com/release-engineering/dist-git[dist-git] first initialized their git repo to be managed by tito.
+https://github.com/release-engineering/dist-git[dist-git] first initialized
+their git repo to be managed by tito.
 
 If we were to follow a common workflow of a DevOps Practitioner then we would
-likely want to use this as part of a https://en.wikipedia.org/wiki/Continuous_integration[Continuous Integration] (CI) or
-https://en.wikipedia.org/wiki/Continuous_delivery[Continuous Delivery] (CD) process. What we can do in that scenario is perform
-what is known as a “test build” to tito, we can even use mock to do this. We
-could then use the output as the installation point for some other component in
-the pipeline. Below is a simple example of commands that could accomplish this
-and they could be adapted to other environments.
+likely want to use this as part of a
+https://en.wikipedia.org/wiki/Continuous_integration[Continuous Integration]
+(CI) or https://en.wikipedia.org/wiki/Continuous_delivery[Continuous Delivery]
+(CD) process. What we can do in that scenario is perform what is known as a
+“test build” to tito, we can even use mock to do this. We could then use the
+output as the installation point for some other component in the pipeline. Below
+is a simple example of commands that could accomplish this and they could be
+adapted to other environments.
 
 [source,bash]
 ----
@@ -528,45 +573,54 @@ features it offers.
 [[dist-git]]
 === dist-git
 
-The https://github.com/release-engineering/dist-git[dist-git] utility takes a slightly different approach from that of https://github.com/dgoodwin/tito[tito]
-such that instead of keeping the raw source code in https://git-scm.com/[git] it instead will keep
-spec files and patches in a git repository and upload the compressed archive of
-the source code to what is known as a “look-aside cache”. The “look-aside-cache”
-is a term that was coined by the use of RPM Build Systems storing large files
-like these “on the side”. A system like this is generally tied to a proper RPM
-Build System such as https://fedorahosted.org/koji/[Koji]. The build system is then configured to pull the
-items that are listed as ``SourceX`` entries in the spec files in from this
-look-aside-cache, while the spec and patches remain in a version control system.
-There is also a helper command line tool to assist in this.
+The https://github.com/release-engineering/dist-git[dist-git] utility takes a
+slightly different approach from that of https://github.com/dgoodwin/tito[tito]
+such that instead of keeping the raw source code in https://git-scm.com/[git] it
+instead will keep spec files and patches in a git repository and upload the
+compressed archive of the source code to what is known as a “look-aside cache”.
+The “look-aside-cache”is a term that was coined by the use of RPM Build Systems
+storing large files like these “on the side”. A system like this is generally
+tied to a proper RPM Build System such as https://fedorahosted.org/koji/[Koji].
+The build system is then configured to pull the items that are listed as
+``SourceX`` entries in the spec files in from this look-aside-cache, while the
+spec and patches remain in a version control system. There is also a helper
+command line tool to assist in this.
 
 In an effort to not duplicate documentation, for more information on how to
-setup a system such as this please refer to the upstream https://github.com/release-engineering/dist-git[dist-git] docs.
+setup a system such as this please refer to the upstream
+https://github.com/release-engineering/dist-git[dist-git] docs.
 endif::community[]
 
 [[more-on-macros]]
 == More on Macros
 
 There are many built-in RPM Macros and we will cover a few in the following
-section, however an exhaustive list can be found at the http://rpm.org/user_doc/macros.html[RPM Official Documentation].
+section, however an exhaustive list can be found at the
+http://rpm.org/user_doc/macros.html[RPM Official Documentation].
 
 ifdef::community[]
-There are also macros that are provided by your https://en.wikipedia.org/wiki/Linux[Linux] Distribution, we will
-cover some of those provided by https://getfedora.org/[Fedora], https://www.centos.org/[CentOS] and https://www.redhat.com/en/technologies/linux-platforms[RHEL] in this section
-as well as provide information on how to inspect your system to learn about
-others that we don’t cover or for discovering them on other RPM-based Linux
+There are also macros that are provided by your
+https://en.wikipedia.org/wiki/Linux[Linux] Distribution, we will cover some of
+those provided by https://getfedora.org/[Fedora],
+https://www.centos.org/[CentOS] and
+https://www.redhat.com/en/technologies/linux-platforms[RHEL] in this section as
+well as provide information on how to inspect your system to learn about others
+that we don’t cover or for discovering them on other RPM-based Linux
 Distributions.
 endif::community[]
 
 ifdef::rhel[]
-There are also macros that are provided by Red Hat Enterprise Linux, some of which we cover in this section. We also see how to inspect your system to learn about other macros.
+There are also macros that are provided by Red Hat Enterprise Linux, some of
+which we cover in this section. We also see how to inspect your system to learn
+about other macros.
 endif::rhel[]
 
 [[defining-your-own]]
 === Defining Your Own Macros
 
 You can define your own macros. Below is an excerpt from the
-http://rpm.org/user_doc/macros.html[RPM Official Documentation], which provides a
-comprehensive reference on macros capabilities.
+http://rpm.org/user_doc/macros.html[RPM Official Documentation], which provides
+a comprehensive reference on macros capabilities.
 
 To define a macro, use:
 
@@ -575,20 +629,23 @@ To define a macro, use:
 %global <name>[(opts)] <body>
 ----
 
-All whitespace surrounding `\` is removed.  Name may be composed
-of alphanumeric characters, and the character `_` and must be at least
-3 characters in length. A macro without an `(opts)` field is “simple” in that
-only recursive macro expansion is performed. A parameterized macro contains
-an `(opts)` field. The `opts` (the string between parentheses) is passed
-exactly as is to getopt(3) for argc/argv processing at the beginning of
-a macro invocation.
+All whitespace surrounding `\` is removed.  Name may be composed of alphanumeric
+characters, and the character `_` and must be at least 3 characters in length. A
+macro without an `(opts)` field is “simple” in that only recursive macro
+expansion is performed. A parameterized macro contains an `(opts)` field. The
+`opts` (the string between parentheses) is passed exactly as is to getopt(3) for
+argc/argv processing at the beginning of a macro invocation.
 
 [NOTE]
 --
-Older RPM SPEC files may use the `%define <name> <body>` macro pattern. The differences between `%define` and `%global` macros are as follows:
+Older RPM SPEC files may use the `%define <name> <body>` macro pattern. The
+differences between `%define` and `%global` macros are as follows:
 
-* `%define` has local scope, which means that it applies only to a specified part of a SPEC file. In addition, the body of a `%define` macro is expanded when used--it is lazily evaluated.
-* `%global` has global scope, which means that it applies to an entire SPEC file. In addition, the body of a `%global` macro is expanded at definition time.
+* `%define` has local scope, which means that it applies only to a specified
+part of a SPEC file. In addition, the body of a `%define` macro is expanded when
+used--it is lazily evaluated.
+* `%global` has global scope, which means that it applies to an entire SPEC
+file. In addition, the body of a `%global` macro is expanded at definition time.
 --
 
 Examples:
@@ -598,19 +655,29 @@ Examples:
 %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
 ----
 
-NOTE: Macros are always evaluated, even in comments. Sometimes it is harmless. But in the second example, we are executing python command to get the content of a macro. This command will be executed even when you comment out the macro. Or when you put the name of the macro into %changelog. To comment out macro, use `%%`. For example: `%%global`.
+NOTE: Macros are always evaluated, even in comments. Sometimes it is harmless.
+But in the second example, we are executing python command to get the content of
+a macro. This command will be executed even when you comment out the macro. Or
+when you put the name of the macro into %changelog. To comment out macro, use
+`%%`. For example: `%%global`.
 
 [[setup]]
 === %setup
 
-Macro ``%setup`` can be used to build the package with source code tarballs. Standard behavior of the ``%setup`` macro can be seen in the ``rpmbuild`` output. At the beginning of each phase macro outputs ``Executing(%something)``. For example:
+Macro ``%setup`` can be used to build the package with source code tarballs.
+Standard behavior of the ``%setup`` macro can be seen in the ``rpmbuild``
+output. At the beginning of each phase macro outputs ``Executing(%something)``.
+For example:
 
 [source,bash]
 ----
 Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.DhddsG
 ----
 
-The shell output is set with ``set -x`` enabled. To see the content of ``/var/tmp/rpm-tmp.DhddsG`` use ``--debug`` option, since ``rpmbuild`` deletes temporary files after successful build. This displays the setup of environment variables followed by for example:
+The shell output is set with ``set -x`` enabled. To see the content of
+``/var/tmp/rpm-tmp.DhddsG`` use ``--debug`` option, since ``rpmbuild`` deletes
+temporary files after successful build. This displays the setup of environment
+variables followed by for example:
 
 [source,bash]
 ----
@@ -625,19 +692,28 @@ cd 'cello-1.0'
 /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
 ----
 
-The ``%setup`` ensures that we are working in the right directory, removes residues of previous builds, unpacks the source tarball, and sets up some default privileges. There are multiple options to adjust the behavior of the ``%setup`` macro.
+The ``%setup`` ensures that we are working in the right directory, removes
+residues of previous builds, unpacks the source tarball, and sets up some
+default privileges. There are multiple options to adjust the behavior of the
+``%setup`` macro.
 
 [[setup-q]]
 ==== %setup -q
 
-Option ``-q`` limits verbosity of ``%setup`` macro. Only ``tar -xof`` is executed instead of ``tar -xvvof``. This option has to be used as first.
+Option ``-q`` limits verbosity of ``%setup`` macro. Only ``tar -xof`` is
+executed instead of ``tar -xvvof``. This option has to be used as first.
 
 [[setup-n]]
 ==== %setup -n
 
-In some cases, the directory from expanded tarball has a different name than expected ``%{name}-%{version}``. This can lead to an error of the ``%setup`` macro.  The name of a directory has to be specified by ``-n directory_name`` option.
+In some cases, the directory from expanded tarball has a different name than
+expected ``%{name}-%{version}``. This can lead to an error of the ``%setup``
+macro.  The name of a directory has to be specified by ``-n directory_name``
+option.
 
-For example, if the package name is ``cello``, but the source code is archived in ``hello-1.0.tgz`` and contained ``hello/`` directory, the SPEC file content needs to be:
+For example, if the package name is ``cello``, but the source code is archived
+in ``hello-1.0.tgz`` and contained ``hello/`` directory, the SPEC file content
+needs to be:
 
 [source,specfile]
 ----
@@ -652,7 +728,10 @@ Source0: https://example.com/%{name}/release/hello-%{version}.tar.gz
 ==== %setup -c
 
 
-The ``-c`` option can be used if the source code tarball does not contain any subdirectories and after unpacking, files from an archive fill the current directory. The ``-c`` option creates the directory and steps into the archive expansion. An illustrative example:
+The ``-c`` option can be used if the source code tarball does not contain any
+subdirectories and after unpacking, files from an archive fill the current
+directory. The ``-c`` option creates the directory and steps into the archive
+expansion. An illustrative example:
 
 [source,bash]
 ----
@@ -665,14 +744,17 @@ The directory is not changed after archive expansion.
 [[setup-dt]]
 ==== %setup -D and -T
 
-``-D`` option disables deleting of source code directory. This option is useful if ``%setup`` macro is used several times. Essentially, ``-D`` option means that following lines are not used:
+``-D`` option disables deleting of source code directory. This option is useful
+if ``%setup`` macro is used several times. Essentially, ``-D`` option means that
+following lines are not used:
 
 [source,bash]
 ----
 rm -rf 'cello-1.0'
 ----
 
-The ``-T`` option disables expansion of the source code tarball by removing the following line from the script:
+The ``-T`` option disables expansion of the source code tarball by removing the
+following line from the script:
 
 [source,bash]
 ----
@@ -684,10 +766,16 @@ The ``-T`` option disables expansion of the source code tarball by removing the 
 
 Options ``-a`` and ``-b`` expand specific sources.
 
-* Option ``-b`` (which stands for `before`) expands specific sources before entering the working directory.
-* Option ``-a`` (which stands for `after`) expands those sources after entering. Their arguments are source numbers from the spec file preamble.
+* Option ``-b`` (which stands for `before`) expands specific sources before
+entering the working directory.
+* Option ``-a`` (which stands for `after`) expands those sources after entering.
+Their arguments are source numbers from the spec file preamble.
 
-For example, let's say the ``cello-1.0.tar.gz`` archive contains empty ``examples`` directory, and the examples are shipped in separate ``examples.tar.gz`` tarball and they expand into the directory of the same name. In this case use ``-a 1``, as we want to expand ``Source1`` after entering the working directory:
+For example, let's say the ``cello-1.0.tar.gz`` archive contains empty
+``examples`` directory, and the examples are shipped in separate
+``examples.tar.gz`` tarball and they expand into the directory of the same name.
+In this case use ``-a 1``, as we want to expand ``Source1`` after entering the
+working directory:
 
 [source,specfile]
 ----
@@ -698,7 +786,9 @@ Source1: examples.tar.gz
 %setup -a 1
 ----
 
-But if the examples were in the separate ``cello-1.0-examples.tar.gz`` tarball, which expands into ``cello-1.0/examples``, use ``-b 1`` options, since the ``Source1`` should be expanded before entering the working directory:
+But if the examples were in the separate ``cello-1.0-examples.tar.gz`` tarball,
+which expands into ``cello-1.0/examples``, use ``-b 1`` options, since the
+``Source1`` should be expanded before entering the working directory:
 
 [source,specfile]
 ----
@@ -729,12 +819,12 @@ Common “advanced” RPM Macros needed in the ``%files`` section are as follows
 === Built-In Macros
 
 Your system has many built-in RPM Macros and the fastest way to view them all is
-to simply run the ``rpm --showrc`` command. Note that this will contain
-a lot of output so it is often used in combination with a pipe to `grep`.
+to simply run the ``rpm --showrc`` command. Note that this will contain a lot of
+output so it is often used in combination with a pipe to `grep`.
 
 You can also find information about the RPMs macros that come directly with your
-system’s version of RPM by looking at the output of the  ``rpm -ql rpm``
-taking note of the files titled ``macros`` in the directory structure.
+system’s version of RPM by looking at the output of the  ``rpm -ql rpm`` taking
+note of the files titled ``macros`` in the directory structure.
 
 [[rpm-distribution-macros]]
 === RPM Distribution Macros
@@ -745,33 +835,39 @@ specific guidelines of the distribution in question.
 
 ifdef::community[]
 These are often provided as RPM Packages themselves and can be installed with
-the distribution package manager, such as http://yum.baseurl.org/[yum] or https://github.com/rpm-software-management/dnf[dnf]. The macro files
-themselves once installed can be found in ``/usr/lib/rpm/macros.d/`` and will be
-included in the ``rpm --showrc`` output by default once installed.
+the distribution package manager, such as http://yum.baseurl.org/[yum] or
+https://github.com/rpm-software-management/dnf[dnf]. The macro files themselves
+once installed can be found in ``/usr/lib/rpm/macros.d/`` and will be included
+in the ``rpm --showrc`` output by default once installed.
 endif::community[]
 
 ifdef::rhel[]
 These are often provided as RPM Packages themselves and can be installed with
-the distribution package manager, such as http://yum.baseurl.org/[yum]. The macro files
-themselves once installed can be found in ``/usr/lib/rpm/macros.d/`` and will be
-included in the ``rpm --showrc`` output by default once installed.
+the distribution package manager, such as http://yum.baseurl.org/[yum]. The
+macro files themselves once installed can be found in ``/usr/lib/rpm/macros.d/``
+and will be included in the ``rpm --showrc`` output by default once installed.
 endif::rhel[]
 
-One primary example of this is the https://docs.fedoraproject.org/en-US/packaging-guidelines/[Fedora Packaging Guidelines] section
-pertaining specifically to https://docs.fedoraproject.org/en-US/packaging-guidelines/#_domain_specific_guidelines[Application Specific Guidelines] which at the time
-of this writing has over 60 different sets of guidelines along with associated
-RPM Macro sets for subject matter specific RPM Packaging.
+One primary example of this is the
+https://docs.fedoraproject.org/en-US/packaging-guidelines/[Fedora Packaging
+Guidelines] section pertaining specifically to
+https://docs.fedoraproject.org/en-US/packaging-guidelines/#_domain_specific_guidelines[Application
+Specific Guidelines] which at the time of this writing has over 60 different
+sets of guidelines along with associated RPM Macro sets for subject matter
+specific RPM Packaging.
 
 ifdef::community[]
-One example of this kind of RPMs would be for https://www.python.org/[Python] version 2.x and if we
-have the ``python2-rpm-macros`` package installed (available in EPEL for RHEL
-7 and CentOS 7), we have a number of python2 specific macros available to us.
+One example of this kind of RPMs would be for https://www.python.org/[Python]
+version 2.x and if we have the ``python2-rpm-macros`` package installed
+(available in EPEL for RHEL 7 and CentOS 7), we have a number of python2
+specific macros available to us.
 endif::community[]
 
 ifdef::rhel[]
-One example of this kind of RPMs would be for https://www.python.org/[Python] version 2.x and if we
-have the ``python2-rpm-macros`` package installed (available in EPEL for RHEL
-7), we have a number of python2 specific macros available to us.
+One example of this kind of RPMs would be for https://www.python.org/[Python]
+version 2.x and if we have the ``python2-rpm-macros`` package installed
+(available in EPEL for RHEL 7), we have a number of python2 specific macros
+available to us.
 endif::rhel[]
 
 
@@ -820,15 +916,24 @@ $ rpm --eval %{python2_version_nodots}
 [[custom-macros]]
 == Custom Macros
 
-You can override the distribution macros in the ``~/.rpmmacros`` file. Any changes you make  will affect every build on your machine.
+You can override the distribution macros in the ``~/.rpmmacros`` file. Any
+changes you make  will affect every build on your machine.
 
 There are several macros you can use to override:
 
-``%_topdir /opt/some/working/directory/rpmbuild``:: You can create this directory, including all subdirectories using the ``rpmdev-setuptree`` utility. The value of this macro is by default ``~/rpmbuild``.
+``%_topdir /opt/some/working/directory/rpmbuild``:: You can create this
+directory, including all subdirectories using the ``rpmdev-setuptree`` utility.
+The value of this macro is by default ``~/rpmbuild``.
 
-``%_smp_mflags -l3``:: This macro is often used to pass to Makefile, for example ``make %{?_smp_mflags}``, and to set a number of concurrent processes during the build phase. By default, it is set to ``-jX``, where ``X`` is a number of cores. If you alter the number of cores, you can speed up or slow down a build of packages.
+``%_smp_mflags -l3``:: This macro is often used to pass to Makefile, for example
+``make %{?_smp_mflags}``, and to set a number of concurrent processes during the
+build phase. By default, it is set to ``-jX``, where ``X`` is a number of cores.
+If you alter the number of cores, you can speed up or slow down a build of
+packages.
 
-While you can define any new macros in the ``~/.rpmmacros`` file, this is discouraged, because those macros would not be present on other machines, where users may want to try to rebuild your package.
+While you can define any new macros in the ``~/.rpmmacros`` file, this is
+discouraged, because those macros would not be present on other machines, where
+users may want to try to rebuild your package.
 
 
 
@@ -872,9 +977,12 @@ necessary or desired change on a system during install time of the RPM. These
 are called **scriptlets**.
 
 One primary example of when and why you’d want to do this is when a system
-service RPM is installed and it provides a https://freedesktop.org/wiki/Software/systemd/[systemd] https://www.freedesktop.org/software/systemd/man/systemd.unit.html[unit file]. At install
-time we will need to notify https://freedesktop.org/wiki/Software/systemd/[systemd] that there is a new unit so that the
-system administrator can run a command similar to ``systemctl start
+service RPM is installed and it provides a
+https://freedesktop.org/wiki/Software/systemd/[systemd]
+https://www.freedesktop.org/software/systemd/man/systemd.unit.html[unit file].
+At install time we will need to notify
+https://freedesktop.org/wiki/Software/systemd/[systemd] that there is a new unit
+so that the system administrator can run a command similar to ``systemctl start
 foo.service`` after the fictional RPM ``foo`` (which provides some service
 daemon in this example) has been installed. Similarly, we would need to inverse
 of this action upon uninstallation so that an administrator would not get errors
@@ -884,12 +992,11 @@ existing in systemd’s running configuration.
 There are a small handful of common scriptlet directives, they are similar to
 the “section headers” like ``%build`` or ``%install`` in that they are defined
 by multi-line segments of code, often written as standard
-ifdef::community[https://en.wikipedia.org/wiki/POSIX[POSIX]]
-ifdef::rhel[POSIX]
-shell script
-but can be a few different programming languages such that RPM for the target
-machine’s distribution is configured to allow them. An exhaustive list of these
-available languages can be found in the _RPM Official Documentation_.
+ifdef::community[https://en.wikipedia.org/wiki/POSIX[POSIX]] ifdef::rhel[POSIX]
+shell script but can be a few different programming languages such that RPM for
+the target machine’s distribution is configured to allow them. An exhaustive
+list of these available languages can be found in the _RPM Official
+Documentation_.
 
 Scriptlet directives are as follows:
 
@@ -903,10 +1010,13 @@ Scriptlet directives are as follows:
 |====
 
 Is is also common for RPM Macros to exist for this function. In our previous
-example we discussed https://freedesktop.org/wiki/Software/systemd/[systemd] needing to be notified about a new https://www.freedesktop.org/software/systemd/man/systemd.unit.html[unit file],
+example we discussed https://freedesktop.org/wiki/Software/systemd/[systemd]
+needing to be notified about a new
+https://www.freedesktop.org/software/systemd/man/systemd.unit.html[unit file],
 this is easily handled by the systemd scriptlet macros as we can see from the
-below example output. More information on this can be found in the https://fedoraproject.org/wiki/Packaging:Systemd[Fedora
-systemd Packaging Guidelines].
+below example output. More information on this can be found in the
+https://fedoraproject.org/wiki/Packaging:Systemd[Fedora systemd Packaging
+Guidelines].
 
 [source,bash]
 ----
@@ -1004,7 +1114,9 @@ endif::rhel[]
 [id="Using-Non-Shell-Scripts-in-spec-File"]
 ==== Using Non-Shell Scripts in SPEC File
 
-A scriptlet option, `-p`, in a SPEC file allows to invoke a specific interpreter instead of the default `-p{nbsp}/bin/sh`. An illustrative example is a script, which prints out a message after the installation of `pello.py`.
+A scriptlet option, `-p`, in a SPEC file allows to invoke a specific interpreter
+instead of the default `-p{nbsp}/bin/sh`. An illustrative example is a script,
+which prints out a message after the installation of `pello.py`.
 
 . Open the `pello.spec` file.
 
@@ -1063,11 +1175,11 @@ endif::rhel[]
 
 [NOTE]
 --
-* To use a Python{nbsp}3 script:
-Write a line `%post -p /usr/bin/python3` under the line `install -m` in a SPEC file.
+* To use a Python{nbsp}3 script: Write a line `%post -p /usr/bin/python3` under
+the line `install -m` in a SPEC file.
 
-* To use a Lua script:
-Write a line `%post -p <lua>` under the line `install{nbsp}-m` in a SPEC file.
+* To use a Lua script: Write a line `%post -p <lua>` under the line
+`install{nbsp}-m` in a SPEC file.
 
 * This way any interpreter can be specified in the SPEC file.
 --
@@ -1075,7 +1187,8 @@ Write a line `%post -p <lua>` under the line `install{nbsp}-m` in a SPEC file.
 [[rpm-conditionals]]
 == RPM Conditionals
 
-RPM Conditionals enable the conditional inclusion of various sections of the SPEC file.
+RPM Conditionals enable the conditional inclusion of various sections of the
+SPEC file.
 
 Most commonly, conditional inclusions deal with:
 
@@ -1123,14 +1236,25 @@ If _expression_ is true, then do some action, in other case, do another action:
   sed -i '/AS_FUNCTION_DESCRIBE/ s/^/#/' acinclude.m4
   %endif
 
-This conditional handles compatibility between RHEL6 and other operating systems in terms of support of the AS_FUNCTION_DESCRIBE macro. When the package is build for RHEL, the `%rhel` macro is defined and it is expanded to RHEL version. If its value is 6, meaning the package is build for RHEL 6, then the references to AS_FUNCTION_DESCRIBE, which is not supported by RHEL6, are deleted from autoconfig scripts.
+This conditional handles compatibility between RHEL6 and other operating systems
+in terms of support of the AS_FUNCTION_DESCRIBE macro. When the package is build
+for RHEL, the `%rhel` macro is defined and it is expanded to RHEL version. If
+its value is 6, meaning the package is build for RHEL 6, then the references to
+AS_FUNCTION_DESCRIBE, which is not supported by RHEL6, are deleted from
+autoconfig scripts.
 
 ifdef::community[]
   %if 0%{?el6}
   %global ruby_sitearch %(ruby -rrbconfig -e 'puts Config::CONFIG["sitearchdir"]')
   %endif
 
-This conditional handles compatibility between Fedora version 17 and newer and RHEL6 in terms of support of the `%ruby_sitearch` macro. Fedora version 17 and newer defines `%ruby_sitearch` by default, but RHEL6 does not support this macro. The conditional checks whether the operating system is RHEL6. If it is, `%ruby_sitearch` is defined explicitly. Note that `0%{?el6}` has the same meaning as `0%{?rhel} == 6` from the previous example, and it tests whether a package is built on RHEL6.
+This conditional handles compatibility between Fedora version 17 and newer and
+RHEL6 in terms of support of the `%ruby_sitearch` macro. Fedora version 17 and
+newer defines `%ruby_sitearch` by default, but RHEL6 does not support this
+macro. The conditional checks whether the operating system is RHEL6. If it is,
+`%ruby_sitearch` is defined explicitly. Note that `0%{?el6}` has the same
+meaning as `0%{?rhel} == 6` from the previous example, and it tests whether a
+package is built on RHEL6.
 endif::community[]
 
 ifdef::community[]
@@ -1138,7 +1262,8 @@ ifdef::community[]
   %global with_rubypick 1
   %endif
 
-This conditional handles support for the rubypick tool. If the operating system is Fedora version 19 or newer, rubypick is supported.
+This conditional handles support for the rubypick tool. If the operating system
+is Fedora version 19 or newer, rubypick is supported.
 endif::community[]
 
   %define ruby_archive %{name}-%{ruby_version}
@@ -1146,22 +1271,29 @@ endif::community[]
   %define ruby_archive %{ruby_archive}-%{?milestone}%{?!milestone:%{?revision:r%{revision}}}
   %endif
 
-This conditional handles definition of the macros. If the `%milestone` or the `%revision` macros are set, the `%ruby_archive` macro, which defines the name of the upstream tarball, is redefined.
+This conditional handles definition of the macros. If the `%milestone` or the
+`%revision` macros are set, the `%ruby_archive` macro, which defines the name of
+the upstream tarball, is redefined.
 
 
 ==== Specialized variants of `%if` Conditional
 
-The `%ifarch` conditional, `%ifnarch` conditional and `%ifos` conditional are specialized variants of the `%if` conditionals. These variants are commonly used, so they have their own macros.
+The `%ifarch` conditional, `%ifnarch` conditional and `%ifos` conditional are
+specialized variants of the `%if` conditionals. These variants are commonly
+used, so they have their own macros.
 
 ===== The `%ifarch` Conditional
 
-The `%ifarch` conditional is used to begin a block of the SPEC file that is architecture-specific. It is followed by one or more architecture specifiers, each separated by commas or whitespace.
+The `%ifarch` conditional is used to begin a block of the SPEC file that is
+architecture-specific. It is followed by one or more architecture specifiers,
+each separated by commas or whitespace.
 
   %ifarch i386 sparc
   ...
   %endif
 
-All the contents of the SPEC file  between `%ifarch` and `%endif` are processed only on the 32-bit AMD and Intel architectures or Sun SPARC-based systems.
+All the contents of the SPEC file  between `%ifarch` and `%endif` are processed
+only on the 32-bit AMD and Intel architectures or Sun SPARC-based systems.
 
 
 ===== The `%ifnarch` Conditional
@@ -1172,16 +1304,19 @@ The `%ifnarch` conditional has a reverse logic than `%ifarch` conditional.
   ...
   %endif
 
-All the contents of the SPEC file between `%ifnarch` and `%endif` are processed only if not being done on a Digital Alpha/AXP-based system.
+All the contents of the SPEC file between `%ifnarch` and `%endif` are processed
+only if not being done on a Digital Alpha/AXP-based system.
 
 
 
 ===== The `%ifos` Conditional
 
-The `%ifos` conditional is used to control processing based on the operating system of the build. It can be followed by one or more operating system names.
+The `%ifos` conditional is used to control processing based on the operating
+system of the build. It can be followed by one or more operating system names.
 
   %ifos linux
   ...
   %endif
 
-All the contents of the SPEC file between `%ifos` and `%endif` are processed only if the build was done on a Linux system.
+All the contents of the SPEC file between `%ifos` and `%endif` are processed
+only if the build was done on a Linux system.
