@@ -718,32 +718,11 @@ Common “advanced” RPM Macros needed in the ``%files`` section are as follows
 
 [cols="20%,80%"]
 |====
-| Macro | Definition
-| %license | This identifies the file listed as a LICENSE file and it
-will be installed and labeled as such by RPM.
-Example: ``%license LICENSE``
-| %doc | This identifies the file listed as documentation and it
-will be installed and labeled as such by RPM. This is often
-used not only for documentation about the software being
-packaged but also code examples and various items that
-should accompany documentation. In the event code examples
-are included, care should be taken to remove executable
-mode from the file.
-Example: ``%doc README``
-| %dir | Identifies that the path is a directory that should be owned
-by this RPM. This is important so that the RPM file manifest
-accurately knows what directories to clean up on uninstall.
-Example: ``%dir %{_libdir}/%{name}``
-| %config(noreplace) | Specifies that the following file is a configuration file
-and therefore should not be overwritten (or replaced) on
-a package install or update if the file has been modified
-from the original installation checksum. In the event that
-there is a change, the file will be created with ``.rpmnew``
-appended to the end of the filename upon upgrade or install
-so that the pre-existing or modified file on the target
-system is not modified.
-Example: ``%config(noreplace)
-%{_sysconfdir}/%{name}/%{name}.conf``
+| Macro              | Definition
+| %license           | This identifies the file listed as a LICENSE file and it will be installed and labeled as such by RPM. Example: ``%license LICENSE``
+| %doc               | This identifies the file listed as documentation and it will be installed and labeled as such by RPM. This is often used not only for documentation about the software being packaged but also code examples and various items that should accompany documentation. In the event code examples are included, care should be taken to remove executable mode from the file. Example: ``%doc README``
+| %dir               | Identifies that the path is a directory that should be owned by this RPM. This is important so that the RPM file manifest accurately knows what directories to clean up on uninstall. Example: ``%dir %{_libdir}/%{name}``
+| %config(noreplace) | Specifies that the following file is a configuration file and therefore should not be overwritten (or replaced) on a package install or update if the file has been modified from the original installation checksum. In the event that there is a change, the file will be created with ``.rpmnew`` appended to the end of the filename upon upgrade or install so that the pre-existing or modified file on the target system is not modified. Example: ``%config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf``
 |====
 
 [[built-in-macros]]
@@ -916,15 +895,11 @@ Scriptlet directives are as follows:
 
 [cols="20%,80%"]
 |====
-| Directive | Definition
-| ``%pre`` | Scriptlet that is executed just before the package is
-installed on the target system.
-| ``%post`` | Scriptlet that is executed just after the package is
-installed on the target system.
-| ``%preun`` | Scriptlet that is executed just before the package is
-uninstalled from the target system.
-| ``%postun`` | Scriptlet that is executed just after the package is
-uninstalled from the target system.
+| Directive   | Definition
+| ``%pre``    | Scriptlet that is executed just before the package is installed on the target system.
+| ``%post``   | Scriptlet that is executed just after the package is installed on the target system.
+| ``%preun``  | Scriptlet that is executed just before the package is uninstalled from the target system.
+| ``%postun`` | Scriptlet that is executed just after the package is uninstalled from the target system.
 |====
 
 Is is also common for RPM Macros to exist for this function. In our previous
