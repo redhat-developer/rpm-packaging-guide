@@ -48,7 +48,6 @@ copy, unchanged since it was first created. Depending on the deploying company's
 internal controls, they may choose to add their own signature, to reassure their
 employees that the package has received their corporate approval.
 
-
 The output from the `--addsign` option:
 
 [source,bash]
@@ -727,7 +726,6 @@ Source0: https://example.com/%{name}/release/hello-%{version}.tar.gz
 [[setup-c]]
 ==== %setup -c
 
-
 The ``-c`` option can be used if the source code tarball does not contain any
 subdirectories and after unpacking, files from an archive fill the current
 directory. The ``-c`` option creates the directory and steps into the archive
@@ -891,7 +889,6 @@ version 2.x and if we have the ``python2-rpm-macros`` package installed
 available to us.
 endif::rhel[]
 
-
 [source,bash]
 ----
 $ rpm -ql python2-rpm-macros
@@ -932,8 +929,6 @@ $ rpm --eval %{python2_version_nodots}
 
 ----
 
-
-
 [[custom-macros]]
 == Custom Macros
 
@@ -955,8 +950,6 @@ packages.
 While you can define any new macros in the ``~/.rpmmacros`` file, this is
 discouraged, because those macros would not be present on other machines, where
 users may want to try to rebuild your package.
-
-
 
 [[epoch-scriptlets-and-triggers]]
 == Epoch, Scriptlets, and Triggers
@@ -1300,7 +1293,6 @@ This conditional handles definition of the macros. If the `%milestone` or the
 `%revision` macros are set, the `%ruby_archive` macro, which defines the name of
 the upstream tarball, is redefined.
 
-
 ==== Specialized variants of `%if` Conditional
 
 The `%ifarch` conditional, `%ifnarch` conditional and `%ifos` conditional are
@@ -1320,7 +1312,6 @@ each separated by commas or whitespace.
 All the contents of the SPEC file  between `%ifarch` and `%endif` are processed
 only on the 32-bit AMD and Intel architectures or Sun SPARC-based systems.
 
-
 ===== The `%ifnarch` Conditional
 
 The `%ifnarch` conditional has a reverse logic than `%ifarch` conditional.
@@ -1331,8 +1322,6 @@ The `%ifnarch` conditional has a reverse logic than `%ifarch` conditional.
 
 All the contents of the SPEC file between `%ifnarch` and `%endif` are processed
 only if not being done on a Digital Alpha/AXP-based system.
-
-
 
 ===== The `%ifos` Conditional
 
