@@ -4,7 +4,8 @@
 The RPM Packaging Guide documents:
 
 How to prepare source code for packaging into an RPM.:: This is for people with
-no background in software development. See xref:preparing-software-for-packaging[].
+no background in software development. See
+xref:preparing-software-for-packaging[].
 
 How to package source code into an RPM.:: This is for software developers who
 need to package software into RPMs. See xref:packaging-software[].
@@ -16,7 +17,9 @@ ifdef::community[]
 [[pdf-version]]
 == PDF Version
 
-You can also download a https://rpm-packaging-guide.github.io/rpm-packaging-guide.pdf[PDF version of this document].
+You can also download a
+https://rpm-packaging-guide.github.io/rpm-packaging-guide.pdf[PDF version of
+this document].
 endif::community[]
 
 [[document-conventions]]
@@ -69,11 +72,16 @@ endif::community[]
 To follow this tutorial, you need these packages installed:
 
 ifdef::community[]
-NOTE: Some of these packages are installed by default on https://getfedora.org/[Fedora], https://www.centos.org/[CentOS] and https://www.redhat.com/en/technologies/linux-platforms[RHEL]. They are listed explicitly to show which tools are used in this guide.
+NOTE: Some of these packages are installed by default on
+https://getfedora.org/[Fedora], https://www.centos.org/[CentOS] and
+https://www.redhat.com/en/technologies/linux-platforms[RHEL]. They are listed
+explicitly to show which tools are used in this guide.
 endif::community[]
 
 ifdef::rhel[]
-NOTE: Some of these packages are installed by default on https://www.redhat.com/en/technologies/linux-platforms[RHEL]. They are listed explicitly to show which tools are used in this guide.
+NOTE: Some of these packages are installed by default on
+https://www.redhat.com/en/technologies/linux-platforms[RHEL]. They are listed
+explicitly to show which tools are used in this guide.
 endif::rhel[]
 
 ifdef::community[]
