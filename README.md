@@ -12,13 +12,12 @@ The document itself was originally written in
 [reStructuredText](http://www.sphinx-doc.org/en/stable/rest.html) and was
 published at http://rpm-guide.readthedocs.io/en/latest/.
 
-The document is now being converted to AsciiDoc and its draft is published at
+Later, the document was converted to AsciiDoc and is published at
 [https://rpm-packaging-guide.github.io/](https://rpm-packaging-guide.github.io/).
-Note that this is a work in progress.
 
-You can find the document topic pages in `source` in this git repository. The
-`community` and `rhel` directories contain index pages for an upstream community
-version and a RHEL 7 downstream version, respectively.
+You can find the document topic pages in the `source` directory in this Git
+repository. The `community` and `rhel` directories contain index pages for an
+upstream community version and a RHEL downstream version, respectively.
 
 In order to render it, first make sure you have
 [asciidoctor](http://asciidoctor.org/) installed.
@@ -27,7 +26,7 @@ To render the community version, run:
 
     asciidoctor community/index.adoc
 
-To render the RHEL 7 version, run:
+To render the RHEL version, run:
 
     asciidoctor rhel/master.adoc
 
@@ -38,14 +37,15 @@ and is based on a **GitHub**+**Travis CI**+**Asciidoctor container**+**GitHub
 Pages** toolchain, an idea taken from
 [http://mgreau.com/asciidoc-to-ghpages/](http://mgreau.com/asciidoc-to-ghpages/).
 
-Each commit pushed to the `publish` branch automatically triggers a community
+Each commit pushed to the `master` branch automatically triggers a community
 version build, so you don't need an extra tool installed locally in order to
 publish an update to the document. When the Asciidoctor container running in
 Travis CI successfully finishes the build, Travis CI pushes the resulting HTML
-and PDF to a staging repo
+and PDF to a staging repository
 [https://github.com/rpm-packaging-guide/rpm-packaging-guide.github.io](https://github.com/rpm-packaging-guide/rpm-packaging-guide.github.io),
 and GitHub Pages then publishes the HTML and PDF to
-[https://rpm-packaging-guide.github.io/](https://rpm-packaging-guide.github.io/).
+[https://rpm-packaging-guide.github.io/](https://rpm-packaging-guide.github.io/)
+and [https://rpm-packaging-guide.github.io/rpm-packaging-guide.pdf](https://rpm-packaging-guide.github.io/rpm-packaging-guide.pdf).
 
 ## Licensing
 
