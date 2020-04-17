@@ -66,43 +66,6 @@ endif::community[]
 *   Names of utilities, commands, and things normally found in code are written in
 ``monospace`` font.
 
-[[prerequisites]]
-== Prerequisites
-
-To follow this tutorial, you need these packages installed:
-
-ifdef::community[]
-NOTE: Some of these packages are installed by default on
-https://getfedora.org/[Fedora], https://www.centos.org/[CentOS] and
-https://www.redhat.com/en/technologies/linux-platforms[RHEL]. They are listed
-explicitly to show which tools are used in this guide.
-endif::community[]
-
-ifdef::rhel[]
-NOTE: Some of these packages are installed by default on
-https://www.redhat.com/en/technologies/linux-platforms[RHEL]. They are listed
-explicitly to show which tools are used in this guide.
-endif::rhel[]
-
-ifdef::community[]
-
-[source,bash]
-----
-$ dnf install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools
-
-$ yum install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools
-----
-endif::community[]
-
-ifdef::rhel[]
-
-[source,bash]
-----
-$ yum install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools
-----
-
-endif::rhel[]
-
 ifdef::community[]
 include::contributing-to-this-guide.adoc[leveloffset=+1]
 endif::community[]

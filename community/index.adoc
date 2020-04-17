@@ -9,6 +9,8 @@ Adam Miller, Maxim Svistunov, Marie Doleželová, et al.
 
 include::source/introduction.adoc[leveloffset=+1]
 
+include::source/prerequisites.adoc[leveloffset=+1]
+
 include::source/why-package-rpm.adoc[leveloffset=+1]
 
 include::source/hello-world.adoc[leveloffset=+1]
