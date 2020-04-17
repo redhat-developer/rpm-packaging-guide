@@ -14,6 +14,7 @@ before_install:
 script:
   - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-html asciidoctor/docker-asciidoctor asciidoctor --destination-dir=/documents/output --out-file=index.html community/index.adoc
   - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-pdf asciidoctor/docker-asciidoctor asciidoctor-pdf --destination-dir=/documents/output --out-file=rpm-packaging-guide.pdf community/index.adoc
+  - cp README.md output/
 
 after_error: 
   - docker logs asciidoc-to-html
