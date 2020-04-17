@@ -56,7 +56,8 @@ xref:advanced-topics[] for more advanced information.
 
 An RPM package is simply a file containing other files and information about
 them needed by the system. Specifically, an RPM package consists of the
-ifdef::community[https://en.wikipedia.org/wiki/Cpio[cpio]] ifdef::rhel[cpio]
+ifdef::community[https://en.wikipedia.org/wiki/Cpio[cpio]]
+ifdef::rhel[cpio]
 archive, which contains the files, and the RPM header, which contains metadata
 about the package. The ``rpm`` package manager uses this metadata to determine
 dependencies, where to install files, and other information.
@@ -143,7 +144,10 @@ This table lists the items used in the Preamble section of the RPM SPEC file:
 | ``Version``       | The upstream version number of the software.
 | ``Release``       | The number of times this version of the software was released. Normally, set the initial value to 1%{?dist}, and increment it with each new release of the package. Reset to 1 when a new ``Version`` of the software is built.
 | ``Summary``       | A brief, one-line summary of the package.
-| ``License``       | The license of the software being packaged. ifdef::community[] For packages distributed in community distributions such as https://getfedora.org/[Fedora] this must be an open source license abiding by the specific distribution’s licensing guidelines. endif::community[]
+| ``License``       | The license of the software being packaged.
+ifdef::community[]
+For packages distributed in community distributions such as https://getfedora.org/[Fedora] this must be an open source license abiding by the specific distribution’s licensing guidelines.
+endif::community[]
 | ``URL``           | The full URL for more information about the program. Most often this is the upstream project website for the software being packaged.
 | ``Source0``       | Path or URL to the compressed archive of the upstream source code (unpatched, patches are handled elsewhere). This should point to an accessible and reliable storage of the archive, for example, the upstream page and not the packager's local storage. If needed, more SourceX directives can be added, incrementing the number each time, for example: Source1, Source2, Source3, and so on.
 | ``Patch0``        | The name of the first patch to apply to the source code if necessary. If needed, more PatchX directives can be added, incrementing the number each time, for example: Patch1, Patch2, Patch3, and so on.
@@ -204,7 +208,8 @@ See the xref:triggers-and-scriptlets[] for advanced topics.
 
 In the context of RPM packaging, "buildroot" is a
 ifdef::community[https://en.wikipedia.org/wiki/Chroot[chroot]]
-ifdef::rhel[chroot] environment. This means that the build artifacts are placed
+ifdef::rhel[chroot]
+environment. This means that the build artifacts are placed
 here using the same filesystem hierarchy as will be in the end user's system,
 with "buildroot" acting as the root directory. The placement of build artifacts
 should comply with the filesystem hierarchy standard of the end user's system.
@@ -694,7 +699,8 @@ Before we start down this path, we need to address something somewhat unique
 about byte-compiled interpreted software. Since we will be byte-compiling this
 program, the
 ifdef::community[https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang]]
-ifdef::rhel[shebang] is no longer applicable because the resulting file will not
+ifdef::rhel[shebang]
+is no longer applicable because the resulting file will not
 contain the entry. It is common practice to either have a non-byte-compiled
 shell script that will call the executable or have a small bit of the
 https://www.python.org/[Python] code that isn’t byte-compiled as the “entry
@@ -920,14 +926,16 @@ python -m compileall pello.py
 The ``%install`` section is where we instruct ``rpmbuild`` how to install our
 previously built software into the ``BUILDROOT`` which is effectively a
 ifdef::community[https://en.wikipedia.org/wiki/Chroot[chroot]]
-ifdef::rhel[chroot] base directory with nothing in it and we will have to
+ifdef::rhel[chroot]
+base directory with nothing in it and we will have to
 construct any paths or directory hierarchies that we will need in order to
 install our software here in their specific locations. However, our RPM Macros
 help us accomplish this task without having to hardcode paths.
 
-We had previously discussed that since we will lose the context of a file with
-the ifdef::community[https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang]]
-ifdef::rhel[shebang] line in it when we byte compile that we will need to create
+We had previously discussed that since we will lose the context of a file with the
+ifdef::community[https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang]]
+ifdef::rhel[shebang]
+line in it when we byte compile that we will need to create
 a simple wrapper script in order to accomplish that task. There are many options
 on how to accomplish this including, but not limited to, making a separate
 script and using that as a separate ``SourceX`` directive and the option we’re
@@ -1278,9 +1286,8 @@ implementation, we can simply use the http://www.gnu.org/software/make/[GNU make
 ``rpmdev-newspec``. However, we need to remove the call to ``%configure``
 because we did not provide a
 ifdef::community[https://en.wikipedia.org/wiki/Configure_script[configure script]]
-ifdef::rhel[configure script].
-The ``%build`` section of our
-SPEC file should look as follows.
+ifdef::rhel[configure script]
+. The ``%build`` section of our SPEC file should look as follows.
 
 [source,specfile]
 ----

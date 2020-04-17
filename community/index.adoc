@@ -8,11 +8,19 @@ Adam Miller, Maxim Svistunov, Marie Doleželová, et al.
 :community:
 
 include::source/introduction.adoc[leveloffset=+1]
+
 include::source/why-package-rpm.adoc[leveloffset=+1]
+
 include::source/hello-world.adoc[leveloffset=+1]
+
 include::source/preparing-software.adoc[leveloffset=+1]
+
 include::source/packaging-software.adoc[leveloffset=+1]
+
 include::source/advanced-topics.adoc[leveloffset=+1]
+
 include::source/features-rhel7.adoc[leveloffset=+1]
+
 include::source/references.adoc[leveloffset=+1]
+
 include::source/acknowledgements.adoc[leveloffset=+1]

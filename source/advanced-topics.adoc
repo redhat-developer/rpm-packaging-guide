@@ -985,7 +985,8 @@ existing in systemd’s running configuration.
 There are a small handful of common scriptlet directives, they are similar to
 the “section headers” like ``%build`` or ``%install`` in that they are defined
 by multi-line segments of code, often written as standard
-ifdef::community[https://en.wikipedia.org/wiki/POSIX[POSIX]] ifdef::rhel[POSIX]
+ifdef::community[https://en.wikipedia.org/wiki/POSIX[POSIX]]
+ifdef::rhel[POSIX]
 shell script but can be a few different programming languages such that RPM for
 the target machine’s distribution is configured to allow them. An exhaustive
 list of these available languages can be found in the _RPM Official

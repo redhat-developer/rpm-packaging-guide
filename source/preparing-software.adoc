@@ -9,8 +9,8 @@ background for an RPM Packager.
 
 **Source code** is human-readable instructions to the computer, which describe
 how to perform a computation. Source code is expressed using a
-ifdef::community[https://en.wikipedia.org/wiki/Programming_language[programming
-language]] ifdef::rhel[programming language]
+ifdef::community[https://en.wikipedia.org/wiki/Programming_language[programming language]]
+ifdef::rhel[programming language]
 .
 
 This tutorial features three versions of the ``Hello World`` program, each
@@ -89,8 +89,9 @@ software can be run stand-alone.
 
 RPM packages built this way are
 ifdef::community[https://en.wikipedia.org/wiki/Microarchitecture[architecture]]
-ifdef::rhel[architecture] -specific. This means that if you compile such
-software on a computer that uses a 64-bit (x86_64) AMD or Intel processor, it
+ifdef::rhel[architecture]
+-specific. This means that if you compile such software on a computer that uses
+a 64-bit (x86_64) AMD or Intel processor, it
 will not execute on a 32-bit (x86) AMD or Intel processor. The resulting package
 will have architecture specified in its name.
 
@@ -101,13 +102,14 @@ Some programming languages, such as https://www.gnu.org/software/bash/[bash] or
 https://www.python.org/[Python], do not compile to machine code. Instead, their
 programs' source code is executed step by step, without prior transformations,
 by a
-ifdef::community[https://en.wikipedia.org/wiki/Interpreter_%28computing%29[Language
-Interpreter]] ifdef::rhel[Language Interpreter] or a Language Virtual Machine.
+ifdef::community[https://en.wikipedia.org/wiki/Interpreter_%28computing%29[Language Interpreter]]
+ifdef::rhel[Language Interpreter]
+or a Language Virtual Machine.
 
 Software written entirely in interpreted programming languages is not
 ifdef::community[https://en.wikipedia.org/wiki/Microarchitecture[architecture]]
-ifdef::rhel[architecture] -specific. Hence, the resulting RPM Package will have
-string ``noarch`` in its name.
+ifdef::rhel[architecture]
+-specific. Hence, the resulting RPM Package will have string ``noarch`` in its name.
 
 // There are two types of interpreted languages: byte-compiled and raw-interpreted. The program build process for these two types is different.
 
@@ -149,7 +151,8 @@ machine.
 
 In this example, you will build the ``cello.c`` program written in the
 ifdef::community[https://en.wikipedia.org/wiki/C_%28programming_language%29[C]]
-ifdef::rhel[C] language into an executable.
+ifdef::rhel[C]
+language into an executable.
 
 ``cello.c``
 
@@ -264,10 +267,13 @@ https://www.gnu.org/software/bash/[bash].
 ====
 In the two examples below, the ``#!`` line at the top of the file is known as a
 ifdef::community[https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang]]
-ifdef::rhel[shebang] and is not part of the programming language source code.
+ifdef::rhel[shebang]
+and is not part of the programming language source code.
 
-The ifdef::community[https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang]]
-ifdef::rhel[shebang] enables using a text file as an executable: the system
+The
+ifdef::community[https://en.wikipedia.org/wiki/Shebang_%28Unix%29[shebang]]
+ifdef::rhel[shebang]
+enables using a text file as an executable: the system
 program loader parses the line containing the *shebang* to get a path to the
 binary executable, which is then used as the programming language interpreter.
 ====
@@ -475,15 +481,18 @@ it.
 [[installing-arbitrary-artifacts]]
 == Installing Arbitrary Artifacts
 
-A big advantage of ifdef::community[https://en.wikipedia.org/wiki/Linux[Linux]]
-ifdef::rhel[Linux] and other Unix-like systems is the
-ifdef::community[https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem
-Hierarchy Standard]] ifdef::rhel[Filesystem Hierarchy Standard] (FHS). It
-specifies in which directory which files should be located. Files installed from
+A big advantage of
+ifdef::community[https://en.wikipedia.org/wiki/Linux[Linux]]
+ifdef::rhel[Linux]
+and other Unix-like systems is the
+ifdef::community[https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy Standard]]
+ifdef::rhel[Filesystem Hierarchy Standard]
+(FHS). It specifies in which directory which files should be located. Files installed from
 the RPM packages should be placed according to FHS. For example, an executable
 file should go into a directory that is in the system
 ifdef::community[https://en.wikipedia.org/wiki/PATH_%28variable%29[PATH]]
-ifdef::rhel[PATH] variable.
+ifdef::rhel[PATH]
+variable.
 
 In the context of this guide, an __Arbitrary Artifact__ is anything installed
 from an RPM to the system. For RPM and for the system it can be a script, a
@@ -727,7 +736,8 @@ $ mv /tmp/pello-0.1.1.tar.gz ~/rpmbuild/SOURCES/
 
 The __cello__ project implements ``Hello World`` in
 ifdef::community[https://en.wikipedia.org/wiki/C_%28programming_language%29[C]]
-ifdef::rhel[C] . The implementation only contains the ``cello.c`` and
+ifdef::rhel[C]
+. The implementation only contains the ``cello.c`` and
 ``Makefile`` files, so the resulting ``tar.gz`` archive will have only two files
 apart from the ``LICENSE`` file. Let us assume that this is version ``1.0`` of
 the program.
