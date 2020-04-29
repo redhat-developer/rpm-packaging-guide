@@ -494,7 +494,7 @@ macro and instead use ``https://example.com/%{name}``.
 * The ``Source0`` field provides URL to the upstream software source code. It
 should link directly to the version of software that is being packaged. In this
 example, we can use ``https://example.com/bello/releases/bello-0.1.tar.gz``.
-Instead, use the %{name} macro. Also, use the %{version} macro to accomodate for
+Instead, use the %{name} macro. Also, use the %{version} macro to accommodate for
 changes in version. The resulting entry is
 ``https://example.com/%{name}/releases/%{name}-%{version}.tar.gz``.
 +
