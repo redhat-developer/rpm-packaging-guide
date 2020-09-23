@@ -674,9 +674,9 @@ Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.DhddsG
 ----
 
 The shell output is set with ``set -x`` enabled. To see the content of
-``/var/tmp/rpm-tmp.DhddsG`` use ``--debug`` option, since ``rpmbuild`` deletes
+``/var/tmp/rpm-tmp.DhddsG`` use the ``--debug`` option, since ``rpmbuild`` deletes
 temporary files after successful build. This displays the setup of environment
-variables followed by for example:
+variables, for example:
 
 [source,bash]
 ----
@@ -951,7 +951,7 @@ expect RPM to do when comparing versions of packages.
 
 For example if a package ``foobar`` with ``Epoch: 1`` and ``Version: 1.0`` was
 installed and someone else packaged ``foobar`` with ``Version: 2.0`` but simply
-omitted the ``Epoch`` directive either because they were unaware of it’s
+omitted the ``Epoch`` directive either because they were unaware of its
 necessity or simply forgot, that new version would never be considered an update
 because the Epoch version would win out over the traditional
 Name-Version-Release marker that signifies versioning for RPM Packages.
