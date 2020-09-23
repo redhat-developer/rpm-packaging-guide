@@ -822,7 +822,7 @@ The ``URL`` field is the upstream software’s website, not the source code
 download link but the actual project, product, or company website where someone
 would find more information about this particular piece of software. Since we’re
 just using an example, we will call this ``https://example.com/pello``. However,
-we will use the RPM macro variable of ``%{name}`` in it’s place for consistency.
+we will use the RPM macro variable of ``%{name}`` in its place for consistency.
 
 The ``Source0`` field is where the upstream software’s source code should be
 able to be downloaded from. This URL should link directly to the specific
@@ -985,7 +985,7 @@ installing will be ``%{_bindir}/pello``. We will also need to provide a ``%dir``
 listing to define that this package “owns” the library directory we created as
 well as all the files we placed in it.
 
-Also within this section, you will sometimes need a built-in macro to provide
+Also, within this section you will sometimes need a built-in macro to provide
 context on a file. This can be useful for Systems Administrators and end users
 who might want to query the system with ``rpm`` about the resulting package. The
 built-in macro we will use here is ``%license`` which will tell ``rpmbuild``
@@ -1094,7 +1094,7 @@ ifdef::community[https://en.wikipedia.org/wiki/C_%28programming_language%29[C]]
 ifdef::rhel[C]
 programming
 language that we created a simulated upstream release of previously (or you
-downloaded) and placed it’s source code into ``~/rpmbuild/SOURCES/`` earlier.
+downloaded) and placed its source code into ``~/rpmbuild/SOURCES/`` earlier.
 
 Let’s go ahead and open the file ``~/rpmbuild/SPECS/cello.spec`` and start
 filling in some fields.
@@ -1192,7 +1192,7 @@ The ``URL`` field is the upstream software’s website, not the source code
 download link but the actual project, product, or company website where someone
 would find more information about this particular piece of software. Since we’re
 just using an example, we will call this ``https://example.com/cello``. However,
-we will use the rpm macro variable of ``%{name}`` in it’s place for consistency.
+we will use the rpm macro variable of ``%{name}`` in its place for consistency.
 
 The ``Source0`` field is where the upstream software’s source code should be
 able to be downloaded from. This URL should link directly to the specific
@@ -1325,7 +1325,7 @@ the full path for the files as they are expected to exist on the end system
 after installation. Therefore, the listing for the ``cello`` file we are
 installing will be ``%{_bindir}/cello``.
 
-Also within this section, you will sometimes need a built-in macro to provide
+Also, within this section you will sometimes need a built-in macro to provide
 context on a file. This can be useful for Systems Administrators and end users
 who might want to query the system with ``rpm`` about the resulting package.
 The built-in macro we will use here is ``%license`` which will tell ``rpmbuild``
@@ -1634,9 +1634,8 @@ When checking Binary RPMs, ``rpmlint`` checks for more things, including:
 . documentation
 ifdef::community[. https://en.wikipedia.org/wiki/Man_page[manual pages]]
 ifdef::rhel[. manual pages]
-. consistent use of the
-ifdef::community[. https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy Standard]]
-ifdef::rhel[. Filesystem Hierarchy Standard]
+ifdef::community[. consistent use of the https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard[Filesystem Hierarchy Standard]]
+ifdef::rhel[. consistent use of the Filesystem Hierarchy Standard]
 
 This is the output of running ``rpmlint`` on the Binary RPM for ``bello``:
 
