@@ -1003,7 +1003,7 @@ Scriptlet directives are as follows:
 | ``%postun`` | Scriptlet that is executed just after the package is uninstalled from the target system.
 |====
 
-Is is also common for RPM Macros to exist for this function. In our previous
+It is also common for RPM Macros to exist for this function. In our previous
 example we discussed https://freedesktop.org/wiki/Software/systemd/[systemd]
 needing to be notified about a new
 https://www.freedesktop.org/software/systemd/man/systemd.unit.html[unit file],
