@@ -579,7 +579,7 @@ instead will keep spec files and patches in a git repository and upload the
 compressed archive of the source code to what is known as a “look-aside cache”.
 The “look-aside-cache”is a term that was coined by the use of RPM Build Systems
 storing large files like these “on the side”. A system like this is generally
-tied to a proper RPM Build System such as https://fedorahosted.org/koji/[Koji].
+tied to a proper RPM Build System such as https://pagure.io/koji[Koji].
 The build system is then configured to pull the items that are listed as
 ``SourceX`` entries in the spec files in from this look-aside-cache, while the
 spec and patches remain in a version control system. There is also a helper
@@ -595,7 +595,7 @@ endif::community[]
 
 There are many built-in RPM Macros and we will cover a few in the following
 section, however an exhaustive list can be found at the
-http://rpm.org/user_doc/macros.html[RPM Official Documentation].
+https://rpm-software-management.github.io/rpm/manual/macros.html[RPM Official Documentation].
 
 ifdef::community[]
 There are also macros that are provided by your
@@ -618,7 +618,7 @@ endif::rhel[]
 === Defining Your Own Macros
 
 You can define your own macros. Below is an excerpt from the
-http://rpm.org/user_doc/macros.html[RPM Official Documentation], which provides
+https://rpm-software-management.github.io/rpm/manual/macros.html[RPM Official Documentation], which provides
 a comprehensive reference on macros capabilities.
 
 To define a macro, use:
