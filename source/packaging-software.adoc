@@ -233,7 +233,7 @@ does not recommend to define your own value of this macro. You can use the
 [[rpm-macros]]
 === RPM Macros
 
-An http://rpm.org/user_doc/macros.html[rpm macro] is a straight text
+An https://rpm-software-management.github.io/rpm/manual/macros.html[rpm macro] is a straight text
 substitution that can be conditionally assigned based on the optional evaluation
 of a statement when certain built-in functionality is used. What this means is
 that you can have RPM perform text substitutions for you so that you don’t have
