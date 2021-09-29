@@ -35,7 +35,7 @@ To render the RHEL version, run:
 The publishing mechanism uses a single configuration file in `.travis.yml`
 and is based on a **GitHub**+**Travis CI**+**Asciidoctor container**+**GitHub
 Pages** toolchain, an idea taken from
-[http://mgreau.com/asciidoc-to-ghpages/](http://mgreau.com/asciidoc-to-ghpages/).
+[mgreau.com](https://mgreau.com/posts/2016/03/28/asciidoc-to-gh-pages-with-travis-ci-docker-asciidoctor.html).
 
 Each commit pushed to the `master` branch automatically triggers a community
 version build, so you don't need an extra tool installed locally in order to
