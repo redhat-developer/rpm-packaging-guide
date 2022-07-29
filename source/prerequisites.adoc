@@ -17,11 +17,19 @@ explicitly to show which tools are used in this guide.
 endif::rhel[]
 
 ifdef::community[]
-On Fedora, CentOS 8, and RHEL 8:
+On Fedora, CentOS Stream 9, and RHEL 9:
 
 [source,bash]
 ----
-$ dnf install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools
+$ dnf install gcc rpm-build rpm-devel rpmlint make python3 bash coreutils diffutils patch rpmdevtools
+----
+
+On CentOS Stream 8 and RHEL 8:
+
+[source,bash]
+----
+$ dnf install gcc rpm-build rpm-devel rpmlint make python3 bash coreutils diffutils patch rpmdevtools
+$ alternatives --set python /usr/bin/python3
 ----
 
 On CentOS 7 and RHEL 7:
@@ -33,6 +41,21 @@ $ yum install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffuti
 endif::community[]
 
 ifdef::rhel[]
+On RHEL 9:
+
+[source,bash]
+----
+$ dnf install gcc rpm-build rpm-devel rpmlint make python3 bash coreutils diffutils patch rpmdevtools
+----
+
+On RHEL 8:
+[source,bash]
+----
+$ dnf install gcc rpm-build rpm-devel rpmlint make python3 bash coreutils diffutils patch rpmdevtools
+$ alternatives --set python /usr/bin/python3
+----
+
+On RHEL 7:
 [source,bash]
 ----
 $ yum install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools
