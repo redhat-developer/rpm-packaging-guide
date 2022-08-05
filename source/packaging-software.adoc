@@ -588,7 +588,7 @@ The ``%install`` section should look like the following after your edits:
 
 mkdir -p %{buildroot}/%{_bindir}
 
-install -m 0755 %{name} %{buildroot}/%{_bindir}/%{name}
+install -m 0755 %{name} %{buildroot}%{_bindir}/%{name}
 
 ----
 +
@@ -671,7 +671,7 @@ bash script.
 
 mkdir -p %{buildroot}/%{_bindir}
 
-install -m 0755 %{name} %{buildroot}/%{_bindir}/%{name}
+install -m 0755 %{name} %{buildroot}%{_bindir}/%{name}
 
 %files
 %license LICENSE
@@ -965,12 +965,12 @@ The ``%install`` section should look like the following after your edits:
 mkdir -p %{buildroot}/%{_bindir}
 mkdir -p %{buildroot}/usr/lib/%{name}
 
-cat > %{buildroot}/%{_bindir}/%{name} <<-EOF
+cat > %{buildroot}%{_bindir}/%{name} <<-EOF
 #!/bin/bash
 /usr/bin/python /usr/lib/%{name}/%{name}.pyc
 EOF
 
-chmod 0755 %{buildroot}/%{_bindir}/%{name}
+chmod 0755 %{buildroot}%{_bindir}/%{name}
 
 install -m 0644 %{name}.py* %{buildroot}/usr/lib/%{name}/
 
@@ -1062,15 +1062,15 @@ python -m compileall %{name}.py
 
 %install
 
-mkdir -p %{buildroot}/%{_bindir}
+mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}/usr/lib/%{name}
 
-cat > %{buildroot}/%{_bindir}/%{name} <<-EOF
+cat > %{buildroot}%{_bindir}/%{name} <<-EOF
 #!/bin/bash
 /usr/bin/python /usr/lib/%{name}/%{name}.pyc
 EOF
 
-chmod 0755 %{buildroot}/%{_bindir}/%{name}
+chmod 0755 %{buildroot}%{_bindir}/%{name}
 
 install -m 0644 %{name}.py* %{buildroot}/usr/lib/%{name}/
 
