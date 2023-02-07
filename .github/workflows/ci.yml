@@ -13,17 +13,17 @@ jobs:
     steps:
     - name: Check out code
       uses: actions/checkout@v2
-    - name: Convert AsciiDoc step
+    - name: Convert AsciiDoc
       id: documents
       uses: Analog-inc/asciidoctor-action@master
       with:
         shellcommand: "./.github/workflows/asciidoc.sh"
-    - name: Save AsciiDoc step
+    - name: Save AsciiDoc
       uses: actions/upload-artifact@v1
       with:
         name: Docs
         path: ./output/
-    - name: Pushes to another repository
+    - name: Push to another repository
       uses: cpina/github-action-push-to-another-repository@main
       env:
         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
@@ -31,5 +31,5 @@ jobs:
         source-directory: 'output'
         destination-github-username: 'rpm-packaging-guide'
         destination-repository-name: 'rpm-packaging-guide.github.io'
-        user-email: pknbe@volny.cz
-        target-branch: main
+        user-email: pkovar@redhat.com
+        target-branch: master
