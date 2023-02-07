@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [ test ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Convert and publish AsciiDoctor
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+    - name: Convert AsciiDoc step
+      id: documents
+      uses: Analog-inc/asciidoctor-action@master
+      with:
+        shellcommand: "./.github/workflows/asciidoc.sh"
+    - name: Save AsciiDoc step
+      uses: actions/upload-artifact@v1
+      with:
+        name: Docs
+        path: ./output/
+    - name: Pushes to another repository
+      uses: cpina/github-action-push-to-another-repository@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+        source-directory: 'output'
+        destination-github-username: 'rpm-packaging-guide'
+        destination-repository-name: 'rpm-packaging-guide.github.io'
+        user-email: pknbe@volny.cz
+        target-branch: main
