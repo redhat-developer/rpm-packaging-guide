@@ -36,7 +36,7 @@ The publishing mechanism uses two configuration files
 `.github/workflows/asciidoc.sh` and `.github/workflows/ci.yml`
 and is based on GitHub Actions
 https://github.com/marketplace/actions/convert-asciidoctor-docker-action
-and https://github.com/marketplace/actions/asciidoctor-ghpages.
+and https://github.com/marketplace/actions/push-directory-to-another-repository.
 
 Each commit pushed to the `master` branch automatically triggers a community
 version build, so you don't need an extra tool installed locally in order to
