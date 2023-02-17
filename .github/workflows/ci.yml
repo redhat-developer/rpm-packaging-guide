@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Convert AsciiDoc
       id: documents
-      uses: Analog-inc/asciidoctor-action@master
+      uses: Analog-inc/asciidoctor-action@f6305152cb5089da83f50d4d80e26f63d264ae34 #master
       with:
         shellcommand: "./.github/workflows/asciidoc.sh"
     - name: Save AsciiDoc
@@ -24,7 +24,7 @@ jobs:
         name: Docs
         path: ./output/
     - name: Push to another repository
-      uses: cpina/github-action-push-to-another-repository@main
+      uses: cpina/github-action-push-to-another-repository@9e487f29582587eeb4837c0552c886bb0644b6b9 #main
       env:
         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       with:
